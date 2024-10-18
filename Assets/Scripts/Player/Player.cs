@@ -2,36 +2,39 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class Player : MonoBehaviour
 {
+    public PlayerStateMachine machine;
+
     [Header("ThisComponent")]
     [SerializeField]
     private Rigidbody playerRigid;
-    [SerializeField]
-    private Animator playerAnim;
+    [Header("Animation")]
+    public Animator playerAnim;
+    [field: SerializeField] public PlayerAnimationData playerAnimationData { get; private set; }
 
     [Header("이동속도")]
-    [SerializeField, Range(0,60)]
+    [SerializeField, Range(0, 60)]
     private float playerMoveSpeed;
-    [SerializeField, Range(0,60)]
+    [SerializeField, Range(0, 60)]
     private float playerMoveLerpSpeed;
-    [SerializeField, Range(0,60)]
+    [SerializeField, Range(0, 60)]
     private float playerRotateLerpSpeed;
     [Header("점프")]
-    [SerializeField, Range(0,20)]
+    [SerializeField, Range(0, 20)]
     private float firstJumpPower;
-    [SerializeField, Range(0,100)]
+    [SerializeField, Range(0, 100)]
     private float fallingPower;
-    [SerializeField, Range(0,20)]
+    [SerializeField, Range(0, 20)]
     private float maxFallingSpeed;
 
     private Vector3 curDirection = Vector3.zero;
     private Vector3 preDirection = Vector3.zero;
-    
+
     private int jumpCount;
 
     [Header("경사로")]
-    [SerializeField,Range(0,2)]
+    [SerializeField, Range(0, 2)]
     private float rayDistance = 1f;
     private RaycastHit slopeHit;
     private int groundLayer;
@@ -44,11 +47,32 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0, 1f)]
     private float distanceGround;
 
+    private void Awake()
+    {
+        playerAnimationData.Initialize();
+        Init();
+        playerRigid = GetComponent<Rigidbody>();
+        playerAnim = GetComponent<Animator>();
+    }
+
+    private void Init()
+    {
+        machine = new PlayerStateMachine(this);
+    }
+
     private void Start()
     {
-        AddMoveAction();
-        InputManager.instance.FixedKeyaction += ControllGravity;
         groundLayer = ~(1 << LayerMask.NameToLayer("Player"));
+    }
+
+    private void Update()
+    {
+        machine?.OnStateUpdate();
+    }
+
+    private void FixedUpdate()
+    {
+        machine?.OnStateFixedUpdate();
     }
 
     //private void OnAnimatorIK(int layerIndex)
@@ -111,9 +135,10 @@ public class PlayerMovement : MonoBehaviour
     //}
 
     // 플레이어 빠르게 떨어지도록
-    private void ControllGravity()
+
+    public void ControllGravity()
     {
-        if(playerRigid.velocity.y < 3 && groundList.Count == 0)
+        if (playerRigid.velocity.y < 3 && groundList.Count == 0)
         {
             if (playerRigid.velocity.y > -maxFallingSpeed)
                 playerRigid.velocity -= new Vector3(0, fallingPower * Time.fixedDeltaTime, 0);
@@ -126,15 +151,28 @@ public class PlayerMovement : MonoBehaviour
     public float platformVelocityLerp;
 
     // 플레이어 기본 이동
-    private void PlayerWalk()
+    public void PlayerWalk()
     {
+        if (Input.GetKeyDown(KeyCode.Q))
+            machine.OnStateChange(machine.IdleState);
+
+        //Debug.Log("State: " + machine.CurrentState.GetType().Name);
         float _horizontal = Input.GetAxisRaw("Horizontal");
         float _vertical = Input.GetAxisRaw("Vertical");
 
         curDirection = new Vector3(_horizontal, 0, _vertical);
 
+        if(curDirection != Vector3.zero && (machine.CheckCurrentState(machine.IdleState)|| machine.CheckCurrentState(machine.SoftLandingState)))
+        {
+            machine.OnStateChange(machine.WalkStartState);
+        }
+        else if(curDirection == Vector3.zero && (machine.CheckCurrentState(machine.WalkingState) || machine.CheckCurrentState(machine.WalkStartState)))
+        {
+            machine.OnStateChange(machine.SoftStopState);
+        }
+
         // Rotation 이동 방향으로 조절
-        if(curDirection != Vector3.zero)
+        if (curDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(curDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotateLerpSpeed * Time.fixedDeltaTime);
@@ -146,7 +184,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocity = CalculateNextFrameGroundAngle(playerMoveSpeed) < maxSlopeAngle ? curDirection : Vector3.zero;
         Vector3 gravity;
-        
+
 
         if (IsOnSlope()) // 경사로라면 경사에 맞춰서 방향값 세팅
         {
@@ -176,26 +214,6 @@ public class PlayerMovement : MonoBehaviour
             else
                 platformVelocity = Vector3.zero;
         }
-        //if(playerRigid.velocity.x > 0)
-        //{
-        //    if (platformVelocity.x < 0)
-        //        platformVelocity.x = 0;
-        //}
-        //else if(playerRigid.velocity.x < 0)
-        //{
-        //    if (platformVelocity.x > 0)
-        //        platformVelocity.x = 0;
-        //}
-        //if (playerRigid.velocity.z > 0)
-        //{
-        //    if (platformVelocity.z < 0)
-        //        platformVelocity.z = 0;
-        //}
-        //else if (playerRigid.velocity.z < 0)
-        //{
-        //    if (platformVelocity.z > 0)
-        //        platformVelocity.z = 0;
-        //}
         playerRigid.velocity += platformVelocity;
         preDirection = curDirection;
     }
@@ -205,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, Vector3.down);
         Debug.DrawRay(ray.origin, Vector3.down * rayDistance, Color.red);
-        if(Physics.Raycast(ray,out slopeHit, rayDistance, groundLayer))
+        if (Physics.Raycast(ray, out slopeHit, rayDistance, groundLayer))
         {
             var angle = Vector3.Angle(Vector3.up, slopeHit.normal);
             return angle != 0f && angle < maxSlopeAngle && jumpCount == 0;
@@ -223,36 +241,41 @@ public class PlayerMovement : MonoBehaviour
     {
         var nextFramePlayerPosition = raycastOrigin.transform.position + curDirection * _moveSpeed * Time.fixedDeltaTime;
 
-        if(Physics.Raycast(nextFramePlayerPosition,Vector3.down,out RaycastHit hitInfo, 1f))
+        if (Physics.Raycast(nextFramePlayerPosition, Vector3.down, out RaycastHit hitInfo, 1f))
         {
             return Vector3.Angle(Vector3.up, hitInfo.normal);
         }
         return 0f;
     }
 
-    private void PlayerJump()
+    public void PlayerJump()
     {
         if (Input.GetButtonDown("Jump") && jumpCount == 0)
         {
             playerRigid.velocity = new Vector3(playerRigid.velocity.x, 0, playerRigid.velocity.z);
             playerRigid.AddForce(new Vector3(0, firstJumpPower, 0), ForceMode.VelocityChange);
-            jumpCount = 1;
-            playerAnim.SetInteger("jumpCount", jumpCount);
+            //jumpCount = 1;
+            //playerAnim.SetInteger("jumpCount", jumpCount);
+            machine.OnStateChange(machine.JumpStartState);
         }
     }
 
 
-    public void AddMoveAction()
+    public void OnMovementStateAnimationEnterEvent()
     {
-        InputManager.instance.keyaction += PlayerJump;
-        InputManager.instance.FixedKeyaction += PlayerWalk;
+        machine.OnAnimationEnterEvent();
     }
 
-    public void DeleteMoveAction()
+    public void OnMovementStateAnimationExitEvent()
     {
-        InputManager.instance.keyaction -= PlayerJump;
-        InputManager.instance.FixedKeyaction -= PlayerWalk;
+        machine.OnAnimationExitEvent();
     }
+
+    public void OnMovementStateAnimationTransitionEvent()
+    {
+        machine.OnAnimationTransitionEvent();
+    }
+
 
     [SerializeField]
     private List<GameObject> groundList = new List<GameObject>();
@@ -264,17 +287,19 @@ public class PlayerMovement : MonoBehaviour
             groundList.Add(other.gameObject);
             jumpCount = 0;
             playerAnim.SetInteger("jumpCount", jumpCount);
+            if(machine.CheckCurrentState(machine.JumpStartState) || machine.CheckCurrentState(machine.FallingState))
+                machine.OnStateChange(machine.SoftLandingState);
             if (other.CompareTag("MovingPlatform"))
                 curMovingPlatform = other.GetComponent<MovingPlatform>();
         }
     }
     private void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("Player") && playerRigid.velocity.y < 0)
-        {
-            jumpCount = 0;
-            playerAnim.SetInteger("jumpCount", jumpCount);
-        }
+        //if (!other.CompareTag("Player") && playerRigid.velocity.y < 0)
+        //{
+        //    jumpCount = 0;
+        //    playerAnim.SetInteger("jumpCount", jumpCount);
+        //}
     }
     private void OnTriggerExit(Collider other)
     {
@@ -285,6 +310,9 @@ public class PlayerMovement : MonoBehaviour
             if (groundList.Count > 0) return;
             jumpCount = 1;
             playerAnim.SetInteger("jumpCount", jumpCount);
+
+            if(!machine.CheckCurrentState(machine.JumpStartState))
+                machine.OnStateChange(machine.FallingState);
 
             if (other.CompareTag("MovingPlatform"))
                 curMovingPlatform = null;
