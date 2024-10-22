@@ -979,7 +979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60513fef8fae3a9449de911813f9b7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerRigid: {fileID: 1343623451078118955}
+  rigid: {fileID: 0}
   playerAnim: {fileID: 4615902353373640802}
   <playerAnimationData>k__BackingField:
     groundParameterName: Ground
@@ -988,6 +988,8 @@ MonoBehaviour:
     movingParameterName: Move
     moveStopParameterName: MoveStop
     landingParameterName: Landing
+    jumpStartParameterName: isJumpStart
+    FallingParameterName: isFalling
     idleParameterName: isIdle
     walkStartParameterName: isWalkStart
     runStartParameterName: isRunStart
@@ -997,22 +999,28 @@ MonoBehaviour:
     hardStopParameterName: isHardStop
     softLandingParameterName: isSoftLanding
     hardLandingParameterName: isHardLanding
-    walkLandingParameterName: isWalkLanding
+    moveLandingParameterName: isMoveLanding
     runLandingParameterName: isRunLanding
-    jumpStartParameterName: isJumpStart
-    FallingParameterName: isFalling
-  playerMoveSpeed: 5.1
+    jumpStartIdleParameterName: isJumpStartIdle
+    jumpStartMoveParameterName: isJumpStartMove
+    fallingIdleParameterName: isFallingIdle
+    fallingMoveParameterName: isFallingMove
+  playerWalkSpeed: 2.7
+  playerRunSpeed: 4.3
   playerMoveLerpSpeed: 19
   playerRotateLerpSpeed: 12.9
   firstJumpPower: 7.08
   fallingPower: 3.3
   maxFallingSpeed: 15.03
   rayDistance: 0.13
+  groundLayer: 0
   maxSlopeAngle: 35
   raycastOrigin: {fileID: 5046751355415589781}
   distanceGround: 0.218
-  platformVelocity: {x: 0, y: 0, z: 0}
-  platformVelocityLerp: 0.02
+  playerMoveSpeed: 5.1
+  isRun: 0
+  curDirection: {x: 0, y: 0, z: 0}
+  preDirection: {x: 0, y: 0, z: 0}
   groundList: []
   curMovingPlatform: {fileID: 0}
 --- !u!114 &719503968665349482
@@ -1037,7 +1045,7 @@ Animator:
   m_GameObject: {fileID: 2138181494529752255}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 42cd3ea0d61adb84b8f4025bda839f79, type: 3}
-  m_Controller: {fileID: 9100000, guid: d02c548ca7240574dbbb3eed46a00bb0, type: 2}
+  m_Controller: {fileID: 9100000, guid: e9cd7ce5de123f64888b4c46ac11ec04, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 2
   m_ApplyRootMotion: 0
@@ -2737,7 +2745,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.35, y: 0.19, z: 0.35}
+  m_Size: {x: 0.32, y: 0.19, z: 0.32}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5914075273985862621
 GameObject:

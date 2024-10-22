@@ -20,6 +20,8 @@ public class InGameUIController : MonoBehaviour
     [SerializeField] private int nowPanelNum;
 
     private GameObject PanelNow;
+    private bool bUIOnOff;
+    // Panel Number = 643  / Panel Off 상태
     [Header("InGameUI Panel")]
     public GameObject Panel_InGameUI; // Panel Number = 0;
 
@@ -46,33 +48,43 @@ public class InGameUIController : MonoBehaviour
             if (nowPlayerButton != null) nowPlayerButton.ImplementButton();
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+
+        if (bUIOnOff)
         {
-            FindClosestButton(Vector2.up);
-        }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            FindClosestButton(Vector2.down);
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            FindClosestButton(Vector2.left);
-        }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            FindClosestButton(Vector2.right);
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                FindClosestButton(Vector2.up);
+            }
+            else if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                FindClosestButton(Vector2.down);
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                FindClosestButton(Vector2.left);
+            }
+            else if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                FindClosestButton(Vector2.right);
+            }
         }
 
+        // #. ESC키는 따로 관리
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (nowPanelNum == 0) OffInGameUI();
-            if (nowPanelNum == 1)
+            if (nowPanelNum == 643)
+            {
+                OnInGameUI();
+            }
+            else if (nowPanelNum == 0) OffInGameUI();
+
+            else if (nowPanelNum == 1)
             {
                 Panel_Option.SetActive(false);
                 PanelChage(0);
             }
-   
-           
+
+
         }
     }
 
@@ -159,7 +171,7 @@ public class InGameUIController : MonoBehaviour
 
         // List를 배열로 변환하여 menuButtons에 할당
         ingameButtons = foundButtons.ToArray();
-        if(ingameButtons.Length != 0) lastButton = ingameButtons[0];
+        if (ingameButtons.Length != 0) lastButton = ingameButtons[0];
         bIsUIDoing = false;
     }
 
@@ -200,46 +212,38 @@ public class InGameUIController : MonoBehaviour
             DOTween.To(() => textMesh.color.a, x => {
                 textColor.a = x;
                 textMesh.color = textColor;
-            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); 
+            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
         }
     }
 
-
-    private void OnEnable()
-    {
-        Debug.Log("설정창 활성화");
-        OnInGameUI();
-    }
-
+    // #. UI Off
     public void OffInGameUI()
     {
         Time.timeScale = 1f;
-        if(nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
+        if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
 
         FadeInOutImage(0f);
         PanelNow.SetActive(false);
-        gameObject.SetActive(false);
+        nowPanelNum = 643;
+        bUIOnOff = false;
     }
 
+
+    // #. UI On
     public void OnInGameUI()
     {
         PanelChage(0);
         FadeInOutImage(0.9f);
+        bUIOnOff = true;
         Time.timeScale = 0f;
     }
 
 
-
-    
-
-
-
-
-
-
-
-
-
+    // #. UI Panel 활성 여부 확인
+    public bool GetbUIOnOff()
+    {
+        return bUIOnOff;
+    }
 
 
 
