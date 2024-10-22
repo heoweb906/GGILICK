@@ -15,6 +15,8 @@ public class PlayerAnimationData
     [SerializeField] private string moveStopParameterName = "MoveStop";
     [SerializeField] private string landingParameterName = "Landing";
 
+    [SerializeField] private string jumpStartParameterName = "isJumpStart";
+    [SerializeField] private string FallingParameterName = "isFalling";
 
     [Header("Ground Group Parameter")]
     [SerializeField] private string idleParameterName = "isIdle";
@@ -30,12 +32,14 @@ public class PlayerAnimationData
 
     [SerializeField] private string softLandingParameterName = "isSoftLanding";
     [SerializeField] private string hardLandingParameterName = "isHardLanding";
-    [SerializeField] private string walkLandingParameterName = "isWalkLanding";
+    [SerializeField] private string moveLandingParameterName = "isMoveLanding";
     [SerializeField] private string runLandingParameterName = "isRunLanding";
 
-    [Header("Ground Group Parameter")]
-    [SerializeField] private string jumpStartParameterName = "isJumpStart";
-    [SerializeField] private string FallingParameterName = "isFalling";
+    [Header("OnAir Group Parameter")]
+    [SerializeField] private string jumpStartIdleParameterName = "isJumpStartIdle";
+    [SerializeField] private string jumpStartMoveParameterName = "isJumpStartMove";
+    [SerializeField] private string fallingIdleParameterName = "isFallingIdle";
+    [SerializeField] private string fallingMoveParameterName = "isFallingMove";
 
 
     public int GroundParameterHash { get; private set; }
@@ -54,11 +58,16 @@ public class PlayerAnimationData
     public int HardStopParameterHash { get; private set; }
     public int SoftLandingParameterHash { get; private set; }
     public int HardLandingParameterHash { get; private set; }
-    public int WalkLandingParameterHash { get; private set; }
+    public int MoveLandingParameterHash { get; private set; }
     public int RunLandingParameterHash { get; private set; }
 
     public int JumpStartParameterHash { get; private set; }
     public int FallingParameterHash { get; private set; }
+
+    public int JumpStartIdleParameterHash { get; private set; }
+    public int JumpStartMoveParameterHash { get; private set; }
+    public int FallingIdleParameterHash { get; private set; }
+    public int FallingMoveParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -78,10 +87,14 @@ public class PlayerAnimationData
         HardStopParameterHash = Animator.StringToHash(hardStopParameterName);
         SoftLandingParameterHash = Animator.StringToHash(softLandingParameterName);
         HardLandingParameterHash = Animator.StringToHash(hardLandingParameterName);
-        WalkLandingParameterHash = Animator.StringToHash(walkLandingParameterName);
+        MoveLandingParameterHash = Animator.StringToHash(moveLandingParameterName);
         RunLandingParameterHash = Animator.StringToHash(runLandingParameterName);
         JumpStartParameterHash = Animator.StringToHash(jumpStartParameterName);
         FallingParameterHash = Animator.StringToHash(FallingParameterName);
+        JumpStartIdleParameterHash = Animator.StringToHash(jumpStartIdleParameterName);
+        JumpStartMoveParameterHash = Animator.StringToHash(jumpStartMoveParameterName);
+        FallingIdleParameterHash = Animator.StringToHash(fallingIdleParameterName);
+        FallingMoveParameterHash = Animator.StringToHash(fallingMoveParameterName);
     }
 
 }

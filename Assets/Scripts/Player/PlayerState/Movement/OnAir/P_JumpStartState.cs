@@ -6,6 +6,7 @@ public class P_JumpStartState : P_OnAirState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.JumpStartParameterHash);
+        PlayerJump();
     }
 
     public override void OnExit()
@@ -14,9 +15,5 @@ public class P_JumpStartState : P_OnAirState
         machine.StopAnimation(player.playerAnimationData.JumpStartParameterHash);
     }
 
-    public override void OnAnimationExitEvent()
-    {
-        machine.OnStateChange(machine.FallingState);
-    }
 
 }

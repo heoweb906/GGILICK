@@ -13,14 +13,21 @@ public class PlayerStateMachine : StateMachine
 
     public P_IdleState IdleState { get; private set; }
     public P_SoftLandingState SoftLandingState { get; private set; }
+    public P_MoveLandingState MoveLandingState { get; private set; }
     public P_WalkStartState WalkStartState { get; private set; }
     public P_WalkingState WalkingState { get; private set; }
     public P_RunStartState RunStartState { get; private set; }
     public P_RunningState RunningState { get; private set; }
     public P_SoftStopState SoftStopState { get; private set; }
+    public P_HardStopState HardStopState { get; private set; }
 
     public P_FallingState FallingState { get; private set; }
     public P_JumpStartState JumpStartState { get; private set; }
+
+    public P_JumpStartIdleState JumpStartIdleState { get; private set; }
+    public P_JumpStartMoveState JumpStartMoveState { get; private set; }
+    public P_FallingIdleState FallingIdleState { get; private set; }
+    public P_FallingMoveState FallingMoveState { get; private set; }
 
 
     public PlayerStateMachine(Player _player)
@@ -35,13 +42,20 @@ public class PlayerStateMachine : StateMachine
         OnAirState = new P_OnAirState(player, this);
         IdleState = new P_IdleState(player, this);
         SoftLandingState = new P_SoftLandingState(player, this);
+        MoveLandingState = new P_MoveLandingState(player, this);
         WalkStartState = new P_WalkStartState(player, this);
         WalkingState = new P_WalkingState(player, this);
         RunStartState = new P_RunStartState(player, this);
         RunningState = new P_RunningState(player, this);
         SoftStopState = new P_SoftStopState(player, this);
+        HardStopState = new P_HardStopState(player, this);
         FallingState = new P_FallingState(player, this);
         JumpStartState = new P_JumpStartState(player, this);
+
+        JumpStartIdleState = new P_JumpStartIdleState(player, this);
+        JumpStartMoveState = new P_JumpStartMoveState(player, this);
+        FallingIdleState = new P_FallingIdleState(player, this);
+        FallingMoveState = new P_FallingMoveState(player, this);
         CurrentState = IdleState;
         CurrentState.OnEnter();
     }
@@ -101,5 +115,20 @@ public class PlayerStateMachine : StateMachine
     public void OnAnimationTransitionEvent()
     {
         CurrentState?.OnAnimationTransitionEvent();
+    }
+
+    public virtual void OnTriggerEnter(Collider other)
+    {
+        CurrentState?.OnTriggerEnter(other);
+    }
+
+    public virtual void OnTriggerStay(Collider other) 
+    {
+        CurrentState?.OnTriggerStay(other);
+    }
+
+    public virtual void OnTriggerExit(Collider other)
+    {
+        CurrentState?.OnTriggerExit(other);
     }
 }

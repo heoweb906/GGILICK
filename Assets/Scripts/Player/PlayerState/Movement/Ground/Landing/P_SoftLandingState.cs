@@ -14,4 +14,8 @@ public class P_SoftLandingState : P_LandingState
         machine.StopAnimation(player.playerAnimationData.SoftLandingParameterHash);
     }
 
+    public override void OnAnimationExitEvent()
+    {
+        machine.OnStateChange(machine.IdleState);
+    }
 }

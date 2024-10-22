@@ -1590,11 +1590,36 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1660406325762911226, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1660406325762911226, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.32
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900254608458362639, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: playerRunSpeed
+      value: 4.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900254608458362639, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: playerWalkSpeed
+      value: 2.7
+      objectReference: {fileID: 0}
     - target: {fileID: 2138181494529752255, guid: 37155211b3f453940844b26ddf72a40f,
         type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 4615902353373640802, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: e9cd7ce5de123f64888b4c46ac11ec04, type: 2}
     - target: {fileID: 8884664623325366987, guid: 37155211b3f453940844b26ddf72a40f,
         type: 3}
       propertyPath: m_LocalPosition.x

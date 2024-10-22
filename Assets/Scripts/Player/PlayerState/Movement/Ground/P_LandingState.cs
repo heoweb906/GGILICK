@@ -15,9 +15,5 @@ public class P_LandingState : P_GroundState
     }
 
 
-    public override void OnAnimationExitEvent() 
-    {
-        machine.OnStateChange(machine.IdleState);
-    }
 
 }
