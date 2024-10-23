@@ -76,7 +76,7 @@ public class PlayerMovementState : BaseState
         }
 
         // Rigid의 속도 조절로 이동, 보간 사용
-        player.curDirection = Vector3.Lerp(player.preDirection, player.curDirection, player.playerMoveLerpSpeed * Time.fixedDeltaTime);
+        player.curDirection = Vector3.Lerp(player.preDirection, player.curDirection, player.moveLerpSpeed * Time.fixedDeltaTime);
 
         Vector3 velocity = CalculateNextFrameGroundAngle(player.playerMoveSpeed) < player.maxSlopeAngle ? player.curDirection :  Vector3.zero;
         Vector3 gravity;

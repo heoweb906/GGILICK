@@ -1610,6 +1610,16 @@ PrefabInstance:
       propertyPath: playerWalkSpeed
       value: 2.7
       objectReference: {fileID: 0}
+    - target: {fileID: 1900254608458362639, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: playerMoveLerpSpeed
+      value: 12.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1900254608458362639, guid: 37155211b3f453940844b26ddf72a40f,
+        type: 3}
+      propertyPath: playerMoveLerpSpeedOnJump
+      value: 1.8
+      objectReference: {fileID: 0}
     - target: {fileID: 2138181494529752255, guid: 37155211b3f453940844b26ddf72a40f,
         type: 3}
       propertyPath: m_Name

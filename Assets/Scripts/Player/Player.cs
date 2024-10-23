@@ -21,6 +21,8 @@ public class Player : MonoBehaviour
     [SerializeField, Range(0, 60)]
     public float playerMoveLerpSpeed;
     [SerializeField, Range(0, 60)]
+    public float playerMoveLerpSpeedOnJump;
+    [SerializeField, Range(0, 60)]
     public float playerRotateLerpSpeed;
     [Header("점프")]
     [SerializeField, Range(0, 20)]
@@ -29,6 +31,9 @@ public class Player : MonoBehaviour
     public float fallingPower;
     [SerializeField, Range(0, 20)]
     public float maxFallingSpeed;
+
+    [HideInInspector]
+    public float moveLerpSpeed;
 
     
     [Header("경사로")]

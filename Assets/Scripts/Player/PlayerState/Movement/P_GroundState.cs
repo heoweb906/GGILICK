@@ -7,6 +7,7 @@ public class P_GroundState : PlayerMovementState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.GroundParameterHash);
+        player.moveLerpSpeed = player.playerMoveLerpSpeed;
     }
 
     public override void OnExit()
