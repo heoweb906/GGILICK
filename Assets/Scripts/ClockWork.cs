@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class ClockWork : MonoBehaviour
 {
-    public ClockPower clockPower;
+    public ClockBattery clockBattery;
+    private bool bIsActive;
 
-    public void OnClockWork()
+    public void ChargingBattery()
     {
-        clockPower.OnClockPower();
+        if(clockBattery.fMaxClockBattery > clockBattery.fCurClockBattery && !clockBattery.bDoing)
+        {
+            Debug.Log("태엽 돌리는 중");
+            clockBattery.fCurClockBattery += 2f * Time.deltaTime;
+            transform.Rotate(Vector3.up * 80f * Time.deltaTime);
+            clockBattery.clockWork = this.gameObject;
+            bIsActive = true;
+        }  
     }
 
-    public void OffClockWork()
+    public void EndCharging_To_BatteryStart()
     {
-        clockPower.OffClockPower();
+        if(bIsActive)
+        {
+            Debug.Log("태엽 -> 배터리 가동");
+            clockBattery.TrunOnObj();
+            bIsActive = false;
+        }
     }
+
 }

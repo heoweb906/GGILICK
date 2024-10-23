@@ -135,10 +135,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d8fe841ac49914b972304b4d39e60d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clockWork: {fileID: 0}
+  fMaxClockBattery: 10
+  fCurClockBattery: 0
+  fLowClockBatteryPoint: 3
+  bDoing: 0
   bTrafficLightOnOff: 0
-  bTrafficCharging: 0
-  fElectricPower: 0
-  fMaxElectricPower: 40
   crossWalk_Assist: {fileID: 5137226015259226129}
   TrafficThreeColors:
   - {fileID: 4021612544088321347}
@@ -280,7 +282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6166839e8ab28c44e9c6fd58709cf928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockPower: {fileID: 5062635191304169083}
+  clockBattery: {fileID: 5062635191304169083}
 --- !u!1 &200533301119618268
 GameObject:
   m_ObjectHideFlags: 0

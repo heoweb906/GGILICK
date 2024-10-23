@@ -149,6 +149,6 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   bMoveActive: 0
   maxSpeed: 19
-  safeDistance: 23
-  deceleration: 16
+  safeDistance: 17
+  deceleration: 18
   acceleration: 13

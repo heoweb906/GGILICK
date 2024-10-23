@@ -214,7 +214,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
@@ -230,13 +230,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf63b58cb0134814ca07840af6c5e35b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clockWork: {fileID: 0}
+  fMaxClockBattery: 5
+  fCurClockBattery: 0
+  fLowClockBatteryPoint: 3
+  bDoing: 0
   bMoveDirection: 1
-  bIsMoving: 0
-  bClockWorking: 0
-  initialSpeed: 2
-  accelerationRate: 1
-  maxSpeed: 10
-  moveDuration: 5
+  initialSpeed: 5
 --- !u!1 &5515603266790271962
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6166839e8ab28c44e9c6fd58709cf928, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockPower: {fileID: 7767120717139233186}
+  clockBattery: {fileID: 7767120717139233186}
 --- !u!1 &6950219185385198845
 GameObject:
   m_ObjectHideFlags: 0

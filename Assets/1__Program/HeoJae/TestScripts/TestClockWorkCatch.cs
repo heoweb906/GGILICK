@@ -16,14 +16,14 @@ public class TestClockWorkCatch : MonoBehaviour
 
         if (Input.GetMouseButton(0) && closestClockWork != null) // 좌클릭을 누르고 있는 동안
         {
-            closestClockWork.OnClockWork(); // OnClockWork 함수 호출
+            closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
         }
 
         if (Input.GetMouseButtonUp(0)) // 마우스를 떼면
         {
             if(closestClockWork != null)
             {
-                closestClockWork.OffClockWork();
+                closestClockWork.EndCharging_To_BatteryStart();
                 closestClockWork = null; // 가장 가까운 ClockWork 참조 초기화
             }
         }
