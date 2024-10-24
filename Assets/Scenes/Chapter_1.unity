@@ -8763,14 +8763,18 @@ MonoBehaviour:
   playerWalkSpeed: 2.7
   playerRunSpeed: 4.3
   playerMoveLerpSpeed: 19
+  playerMoveLerpSpeedOnJump: 0
   playerRotateLerpSpeed: 12.9
   firstJumpPower: 7.08
   fallingPower: 3.3
   maxFallingSpeed: 15.03
+  moveLerpSpeed: 0
   rayDistance: 0.13
   groundLayer: 0
   maxSlopeAngle: 35
   raycastOrigin: {fileID: 7464936516868082214}
+  platformVelocityLerp: 0
+  platformVelocity: {x: 0, y: 0, z: 0}
   distanceGround: 0.218
   playerMoveSpeed: 5.1
   isRun: 0
