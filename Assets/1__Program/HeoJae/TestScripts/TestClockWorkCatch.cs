@@ -9,17 +9,17 @@ public class TestClockWorkCatch : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 좌클릭
+        if (Input.GetButtonDown("Fire1")) // 좌클릭
         {
             FindClosestClockWorkObject();
         }
 
-        if (Input.GetMouseButton(0) && closestClockWork != null) // 좌클릭을 누르고 있는 동안
+        if (Input.GetButton("Fire1") && closestClockWork != null) // 좌클릭을 누르고 있는 동안
         {
             closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
         }
 
-        if (Input.GetMouseButtonUp(0)) // 마우스를 떼면
+        if (Input.GetButtonUp("Fire1")) // 마우스를 떼면
         {
             if(closestClockWork != null)
             {

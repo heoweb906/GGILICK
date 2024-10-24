@@ -26,7 +26,7 @@ public class PlayerMovementState : BaseState
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
-        player.isRun = Input.GetKey(KeyCode.LeftShift);
+        player.isRun = Input.GetButton("Run");
     }
 
     public virtual void OnFixedUpdate()
@@ -43,8 +43,6 @@ public class PlayerMovementState : BaseState
     
 
 
-    public Vector3 platformVelocity;
-    public float platformVelocityLerp;
 
 
     public float _horizontal = 0;
@@ -98,19 +96,19 @@ public class PlayerMovementState : BaseState
 
         if (player.curMovingPlatform != null)
         {
-            platformVelocity = player.curMovingPlatform.GetPlatformVelocity();
+            player.platformVelocity = player.curMovingPlatform.GetPlatformVelocity();
         }
         else
         {
             if (player.groundList.Count == 0)
             {
-                platformVelocity = Vector3.Lerp(platformVelocity, Vector3.zero, platformVelocityLerp);
+                player.platformVelocity = Vector3.Lerp(player.platformVelocity, Vector3.zero, player.platformVelocityLerp);
 
             }
             else
-                platformVelocity = Vector3.zero;
+                player.platformVelocity = Vector3.zero;
         }
-        player.rigid.velocity += platformVelocity;
+        player.rigid.velocity += player.platformVelocity;
         player.preDirection = player.curDirection;
         //Debug.Log(player.rigid.velocity);
     }

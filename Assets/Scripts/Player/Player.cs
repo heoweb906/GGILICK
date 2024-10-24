@@ -46,6 +46,11 @@ public class Player : MonoBehaviour
     [SerializeField]
     public GameObject raycastOrigin;
 
+
+    [Header("Platform")]
+    [Range(0, 60)] public float platformVelocityLerp;
+    [HideInInspector] public Vector3 platformVelocity;
+
     [Header("Foot IK")]
     [SerializeField, Range(0, 1f)]
     public float distanceGround;
