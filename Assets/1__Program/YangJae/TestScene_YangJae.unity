@@ -836,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &580429934
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1706,6 +1706,7 @@ MonoBehaviour:
   <playerAnimationData>k__BackingField:
     groundParameterName: Ground
     onAirParameterName: OnAir
+    interactionParameterName: Interaction
     moveStartParameterName: MoveStart
     movingParameterName: Move
     moveStopParameterName: MoveStop
@@ -1747,6 +1748,10 @@ MonoBehaviour:
   isRun: 0
   curDirection: {x: 0, y: 0, z: 0}
   preDirection: {x: 0, y: 0, z: 0}
+  detectionRadius: 10
+  closestClockWork: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
+  isGoToTarget: 0
   groundList: []
   curMovingPlatform: {fileID: 0}
 --- !u!114 &1048362263
@@ -1777,7 +1782,6 @@ Transform:
   - {fileID: 2047311779}
   - {fileID: 322500501}
   - {fileID: 1468845353}
-  - {fileID: 1342904015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1086306305
@@ -1991,51 +1995,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -15, y: 27.043, z: 0}
---- !u!1 &1342904014
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1342904015}
-  - component: {fileID: 1342904016}
-  m_Layer: 6
-  m_Name: TestClockWorkCatch
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1342904015
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342904014}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1048362264}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1342904016
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342904014}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0f5f2a893ea004a84c687c6e1e995a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  detectionRadius: 5
 --- !u!1 &1468845352
 GameObject:
   m_ObjectHideFlags: 0
@@ -2477,7 +2436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1840495597
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2583,7 +2542,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1908242794
 BoxCollider:
   m_ObjectHideFlags: 0

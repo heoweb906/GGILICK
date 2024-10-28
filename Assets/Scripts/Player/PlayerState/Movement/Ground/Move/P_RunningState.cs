@@ -6,6 +6,7 @@ public class P_RunningState : P_MoveState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.RunningParameterHash);
+        player.playerMoveSpeed = player.playerRunSpeed;
     }
 
     public override void OnExit()

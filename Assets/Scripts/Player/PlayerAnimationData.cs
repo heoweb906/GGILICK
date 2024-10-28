@@ -10,6 +10,7 @@ public class PlayerAnimationData
     [Header("State Group Parameter")]
     [SerializeField] private string groundParameterName = "Ground";
     [SerializeField] private string onAirParameterName = "OnAir";
+    [SerializeField] private string interactionParameterName = "Interaction";
     [SerializeField] private string moveStartParameterName = "MoveStart";
     [SerializeField] private string movingParameterName = "Move";
     [SerializeField] private string moveStopParameterName = "MoveStop";
@@ -44,6 +45,7 @@ public class PlayerAnimationData
 
     public int GroundParameterHash { get; private set; }
     public int OnAirParameterHash { get; private set; }
+    public int InteractionParameterHash { get; private set; }
     public int MoveStartParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
     public int MoveStopParameterHash { get; private set; }
@@ -73,6 +75,7 @@ public class PlayerAnimationData
     {
         GroundParameterHash = Animator.StringToHash(groundParameterName);
         OnAirParameterHash = Animator.StringToHash(onAirParameterName);
+        InteractionParameterHash = Animator.StringToHash(interactionParameterName);
         MoveStartParameterHash = Animator.StringToHash(moveStartParameterName);
         MovingParameterHash = Animator.StringToHash(movingParameterName);
         MoveStopParameterHash = Animator.StringToHash(moveStopParameterName);

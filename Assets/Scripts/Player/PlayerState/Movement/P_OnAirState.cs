@@ -8,6 +8,8 @@ public class P_OnAirState : PlayerMovementState
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.OnAirParameterHash);
         player.moveLerpSpeed = player.playerMoveLerpSpeedOnJump;
+        player.isGoToTarget = false;
+        player.closestClockWork = null;
     }
 
     public override void OnUpdate()

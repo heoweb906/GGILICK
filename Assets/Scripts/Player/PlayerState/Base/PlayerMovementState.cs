@@ -27,6 +27,7 @@ public class PlayerMovementState : BaseState
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
         player.isRun = Input.GetButton("Run");
+        SetDirection();
     }
 
     public virtual void OnFixedUpdate()
@@ -48,7 +49,14 @@ public class PlayerMovementState : BaseState
     public float _horizontal = 0;
     public float _vertical = 0;
 
-    public Vector3 GetCurDirection() { return new Vector3(_horizontal, 0, _vertical); }
+    public Vector3 GetCurDirection() { return player.curDirection; }
+
+    public virtual void SetDirection()
+    {
+        player.curDirection = new Vector3(_horizontal, 0, _vertical);
+        if (_horizontal == 0 && _vertical == 0)
+            player.curDirection = Vector3.zero;
+    }
 
     // 플레이어 기본 이동
     public void PlayerVelocityControll()
@@ -58,13 +66,12 @@ public class PlayerMovementState : BaseState
 
         //Debug.Log("State: " + machine.CurrentState.GetType().Name);
 
-
-        player.curDirection = new Vector3(_horizontal, 0, _vertical);
-
-        if (machine.CheckCurrentState(machine.WalkingState))
-            player.playerMoveSpeed = player.playerWalkSpeed;
-        else if (machine.CheckCurrentState(machine.RunningState))
-            player.playerMoveSpeed = player.playerRunSpeed;
+        //if (machine.CheckCurrentState(machine.WalkingState))
+        //    player.playerMoveSpeed = player.playerWalkSpeed;
+        //else if (machine.CheckCurrentState(machine.RunningState))
+        //    player.playerMoveSpeed = player.playerRunSpeed;
+        player.curDirection.y = 0;
+        player.curDirection = player.curDirection.normalized;
 
         // Rotation 이동 방향으로 조절
         if (player.curDirection != Vector3.zero)
@@ -188,4 +195,6 @@ public class PlayerMovementState : BaseState
         }
     }
 
+
+    
 }

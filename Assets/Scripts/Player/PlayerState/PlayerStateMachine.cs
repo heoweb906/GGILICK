@@ -10,6 +10,7 @@ public class PlayerStateMachine : StateMachine
     public BaseState PreState { get; private set; }
     public P_GroundState GroundState { get; private set; }
     public P_OnAirState OnAirState { get; private set; }
+    public P_InteractionState InteractionState { get; private set; }
 
     public P_IdleState IdleState { get; private set; }
     public P_SoftLandingState SoftLandingState { get; private set; }
@@ -40,6 +41,7 @@ public class PlayerStateMachine : StateMachine
     {
         GroundState = new P_GroundState(player, this);
         OnAirState = new P_OnAirState(player, this);
+        InteractionState = new P_InteractionState(player, this);
         IdleState = new P_IdleState(player, this);
         SoftLandingState = new P_SoftLandingState(player, this);
         MoveLandingState = new P_MoveLandingState(player, this);
