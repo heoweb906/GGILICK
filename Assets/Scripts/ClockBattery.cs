@@ -10,6 +10,7 @@ public class ClockBattery : MonoBehaviour
     public float fCurClockBattery;
     public float fLowClockBatteryPoint;
     public bool bDoing;
+    public bool bBatteryFull;
 
 
     public virtual void TrunOnObj()
@@ -23,6 +24,7 @@ public class ClockBattery : MonoBehaviour
     {
         Debug.Log("배터리 중지@@@");
         bDoing = false;
+        bBatteryFull = false;
     }
 
 
