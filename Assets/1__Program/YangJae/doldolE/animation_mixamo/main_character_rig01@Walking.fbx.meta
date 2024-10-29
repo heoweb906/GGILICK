@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: cb27062d2c3a9884ba9667a079b328cc
+guid: 6dec3d69c2fdc614b9e2219248ed0081
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Twist Dance
+      name: Walking
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 566
+      lastFrame: 61
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -485,7 +485,7 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Bip001
     hasTranslationDoF: 1
     hasExtraRoot: 1
     skeletonHasParents: 1

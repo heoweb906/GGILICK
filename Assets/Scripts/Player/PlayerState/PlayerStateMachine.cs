@@ -11,6 +11,7 @@ public class PlayerStateMachine : StateMachine
     public P_GroundState GroundState { get; private set; }
     public P_OnAirState OnAirState { get; private set; }
     public P_InteractionState InteractionState { get; private set; }
+    public P_ClimbingState ClimbingState { get; private set; }
 
     public P_IdleState IdleState { get; private set; }
     public P_SoftLandingState SoftLandingState { get; private set; }
@@ -30,6 +31,9 @@ public class PlayerStateMachine : StateMachine
     public P_FallingIdleState FallingIdleState { get; private set; }
     public P_FallingMoveState FallingMoveState { get; private set; }
 
+    public P_HangingState HangingState { get; private set; }
+    public P_ClimbingToTopState ClimbingToTopState { get; private set; }
+
 
     public PlayerStateMachine(Player _player)
     {
@@ -42,6 +46,7 @@ public class PlayerStateMachine : StateMachine
         GroundState = new P_GroundState(player, this);
         OnAirState = new P_OnAirState(player, this);
         InteractionState = new P_InteractionState(player, this);
+        ClimbingState = new P_ClimbingState(player, this);
         IdleState = new P_IdleState(player, this);
         SoftLandingState = new P_SoftLandingState(player, this);
         MoveLandingState = new P_MoveLandingState(player, this);
@@ -58,6 +63,10 @@ public class PlayerStateMachine : StateMachine
         JumpStartMoveState = new P_JumpStartMoveState(player, this);
         FallingIdleState = new P_FallingIdleState(player, this);
         FallingMoveState = new P_FallingMoveState(player, this);
+
+        HangingState = new P_HangingState(player, this);
+        ClimbingToTopState = new P_ClimbingToTopState(player, this);
+
         CurrentState = IdleState;
         CurrentState.OnEnter();
     }

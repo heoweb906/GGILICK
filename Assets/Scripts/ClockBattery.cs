@@ -37,6 +37,6 @@ public class ClockBattery : MonoBehaviour
         // 회전 속도는 최소 10f에서 최대 200f까지 변화
         float rotationSpeed = Mathf.Lerp(-100f, -20f, 1f - batteryRatio); // 최소 회전 속도 10f, 최대 속도 200f
 
-        clockWork.transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        clockWork.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     }
 }

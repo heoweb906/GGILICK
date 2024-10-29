@@ -38,6 +38,15 @@ public class P_GroundState : PlayerMovementState
 
         }
 
+
+        CheckInputJump();
+        InteractClockWork();
+
+
+    }
+
+    public void CheckInputJump()
+    {
         if (Input.GetButtonDown("Jump"))
         {
             if (GetCurDirection() == Vector3.zero)
@@ -49,25 +58,37 @@ public class P_GroundState : PlayerMovementState
                 machine.OnStateChange(machine.JumpStartMoveState);
             }
         }
+    }
 
+    public void InteractClockWork()
+    {
         if (Input.GetButtonDown("Fire1")) // 좌클릭
         {
-            FindClosestClockWorkObject();
-        }
+            if (!FindClosestClockWorkObject())
+                return;
 
-        if (Input.GetButton("Fire1") && player.closestClockWork != null) // 좌클릭을 누르고 있는 동안
+            if (player.closestClockWork.GetClockWorkType() == ClockWorkType.Floor)
+            {
+                player.targetPos = player.closestClockWork.transform.position + (player.transform.position - player.closestClockWork.transform.position).normalized * player.interactionDistance;
+            }
+            else if (player.closestClockWork.GetClockWorkType() == ClockWorkType.Wall)
+            {
+                float angle = player.closestClockWork.transform.eulerAngles.y * Mathf.Deg2Rad;
+                player.targetPos = player.closestClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.interactionDistance;
+            }
+
+        }
+        else if (Input.GetButton("Fire1") && player.closestClockWork != null) // 좌클릭을 누르고 있는 동안
         {
             player.isGoToTarget = true;
-            player.targetPos = player.closestClockWork.transform.position + new Vector3(-1.5f, 0, 0);
-            if(Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.1f)
+            if (Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.03f)
             {
                 machine.OnStateChange(machine.InteractionState);
             }
 
             //player.closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
         }
-
-        if (Input.GetButtonUp("Fire1")) // 마우스를 떼면
+        else if (Input.GetButtonUp("Fire1")) // 마우스를 떼면
         {
             if (player.closestClockWork != null)
             {
@@ -87,7 +108,7 @@ public class P_GroundState : PlayerMovementState
         }
     }
 
-    public void FindClosestClockWorkObject()
+    public bool FindClosestClockWorkObject()
     {
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
         player.closestClockWork = null; // 이전 참조 초기화
@@ -125,12 +146,12 @@ public class P_GroundState : PlayerMovementState
 
         if (player.closestClockWork != null)
         {
-            Debug.Log("가장 가까운 ClockWork 오브젝트: " + player.closestClockWork.gameObject.name);
+            return true;
             // 여기에서 추가적인 로직을 구현할 수 있습니다.
         }
         else
         {
-            Debug.Log("ClockWork 오브젝트를 찾을 수 없습니다.");
+            return false;
         }
     }
 

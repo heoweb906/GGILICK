@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     [Header("ThisComponent")]
     [SerializeField]
     public Rigidbody rigid;
+    public List<BoxCollider> playerCollider;
     [Header("Animation")]
     public Animator playerAnim;
     [field: SerializeField] public PlayerAnimationData playerAnimationData { get; private set; }
@@ -35,12 +36,13 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public float moveLerpSpeed;
 
-    
+
     [Header("경사로")]
     [SerializeField, Range(0, 2)]
     public float rayDistance = 1f;
     public RaycastHit slopeHit;
     public int groundLayer;
+    public int cliffLayer;
     [SerializeField, Range(0, 90)]
     public int maxSlopeAngle;
     [SerializeField]
@@ -64,9 +66,19 @@ public class Player : MonoBehaviour
 
     [Header("상호작용 오브젝트")]
     public float detectionRadius = 10f; // 탐지 반경
+    public float interactionDistance = 1f; // 탐지 반경
     public ClockWork closestClockWork; // 가장 가까운 ClockWork 오브젝트
     public Vector3 targetPos; // 가장 가까운 ClockWork 오브젝트
     public bool isGoToTarget;
+
+    [Header("Climb")]
+    public float cliffCheckRayDistance = 1f; // 탐지 반경
+    public RaycastHit cliffRayHit;
+    [HideInInspector]
+    public Vector3 hangingPos;
+    public float hangingPosOffset_Front;
+    public float hangingPosOffset_Height;
+
 
     private void Awake()
     {
@@ -86,6 +98,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         groundLayer = ~(1 << LayerMask.NameToLayer("Player"));
+        cliffLayer = (1 << LayerMask.NameToLayer("Cliff"));
     }
 
     private void Update()
@@ -135,5 +148,23 @@ public class Player : MonoBehaviour
         // 탐지 반경을 시각적으로 표시
         Gizmos.color = Color.green; // 기즈모 색상 설정
         Gizmos.DrawWireSphere(transform.position, detectionRadius); // WireSphere로 탐지 범위 그리기
+    }
+
+    public void SetColliderTrigger(bool _bool)
+    {
+        foreach (var item in playerCollider)
+        {
+            item.enabled = _bool;
+        }
+    }
+
+    public void SetRootMotion()
+    {
+        StartCoroutine(C_SetRootMotion());
+    }
+    IEnumerator C_SetRootMotion()
+    {
+        yield return new WaitForSeconds(0.1f);
+        playerAnim.applyRootMotion = false;
     }
 }

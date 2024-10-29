@@ -11,6 +11,7 @@ public class PlayerAnimationData
     [SerializeField] private string groundParameterName = "Ground";
     [SerializeField] private string onAirParameterName = "OnAir";
     [SerializeField] private string interactionParameterName = "Interaction";
+    [SerializeField] private string climbingParameterName = "Climbing";
     [SerializeField] private string moveStartParameterName = "MoveStart";
     [SerializeField] private string movingParameterName = "Move";
     [SerializeField] private string moveStopParameterName = "MoveStop";
@@ -42,10 +43,15 @@ public class PlayerAnimationData
     [SerializeField] private string fallingIdleParameterName = "isFallingIdle";
     [SerializeField] private string fallingMoveParameterName = "isFallingMove";
 
+    [Header("Climbing Group Parameter")]
+    [SerializeField] private string HangingParameterName = "Hanging";
+    [SerializeField] private string ClimbingToTopParameterName = "ClimbingToTop";
+
 
     public int GroundParameterHash { get; private set; }
     public int OnAirParameterHash { get; private set; }
     public int InteractionParameterHash { get; private set; }
+    public int ClimbingParameterHash { get; private set; }
     public int MoveStartParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
     public int MoveStopParameterHash { get; private set; }
@@ -71,11 +77,15 @@ public class PlayerAnimationData
     public int FallingIdleParameterHash { get; private set; }
     public int FallingMoveParameterHash { get; private set; }
 
+    public int HangingParameterHash { get; private set; }
+    public int ClimbingToTopParameterHash { get; private set; }
+
     public void Initialize()
     {
         GroundParameterHash = Animator.StringToHash(groundParameterName);
         OnAirParameterHash = Animator.StringToHash(onAirParameterName);
         InteractionParameterHash = Animator.StringToHash(interactionParameterName);
+        ClimbingParameterHash = Animator.StringToHash(climbingParameterName);
         MoveStartParameterHash = Animator.StringToHash(moveStartParameterName);
         MovingParameterHash = Animator.StringToHash(movingParameterName);
         MoveStopParameterHash = Animator.StringToHash(moveStopParameterName);
@@ -98,6 +108,9 @@ public class PlayerAnimationData
         JumpStartMoveParameterHash = Animator.StringToHash(jumpStartMoveParameterName);
         FallingIdleParameterHash = Animator.StringToHash(fallingIdleParameterName);
         FallingMoveParameterHash = Animator.StringToHash(fallingMoveParameterName);
+
+        HangingParameterHash = Animator.StringToHash(HangingParameterName);
+        ClimbingToTopParameterHash = Animator.StringToHash(ClimbingToTopParameterName);
     }
 
 }

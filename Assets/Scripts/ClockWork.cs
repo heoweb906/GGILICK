@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-enum ClockWorkType
+public enum ClockWorkType
 { 
     Floor,
-    Wall_East,
-    Wall_West,
-    Wall_South,
-    Wall_North
+    Wall
 };
 
 
@@ -26,7 +23,7 @@ public class ClockWork : MonoBehaviour
         {
             Debug.Log("태엽 돌리는 중");
             clockBattery.fCurClockBattery += 2f * Time.deltaTime;
-            transform.Rotate(Vector3.up * 80f * Time.deltaTime);
+            transform.Rotate(Vector3.forward * 80f * Time.deltaTime);
             clockBattery.clockWork = this.gameObject;
             bIsActive = true;
         }
@@ -47,6 +44,11 @@ public class ClockWork : MonoBehaviour
     public bool BoolBatteryFullCharging()
     {
         return clockBattery.bBatteryFull;
+    }
+
+    public ClockWorkType GetClockWorkType()
+    {
+        return clockWorkType;
     }
 
 

@@ -44,6 +44,9 @@ public class P_InteractionState : PlayerMovementState
             machine.OnStateChange(machine.JumpStartIdleState);
             return;
         }
-        player.closestClockWork.ChargingBattery();
+        if (!player.closestClockWork.BoolBatteryFullCharging())
+            player.closestClockWork.ChargingBattery();
+        else
+            machine.OnStateChange(machine.IdleState);
     }
 }

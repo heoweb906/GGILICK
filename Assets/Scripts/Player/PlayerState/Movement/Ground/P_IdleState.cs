@@ -13,5 +13,8 @@ public class P_IdleState : P_GroundState
         base.OnExit();
         machine.StopAnimation(player.playerAnimationData.IdleParameterHash);
     }
-
+    public override void OnAnimationExitEvent()
+    {
+        player.playerAnim.applyRootMotion = false;
+    }
 }

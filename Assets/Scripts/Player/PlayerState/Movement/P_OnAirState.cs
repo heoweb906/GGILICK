@@ -15,6 +15,9 @@ public class P_OnAirState : PlayerMovementState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        CheckHanging();
+        if (Input.GetKeyDown(KeyCode.Q))
+            machine.OnStateChange(machine.FallingIdleState);
     }
 
     public override void OnFixedUpdate()
@@ -27,6 +30,27 @@ public class P_OnAirState : PlayerMovementState
     {
         base.OnExit();
         machine.StopAnimation(player.playerAnimationData.OnAirParameterHash);
+    }
+
+    public void CheckHanging()
+    {
+        if (Input.GetButton("Fire1"))
+        {
+            Ray ray = new Ray(player.transform.position + new Vector3(0, 1.2f, 0), player.transform.forward);
+            Debug.DrawRay(ray.origin, player.transform.forward * player.cliffCheckRayDistance, Color.red);
+            if (Physics.Raycast(ray, out player.cliffRayHit, player.cliffCheckRayDistance, player.cliffLayer))
+            {
+                BoxCollider _col = player.cliffRayHit.collider.GetComponent<BoxCollider>();
+                Vector3 cliffPos = Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale) + player.cliffRayHit.transform.position;
+                if ((cliffPos.y - player.cliffRayHit.point.y) < 0.05f)
+                {
+                    Debug.Log((cliffPos.y - player.cliffRayHit.point.y));
+                    player.hangingPos = new Vector3(player.cliffRayHit.point.x, cliffPos.y, player.cliffRayHit.point.z);
+                    //player.transform.position = new Vector3(player.transform.position.x, player.transform.position.y + cliffPos.y - 0.6f, player.transform.position.z); 
+                    machine.OnStateChange(machine.HangingState);
+                }
+            }
+        }
     }
 
     public void ControllGravity()

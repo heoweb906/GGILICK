@@ -93,10 +93,14 @@ public class PlayerMovementState : BaseState
             gravity = Vector3.zero;
             player.rigid.useGravity = false;
         }
-        else
+        else if(machine.CurrentState is not P_ClimbingState)
         {
             gravity = new Vector3(0, player.rigid.velocity.y, 0);
             player.rigid.useGravity = true;
+        }
+        else
+        {
+            gravity = Vector3.zero;
         }
 
         player.rigid.velocity = velocity * player.playerMoveSpeed + gravity;
@@ -161,7 +165,7 @@ public class PlayerMovementState : BaseState
 
     public virtual void OnTriggerEnter(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (other.CompareTag("WalkableGround") || other.CompareTag("MovingPlatform"))
         {
             player.groundList.Add(other.gameObject);
 
@@ -176,12 +180,12 @@ public class PlayerMovementState : BaseState
 
     public virtual void OnTriggerExit(Collider other)
     {
-        if (!other.CompareTag("Player"))
+        if (other.CompareTag("WalkableGround") || other.CompareTag("MovingPlatform"))
         {
             if (player.groundList.Contains(other.gameObject))
                 player.groundList.Remove(other.gameObject);
 
-            if (!machine.CheckCurrentState(machine.JumpStartIdleState) && !machine.CheckCurrentState(machine.JumpStartMoveState))
+            if (!machine.CheckCurrentState(machine.JumpStartIdleState) && !machine.CheckCurrentState(machine.JumpStartMoveState) && player.groundList.Count<=0)
                 machine.OnStateChange(machine.FallingMoveState);
 
             if (other.CompareTag("MovingPlatform"))

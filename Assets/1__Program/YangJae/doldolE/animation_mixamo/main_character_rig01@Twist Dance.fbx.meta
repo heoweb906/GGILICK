@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: ec869a1860a462e4499abbb62af4e64b
+guid: cb27062d2c3a9884ba9667a079b328cc
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      internalID: 1827226128182048838
-      firstFrame: 150
-      lastFrame: 250
+      name: Twist Dance
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 566
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -485,9 +485,9 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     globalScale: 1
-    rootMotionBoneName: 
+    rootMotionBoneName: Bip001
     hasTranslationDoF: 1
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 6cbaf73279ac8c34099e689c5faf8d88,
     type: 3}
