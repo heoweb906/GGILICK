@@ -11,6 +11,9 @@ public class NPC_Wanderring : MonoBehaviour
     private int currentCheckPointIndex = 0; // 현재 목표 지점 인덱스
     private int iWalkAnimNum;
 
+    private float pushBackForce = 2f; // 밀리는 힘
+    private bool isPushedBack = false; // 밀리는 중인지 확인
+
     void Start()
     {
         anim = GetComponent<Animator>();
@@ -22,14 +25,11 @@ public class NPC_Wanderring : MonoBehaviour
 
     void Update()
     {
-        // 현재 목표 지점에 도착했는지 확인
-        if (agent.pathPending)
+        if (isPushedBack)
             return;
 
-        // 현재 목표 지점에 가까워졌을 때
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            // 다음 목표 지점으로 이동
             currentCheckPointIndex++;
             if (currentCheckPointIndex < checkPoints.Length)
             {
@@ -48,4 +48,49 @@ public class NPC_Wanderring : MonoBehaviour
         agent.SetDestination(checkPoints[currentCheckPointIndex].position);
         anim.SetInteger("Walk_Num", iWalkAnimNum); // 이동 애니메이션 시작
     }
+
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player") && !isPushedBack)
+        {
+            StopAllCoroutines();
+
+            // NPC를 밀어내기
+            Vector3 pushDirection = (transform.position - collision.transform.position).normalized;
+            StartCoroutine(PushBack(pushDirection));
+        }
+    }
+
+    private System.Collections.IEnumerator PushBack(Vector3 direction)
+    {
+        isPushedBack = true;
+        agent.isStopped = true; // 이동 중지
+        anim.SetTrigger("doTakeHitSholder"); // 애니메이션 트리거
+
+        float pushDuration = 4.0f; // 밀리는 시간
+        float elapsed = 0f;
+
+        while (elapsed < pushDuration)
+        {
+            elapsed += Time.deltaTime;
+
+            if (elapsed < 0.25f) transform.position += direction * pushBackForce * Time.deltaTime;
+            else transform.position += direction * 0f * Time.deltaTime;
+
+            yield return null;
+        }
+
+        isPushedBack = false;
+        agent.isStopped = false; // 이동 재개
+    }
+
+
+
+
+
+
+
+
 }
