@@ -34,6 +34,10 @@ public class PlayerStateMachine : StateMachine
     public P_HangingState HangingState { get; private set; }
     public P_ClimbingToTopState ClimbingToTopState { get; private set; }
 
+    public P_SpinClockWorkState SpinClockWorkState { get; private set; }
+    public P_PickUpState PickUpState { get; private set; }
+    public P_PutDownState PutDownState { get; private set; }
+
 
     public PlayerStateMachine(Player _player)
     {
@@ -66,6 +70,10 @@ public class PlayerStateMachine : StateMachine
 
         HangingState = new P_HangingState(player, this);
         ClimbingToTopState = new P_ClimbingToTopState(player, this);
+
+        SpinClockWorkState = new P_SpinClockWorkState(player, this);
+        PickUpState = new P_PickUpState(player, this);
+        PutDownState = new P_PutDownState(player, this);
 
         CurrentState = IdleState;
         CurrentState.OnEnter();

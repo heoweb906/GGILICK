@@ -65,11 +65,20 @@ public class Player : MonoBehaviour
     public Vector3 preDirection = Vector3.zero;
 
     [Header("상호작용 오브젝트")]
+    public InteractableObject curInteractableObject;
+
+    [Header("태엽 오브젝트")]
     public float detectionRadius = 10f; // 탐지 반경
-    public float interactionDistance = 1f; // 탐지 반경
-    public ClockWork closestClockWork; // 가장 가까운 ClockWork 오브젝트
+    public float clockWorkInteractionDistance = 1f; // 상호작용 거리
+    public ClockWork curClockWork; // 가장 가까운 ClockWork 오브젝트
     public Vector3 targetPos; // 가장 가까운 ClockWork 오브젝트
     public bool isGoToTarget;
+
+    [Header("물건 옮기기")]
+    public CarriedObject curCarriedObject;
+    public Transform CarriedObjectPos;
+    public float carriedObjectInteractionDistance = 1f; // 상호작용 거리
+    public bool isCarryObject;
 
     [Header("Climb")]
     public float cliffCheckRayDistance = 1f; // 탐지 반경
@@ -166,5 +175,12 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         playerAnim.applyRootMotion = false;
+    }
+
+    public void SetPlayerPhysicsIgnore(Collider _col, bool _bool)
+    {
+        int layer1 = LayerMask.NameToLayer("Player");
+        int layer2 = LayerMask.NameToLayer("Interactable");
+        Physics.IgnoreLayerCollision(layer1, layer2, _bool);
     }
 }

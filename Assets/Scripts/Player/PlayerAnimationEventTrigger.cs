@@ -14,10 +14,10 @@ public class PlayerAnimationEventTrigger : MonoBehaviour
 
     public void TriggerOnMovementStateAnimationEnterEvent()
     {
-        if (IsInAnimationTransition())
-        {
-            return;
-        }
+        //if (IsInAnimationTransition())
+        //{
+        //    return;
+        //}
 
         player.OnMovementStateAnimationEnterEvent();
     }
@@ -34,10 +34,10 @@ public class PlayerAnimationEventTrigger : MonoBehaviour
 
     public void TriggerOnMovementStateAnimationTransitionEvent()
     {
-        if (IsInAnimationTransition())
-        {
-            return;
-        }
+        //if (IsInAnimationTransition())
+        //{
+        //    return;
+        //}
 
         player.OnMovementStateAnimationTransitionEvent();
     }

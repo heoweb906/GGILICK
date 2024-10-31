@@ -12,11 +12,16 @@ public class ClockBattery : MonoBehaviour
     public bool bDoing;
     public bool bBatteryFull;
 
+    private void Start()
+    {
+        
+    }
 
     public virtual void TrunOnObj()
     {
         Debug.Log("배터리 실행!!!");
         bDoing = true;
+        clockWork.GetComponent<ClockWork>().canInteract = false; // 보험 (사실 필요없음 )
     }
 
 
@@ -24,6 +29,7 @@ public class ClockBattery : MonoBehaviour
     {
         Debug.Log("배터리 중지@@@");
         bDoing = false;
+        clockWork.GetComponent<ClockWork>().canInteract = true;
         bBatteryFull = false;
     }
 

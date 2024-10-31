@@ -44,8 +44,13 @@ public class PlayerAnimationData
     [SerializeField] private string fallingMoveParameterName = "isFallingMove";
 
     [Header("Climbing Group Parameter")]
-    [SerializeField] private string HangingParameterName = "Hanging";
-    [SerializeField] private string ClimbingToTopParameterName = "ClimbingToTop";
+    [SerializeField] private string HangingParameterName = "isHanging";
+    [SerializeField] private string ClimbingToTopParameterName = "isClimbingToTop";
+
+    [Header("Interaction Group Parameter")]
+    [SerializeField] private string spinClockWorkParameterName = "isSpinClockWork";
+    [SerializeField] private string pickUpParameterName = "isPickUp";
+    [SerializeField] private string putDownParameterName = "isPutDown";
 
 
     public int GroundParameterHash { get; private set; }
@@ -80,6 +85,10 @@ public class PlayerAnimationData
     public int HangingParameterHash { get; private set; }
     public int ClimbingToTopParameterHash { get; private set; }
 
+    public int SpinClockWorkParameterHash { get; private set; }
+    public int PickUpParameterHash { get; private set; }
+    public int PutDownParameterHash { get; private set; }
+
     public void Initialize()
     {
         GroundParameterHash = Animator.StringToHash(groundParameterName);
@@ -111,6 +120,10 @@ public class PlayerAnimationData
 
         HangingParameterHash = Animator.StringToHash(HangingParameterName);
         ClimbingToTopParameterHash = Animator.StringToHash(ClimbingToTopParameterName);
+
+        SpinClockWorkParameterHash = Animator.StringToHash(spinClockWorkParameterName);
+        PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
+        PutDownParameterHash = Animator.StringToHash(putDownParameterName);
     }
 
 }

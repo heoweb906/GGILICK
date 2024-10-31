@@ -10,11 +10,17 @@ public enum ClockWorkType
 };
 
 
-public class ClockWork : MonoBehaviour
+
+public class ClockWork : InteractableObject
 {
     public ClockBattery clockBattery;
     [SerializeField] private ClockWorkType clockWorkType;
-    private bool bIsActive;
+
+    private void Start()
+    {
+        type = InteractableType.ClockWork;
+        canInteract = true;
+    }
 
     public void ChargingBattery()
     {
@@ -24,18 +30,17 @@ public class ClockWork : MonoBehaviour
             clockBattery.fCurClockBattery += 2f * Time.deltaTime;
             transform.Rotate(Vector3.forward * 80f * Time.deltaTime);
             clockBattery.clockWork = this.gameObject;
-            bIsActive = true;
+            canInteract = false;
         }
         if (clockBattery.fMaxClockBattery <= clockBattery.fCurClockBattery) clockBattery.bBatteryFull = true;
     }
 
     public void EndCharging_To_BatteryStart()
     {
-        if(bIsActive)
+        if(!canInteract)
         {
             Debug.Log("태엽 -> 배터리 가동");
             clockBattery.TrunOnObj();
-            bIsActive = false;
         }
     }
 

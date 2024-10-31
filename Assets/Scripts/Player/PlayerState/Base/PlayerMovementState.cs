@@ -26,7 +26,8 @@ public class PlayerMovementState : BaseState
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
-        player.isRun = Input.GetButton("Run");
+        if(!player.isCarryObject)
+            player.isRun = Input.GetButton("Run");
         SetDirection();
     }
 
@@ -185,7 +186,9 @@ public class PlayerMovementState : BaseState
             if (player.groundList.Contains(other.gameObject))
                 player.groundList.Remove(other.gameObject);
 
-            if (!machine.CheckCurrentState(machine.JumpStartIdleState) && !machine.CheckCurrentState(machine.JumpStartMoveState) && player.groundList.Count<=0)
+            if (machine.CurrentState is not P_JumpStartState
+                && machine.CurrentState is not P_ClimbingState
+                && player.groundList.Count<=0)
                 machine.OnStateChange(machine.FallingMoveState);
 
             if (other.CompareTag("MovingPlatform"))
