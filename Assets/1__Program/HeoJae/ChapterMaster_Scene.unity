@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18220812, g: 0.2279101, b: 0.30736, a: 1}
+  m_IndirectSpecularColor: {r: 0.1834663, g: 0.22745846, b: 0.29663965, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -7029,6 +7029,37 @@ Transform:
   - {fileID: 1702431785}
   m_Father: {fileID: 938813267}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!1 &457983455
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 457983456}
+  m_Layer: 0
+  m_Name: ===========Test+Camera======
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &457983456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 457983455}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -23.44969, y: -9.06673, z: 2.9849138}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &459025042
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13571,6 +13602,9 @@ MonoBehaviour:
     fallingMoveParameterName: isFallingMove
     HangingParameterName: Hanging
     ClimbingToTopParameterName: ClimbingToTop
+    spinClockWorkParameterName: isSpinClockWork
+    pickUpParameterName: isPickUp
+    putDownParameterName: isPutDown
   playerWalkSpeed: 2.7
   playerRunSpeed: 4.3
   playerMoveLerpSpeed: 12.8
@@ -13592,11 +13626,16 @@ MonoBehaviour:
   isRun: 0
   curDirection: {x: 0, y: 0, z: 0}
   preDirection: {x: 0, y: 0, z: 0}
+  curInteractableObject: {fileID: 0}
   detectionRadius: 10
-  interactionDistance: 1
-  closestClockWork: {fileID: 0}
+  clockWorkInteractionDistance: 1
+  curClockWork: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}
   isGoToTarget: 0
+  curCarriedObject: {fileID: 0}
+  CarriedObjectPos: {fileID: 0}
+  carriedObjectInteractionDistance: 1
+  isCarryObject: 0
   cliffCheckRayDistance: 1
   hangingPos: {x: 0, y: 0, z: 0}
   hangingPosOffset_Front: 0
@@ -32950,6 +32989,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 820543027}
+  parentObj: {fileID: 0}
   xPos: 0
   yPos: 4
   zPos: -5.4
@@ -33036,11 +33076,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
-  field of view: 60
+  near clip plane: 0.1
+  far clip plane: 5000
+  field of view: 40
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -33064,8 +33104,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804953665}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.21639697, y: -0, z: -0, w: 0.9763055}
-  m_LocalPosition: {x: 575.9, y: 21, z: -142.5}
+  m_LocalRotation: {x: 0.20791169, y: 0, z: 0, w: 0.9781476}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -37113,8 +37153,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2052085283}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.8808309, y: -0.23658572, z: 0.27109948, w: 0.30768383}
-  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalRotation: {x: 0.20791169, y: 0, z: 0, w: 0.9781476}
+  m_LocalPosition: {x: 0, y: 6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -38786,8 +38826,8 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 2052085286}
   - {fileID: 1804953670}
+  - {fileID: 2052085286}
   - {fileID: 1753357946}
   - {fileID: 1582356876}
   - {fileID: 543450652463389562}
@@ -38814,3 +38854,4 @@ SceneRoots:
   - {fileID: 248676926}
   - {fileID: 803248885}
   - {fileID: 603182508}
+  - {fileID: 457983456}
