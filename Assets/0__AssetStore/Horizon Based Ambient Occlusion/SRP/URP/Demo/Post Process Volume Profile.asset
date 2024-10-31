@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: HBAO
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   preset:
     m_OverrideState: 0
     m_Value: 2
@@ -41,41 +40,27 @@ MonoBehaviour:
   radius:
     m_OverrideState: 1
     m_Value: 0.8
-    min: 0.25
-    max: 5
   maxRadiusPixels:
     m_OverrideState: 0
     m_Value: 128
-    min: 16
-    max: 256
   bias:
     m_OverrideState: 0
     m_Value: 0.05
-    min: 0
-    max: 0.5
   intensity:
     m_OverrideState: 1
     m_Value: 1
-    min: 0
-    max: 4
   useMultiBounce:
     m_OverrideState: 0
     m_Value: 0
   multiBounceInfluence:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 1
   directLightingStrength:
     m_OverrideState: 0
     m_Value: 0.25
-    min: 0
-    max: 1
   offscreenSamplesContribution:
     m_OverrideState: 0
     m_Value: 0
-    min: 0
-    max: 1
   maxDistance:
     m_OverrideState: 0
     m_Value: 150
@@ -88,9 +73,6 @@ MonoBehaviour:
   baseColor:
     m_OverrideState: 0
     m_Value: {r: 0, g: 0, b: 0, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
   temporalFilterEnabled:
     m_OverrideState: 0
     m_Value: 0
@@ -103,21 +85,15 @@ MonoBehaviour:
   sharpness:
     m_OverrideState: 0
     m_Value: 8
-    min: 0
-    max: 16
   colorBleedingEnabled:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 4
   brightnessMask:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 1
   brightnessMaskRange:
     m_OverrideState: 0
     m_Value: {x: 0, y: 0.5}
@@ -150,7 +126,6 @@ MonoBehaviour:
   m_Name: HBAO
   m_EditorClassIdentifier: 
   active: 1
-  m_AdvancedMode: 0
   preset:
     m_OverrideState: 0
     m_Value: 2
@@ -178,41 +153,27 @@ MonoBehaviour:
   radius:
     m_OverrideState: 0
     m_Value: 0.8
-    min: 0.25
-    max: 5
   maxRadiusPixels:
     m_OverrideState: 0
     m_Value: 128
-    min: 16
-    max: 256
   bias:
     m_OverrideState: 0
     m_Value: 0.05
-    min: 0
-    max: 0.5
   intensity:
     m_OverrideState: 0
     m_Value: 0
-    min: 0
-    max: 4
   useMultiBounce:
     m_OverrideState: 0
     m_Value: 0
   multiBounceInfluence:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 1
   directLightingStrength:
     m_OverrideState: 0
     m_Value: 0.25
-    min: 0
-    max: 1
   offscreenSamplesContribution:
     m_OverrideState: 0
     m_Value: 0
-    min: 0
-    max: 1
   maxDistance:
     m_OverrideState: 0
     m_Value: 150
@@ -225,9 +186,6 @@ MonoBehaviour:
   baseColor:
     m_OverrideState: 0
     m_Value: {r: 0, g: 0, b: 0, a: 1}
-    hdr: 0
-    showAlpha: 1
-    showEyeDropper: 1
   temporalFilterEnabled:
     m_OverrideState: 0
     m_Value: 0
@@ -240,21 +198,15 @@ MonoBehaviour:
   sharpness:
     m_OverrideState: 0
     m_Value: 8
-    min: 0
-    max: 16
   colorBleedingEnabled:
     m_OverrideState: 0
     m_Value: 0
   saturation:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 4
   brightnessMask:
     m_OverrideState: 0
     m_Value: 1
-    min: 0
-    max: 1
   brightnessMaskRange:
     m_OverrideState: 0
     m_Value: {x: 0, y: 0.5}

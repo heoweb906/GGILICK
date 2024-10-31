@@ -8,6 +8,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -231,12 +232,47 @@ public class MainMenuController : MonoBehaviour
     }
     public void PanelOn(GameObject ActivePanel)
     {
-        // 처음 크기를 0으로 설정
-        ActivePanel.transform.localScale = Vector3.one * 0.5f;
+        // 연출 1번
+        //ActivePanel.transform.localScale = Vector3.one * 0.5f;
+        //ActivePanel.transform.DOScale(Vector3.one, duration / 2)
+        //.SetEase(Ease.OutBack); // EaseOutBack 효과로 자연스럽게 커짐
 
-        // DOTween을 이용해 0에서 커지는 애니메이션 생성
-        ActivePanel.transform.DOScale(Vector3.one, duration / 2)
-        .SetEase(Ease.OutBack); // EaseOutBack 효과로 자연스럽게 커짐
+
+        // 연출 2번
+        Image[] images = ActivePanel.GetComponentsInChildren<Image>();
+        TextMeshProUGUI[] textMeshes = ActivePanel.GetComponentsInChildren<TextMeshProUGUI>();
+
+        // 각 Image의 알파값을 0에서 1까지 서서히 변화
+        foreach (Image img in images)
+        {
+            // Image의 초기 알파값을 0으로 설정
+            Color tempColor = img.color;
+            tempColor.a = 0f;
+            img.color = tempColor;
+
+            // 알파값을 0에서 1로 1초 동안 서서히 올림
+            DOTween.To(() => img.color.a, x => {
+                tempColor.a = x;
+                img.color = tempColor;
+            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1초 동안 알파값을 1로 만듦
+        }
+
+        // 각 TextMeshPro의 색상을 0에서 1까지 서서히 변화
+        foreach (TextMeshProUGUI textMesh in textMeshes)
+        {
+            // TextMeshPro의 초기 알파값을 0으로 설정
+            Color textColor = textMesh.color;
+            textColor.a = 0f;
+            textMesh.color = textColor;
+
+            // 텍스트 색상 알파값을 0에서 1로 1초 동안 서서히 올림
+            DOTween.To(() => textMesh.color.a, x => {
+                textColor.a = x;
+                textMesh.color = textColor;
+            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
+        }
+
+
     }
 
 

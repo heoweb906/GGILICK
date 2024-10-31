@@ -10,7 +10,6 @@ public enum ClockWorkType
 };
 
 
-
 public class ClockWork : MonoBehaviour
 {
     public ClockBattery clockBattery;
