@@ -175,6 +175,8 @@ public class InGameUIController : MonoBehaviour
         bIsUIDoing = false;
     }
 
+
+
     public void PanelOff(int index)
     {
         PanelNow.SetActive(false);
