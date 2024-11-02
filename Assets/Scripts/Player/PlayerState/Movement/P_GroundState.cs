@@ -32,9 +32,9 @@ public class P_GroundState : PlayerMovementState
         else if (GetCurDirection() == Vector3.zero)
         {
             if(machine.CheckCurrentState(machine.WalkingState))
-                machine.OnStateChange(machine.SoftStopState);
+                machine.OnStateChange(machine.IdleState);
             else if(machine.CheckCurrentState(machine.RunningState) || machine.CheckCurrentState(machine.MoveLandingState))
-                machine.OnStateChange(machine.HardStopState);
+                machine.OnStateChange(machine.IdleState);
 
         }
 

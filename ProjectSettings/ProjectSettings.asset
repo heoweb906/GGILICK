@@ -933,11 +933,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 0
   windowsGamepadBackendHint: 0
-  cloudProjectId: c84d413d-3256-4fa8-a933-4fbbbed6547f
+  cloudProjectId: 44fe0931-2a93-4558-b615-276abebd3a2d
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
   projectName: GGILICK
-  organizationId: heoweb906
+  organizationId: didwogh05
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

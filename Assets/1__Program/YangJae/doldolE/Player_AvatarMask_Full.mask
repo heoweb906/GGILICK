@@ -142,9 +142,9 @@ AvatarMask:
   - m_Path: Bip001/Bip001 Pelvis/Bip001 Spine/bone_muffler_F001/bone_muffler_F002/bone_muffler_F003/bone_muffler_F004/bone_muffler_F005/bone_muffler_F006
     m_Weight: 1
   - m_Path: Bip001/Bip001 Pelvis/Bip001 Spine/bone_taeyeob_001
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Bip001/Bip001 Pelvis/Bip001 Spine/bone_taeyeob_001/bone_taeyeob_002
-    m_Weight: 1
+    m_Weight: 0
   - m_Path: Bip001/Bip001 Pelvis/Bip001 Spine/bone_zip001
     m_Weight: 1
   - m_Path: Bip001/Bip001 Pelvis/Bip001 Spine/bone_zip001/bone_zip002

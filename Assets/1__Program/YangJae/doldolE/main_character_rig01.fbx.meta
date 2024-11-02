@@ -3,7 +3,22 @@ guid: 6cbaf73279ac8c34099e689c5faf8d88
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eye
+    second: {fileID: 2100000, guid: b7e490dda53f4f747b7a785f13e9594f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: main_character_material
+    second: {fileID: 2100000, guid: 5cfcd4e51ffc77a4bab8c10e0ab1c401, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: robot_material
+    second: {fileID: 2100000, guid: 97d809cae1bc94d4c84f01ad517d0abe, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

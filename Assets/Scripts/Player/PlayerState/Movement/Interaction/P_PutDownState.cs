@@ -35,6 +35,7 @@ public class P_PutDownState : P_InteractionState
         player.isCarryObject = false;
         player.curInteractableObject = null;
         player.curCarriedObject = null;
+        player.isHandIK = false;
     }
 
 }

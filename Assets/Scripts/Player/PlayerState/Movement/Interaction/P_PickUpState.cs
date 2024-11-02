@@ -44,6 +44,7 @@ public class P_PickUpState : P_InteractionState
         player.curCarriedObject.transform.parent = player.CarriedObjectPos;
         player.curCarriedObject.transform.localPosition = Vector3.zero;
         player.curCarriedObject.transform.localRotation = Quaternion.identity;
+        player.isHandIK = true;
     }
 
     public override void OnAnimationExitEvent()

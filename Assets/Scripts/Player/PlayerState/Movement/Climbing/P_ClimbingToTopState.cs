@@ -11,6 +11,7 @@ public class P_ClimbingToTopState : P_ClimbingState
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.ClimbingToTopParameterHash);
         player.playerAnim.applyRootMotion = true;
+        player.playerAnim.updateMode = AnimatorUpdateMode.AnimatePhysics;
         player.SetColliderTrigger(false);
     }
 

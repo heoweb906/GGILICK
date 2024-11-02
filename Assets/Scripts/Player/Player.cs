@@ -88,6 +88,8 @@ public class Player : MonoBehaviour
     public float hangingPosOffset_Front;
     public float hangingPosOffset_Height;
 
+    public bool isHandIK = false;
+
 
     private void Awake()
     {
@@ -97,6 +99,7 @@ public class Player : MonoBehaviour
         playerAnim = GetComponent<Animator>();
         isGoToTarget = false;
         Application.targetFrameRate = 180;
+        isHandIK = false;
     }
 
     private void Init()
@@ -159,6 +162,57 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectionRadius); // WireSphere로 탐지 범위 그리기
     }
 
+    public Transform leftArm;
+
+    int _x;
+    int _y;
+    int _z;
+    public void LateUpdate()
+    {
+        if (!isHandIK)
+            return;
+
+        if (Input.GetKey(KeyCode.Z))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                _x--;
+            else
+                _x++;
+        }
+        else if (Input.GetKey(KeyCode.X))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                _y--;
+            else
+                _y++;
+        }
+        else if (Input.GetKey(KeyCode.C))
+        {
+            if (Input.GetKey(KeyCode.LeftShift))
+                _z--;
+            else
+                _z++;
+        }
+        //leftArm.localEulerAngles = new Vector3(3+_x,-14 + _y,7+ _z);
+        leftArm.localEulerAngles = leftArm.localEulerAngles +  new Vector3(_x,_y,_z);
+    }
+
+    //public void OnAnimatorIK(int layerIndex)
+    //{
+    //    if (!isHandIK)
+    //        return;
+    //    playerAnim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+    //    playerAnim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+
+    //    BoxCollider _col = curCarriedObject.GetComponent<BoxCollider>();
+    //    Vector3 leftHandPos = curCarriedObject.transform.position - Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
+    //    Vector3 rightHandPos = curCarriedObject.transform.position + Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
+    //    Debug.Log(leftHandPos);
+
+    //    playerAnim.SetIKPosition(AvatarIKGoal.LeftHand, leftHandPos);
+    //    playerAnim.SetIKPosition(AvatarIKGoal.RightHand, rightHandPos);
+    //}
+
     public void SetColliderTrigger(bool _bool)
     {
         foreach (var item in playerCollider)
@@ -175,6 +229,7 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
         playerAnim.applyRootMotion = false;
+        playerAnim.updateMode = AnimatorUpdateMode.Normal;
     }
 
     public void SetPlayerPhysicsIgnore(Collider _col, bool _bool)

@@ -29,4 +29,6 @@ public class P_InteractionState : PlayerMovementState
         return;
     }
 
+    
+
 }
