@@ -15,8 +15,8 @@ public class TempCameraPos : MonoBehaviour
     [Range(-50, 50)]
     public float zPos;
 
-    private float rotationSpeed = 20.0f; // 회전 속도
-    private float moveSpeed = 10.0f; // 위치 이동 속도
+    public float rotationSpeed = 20.0f; // 회전 속도
+    public float moveSpeed = 10.0f; // 위치 이동 속도
 
     void Update()
     {
