@@ -6,6 +6,8 @@ public class Player : MonoBehaviour
 {
     public PlayerStateMachine machine;
 
+    public Transform camTransform;
+
     [Header("ThisComponent")]
     [SerializeField]
     public Rigidbody rigid;
@@ -100,6 +102,7 @@ public class Player : MonoBehaviour
         isGoToTarget = false;
         Application.targetFrameRate = 180;
         isHandIK = false;
+        camTransform = FindObjectOfType<Camera>().transform;
     }
 
     private void Init()

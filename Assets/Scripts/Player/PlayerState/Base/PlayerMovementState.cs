@@ -54,7 +54,7 @@ public class PlayerMovementState : BaseState
 
     public virtual void SetDirection()
     {
-        player.curDirection = new Vector3(_horizontal, 0, _vertical);
+        player.curDirection = player.camTransform.right * _horizontal + player.camTransform.forward * _vertical;
         if (_horizontal == 0 && _vertical == 0)
             player.curDirection = Vector3.zero;
     }
@@ -65,12 +65,6 @@ public class PlayerMovementState : BaseState
         if (Input.GetKeyDown(KeyCode.Q))
             machine.OnStateChange(machine.IdleState);
 
-        //Debug.Log("State: " + machine.CurrentState.GetType().Name);
-
-        //if (machine.CheckCurrentState(machine.WalkingState))
-        //    player.playerMoveSpeed = player.playerWalkSpeed;
-        //else if (machine.CheckCurrentState(machine.RunningState))
-        //    player.playerMoveSpeed = player.playerRunSpeed;
         player.curDirection.y = 0;
         player.curDirection = player.curDirection.normalized;
 
