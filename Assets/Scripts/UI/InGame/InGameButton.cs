@@ -24,6 +24,15 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         {
             ingameUIController.nowPlayerButton.SelectButtonOff();
         }
+
+        if (ingameUIController.ingameButtons != null)
+        {
+            foreach (var item in ingameUIController.ingameButtons)
+            {
+                item.SelectButtonOff();
+            }
+        }
+
         SelectButtonOn();
     }
 
@@ -41,6 +50,8 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public virtual void SelectButtonOn()
     {
+        DOTween.Kill(gameObject, true); 
+
         ingameUIController.nowPlayerButton = this;
     }
 

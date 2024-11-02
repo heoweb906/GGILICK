@@ -13,7 +13,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
  
     public bool bSelect = false;
 
-    private void Awake()
+    protected void Awake()
     {
         mainMenuController = FindObjectOfType<MainMenuController>();
     }
@@ -24,6 +24,15 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             mainMenuController.nowPlayerButton.SelectButtonOff();
         }
+
+        if(mainMenuController.menuButtons != null)
+        {
+            foreach(var item in mainMenuController.menuButtons)
+            {
+                item.SelectButtonOff();
+            }
+        }
+
         SelectButtonOn();
     }
 
@@ -42,6 +51,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     // 각 버튼 별로 다른 효과를 줄 수 있으므로 내용은 자식에서 작성
     public virtual void SelectButtonOn()
     {
+        DOTween.Kill(gameObject);
         mainMenuController.nowPlayerButton = this;
     }
 

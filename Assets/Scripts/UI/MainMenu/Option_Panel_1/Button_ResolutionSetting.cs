@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using TMPro;
 
-public class Button_BackToMain : MenuButton
+public class Button_ResolutionSetting : MenuButton
 {
     public override void OnPointerEnter(PointerEventData eventData)
     {
@@ -24,8 +25,10 @@ public class Button_BackToMain : MenuButton
         if (mainMenuController.bIsUIDoing) return;
         mainMenuController.bIsUIDoing = true;
 
-        mainMenuController.PanelOff(0);
+        mainMenuController.PanelOff(8);
     }
+
+
 
     public override void SelectButtonOn()
     {
@@ -40,8 +43,8 @@ public class Button_BackToMain : MenuButton
 
     public override void SelectButtonOff()
     {
-        base.SelectButtonOff();
 
+        base.SelectButtonOff();
         if (textButton != null)
         {
             textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
@@ -50,6 +53,29 @@ public class Button_BackToMain : MenuButton
     }
 
 
+    private void OnEnable()
+    {
+        int ddd = SaveData_Manager.Instance.GetResolutionIndex();
+
+        switch (ddd)
+        {
+            case 0:
+                textButton.text = "720 x 480";
+                break;
+            case 1:
+                textButton.text = "1280 x 720";
+                break;
+            case 2:
+                textButton.text = "1920 x 1080";
+                break;
+            case 3:
+                textButton.text = "2560 x 1440";
+                break;
+
+            default: break;
+ 
+        }
 
 
+    }
 }

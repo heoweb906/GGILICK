@@ -12,6 +12,7 @@ using TMPro;
 
 public class MainMenuController : MonoBehaviour
 {
+
     public MenuButton nowPlayerButton; // 현재 선택되어 있는 버튼
     public MenuButton lastButton;
     public MenuButton[] menuButtons;
@@ -28,8 +29,10 @@ public class MainMenuController : MonoBehaviour
 
     [Header("Other Panel")]
     public GameObject Panel_Other; // Panel Numebr 5;
+    public GameObject Panel_Resolution; // Panel Numer 8;
     public GameObject Panel_Other_Production; // Panel Number 6;
     public GameObject Panel_Other_Sources; // Panel Number 7;
+    
 
 
 
@@ -39,6 +42,9 @@ public class MainMenuController : MonoBehaviour
     public bool bIsUIDoing; // UI가 뭔가 기능 중임
     public float duration; // 애니메이션 지속 시간
     public float maxScale; // 최대 크기 (커질 때의 크기)
+
+
+
 
 
     private void Awake()
@@ -102,6 +108,12 @@ public class MainMenuController : MonoBehaviour
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
                 PanelChage(5);
             }
+            if (nowPanelNum == 8)
+            {
+                Panel_Resolution.SetActive(false);
+                if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
+                PanelChage(1);
+            }
 
 
         }
@@ -126,7 +138,10 @@ public class MainMenuController : MonoBehaviour
             if (button == nowPlayerButton) continue;
 
             Vector2 directionToButton = (Vector2)button.transform.position - currentPosition;
-            if (Vector2.Dot(directionToButton.normalized, direction) > 0.5f)
+
+            // 정확한 방향 탐색: 지정된 방향과의 각도가 30도 이내일 때만 선택
+            float angle = Vector2.Angle(direction, directionToButton);
+            if (angle <= 45f) // 30도 범위로 제한
             {
                 float distance = directionToButton.magnitude;
                 if (distance < closestDistance)
@@ -139,9 +154,9 @@ public class MainMenuController : MonoBehaviour
 
         if (closestButton != null)
         {
-            nowPlayerButton.SelectButtonOff(); 
-            nowPlayerButton = closestButton; 
-            nowPlayerButton.SelectButtonOn(); 
+            nowPlayerButton.SelectButtonOff();
+            nowPlayerButton = closestButton;
+            nowPlayerButton.SelectButtonOn();
         }
     }
 
@@ -163,19 +178,24 @@ public class MainMenuController : MonoBehaviour
                 PanelNow = Panel_Option;
                 break;
 
-            case 5: // Other Panel 켜기
+            case 5: 
                 Panel_Other.SetActive(true);
                 PanelNow = Panel_Other;
                 break;
 
-            case 6: // Other Panel 켜기
+            case 6: 
                 Panel_Other_Production.SetActive(true);
                 PanelNow = Panel_Other_Production;
                 break;
 
-            case 7: // Other Panel 켜기
+            case 7: 
                 Panel_Other_Sources.SetActive(true);
                 PanelNow = Panel_Other_Sources;
+                break;
+
+            case 8: 
+                Panel_Resolution.SetActive(true);
+                PanelNow = Panel_Resolution;
                 break;
 
             case 999:
@@ -272,8 +292,16 @@ public class MainMenuController : MonoBehaviour
             }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
         }
 
-
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -311,5 +339,13 @@ public class MainMenuController : MonoBehaviour
             SceneManager.LoadScene("Chapter_1");
         });
     }
+
+
+
+
+
+
+
+
 
 }

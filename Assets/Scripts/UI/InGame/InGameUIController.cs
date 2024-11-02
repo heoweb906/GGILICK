@@ -27,6 +27,7 @@ public class InGameUIController : MonoBehaviour
 
     [Header("Option Panel")]
     public GameObject Panel_Option; // Panel Number = 1;
+    public GameObject Panel_Resolution; // Panel Number = 8;
 
 
     [Header("UI 애니메이션 부드러움 수치")]
@@ -68,7 +69,7 @@ public class InGameUIController : MonoBehaviour
                 FindClosestButton(Vector2.right);
             }
         }
-
+        
         // #. ESC키는 따로 관리
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -83,8 +84,12 @@ public class InGameUIController : MonoBehaviour
                 Panel_Option.SetActive(false);
                 PanelChage(0);
             }
-
-
+            else if (nowPanelNum == 8)
+            {
+                Panel_Resolution.SetActive(false);
+                if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
+                PanelChage(1);
+            }
         }
     }
 
@@ -107,7 +112,10 @@ public class InGameUIController : MonoBehaviour
             if (button == nowPlayerButton) continue;
 
             Vector2 directionToButton = (Vector2)button.transform.position - currentPosition;
-            if (Vector2.Dot(directionToButton.normalized, direction) > 0.5f)
+
+            // 정확한 방향 탐색: 지정된 방향과의 각도가 30도 이내일 때만 선택
+            float angle = Vector2.Angle(direction, directionToButton);
+            if (angle <= 45f) // 30도 범위로 제한
             {
                 float distance = directionToButton.magnitude;
                 if (distance < closestDistance)
@@ -142,6 +150,10 @@ public class InGameUIController : MonoBehaviour
             case 1: // Option Panel 켜기
                 Panel_Option.SetActive(true);
                 PanelNow = Panel_Option;
+                break;
+            case 8: // Option Panel 켜기
+                Panel_Resolution.SetActive(true);
+                PanelNow = Panel_Resolution;
                 break;
 
             case 999:
@@ -184,6 +196,13 @@ public class InGameUIController : MonoBehaviour
     }
     public void PanelOn(GameObject ActivePanel)
     {
+        // 연출 1번
+        //ActivePanel.transform.localScale = Vector3.one * 0.5f;
+        //ActivePanel.transform.DOScale(Vector3.one, duration / 2)
+        //.SetEase(Ease.OutBack); // EaseOutBack 효과로 자연스럽게 커짐
+
+
+        // 연출 2번
         Image[] images = ActivePanel.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textMeshes = ActivePanel.GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -216,6 +235,7 @@ public class InGameUIController : MonoBehaviour
                 textMesh.color = textColor;
             }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
         }
+
     }
 
     // #. UI Off
