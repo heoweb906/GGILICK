@@ -10,6 +10,9 @@ public class P_OnAirState : PlayerMovementState
         player.moveLerpSpeed = player.playerMoveLerpSpeedOnJump;
         player.isGoToTarget = false;
         player.curClockWork = null;
+        player.isCarryObject = false;
+        player.curInteractableObject = null;
+        player.curCarriedObject = null;
     }
 
     public override void OnUpdate()
