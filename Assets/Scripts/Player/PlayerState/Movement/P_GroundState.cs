@@ -33,7 +33,7 @@ public class P_GroundState : PlayerMovementState
         {
             if(machine.CheckCurrentState(machine.WalkingState))
                 machine.OnStateChange(machine.IdleState);
-            else if(machine.CheckCurrentState(machine.RunningState) || machine.CheckCurrentState(machine.MoveLandingState))
+            else if(machine.CheckCurrentState(machine.RunningState))
                 machine.OnStateChange(machine.IdleState);
 
         }
@@ -48,15 +48,22 @@ public class P_GroundState : PlayerMovementState
 
     public void CheckInputJump()
     {
-        if (Input.GetButtonDown("Jump") && !player.isCarryObject)
+        if (Input.GetButtonDown("Jump"))
         {
-            if (GetCurDirection() == Vector3.zero)
+            if (!player.isCarryObject)
             {
-                machine.OnStateChange(machine.JumpStartIdleState);
+                if (GetCurDirection() == Vector3.zero)
+                {
+                    machine.OnStateChange(machine.JumpStartIdleState);
+                }
+                else
+                {
+                    machine.OnStateChange(machine.JumpStartMoveState);
+                }
             }
             else
             {
-                machine.OnStateChange(machine.JumpStartMoveState);
+                machine.OnStateChange(machine.ThrowState);
             }
         }
     }

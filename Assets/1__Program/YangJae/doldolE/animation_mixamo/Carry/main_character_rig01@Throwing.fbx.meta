@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 888d44446f740034b9553be5a8a25f81
+guid: 4057e229fc0da094ebe9a9a02978f8c2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
-      takeName: Take 001
-      internalID: 1827226128182048838
-      firstFrame: 10
-      lastFrame: 20
+      name: Throwing
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 334
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -57,7 +57,14 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.9597198
+      - time: 0.5
+        functionName: TriggerOnMovementStateAnimationTransitionEvent
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.84565216
         functionName: TriggerOnMovementStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
 
 public class P_HangingState : P_ClimbingState
 {
@@ -27,9 +26,8 @@ public class P_HangingState : P_ClimbingState
         base.OnUpdate();
         if (Input.GetButtonUp("Fire1"))
             machine.OnStateChange(machine.FallingIdleState);
-        else if (Input.GetButton("Jump") && !player.playerAnim.IsInTransition(0))
+        else if (Input.GetAxisRaw("Vertical") == 1 && !player.playerAnim.IsInTransition(0))
         {
-            Debug.Log("!!!!!!!!!");
             machine.OnStateChange(machine.ClimbingToTopState);
         }
     }

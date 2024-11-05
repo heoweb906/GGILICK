@@ -57,7 +57,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.86984813
+      - time: 0.92063624
         functionName: TriggerOnMovementStateAnimationExitEvent
         data: 
         objectReferenceParameter: {instanceID: 0}

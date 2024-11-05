@@ -51,6 +51,7 @@ public class PlayerAnimationData
     [SerializeField] private string spinClockWorkParameterName = "isSpinClockWork";
     [SerializeField] private string pickUpParameterName = "isPickUp";
     [SerializeField] private string putDownParameterName = "isPutDown";
+    [SerializeField] private string throwParameterName = "isThrow";
 
 
     public int GroundParameterHash { get; private set; }
@@ -88,6 +89,7 @@ public class PlayerAnimationData
     public int SpinClockWorkParameterHash { get; private set; }
     public int PickUpParameterHash { get; private set; }
     public int PutDownParameterHash { get; private set; }
+    public int ThrowParameterHash { get; private set; }
 
     public void Initialize()
     {
@@ -124,6 +126,7 @@ public class PlayerAnimationData
         SpinClockWorkParameterHash = Animator.StringToHash(spinClockWorkParameterName);
         PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
         PutDownParameterHash = Animator.StringToHash(putDownParameterName);
+        ThrowParameterHash = Animator.StringToHash(throwParameterName);
     }
 
 }

@@ -37,6 +37,7 @@ public class PlayerStateMachine : StateMachine
     public P_SpinClockWorkState SpinClockWorkState { get; private set; }
     public P_PickUpState PickUpState { get; private set; }
     public P_PutDownState PutDownState { get; private set; }
+    public P_ThrowState ThrowState { get; private set; }
 
 
     public PlayerStateMachine(Player _player)
@@ -74,6 +75,7 @@ public class PlayerStateMachine : StateMachine
         SpinClockWorkState = new P_SpinClockWorkState(player, this);
         PickUpState = new P_PickUpState(player, this);
         PutDownState = new P_PutDownState(player, this);
+        ThrowState = new P_ThrowState(player, this);
 
         CurrentState = IdleState;
         CurrentState.OnEnter();

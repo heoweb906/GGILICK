@@ -81,6 +81,8 @@ public class Player : MonoBehaviour
     public Transform CarriedObjectPos;
     public float carriedObjectInteractionDistance = 1f; // 상호작용 거리
     public bool isCarryObject;
+    [Range(0,50)]
+    public float throwPower;
 
     [Header("Climb")]
     public float cliffCheckRayDistance = 1f; // 탐지 반경
@@ -90,6 +92,7 @@ public class Player : MonoBehaviour
     public float hangingPosOffset_Front;
     public float hangingPosOffset_Height;
 
+    [Header("물건 잡기 IK")]
     public bool isHandIK = false;
 
 
@@ -165,9 +168,12 @@ public class Player : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectionRadius); // WireSphere로 탐지 범위 그리기
     }
 
-    public Transform leftArm;
 
-    int _x;
+    public Transform tf_L_UpperArm;
+    public Transform tf_L_Hand;
+    public Transform tf_R_UpperArm;
+    public Transform tf_R_Hand;
+    public int _x;
     int _y;
     int _z;
     public void LateUpdate()
@@ -182,22 +188,62 @@ public class Player : MonoBehaviour
             else
                 _x++;
         }
-        else if (Input.GetKey(KeyCode.X))
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-                _y--;
-            else
-                _y++;
-        }
-        else if (Input.GetKey(KeyCode.C))
-        {
-            if (Input.GetKey(KeyCode.LeftShift))
-                _z--;
-            else
-                _z++;
-        }
-        //leftArm.localEulerAngles = new Vector3(3+_x,-14 + _y,7+ _z);
-        leftArm.localEulerAngles = leftArm.localEulerAngles +  new Vector3(_x,_y,_z);
+        //else if (Input.GetKey(KeyCode.X))
+        //{
+        //    if (Input.GetKey(KeyCode.LeftShift))
+        //        _y--;
+        //    else
+        //        _y++;
+        //}
+        //else if (Input.GetKey(KeyCode.C))
+        //{
+        //    if (Input.GetKey(KeyCode.LeftShift))
+        //        _z--;
+        //    else
+        //        _z++;
+        //}
+        ////leftArm.localEulerAngles = new Vector3(3+_x,-14 + _y,7+ _z);
+        ///
+
+        BoxCollider _col = curCarriedObject.GetComponent<BoxCollider>();
+        Vector3 boxScale = Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
+        Vector3 leftTargetPos3D = curCarriedObject.transform.position - transform.right * boxScale.x;
+        Vector2 leftTargetPos = new Vector2(leftTargetPos3D.x, leftTargetPos3D.z);
+
+        Vector2 _leftUpperArm = new Vector2(tf_L_UpperArm.transform.position.x, tf_L_UpperArm.transform.position.z);
+        Vector2 _leftHand = new Vector2(tf_L_Hand.transform.position.x, tf_L_Hand.transform.position.z);
+
+        Vector2 upperArmToHand = _leftHand - _leftUpperArm;
+        Vector2 upperArmToTarget = leftTargetPos - _leftUpperArm;
+
+        float dotProduct = Vector2.Dot(upperArmToHand.normalized, upperArmToTarget.normalized);
+
+
+        //float magnitudeUpperArmToHand = upperArmToHand.magnitude;
+        //float magnitudeUpperArmToTarget = upperArmToTarget.magnitude;
+        //float angle = Mathf.Acos(dotProduct / (magnitudeUpperArmToHand * magnitudeUpperArmToTarget)) * Mathf.Rad2Deg;
+
+
+        float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+
+        tf_L_UpperArm.eulerAngles = tf_L_UpperArm.eulerAngles + new Vector3(0, angle + _x, 0);
+
+
+        //Vector2 rightTargetPos = new Vector2(curCarriedObject.transform.position.x * transform.right.x - boxScale.y, curCarriedObject.transform.position.z * transform.forward.z);
+
+        //Vector2 _RightUpperArm = new Vector2(tf_R_UpperArm.transform.position.x, tf_R_UpperArm.transform.position.z);
+        //Vector2 _RightHand = new Vector2(tf_R_Hand.transform.position.x, tf_R_Hand.transform.position.z);
+
+        //upperArmToHand = _RightHand - _RightUpperArm;
+        //upperArmToTarget = _RightHand - rightTargetPos;
+
+        //dotProduct = Vector2.Dot(upperArmToHand, upperArmToTarget);
+        //magnitudeUpperArmToHand = upperArmToHand.magnitude;
+        //magnitudeUpperArmToTarget = upperArmToTarget.magnitude;
+
+        //angle = Mathf.Acos(dotProduct / (magnitudeUpperArmToHand * magnitudeUpperArmToTarget)) * Mathf.Rad2Deg;
+
+        tf_R_UpperArm.eulerAngles = tf_R_UpperArm.eulerAngles - new Vector3(0, angle + _x, 0);
     }
 
     //public void OnAnimatorIK(int layerIndex)
