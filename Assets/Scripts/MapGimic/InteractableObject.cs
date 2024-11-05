@@ -8,10 +8,13 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public InteractableType type;
     public bool canInteract;
+
+    virtual public void ActiveEvent() { }
 }
 
 public enum InteractableType
 {
     ClockWork,
-    Carrried
+    Carrried,
+    SingleEvent
 }

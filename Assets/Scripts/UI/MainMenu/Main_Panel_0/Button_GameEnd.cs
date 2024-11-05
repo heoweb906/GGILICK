@@ -34,8 +34,8 @@ public class Button_GameEnd : MenuButton
 
         if (textButton != null)
         {
-            textButton.DOFontSize(24f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc);
+            textButton.DOFontSize(24f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
         }
     }
 
@@ -45,8 +45,8 @@ public class Button_GameEnd : MenuButton
 
         if (textButton != null)
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(1f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc);
+            textButton.DOFontSize(20f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            textButton.DOColor(new Color(1f, 1f, 1f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
         }
     }
 }

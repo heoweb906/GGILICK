@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 
@@ -176,8 +177,12 @@ public class SaveData_Manager : MonoBehaviour
             settingsData.Volume.Master = 1.0f;
             settingsData.Volume.BGM = 0.5f;
             settingsData.Volume.Effect = 0.5f;
-            settingsData.bFullScreen = true;
-            settingsData.Resolution = ResolutionSettings.AvailableResolutions[3]; 
+
+
+            SetFullScreen(true);
+            SetResolution(3);
+
+
             SaveSettings();
 
             Debug.Log("불러올 데이터가 없습니다. 초기 세팅값을 설정합니다.");

@@ -53,7 +53,11 @@ public class MainMenuController : MonoBehaviour
     }
     private void Update()
     {
-        InputKey();
+        if(!bIsUIDoing)
+        {
+            InputKey();
+        }
+        
     }
 
     private void InputKey()
@@ -292,12 +296,9 @@ public class MainMenuController : MonoBehaviour
             }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
         }
 
+
+
     }
-
-
-
-
-
 
 
 
@@ -336,16 +337,9 @@ public class MainMenuController : MonoBehaviour
         .SetEase(Ease.OutQuad)
         .OnComplete(() => {
             // 애니메이션이 끝난 후 'Chapter_1' 씬으로 전환
-            SceneManager.LoadScene("Chapter_1");
+            SceneManager.LoadScene("Chapter_1_City1");
         });
     }
-
-
-
-
-
-
-
 
 
 }

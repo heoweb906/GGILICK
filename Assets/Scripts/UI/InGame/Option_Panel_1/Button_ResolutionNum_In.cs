@@ -45,13 +45,14 @@ public class Button_ResolutionNum_In : InGameButton
 
     public override void SelectButtonOn()
     {
+        base.SelectButtonOn();
+
         if (textButton != null)
         {
-            textButton.DOFontSize(24f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            DOTween.Kill(gameObject, true);
+            textButton.DOFontSize(24f, fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
         }
-
-        base.SelectButtonOn();
     }
 
     public override void SelectButtonOff()
@@ -60,32 +61,17 @@ public class Button_ResolutionNum_In : InGameButton
 
         if (textButton != null && !bButtonSelceted)
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-            textButton.DOColor(new Color(1f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            textButton.DOFontSize(20f, fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            textButton.DOColor(new Color(1f, 1f, 1f, 1f), fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
         }
         else
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            textButton.DOFontSize(20f, fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
+            textButton.DOColor(new Color(1f, 1f, 0f, 1f), fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true); ;
         }
     }
 
 
-
-    public void ButtonSelceted()
-    {
-        if (!bButtonSelceted)
-        {
-            bButtonSelceted = true;
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-        }
-        else
-        {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true); ;
-        }
-    }
 
     private void OnEnable()
     {

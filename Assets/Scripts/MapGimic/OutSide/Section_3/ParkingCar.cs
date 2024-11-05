@@ -29,6 +29,8 @@ public class ParkingCar : ClockBattery
     }
 
 
+
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();

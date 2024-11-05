@@ -47,13 +47,14 @@ public class Button_ResolutionNum : MenuButton
 
     public override void SelectButtonOn()
     {
+        base.SelectButtonOn();
+
         if (textButton != null)
         {
-            textButton.DOFontSize(24f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc);
+            textButton.DOFontSize(24f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            Debug.Log(1);
         }
-
-        base.SelectButtonOn();
     }
 
     public override void SelectButtonOff()
@@ -62,32 +63,18 @@ public class Button_ResolutionNum : MenuButton
 
         if (textButton != null && !bButtonSelceted)
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(1f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc);
+            textButton.DOFontSize(20f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            textButton.DOColor(new Color(1f, 1f, 1f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
         }
         else
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc);
+            textButton.DOFontSize(20f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            textButton.DOColor(new Color(1f, 1f, 0f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
+            Debug.Log(2);
         }
     }
 
 
-
-    public void ButtonSelceted()
-    {
-        if (!bButtonSelceted)
-        {
-            bButtonSelceted = true;
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc);
-        }
-        else
-        {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc);
-            textButton.DOColor(new Color(1f, 1f, 0f, 1f), 0.15f).SetEase(Ease.OutCirc);
-        }
-    }
 
     private void OnEnable()
     {

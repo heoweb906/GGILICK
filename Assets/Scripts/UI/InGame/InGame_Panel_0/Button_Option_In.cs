@@ -33,8 +33,8 @@ public class Button_Option_In : InGameButton
 
         if (textButton != null)
         {
-            textButton.DOFontSize(24f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true);
-            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true);
+            textButton.DOFontSize(24f, fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true);
+            textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true);
         }
     }
 
@@ -44,8 +44,8 @@ public class Button_Option_In : InGameButton
 
         if (textButton != null)
         {
-            textButton.DOFontSize(20f, 0.15f).SetEase(Ease.OutCirc).SetUpdate(true);
-            textButton.DOColor(new Color(1f, 1f, 1f, 1f), 0.15f).SetEase(Ease.OutCirc).SetUpdate(true);
+            textButton.DOFontSize(20f, fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true);
+            textButton.DOColor(new Color(1f, 1f, 1f, 1f), fButtonAnimtionDelay).SetEase(Ease.OutCirc).SetUpdate(true);
         }
     }
 }

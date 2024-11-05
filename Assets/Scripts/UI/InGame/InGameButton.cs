@@ -11,6 +11,8 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected InGameUIController ingameUIController;
     public TMP_Text textButton;
 
+    protected float fButtonAnimtionDelay = 0.3f;
+
     public bool bSelect = false;
 
     private void Awake()

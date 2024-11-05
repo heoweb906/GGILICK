@@ -37,6 +37,12 @@ public class InGameUIController : MonoBehaviour
     public bool bIsUIDoing; // UI가 뭔가 기능 중임
     public float duration; // 애니메이션 지속 시간
 
+
+    private void Start()
+    {
+        FadeOutImageEffect();
+    }
+
     private void Update()
     {
         InputKey();
@@ -48,8 +54,6 @@ public class InGameUIController : MonoBehaviour
         {
             if (nowPlayerButton != null) nowPlayerButton.ImplementButton();
         }
-
-
         if (bUIOnOff)
         {
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -69,7 +73,8 @@ public class InGameUIController : MonoBehaviour
                 FindClosestButton(Vector2.right);
             }
         }
-        
+
+
         // #. ESC키는 따로 관리
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -244,7 +249,7 @@ public class InGameUIController : MonoBehaviour
         Time.timeScale = 1f;
         if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
 
-        FadeInOutImage(0f);
+        FadeInOutImage(0f,0.2f);
         PanelNow.SetActive(false);
         nowPanelNum = 643;
         bUIOnOff = false;
@@ -254,11 +259,44 @@ public class InGameUIController : MonoBehaviour
     // #. UI On
     public void OnInGameUI()
     {
+        if (bUIOnOff) return;
+
         PanelChage(0);
-        FadeInOutImage(0.9f);
+        FadeInOutImage(0.9f, 0.2f);
         bUIOnOff = true;
         Time.timeScale = 0f;
     }
+
+
+    // #. Scene 최초 실행 시 화면
+    private void FadeOutImageEffect()
+    {
+        bUIOnOff = true;
+
+        Image fadeoutImage = image_FadeOut.GetComponent<Image>();
+        Color fadeColor = fadeoutImage.color;
+
+        // 알파값을 fTargetAlpha까지 duration 동안 올리는 애니메이션
+        DOTween.To(() => fadeColor.a, x => {
+            fadeColor.a = x;
+            fadeoutImage.color = fadeColor;
+        }, 1f, 0f)
+        .SetEase(Ease.Linear)
+        .SetUpdate(true).OnComplete(() => {
+
+            DOTween.To(() => fadeColor.a, x => {
+                fadeColor.a = x;
+                fadeoutImage.color = fadeColor;
+            }, 0f, 2.5f)
+                .SetEase(Ease.Linear)
+                  .SetUpdate(true);
+
+
+            bUIOnOff = false;
+            
+        });
+    }
+
 
 
     // #. UI Panel 활성 여부 확인
@@ -274,7 +312,7 @@ public class InGameUIController : MonoBehaviour
     /// </summary>
 
     // FadeInOutImage 알파값 조절 함수
-    private void FadeInOutImage(float fTargetAlpha) // 매개변수는 목표 수치
+    public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // 매개변수는 목표 수치, 걸리는 시간
     {
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
@@ -283,15 +321,19 @@ public class InGameUIController : MonoBehaviour
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
-        }, fTargetAlpha, duration)
+        }, fTargetAlpha, fFadeDuration)
         .SetEase(Ease.Linear)
         .SetUpdate(true); // Time.timeScale의 영향을 받지 않도록 SetUpdate(true) 설정
     }
 
 
+
+
     // #. Scene 전환 함수, main 화면으로 돌아가기
-    public void ReturnMainMenu()
+    public void ChangeScene(string SceneName)
     {
+        bUIOnOff = true;
+
         image_FadeOut_ForReturn.SetActive(true);
         Image fadeoutImage = image_FadeOut_ForReturn.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
@@ -300,14 +342,14 @@ public class InGameUIController : MonoBehaviour
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
-        }, 1f, 1.5f)
+        }, 1f, 2.5f)
         .SetEase(Ease.OutQuad).SetUpdate(true)
         .OnComplete(() => {
             // 씬 전환 직전에 Time.timeScale을 1로 돌림
             Time.timeScale = 1f;
 
-            // 애니메이션이 끝난 후 'MainMenu' 씬으로 전환
-            SceneManager.LoadScene("MainMenu");
+            bUIOnOff = false;
+            SceneManager.LoadScene(SceneName);
         });
     }
 }

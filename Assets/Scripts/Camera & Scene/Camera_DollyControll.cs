@@ -13,6 +13,8 @@ public class Camera_DollyControll : MonoBehaviour
     // 카트가 플레이어 위치에 맞춰 이동하는 속도 조정
     public float followSpeed;
 
+
+
     void FixedUpdate()
     {
         if (player != null && dollyPath != null)
@@ -28,4 +30,8 @@ public class Camera_DollyControll : MonoBehaviour
         }
 
     }
+
+
+
+
 }

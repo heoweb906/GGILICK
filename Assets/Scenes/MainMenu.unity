@@ -3713,11 +3713,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 821850738}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d497b742bda33534fa472b6bc61f6263, type: 3}
+  m_Script: {fileID: 11500000, guid: dccc12c55dd18654b864acb40a0c8fd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationAmount: 2.5
-  rotationSpeed: 0.3
+  rotationAmount: 2
+  rotationSpeed: 0.5
   originalRotation: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
@@ -4828,7 +4828,7 @@ MonoBehaviour:
   Panel_Other_Sources: {fileID: 1668603857}
   image_FadeOut: {fileID: 881302151}
   bIsUIDoing: 0
-  duration: 0.2
+  duration: 0.25
   maxScale: 1.2
 --- !u!1 &1022559744
 GameObject:

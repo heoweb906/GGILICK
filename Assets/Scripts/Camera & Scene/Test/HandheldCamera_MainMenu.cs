@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class HandheldCamera : MonoBehaviour
+public class HandheldCamera_MainMenu : MonoBehaviour
 {
-    public float rotationAmount = 0.2f; // Amount of rotation
-    public float rotationSpeed = 1.0f; // Rotation speed
+    public float rotationAmount; // Amount of rotation
+    public float rotationSpeed; // Rotation speed
 
     public Vector3 originalRotation;
 
-    void Start()
+    private void Start()
     {
         originalRotation = transform.localEulerAngles;
     }
