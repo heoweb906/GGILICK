@@ -13,6 +13,8 @@ using TMPro;
 
 public class InGameUIController : MonoBehaviour
 {
+    public static InGameUIController Instance { get; private set; }
+
     public InGameButton nowPlayerButton; // 현재 선택되어 있는 버튼
     public InGameButton lastButton;
     public InGameButton[] ingameButtons;
@@ -41,6 +43,7 @@ public class InGameUIController : MonoBehaviour
     private void Start()
     {
         FadeOutImageEffect();
+        Instance = this;
     }
 
     private void Update()
