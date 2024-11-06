@@ -53,6 +53,12 @@ public class PlayerAnimationData
     [SerializeField] private string putDownParameterName = "isPutDown";
     [SerializeField] private string throwParameterName = "isThrow";
 
+    [Header("Interaction_Grap Group Parameter")]
+    [SerializeField] private string grabParameterName = "Grab";
+    [SerializeField] private string pushParameterName = "isPush";
+    [SerializeField] private string grabIdleParameterName = "isGrabIdle";
+    [SerializeField] private string pullParameterName = "isPull";
+
 
     public int GroundParameterHash { get; private set; }
     public int OnAirParameterHash { get; private set; }
@@ -91,6 +97,11 @@ public class PlayerAnimationData
     public int PutDownParameterHash { get; private set; }
     public int ThrowParameterHash { get; private set; }
 
+    public int GrabParameterHash { get; private set; }
+    public int PushParameterHash { get; private set; }
+    public int GrabIdleParameterHash { get; private set; }
+    public int PullParameterHash { get; private set; }
+
     public void Initialize()
     {
         GroundParameterHash = Animator.StringToHash(groundParameterName);
@@ -127,6 +138,11 @@ public class PlayerAnimationData
         PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
         PutDownParameterHash = Animator.StringToHash(putDownParameterName);
         ThrowParameterHash = Animator.StringToHash(throwParameterName);
+
+        GrabParameterHash = Animator.StringToHash(grabParameterName);
+        PushParameterHash = Animator.StringToHash(pushParameterName);
+        GrabIdleParameterHash = Animator.StringToHash(grabIdleParameterName);
+        PullParameterHash = Animator.StringToHash(pullParameterName);
     }
 
 }

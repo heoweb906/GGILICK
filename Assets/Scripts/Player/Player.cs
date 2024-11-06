@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool stateChangeDebug;
+
+
     public PlayerStateMachine machine;
 
     public Transform camTransform;
@@ -83,6 +86,11 @@ public class Player : MonoBehaviour
     public bool isCarryObject;
     [Range(0,50)]
     public float throwPower;
+
+    [Header("물건 밀기")]
+    public GrabObject curGrabObject;
+    public Transform grabPos;
+    public float grabObjectInteractionDistance = 1f; // 상호작용 거리
 
     [Header("Climb")]
     public float cliffCheckRayDistance = 1f; // 탐지 반경

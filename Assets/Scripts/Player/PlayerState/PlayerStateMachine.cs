@@ -39,6 +39,11 @@ public class PlayerStateMachine : StateMachine
     public P_PutDownState PutDownState { get; private set; }
     public P_ThrowState ThrowState { get; private set; }
 
+    public P_GrabState GrabState { get; private set; }
+    public P_GrabIdleState GrabIdleState { get; private set; }
+    public P_PushState PushState { get; private set; }
+    public P_PullState PullState { get; private set; }
+
 
     public PlayerStateMachine(Player _player)
     {
@@ -76,6 +81,11 @@ public class PlayerStateMachine : StateMachine
         PickUpState = new P_PickUpState(player, this);
         PutDownState = new P_PutDownState(player, this);
         ThrowState = new P_ThrowState(player, this);
+
+        GrabState = new P_GrabState(player, this);
+        GrabIdleState = new P_GrabIdleState(player, this);
+        PushState = new P_PushState(player, this);
+        PullState = new P_PullState(player, this);
 
         CurrentState = IdleState;
         CurrentState.OnEnter();

@@ -16,5 +16,6 @@ public enum InteractableType
 {
     ClockWork,
     Carrried,
-    SingleEvent
+    SingleEvent,
+    Grab
 }

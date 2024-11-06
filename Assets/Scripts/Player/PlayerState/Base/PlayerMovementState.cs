@@ -15,7 +15,8 @@ public class PlayerMovementState : BaseState
 
     public virtual void OnEnter()
     {
-        Debug.Log("State: " + GetType().Name);
+        if (player.stateChangeDebug)
+            Debug.Log("State: " + GetType().Name);
     }
 
     public virtual void OnExit()

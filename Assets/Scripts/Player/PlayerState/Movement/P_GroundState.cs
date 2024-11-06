@@ -103,8 +103,15 @@ public class P_GroundState : PlayerMovementState
             else if (player.curInteractableObject.type == InteractableType.Carrried)
             {
                 player.curCarriedObject = player.curInteractableObject.GetComponent<CarriedObject>();
-                Debug.Log(player.curCarriedObject.transform.position);
                 player.targetPos = player.curCarriedObject.transform.position + (player.transform.position - player.curCarriedObject.transform.position).normalized * player.carriedObjectInteractionDistance;
+
+            }
+            else if (player.curInteractableObject.type == InteractableType.Grab)
+            {
+                player.curGrabObject = player.curInteractableObject.GetComponent<GrabObject>();
+                player.grabPos = player.curGrabObject.GetClosestPosition(player.transform);
+                player.targetPos = player.grabPos.position +
+                    player.grabPos.forward * player.grabObjectInteractionDistance;
 
             }
 
@@ -118,6 +125,8 @@ public class P_GroundState : PlayerMovementState
                     machine.OnStateChange(machine.SpinClockWorkState);
                 else if(player.curInteractableObject.type == InteractableType.Carrried)
                     machine.OnStateChange(machine.PickUpState);
+                else if(player.curInteractableObject.type == InteractableType.Grab)
+                    machine.OnStateChange(machine.GrabIdleState);
             }
 
             //player.closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
@@ -126,7 +135,9 @@ public class P_GroundState : PlayerMovementState
         {
             player.curClockWork = null; // 가장 가까운 ClockWork 참조 초기화
             player.curCarriedObject = null; // 가장 가까운 ClockWork 참조 초기화
+            player.curGrabObject = null; // 가장 가까운 ClockWork 참조 초기화
             player.curInteractableObject = null; // 가장 가까운 ClockWork 참조 초기화
+            player.isCarryObject = false;
             player.isGoToTarget = false;
         }
     }
