@@ -18,7 +18,7 @@ public class GamePositionChanger : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.Find("DolDolE");
     }
 
     private void OnTriggerEnter(Collider other)
