@@ -8,11 +8,11 @@ using UnityEngine.UI;
 
 public class GamePositionChanger : MonoBehaviour
 {
+    private GameObject player;
     public string sChangeSceneName = "Only_PositionChange";
-    public bool bOnlyPositionChange; // 포지션만 바꾸는지 or Scene도 함께 바꾸는지
 
     [Header("Position 이동일 경우에 필요한 정보들")]
-    private GameObject player;
+
     public CineCameraChager cienCamareChager;
     public Transform targetPosition;
 
@@ -25,7 +25,7 @@ public class GamePositionChanger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            if(bOnlyPositionChange) InGameUIController.Instance.ChangeScene(sChangeSceneName);
+            if(sChangeSceneName != "NULL") InGameUIController.Instance.ChangeScene(sChangeSceneName);
             else
             {
                 if(cienCamareChager != null && targetPosition != null) ChangePosition();

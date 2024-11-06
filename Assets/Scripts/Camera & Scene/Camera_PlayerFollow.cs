@@ -3,10 +3,16 @@ using UnityEngine;
 
 public class Camera_PlayerFollow : CameraObj
 {
-    public Transform player;  // 추적할 플레이어의 Transform
+    private Transform player;  // 추적할 플레이어의 Transform
     public Vector3 offset;    // 카메라와 플레이어 간의 오프셋
     public float smoothSpeed = 0.125f;  // 카메라 이동 속도
     public Vector3 rotationOffset; // 카메라의 회전 오프셋
+
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+
+    }
 
     void FixedUpdate()
     {

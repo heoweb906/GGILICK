@@ -6,13 +6,19 @@ using DG.Tweening;
 
 public class Camera_DollyControll : MonoBehaviour
 {
-    public Transform player; // 플레이어의 Transform
+    private Transform player; // 플레이어의 Transform
     public CinemachineDollyCart dollyCart; // Cinemachine Dolly Cart
     public CinemachineSmoothPath dollyPath; // Cinemachine Path
 
     // 카트가 플레이어 위치에 맞춰 이동하는 속도 조정
     public float followSpeed;
 
+
+    private void Start()
+    {
+        player = GameObject.FindWithTag("Player").transform;
+
+    }
 
 
     void FixedUpdate()
