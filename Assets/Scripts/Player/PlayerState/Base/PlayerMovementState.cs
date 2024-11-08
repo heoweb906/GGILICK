@@ -17,6 +17,9 @@ public class PlayerMovementState : BaseState
     {
         if (player.stateChangeDebug)
             Debug.Log("State: " + GetType().Name);
+
+        player.rotateLerpSpeed = player.playerDefaultRotateLerpSpeed;
+
     }
 
     public virtual void OnExit()
@@ -61,7 +64,7 @@ public class PlayerMovementState : BaseState
     }
 
     // 플레이어 기본 이동
-    public void PlayerVelocityControll()
+    public virtual void PlayerVelocityControll()
     {
         if (Input.GetKeyDown(KeyCode.Q))
             machine.OnStateChange(machine.IdleState);
@@ -69,12 +72,9 @@ public class PlayerMovementState : BaseState
         player.curDirection.y = 0;
         player.curDirection = player.curDirection.normalized;
 
-        // Rotation 이동 방향으로 조절
-        if (player.curDirection != Vector3.zero)
-        {
-            Quaternion targetRotation = Quaternion.LookRotation(player.curDirection);
-            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, player.playerRotateLerpSpeed * Time.fixedDeltaTime);
-        }
+        
+
+        PlayerRotationControll();
 
         // Rigid의 속도 조절로 이동, 보간 사용
         player.curDirection = Vector3.Lerp(player.preDirection, player.curDirection, player.moveLerpSpeed * Time.fixedDeltaTime);
@@ -118,6 +118,16 @@ public class PlayerMovementState : BaseState
         player.rigid.velocity += player.platformVelocity;
         player.preDirection = player.curDirection;
         //Debug.Log(player.rigid.velocity);
+    }
+
+    public virtual void PlayerRotationControll()
+    {
+        // Rotation 이동 방향으로 조절
+        if (player.curDirection != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(player.curDirection);
+            player.transform.rotation = Quaternion.Slerp(player.transform.rotation, targetRotation, player.rotateLerpSpeed * Time.fixedDeltaTime);
+        }
     }
 
     

@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     [SerializeField, Range(0, 60)]
     public float playerMoveLerpSpeedOnJump;
     [SerializeField, Range(0, 60)]
-    public float playerRotateLerpSpeed;
+    public float playerDefaultRotateLerpSpeed;
     [Header("점프")]
     [SerializeField, Range(0, 20)]
     public float firstJumpPower;
@@ -64,6 +64,7 @@ public class Player : MonoBehaviour
 
 
     public float playerMoveSpeed;
+    public float rotateLerpSpeed;
     public bool isRun = false;
 
     public Vector3 curDirection = Vector3.zero;
@@ -91,6 +92,10 @@ public class Player : MonoBehaviour
     public GrabObject curGrabObject;
     public Transform grabPos;
     public float grabObjectInteractionDistance = 1f; // 상호작용 거리
+    [SerializeField, Range(0, 60)]
+    public float playerGrapRotateLerpSpeed;
+    [SerializeField, Range(0, 60)]
+    public float playerGrapMoveSpeed;
 
     [Header("Climb")]
     public float cliffCheckRayDistance = 1f; // 탐지 반경

@@ -19,6 +19,8 @@ public class P_PullState : P_GrabState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        if (player.curDirection == Vector3.zero)
+            machine.OnStateChange(machine.GrabIdleState);
     }
 
 }

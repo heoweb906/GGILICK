@@ -6,7 +6,7 @@ public class GrabObject : InteractableObject
 {
     public Rigidbody rigid;
     public Collider col;
-
+    public FixedJoint joint;
     public List<Transform> grabPosition;
 
     private void Start()
@@ -15,6 +15,7 @@ public class GrabObject : InteractableObject
         canInteract = true;
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
+        joint = GetComponent<FixedJoint>();
     }
 
     public Transform GetClosestPosition(Transform _tf)
