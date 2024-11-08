@@ -5,7 +5,7 @@ public class HandheldCamera : MonoBehaviour
     public float rotationAmount; // Amount of rotation
     public float rotationSpeed; // Rotation speed
 
-    public Vector3 originalRotation;
+    private Vector3 originalRotation;
 
     void FixedUpdate()
     {

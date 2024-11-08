@@ -32,6 +32,7 @@ public class MainMenuController : MonoBehaviour
     public GameObject Panel_Resolution; // Panel Numer 8;
     public GameObject Panel_Other_Production; // Panel Number 6;
     public GameObject Panel_Other_Sources; // Panel Number 7;
+    public GameObject Panel_Warning; // Panel Number 9;
     
 
 
@@ -118,6 +119,12 @@ public class MainMenuController : MonoBehaviour
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
                 PanelChage(1);
             }
+            if(nowPanelNum == 9)
+            {
+                Panel_Warning.SetActive(false);
+                if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
+                PanelChage(0);
+            }
 
 
         }
@@ -202,6 +209,14 @@ public class MainMenuController : MonoBehaviour
                 PanelNow = Panel_Resolution;
                 break;
 
+            case 9:
+                Panel_Warning.SetActive(true);
+                PanelNow = Panel_Warning;
+                break;
+
+
+                
+
             case 999:
                 return;
    
@@ -231,6 +246,7 @@ public class MainMenuController : MonoBehaviour
         menuButtons = foundButtons.ToArray();
         if (menuButtons.Length != 0) lastButton = menuButtons[0];
         lastButton = menuButtons[0];
+
         bIsUIDoing = false;
     }
 
@@ -312,7 +328,7 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
 
     // #. Scene 전환 함수, 게임 시작 버튼에서 사용하지만, 버튼에는 버튼 관련 기능만 넣기 위해서
-    public void StartNewGame()
+    public void StartNewGame(string sSceneSname = "Chapter_1_City1")
     {
         // Vignette의 intensity를 현재 값에서 1로 서서히 변화
         if (vignette != null)
@@ -337,9 +353,10 @@ public class MainMenuController : MonoBehaviour
         .SetEase(Ease.OutQuad)
         .OnComplete(() => {
             // 애니메이션이 끝난 후 'Chapter_1' 씬으로 전환
-            SceneManager.LoadScene("Chapter_1_City1");
+            SceneManager.LoadScene(sSceneSname);
         });
     }
 
+ 
 
 }

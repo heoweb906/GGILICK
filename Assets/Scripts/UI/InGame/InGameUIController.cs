@@ -252,7 +252,9 @@ public class InGameUIController : MonoBehaviour
         Time.timeScale = 1f;
         if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
 
-        FadeInOutImage(0f,0.2f);
+   
+
+        FadeInOutImage(0f, 0.2f);
         PanelNow.SetActive(false);
         nowPanelNum = 643;
         bUIOnOff = false;
@@ -263,6 +265,8 @@ public class InGameUIController : MonoBehaviour
     public void OnInGameUI()
     {
         if (bUIOnOff) return;
+
+        DOTween.KillAll();
 
         PanelChage(0);
         FadeInOutImage(0.9f, 0.2f);

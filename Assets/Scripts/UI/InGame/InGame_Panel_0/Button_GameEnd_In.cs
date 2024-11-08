@@ -20,6 +20,8 @@ public class Button_GameEnd_In : InGameButton
     {
         base.ImplementButton();
 
+        SaveData_Manager.Instance.SaveSettings();
+
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else

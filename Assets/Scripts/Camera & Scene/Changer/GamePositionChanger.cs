@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class GamePositionChanger : MonoBehaviour
 {
     private GameObject player;
-    public string sChangeSceneName = "Only_PositionChange";
+    public string sChangeSceneName = "NULL";
 
     [Header("Position 이동일 경우에 필요한 정보들")]
 
@@ -33,7 +33,6 @@ public class GamePositionChanger : MonoBehaviour
         }
     }
 
-
     private void ChangePosition()
     {
         StartCoroutine(ChangePosition_());
@@ -49,11 +48,13 @@ public class GamePositionChanger : MonoBehaviour
         cienCamareChager.CameraChange();
         player.transform.position = targetPosition.position;
 
+
+        GameAssistManager.Instance.RespawnChangeAssist(targetPosition);
+
         yield return new WaitForSecondsRealtime(0.5f);
 
         InGameUIController.Instance.FadeInOutImage(0f, 1.8f);
         InGameUIController.Instance.bIsUIDoing = false;
-
     }
 
 }

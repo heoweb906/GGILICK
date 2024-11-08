@@ -2,14 +2,15 @@ using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CineCameraChager : MonoBehaviour
 {
-    public GameObject OriginalCamera;
-    public GameObject TargetCamera;
+    public GameObject TargetCamera; 
 
-    public Camera mainCamera;
-    public CinemachineBrain cineBrain;
+    private Camera mainCamera;
+    private CinemachineBrain cineBrain;
+
 
 
     private void Awake()
@@ -19,56 +20,46 @@ public class CineCameraChager : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.P))
-        {
-            CameraChange();
-        }
-    }
-
-
-
     public void CameraChange()
     {
-        if (OriginalCamera.activeSelf && !TargetCamera.activeSelf) 
-        {
-            BlendChanger(OriginalCamera, TargetCamera);
-        }
-        else if (!OriginalCamera.activeSelf && TargetCamera.activeSelf)
-        {
-            BlendChanger(TargetCamera, OriginalCamera);
-        }
+        BlendChanger(TargetCamera);
+        GameAssistManager.Instance.RespawnChangeAssist(gameObject.transform);
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.transform.root.CompareTag("Player"))
         {
-            if(OriginalCamera.activeSelf && !TargetCamera.activeSelf)
-            {
-                BlendChanger(OriginalCamera, TargetCamera);
-            } 
-            else if(!OriginalCamera.activeSelf && TargetCamera.activeSelf)
-            {
-                BlendChanger(TargetCamera, OriginalCamera);
-            }
+            BlendChanger(TargetCamera);
+            GameAssistManager.Instance.RespawnChangeAssist(gameObject.transform);
         }
     }
+
 
 
        
     // #. CinemachineBrain - 버츄얼 카메라 전환시 값 불러와서 적용
-    private void BlendChanger(GameObject firstCamera, GameObject secondCamera)
+    private void BlendChanger(GameObject targetCamera)
     {
-        firstCamera.SetActive(false);
-        secondCamera.SetActive(true);
+        if (GameAssistManager.Instance.BoolNowActiveCameraObj(targetCamera)) return;
 
-        CameraObj camObj = secondCamera.GetComponent<CameraObj>();
-        CameraBlendData blendData = camObj.blendData;
-        cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(blendData.blendStyle, blendData.duration);
-        Debug.Log(blendData.blendStyle + "      /       " + blendData.duration);
+        GameAssistManager.Instance.CameraChangeAssist(targetCamera);
+
+        CameraObj camObj = targetCamera.GetComponent<CameraObj>();
+        if(camObj.blendData != null)
+        {
+            CameraBlendData blendData = camObj.blendData;
+            cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(blendData.blendStyle, blendData.duration);
+            Debug.Log(blendData.blendStyle + "      /       " + blendData.duration);
+        }
+        else
+        {
+            Debug.Log("카메라 블렌드 데이터가 없습니다.");
+        }
+       
     }
+
+
 
 }

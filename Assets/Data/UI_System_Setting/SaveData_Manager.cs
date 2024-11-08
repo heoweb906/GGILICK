@@ -1,16 +1,26 @@
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEditor.Rendering;
 using UnityEngine;
 
 
-// 관리할 데이터 목록
+// 관리할 데이터 
 [System.Serializable]
 public class SettingsData
 {
+    // #. UI, 설정 관련 데이터
     public VolumeSettings Volume = new VolumeSettings();
     public bool bFullScreen; // FullScreen 상태인지 아닌지
     public ResolutionSettings Resolution = new ResolutionSettings();
+
+
+    // #. 게임 진척도 관련 데이터
+    public int iClearStageNum;
+    public string sSceneName;
+    public int iTransformRespawn;
+    public int iCameraNum;
+    public bool bFirstStart;
 }
 
 [System.Serializable]
@@ -40,6 +50,7 @@ public class ResolutionSettings
         return $"{Width}x{Height}";
     }
 }
+
 //===================================================================================================
 
 
@@ -66,6 +77,14 @@ public class SaveData_Manager : MonoBehaviour
         LoadSettings();
     }
 
+
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K)) SaveSettings();
+        if (Input.GetKeyDown(KeyCode.C)) ClearData();
+        if (Input.GetKeyDown(KeyCode.P)) PrintData();
+    }
 
     //===================================================================================================
     // Volume setters
@@ -152,12 +171,58 @@ public class SaveData_Manager : MonoBehaviour
         return -1;
     }
     //===================================================================================================
+    public void SetIntClearStageNum(int _iClearStageNum)
+    {
+        settingsData.iClearStageNum = _iClearStageNum;
+    }
+    public int GetIntClearStageNum()
+    {
+        return settingsData.iClearStageNum;
+    }
+
+    //===================================================================================================
+    public void SetStringSceneName(string _sSceneName)
+    {
+        settingsData.sSceneName = _sSceneName;
+    }
+    public string GetStringSceneName()
+    {
+        return settingsData.sSceneName;
+    }
+    //===================================================================================================
+    public void SetIntTransformRespawn(int _iTransformRespawn)
+    {
+        settingsData.iTransformRespawn = _iTransformRespawn;
+    }
+    public int GetIntTransformRespawn()
+    {
+        return settingsData.iTransformRespawn;
+    }
+    //===================================================================================================
+    public void SetIntCameraNum(int _iCameraNum)
+    {
+        settingsData.iCameraNum = _iCameraNum;
+    }
+    public int GetIntCameraNum()
+    {
+        return settingsData.iCameraNum;
+    }
+    //===================================================================================================
+
+    public void SetBoolFirstStart(bool bbb)
+    {
+        settingsData.bFirstStart = bbb;
+    }
+    public bool GetBoolFristStart()
+    {
+        return settingsData.bFirstStart;
+    }
+    //===================================================================================================
     // Save and load methods
-    private void SaveSettings()
+    public void SaveSettings()
     {
         string json = JsonUtility.ToJson(settingsData, true);
         File.WriteAllText(filePath, json);
-
 
         Debug.Log("현재 상태를 저장하였습니다");
     }
@@ -178,18 +243,76 @@ public class SaveData_Manager : MonoBehaviour
             settingsData.Volume.BGM = 0.5f;
             settingsData.Volume.Effect = 0.5f;
 
-
             SetFullScreen(true);
             SetResolution(3);
+
+
+            settingsData.sSceneName = null;
+            settingsData.iTransformRespawn = 0;
+            settingsData.iCameraNum = 0;
 
 
             SaveSettings();
 
             Debug.Log("불러올 데이터가 없습니다. 초기 세팅값을 설정합니다.");
         }
-
-
-       
-
     }
+
+
+
+    private void ClearData()
+    {
+        settingsData.Volume.Master = 1.0f;
+        settingsData.Volume.BGM = 0.5f;
+        settingsData.Volume.Effect = 0.5f;
+
+        SetFullScreen(true);
+        SetResolution(3);
+
+        settingsData.iClearStageNum = 0;
+        settingsData.sSceneName = null;
+        settingsData.iTransformRespawn = 0;
+        settingsData.iCameraNum = 0;
+
+        SaveSettings();
+    }
+
+
+    public void PrintData()
+    {
+        Debug.Log("=== 저장된 설정 정보 ===");
+
+        // Volume 정보 출력
+        Debug.Log($"Master Volume: {settingsData.Volume.Master}");
+        Debug.Log($"BGM Volume: {settingsData.Volume.BGM}");
+        Debug.Log($"Effect Volume: {settingsData.Volume.Effect}");
+
+        // FullScreen 상태 출력
+        Debug.Log($"Full Screen: {settingsData.bFullScreen}");
+
+        // Resolution 정보 출력
+        Debug.Log($"Resolution: {settingsData.Resolution.Width}x{settingsData.Resolution.Height}");
+
+        // SceneName 출력
+        Debug.Log($"Scene Name: {settingsData.sSceneName}");
+
+        // TransformRespawn, CameraNum, FirstStart 출력
+        Debug.Log($"Clear Stage Number: {settingsData.iClearStageNum}");
+        Debug.Log($"Transform Respawn: {settingsData.iTransformRespawn}");
+        Debug.Log($"Camera Number: {settingsData.iCameraNum}");
+        Debug.Log($"First Start: {settingsData.bFirstStart}");
+
+        Debug.Log("=====================");
+    }
+
+
+
+    public void GameClearDataReset()
+    {
+        settingsData.iClearStageNum = 0;
+        settingsData.sSceneName = null;
+        settingsData.iTransformRespawn = 0;
+        settingsData.iCameraNum = 0;
+    }
+        
 }

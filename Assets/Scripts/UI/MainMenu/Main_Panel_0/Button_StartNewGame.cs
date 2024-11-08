@@ -21,9 +21,18 @@ public class Button_StartNewGame : MenuButton
     {
         base.ImplementButton();
 
+        if (!string.IsNullOrEmpty(SaveData_Manager.Instance.GetStringSceneName()))
+        {
+            if (mainMenuController.bIsUIDoing) return;
+            mainMenuController.bIsUIDoing = true;
 
-        mainMenuController.StartNewGame();
+            mainMenuController.PanelOff(9);
+            return;
+        }
 
+
+        SaveData_Manager.Instance.GameClearDataReset();
+        mainMenuController.StartNewGame("Chapter_1_City1");
     }
 
     public override void SelectButtonOn()
