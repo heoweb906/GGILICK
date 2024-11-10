@@ -6,7 +6,7 @@ public class GrabObject : InteractableObject
 {
     public Rigidbody rigid;
     public Collider col;
-    public FixedJoint joint;
+    public ConfigurableJoint joint;
     public List<Transform> grabPosition;
 
     private void Start()
@@ -15,7 +15,6 @@ public class GrabObject : InteractableObject
         canInteract = true;
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
-        joint = GetComponent<FixedJoint>();
     }
 
     public Transform GetClosestPosition(Transform _tf)
@@ -41,5 +40,22 @@ public class GrabObject : InteractableObject
             }
         }
         return closestPos;
+    }
+
+
+    public void AddJoint(Transform _tf)
+    {
+        joint = gameObject.AddComponent<ConfigurableJoint>();
+        joint.anchor = _tf.localPosition + Vector3.down*0.5f;
+        joint.xMotion = ConfigurableJointMotion.Locked;
+        joint.yMotion = ConfigurableJointMotion.Locked;
+        joint.zMotion = ConfigurableJointMotion.Locked;
+        joint.angularYMotion = ConfigurableJointMotion.Locked;
+    }
+
+    public void DeleteJoint()
+    {
+        joint = null;
+        Destroy(gameObject.GetComponent<ConfigurableJoint>());
     }
 }

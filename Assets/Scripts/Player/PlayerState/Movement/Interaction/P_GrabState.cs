@@ -10,14 +10,13 @@ public class P_GrabState : P_InteractionState
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.GrabParameterHash);
         player.playerMoveSpeed = player.playerGrapMoveSpeed;
-        //player.curGrabObject.transform.parent = player.transform;
-        //player.curGrabObject.rigid.isKinematic = true;
         player.SetPlayerPhysicsIgnore(player.curGrabObject.col, true);
         player.rigid.velocity = Vector3.zero;
         player.rotateLerpSpeed = player.playerGrapRotateLerpSpeed;
         Vector3 temp = player.grabPos.position - player.transform.position;
         temp.y = 0;
         player.transform.rotation = Quaternion.LookRotation(temp);
+        player.curGrabObject.AddJoint(player.grabPos);
         player.curGrabObject.joint.connectedBody = player.rigid;
 
     }
@@ -30,6 +29,7 @@ public class P_GrabState : P_InteractionState
         //player.curGrabObject.rigid.isKinematic = false;
         player.SetPlayerPhysicsIgnore(player.curGrabObject.col, false);
         player.curGrabObject.joint.connectedBody = null;
+        player.curGrabObject.DeleteJoint();
     }
 
     public override void OnUpdate()
