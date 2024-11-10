@@ -1298,7 +1298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dollyCart: {fileID: 38625144}
   dollyPath: {fileID: 71662691}
-  followSpeed: 0.09
+  followSpeed: 0
 --- !u!114 &38625144
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2405,13 +2405,14 @@ GameObject:
   m_Component:
   - component: {fileID: 71662692}
   - component: {fileID: 71662691}
+  - component: {fileID: 71662693}
   m_Layer: 0
   m_Name: Camera and Dolly Track
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &71662691
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2464,6 +2465,26 @@ Transform:
   - {fileID: 38625142}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!114 &71662693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71662690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bc7010e395668e4d94d791ef3ad2a9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotation_OffSet:
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
+  - {x: 20, y: 90, z: 0}
 --- !u!1001 &74654793
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4724,6 +4745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blendData: {fileID: 11400000, guid: 1d114a900c3124e45a526cfe3ce6d8e5, type: 2}
+  dollyRotation: {fileID: 0}
   FollowCart: {fileID: 1120482100}
 --- !u!114 &180832839
 MonoBehaviour:
@@ -35015,7 +35037,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1283303474
 Transform:
   m_ObjectHideFlags: 0
@@ -46191,7 +46213,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1698103830
 Transform:
   m_ObjectHideFlags: 0
@@ -57735,6 +57757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blendData: {fileID: 11400000, guid: 1d114a900c3124e45a526cfe3ce6d8e5, type: 2}
+  dollyRotation: {fileID: 71662693}
   FollowCart: {fileID: 38625141}
 --- !u!114 &2112844355
 MonoBehaviour:

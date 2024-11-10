@@ -1,6 +1,8 @@
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -32,12 +34,24 @@ public class GameAssistManager : MonoBehaviour
     }
 
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            DiePlayerReset();
+        }
+    }
+
+
+    // #. 갱신해야 할 포지션과 카메라를 저장하는 함수
     public void SaveGameProgress(int iTransform, int iCamera)
     {
         SaveData_Manager.Instance.SetIntTransformRespawn(iTransform);
         SaveData_Manager.Instance.SetIntCameraNum(iCamera);
     }
-    
+
+
+    // #. 플레이어의 위치와 카메라를 설정해주는 함수
     private void PlayerStartSeeting(int iTransform, int iCamera)
     {
         player.transform.position = Transforms_Respawn[iTransform].position;
@@ -45,6 +59,26 @@ public class GameAssistManager : MonoBehaviour
     }
 
 
+
+    // #. 플레이어가 죽었을 때 실행시킬 함수
+    public void DiePlayerReset(float fDieDelay = 2f)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
+    {
+        StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
+    }
+    IEnumerator _DiePlayerReset(float _fDieDelay) 
+    {
+        yield return new WaitForSeconds(_fDieDelay); 
+
+        InGameUIController.Instance.FadeInOutImage(1f, 1f);
+
+        yield return new WaitForSeconds(2f);
+
+        PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
+
+        yield return new WaitForSeconds(2f);
+
+        InGameUIController.Instance.FadeInOutImage(0f, 1f);
+    }
 
 
 
