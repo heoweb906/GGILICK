@@ -27810,19 +27810,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Offsets:
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 3, z: -2}
+    lookAtOffset: {x: 20, y: 90, z: -2}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
-    lookAtOffset: {x: 0, y: 0, z: 0}
+    lookAtOffset: {x: 20, y: 90, z: 0}
   - fPositionOffest: 0
     lookAtOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &1038861613
@@ -39759,7 +39759,7 @@ MonoBehaviour:
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
   m_Priority: 10
-  m_StandbyUpdate: 2
+  m_StandbyUpdate: 1
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
   m_Lens:

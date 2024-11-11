@@ -36,21 +36,18 @@ public class Camera_DollyCart : CameraObj
         if (nextIndex >= dollyRotation.Offsets.Length) return;
 
         // 현재 위치에서의 보간 비율 계산
-        float t = currentPosition - currentIndex;
+        float t = currentPosition - currentIndex;  // 부드러운 보간을 위해 float 사용
 
-        // LookAt Offset 보간
-        Vector3 startLookAtOffset = dollyRotation.Offsets[currentIndex].lookAtOffset;
-        Vector3 endLookAtOffset = dollyRotation.Offsets[nextIndex].lookAtOffset;
-        Vector3 interpolatedLookAtOffset = Vector3.Lerp(startLookAtOffset, endLookAtOffset, t);
+        // 회전 보간 (Quaternion.Slerp를 사용하여 부드럽게 회전)
+        Quaternion startRotation = Quaternion.Euler(dollyRotation.Offsets[currentIndex].lookAtOffset);
+        Quaternion endRotation = Quaternion.Euler(dollyRotation.Offsets[nextIndex].lookAtOffset);
+        Quaternion interpolatedRotation = Quaternion.Slerp(startRotation, endRotation, t);
 
-        // 카메라의 시선 보정
-        Vector3 lookAtPosition = player.position + interpolatedLookAtOffset;
-
-        // 카메라 회전 부드럽게 보간
-        Quaternion targetRotation = Quaternion.LookRotation(lookAtPosition - virtualCamera.transform.position);
-        virtualCamera.transform.rotation = Quaternion.Slerp(virtualCamera.transform.rotation, targetRotation, Time.deltaTime * 5f); // Slerp로 부드럽게 회전
-
-        // 카메라의 LookAt을 null로 설정하지 않고 LookAt을 따로 설정해도 되지만, 이 방법으로 회전을 부드럽게 만들 수 있습니다.
+        // 카메라의 회전 적용
+        // 기존 회전값에 더 부드럽게 적용되도록 회전값을 조금씩 보정
+        virtualCamera.transform.rotation = Quaternion.Slerp(virtualCamera.transform.rotation, interpolatedRotation, Time.deltaTime * 5f); // 5f는 부드러운 속도를 위한 값입니다.
     }
+
+
 
 }
