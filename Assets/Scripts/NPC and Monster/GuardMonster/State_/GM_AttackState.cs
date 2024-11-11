@@ -14,6 +14,8 @@ public class GM_AttackState : GuardMState
 
         guardM.anim.SetTrigger("doAttack");
 
+        GameAssistManager.Instance.DiePlayerReset(2f);
+
         guardM.StartGuardCoroutine(AssistAnim(2f));
     }
 
@@ -24,6 +26,7 @@ public class GM_AttackState : GuardMState
 
         if (bAnimEnd)
         {
+            
             bAnimEnd = false;
             machine.OnStateChange(machine.BackHomeState);
         }

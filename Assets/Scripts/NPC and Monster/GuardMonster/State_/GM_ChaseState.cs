@@ -18,23 +18,36 @@ public class GM_ChaseState : GuardMState
         guardM.StartGuardCoroutine(AssistAnim(2f));
     }
 
-
+    
     public override void OnUpdate()
     {
         base.OnUpdate();
 
         if (bAnimEnd)
         {
+         
             if (guardM.area.playerPosition != null && guardM.area.isPlayerInArea)
             {
-                guardM.nav.SetDestination(guardM.area.playerPosition.position);
+                if (!guardM.IsObstacleBetween())
+                {
+                    guardM.nav.SetDestination(guardM.area.playerPosition.position);
 
-                float distanceToTarget = Vector3.Distance(guardM.transform.position, guardM.area.playerPosition.position);
-                if (distanceToTarget <= guardM.fAttackRange)
+                    float distanceToTarget = Vector3.Distance(guardM.transform.position, guardM.area.playerPosition.position);
+                    if (distanceToTarget <= guardM.fAttackRange)
+                    {
+                        bAnimEnd = false;
+                        guardM.nav.isStopped = true;
+                        machine.OnStateChange(machine.AttackState);
+                    }
+                }
+                else
                 {
                     bAnimEnd = false;
-                    machine.OnStateChange(machine.AttackState);
+                    guardM.nav.isStopped = true;
+                    machine.OnStateChange(machine.BackHomeState);
                 }
+
+
             }
             else
             {

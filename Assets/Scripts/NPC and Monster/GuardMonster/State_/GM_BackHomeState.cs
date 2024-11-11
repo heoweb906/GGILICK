@@ -20,41 +20,18 @@ public class GM_BackHomeState : GuardMState
     {
         base.OnUpdate();
 
-        if (bAnimEnd)
+        if (!bAnimEnd) return;
+
+        // 플레이어 위치가 없거나 Obstacle이 있는 경우 집으로 돌아감
+        if (guardM.area.playerPosition == null || guardM.IsObstacleBetween())
         {
-            if (guardM.area.playerPosition != null)
-            {
-                bAnimEnd = false;
-                machine.OnStateChange(machine.ChaseState);
-            }
-            else
-            {
-                
-                guardM.nav.SetDestination(guardM.transformHome);
-
-                if (Vector3.Distance(guardM.transform.position, guardM.transformHome) <= 0.1f)
-                {
-                    float rotationTimer = 0;
-
-                    rotationTimer += Time.deltaTime;
-
-                    guardM.nav.isStopped = true;
-                    guardM.anim.SetBool("isWalking", false);
-
-                    // 목표는 'transformHome'을 기준으로 회전
-                    Quaternion targetRotation = Quaternion.Euler(0, -90, 0);
-                    guardM.transform.rotation = Quaternion.Slerp(guardM.transform.rotation, targetRotation, rotationTimer / 1f);
-
-
-                    if (rotationTimer >= 1f)
-                    {
-                        guardM.transform.rotation = targetRotation;  
-
-                        bAnimEnd = false;
-                        machine.OnStateChange(machine.ReadyState); 
-                    }
-                }
-            }
+            ReturnHome();
+        }
+        else
+        {
+            // 장애물이 없고 플레이어 위치가 있는 경우 추격 상태로 전환
+            bAnimEnd = false;
+            machine.OnStateChange(machine.ChaseState);
         }
     }
 
@@ -81,6 +58,34 @@ public class GM_BackHomeState : GuardMState
         bAnimEnd = true;
     }
 
+
+
+    private void ReturnHome()
+    {
+        guardM.nav.SetDestination(guardM.GetHomeTransform());
+
+        // 집에 도착한 경우
+        if (Vector3.Distance(guardM.transform.position, guardM.GetHomeTransform()) <= 0.1f)
+        {
+            float rotationTimer = 0;
+            rotationTimer += Time.deltaTime;
+
+            guardM.nav.isStopped = true;
+            guardM.anim.SetBool("isWalking", false);
+
+            // 회전 처리
+            Quaternion targetRotation = Quaternion.Euler(0, -90, 0);
+            guardM.transform.rotation = Quaternion.Slerp(guardM.transform.rotation, targetRotation, rotationTimer / 1f);
+
+            // 회전이 완료되면 ReadyState로 전환
+            if (rotationTimer >= 1f)
+            {
+                guardM.transform.rotation = targetRotation;
+                bAnimEnd = false;
+                machine.OnStateChange(machine.ReadyState);
+            }
+        }
+    }
 
 
 }

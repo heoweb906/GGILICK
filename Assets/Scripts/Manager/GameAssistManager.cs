@@ -73,22 +73,19 @@ public class GameAssistManager : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
-
-        yield return new WaitForSeconds(2f);
-
-        InGameUIController.Instance.FadeInOutImage(0f, 1f);
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        SceneManager.LoadScene(currentSceneName);
     }
 
 
-
+    // #. Respawn 지점 업데이트
     public void RespawnChangeAssist(Transform transform)
     {
         for (int i = 0; i < Transforms_Respawn.Length; i++)
         {
             if (Transforms_Respawn[i] == transform)
             {
-                Debug.Log(i);
+                // Debug.Log(i);
                 SaveData_Manager.Instance.SetIntTransformRespawn(i);
                 break;
             }

@@ -13,9 +13,12 @@ public class GM_ReadyState : GuardMState
     {
         base.OnUpdate();
 
-        if(guardM.area.isPlayerInArea && guardM.area.playerPosition != null)
+        if (guardM.area.isPlayerInArea && guardM.area.playerPosition != null)
         {
-            machine.OnStateChange(machine.ChaseState);
+            if (!guardM.IsObstacleBetween())
+            {
+                machine.OnStateChange(machine.ChaseState);
+            }
         }
     }
 
@@ -31,6 +34,11 @@ public class GM_ReadyState : GuardMState
     }
 
 
+
+   
+
     
+
+
 
 }
