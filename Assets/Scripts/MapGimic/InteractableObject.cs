@@ -9,7 +9,7 @@ public class InteractableObject : MonoBehaviour
     public InteractableType type;
     public bool canInteract;
 
-    virtual public void ActiveEvent() { }
+    public virtual void ActiveEvent() { }
 }
 
 public enum InteractableType

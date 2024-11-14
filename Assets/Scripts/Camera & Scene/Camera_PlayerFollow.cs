@@ -12,7 +12,6 @@ public class Camera_PlayerFollow : CameraObj
     private void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
-
     }
 
     void FixedUpdate()

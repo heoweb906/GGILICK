@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class CineCameraChager : MonoBehaviour
 {
-    public GameObject TargetCamera; 
+    public GameObject TargetCamera;
+    public Transform TartgetTransform;
 
     private Camera mainCamera;
     private CinemachineBrain cineBrain;
@@ -20,19 +21,22 @@ public class CineCameraChager : MonoBehaviour
     }
 
 
+    // #. 다른 스크립트에서 작동하는 용
     public void CameraChange()
     {
         BlendChanger(TargetCamera);
-        GameAssistManager.Instance.RespawnChangeAssist(gameObject.transform);
+        if(TartgetTransform!= null)
+            GameAssistManager.Instance.RespawnChangeAssist(TartgetTransform);
     }
 
 
-    private void OnTriggerExit(Collider other)
+    // #. 트리거로 작동하는 방식
+    private void OnTriggerExit(Collider other) 
     {
-        if (other.transform.root.CompareTag("Player"))
+        if (other.transform.root.CompareTag("Player")) 
         {
             BlendChanger(TargetCamera);
-            GameAssistManager.Instance.RespawnChangeAssist(gameObject.transform);
+            GameAssistManager.Instance.RespawnChangeAssist(TartgetTransform); 
         }
     }
 
@@ -47,17 +51,7 @@ public class CineCameraChager : MonoBehaviour
         GameAssistManager.Instance.CameraChangeAssist(targetCamera);
 
         CameraObj camObj = targetCamera.GetComponent<CameraObj>();
-        if(camObj.blendData != null)
-        {
-            CameraBlendData blendData = camObj.blendData;
-            cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(blendData.blendStyle, blendData.duration);
-            Debug.Log(blendData.blendStyle + "      /       " + blendData.duration);
-        }
-        else
-        {
-            Debug.Log("카메라 블렌드 데이터가 없습니다.");
-        }
-       
+        cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(camObj.blendStyle, camObj.duration);
     }
 
 

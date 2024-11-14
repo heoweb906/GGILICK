@@ -5,6 +5,9 @@ using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using DG.Tweening;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class GameAssistManager : MonoBehaviour
 {
@@ -12,16 +15,23 @@ public class GameAssistManager : MonoBehaviour
 
     public GameObject player;
 
+    [Header("스테이지 / 리스폰 관련")]
     public int iStageNum;
-
     public Transform[] Transforms_Respawn;
     public GameObject[] Cameras;
 
+    [Header("연출 관련")]
+    private Volume volume;
+    private Vignette vignette;
+    private ColorAdjustments colorAdjustments;
+
     private void Start()
     {
-        Instance = this;
+        Instance = this; // 인스턴스 생성
         player = FindPlayerRoot();
 
+
+        // #. 스테이지 관리
         SaveData_Manager.Instance.SetStringSceneName(SceneManager.GetActiveScene().name);
 
         if(SaveData_Manager.Instance.GetIntClearStageNum() > iStageNum)
@@ -29,18 +39,23 @@ public class GameAssistManager : MonoBehaviour
             SaveData_Manager.Instance.SetIntClearStageNum(iStageNum);
             SaveGameProgress(0, 0);
         }
-
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
+
+
+
+        // #. Volume 관리
+        volume = FindObjectOfType<Volume>();
+
+
+
+        volume.profile.TryGet(out vignette);
+        volume.profile.TryGet(out colorAdjustments);
+
+        
     }
 
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            DiePlayerReset();
-        }
-    }
+   
 
 
     // #. 갱신해야 할 포지션과 카메라를 저장하는 함수
@@ -50,13 +65,15 @@ public class GameAssistManager : MonoBehaviour
         SaveData_Manager.Instance.SetIntCameraNum(iCamera);
     }
 
-
     // #. 플레이어의 위치와 카메라를 설정해주는 함수
-    private void PlayerStartSeeting(int iTransform, int iCamera)
+    public void PlayerStartSeeting(int iTransform, int iCamera)
     {
         player.transform.position = Transforms_Respawn[iTransform].position;
         Cameras[iCamera].SetActive(true);
     }
+
+
+
 
 
 
@@ -78,14 +95,15 @@ public class GameAssistManager : MonoBehaviour
     }
 
 
+
     // #. Respawn 지점 업데이트
+    // GameAssist에서 가지고 있는 위치와 동일해야 됨
     public void RespawnChangeAssist(Transform transform)
     {
         for (int i = 0; i < Transforms_Respawn.Length; i++)
         {
             if (Transforms_Respawn[i] == transform)
             {
-                // Debug.Log(i);
                 SaveData_Manager.Instance.SetIntTransformRespawn(i);
                 break;
             }
@@ -94,7 +112,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. 실제로 카메라를 바꾸는 함수
+    // #. 실제로 사용할 카메라만 True로 하고 나머지는 모두 false
     public void CameraChangeAssist(GameObject camera)
     {
         for (int i = 0; i < Cameras.Length; i++)
@@ -108,7 +126,7 @@ public class GameAssistManager : MonoBehaviour
                
         }
     }
-
+    // #. 현재 활성화된 카메라와 변경하려는 카메라가 다른지 구분하는 함수
     public bool BoolNowActiveCameraObj(GameObject camera)
     {
         GameObject obj = null;
@@ -126,23 +144,84 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    private GameObject FindPlayerRoot()
+  
+
+
+
+    // #. 내부 진입 
+    public void FadeOutInEffect(float fStartImte = 3.0f, float fEndTime = 3.0f)
     {
-        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        if (vignette == null || colorAdjustments == null) return;
 
-        foreach (GameObject obj in playerObjects)
-        {
-            // 최고 부모 오브젝트를 반환
-            if (obj.transform.root.CompareTag("Player"))
-            {
-                return obj.transform.root.gameObject;
-            }
-        }
 
-        return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
+        // 플레이어 위치를 화면 좌표로 변환, Vignette의 중심으로 함
+        Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
+        DOTween.To(() => vignette.center.value, x => vignette.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
+
+        // 1. 연출 진입
+        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, fStartImte);
+        DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, -10f, fStartImte * 1.2f);
+
+
+
+      
+
+        // 2. 연출 아웃
+        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, fStartImte)
+            .SetDelay(fEndTime);
+        DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, 0f, fStartImte * 1.2f)
+            .SetDelay(fEndTime);
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // #. Player 태그가 붙은 오브젝트 중에 가장 부모 오브젝트를 찾아오는 함수
+    private GameObject FindPlayerRoot()
+    {
+        GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject obj in playerObjects)
+        {
+            if (obj.transform.root.CompareTag("Player")) return obj.transform.root.gameObject;
+        }
+        return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
+    }
 
 
 }

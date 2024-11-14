@@ -9,8 +9,6 @@ public enum ClockWorkType
     Wall
 };
 
-
-
 public class ClockWork : InteractableObject
 {
     public ClockBattery clockBattery;

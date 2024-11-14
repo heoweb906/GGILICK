@@ -19,7 +19,4 @@ public class RoadCarOnTrack : CinemachineDollyCart
             Destroy(gameObject);
         }
     }
-
-
-
 }
