@@ -16,22 +16,11 @@ public class GGILICK_ClockWork : InteractableObject
     }
 
 
-    private void Update()
-    {
-
-        // 테스트용
-        if (Input.GetKeyDown(KeyCode.L))
-        {
-            ActiveEvent();
-        }
-    }
-
-
-
 
 
     public override void ActiveEvent()
     {
+        canInteract = false;
         playerCameraAssist.SetActive(true);
         GameAssistManager.Instance.FadeOutInEffect(4.5f, 4.5f);
         StartCoroutine(ChangeMap());

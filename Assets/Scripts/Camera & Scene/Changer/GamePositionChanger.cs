@@ -41,9 +41,9 @@ public class GamePositionChanger : MonoBehaviour
     private IEnumerator ChangePosition_()
     {
         InGameUIController.Instance.bIsUIDoing = true;
-        InGameUIController.Instance.FadeInOutImage(1f, 1.8f);
+        InGameUIController.Instance.FadeInOutImage(1f, 2.5f);
 
-        yield return new WaitForSecondsRealtime(1.8f);
+        yield return new WaitForSecondsRealtime(3f);
 
         cienCamareChager.CameraChange();
         player.transform.position = targetPosition.position;
@@ -53,7 +53,7 @@ public class GamePositionChanger : MonoBehaviour
 
         yield return new WaitForSecondsRealtime(0.5f);
 
-        InGameUIController.Instance.FadeInOutImage(0f, 1.8f);
+        InGameUIController.Instance.FadeInOutImage(0f, 3f);
         InGameUIController.Instance.bIsUIDoing = false;
     }
 

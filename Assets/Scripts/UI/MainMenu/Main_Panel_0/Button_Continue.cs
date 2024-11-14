@@ -17,7 +17,6 @@ public class Button_Continue : MenuButton
         }     
     }
 
-
     public override void OnPointerEnter(PointerEventData eventData)
     {
         base.OnPointerEnter(eventData);

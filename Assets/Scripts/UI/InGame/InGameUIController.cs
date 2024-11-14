@@ -294,7 +294,7 @@ public class InGameUIController : MonoBehaviour
             DOTween.To(() => fadeColor.a, x => {
                 fadeColor.a = x;
                 fadeoutImage.color = fadeColor;
-            }, 0f, 2.5f)
+            }, 0f, 4.5f)
                 .SetEase(Ease.Linear)
                   .SetUpdate(true);
 

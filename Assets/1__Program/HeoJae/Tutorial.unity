@@ -9395,7 +9395,7 @@ GameObject:
   - component: {fileID: 417523835}
   m_Layer: 0
   m_Name: PlayerCamera_Assist
-  m_TagString: MainCamera
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28634,6 +28634,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendStyle: 0
   duration: 0
+  player: {fileID: 0}
   dollyRotation: {fileID: 1038861612}
   FollowCart: {fileID: 1361588809}
 --- !u!114 &1439961441
@@ -42101,7 +42102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
   playerCameraAssist: {fileID: 417523834}
   cineChager: {fileID: 789876683}
   map_OutSide: {fileID: 1214504486}
@@ -52323,6 +52324,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stateChangeDebug: 0
+  isWorldAxis: 0
+  yAxis: 0
   camTransform: {fileID: 0}
   rigid: {fileID: 8924459883091805744}
   playerCollider:

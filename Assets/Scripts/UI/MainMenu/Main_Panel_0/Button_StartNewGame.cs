@@ -32,7 +32,7 @@ public class Button_StartNewGame : MenuButton
 
 
         SaveData_Manager.Instance.GameClearDataReset();
-        mainMenuController.StartNewGame("Chapter_1_City1");
+        mainMenuController.StartNewGame("Chapter1_1_City");
     }
 
     public override void SelectButtonOn()
