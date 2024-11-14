@@ -112,7 +112,12 @@ public class P_GroundState : PlayerMovementState
                 player.grabPos = player.curGrabObject.GetClosestPosition(player.transform);
                 player.targetPos = player.grabPos.position +
                     player.grabPos.forward * player.grabObjectInteractionDistance;
-
+            }
+            else if (player.curInteractableObject.type == InteractableType.SingleEvent)
+            {
+                Debug.Log("!!!!!!!!");
+                float angle = player.curInteractableObject.transform.eulerAngles.y * Mathf.Deg2Rad;
+                player.targetPos = player.curInteractableObject.transform.position - new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance;
             }
 
         }
@@ -123,10 +128,16 @@ public class P_GroundState : PlayerMovementState
             {
                 if (player.curInteractableObject.type == InteractableType.ClockWork)
                     machine.OnStateChange(machine.SpinClockWorkState);
-                else if(player.curInteractableObject.type == InteractableType.Carrried)
+                else if (player.curInteractableObject.type == InteractableType.Carrried)
                     machine.OnStateChange(machine.PickUpState);
-                else if(player.curInteractableObject.type == InteractableType.Grab)
+                else if (player.curInteractableObject.type == InteractableType.Grab)
                     machine.OnStateChange(machine.GrabIdleState);
+                else if (player.curInteractableObject.type == InteractableType.SingleEvent)
+                {
+                    player.curInteractableObject.ActiveEvent();
+                    player.curInteractableObject = null;
+                    player.isGoToTarget = false;
+                }
             }
 
             //player.closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
@@ -163,7 +174,6 @@ public class P_GroundState : PlayerMovementState
 
         foreach (Collider collider in hitColliders)
         {
-            // ClockWork 스크립트가 있는지 확인
             InteractableObject detectedObject = collider.GetComponent<InteractableObject>();
             if (detectedObject != null && detectedObject.canInteract)
             {

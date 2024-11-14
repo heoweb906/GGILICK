@@ -109,6 +109,7 @@ public class Player : MonoBehaviour
     public float hangingPosOffset_Front;
     public float hangingPosOffset_Height;
 
+
     [Header("물건 잡기 IK")]
     public bool isHandIK = false;
 
