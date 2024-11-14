@@ -58,7 +58,17 @@ public class PlayerMovementState : BaseState
 
     public virtual void SetDirection()
     {
-        player.curDirection = player.camTransform.right * _horizontal + player.camTransform.forward * _vertical;
+        if (player.isWorldAxis)
+        {
+            Quaternion rotation = Quaternion.Euler(0, player.yAxis, 0);
+            player.curDirection = rotation * Vector3.right * _horizontal + rotation * Vector3.forward * _vertical;
+
+        }
+        else
+        {
+            player.curDirection = player.camTransform.right * _horizontal + player.camTransform.forward * _vertical;
+        }
+
         if (_horizontal == 0 && _vertical == 0)
             player.curDirection = Vector3.zero;
     }

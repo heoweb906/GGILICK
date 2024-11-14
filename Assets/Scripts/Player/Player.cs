@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     public bool stateChangeDebug;
 
+    [Header("월드 기준 이동")]
+    public bool isWorldAxis;
+    [Range(0,360)]
+    public float yAxis;
 
     public PlayerStateMachine machine;
 

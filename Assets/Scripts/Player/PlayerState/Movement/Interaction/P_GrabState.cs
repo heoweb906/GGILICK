@@ -45,9 +45,17 @@ public class P_GrabState : P_InteractionState
 
     public override void SetDirection()
     {
-        //player.curDirection = (player.grabPos.position - player.transform.position);
-        player.curDirection = (player.grabPos.position - player.transform.position)
+        if (player.isWorldAxis)
+        {
+            Quaternion rotation = Quaternion.Euler(0, player.yAxis, 0);
+            player.curDirection = (player.grabPos.position - player.transform.position) + rotation * Vector3.right * _horizontal + rotation * Vector3.forward * _vertical;
+        }
+        else
+        {
+            player.curDirection = (player.grabPos.position - player.transform.position)
             + player.camTransform.right * _horizontal + player.camTransform.forward * _vertical;
+        }
+        
         if (_horizontal == 0 && _vertical == 0)
             player.curDirection = Vector3.zero;
 
