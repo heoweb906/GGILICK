@@ -30,11 +30,10 @@ public class GameAssistManager : MonoBehaviour
         Instance = this; // 인스턴스 생성
         player = FindPlayerRoot();
 
-
         // #. 스테이지 관리
         SaveData_Manager.Instance.SetStringSceneName(SceneManager.GetActiveScene().name);
 
-        if(SaveData_Manager.Instance.GetIntClearStageNum() > iStageNum)
+        if(SaveData_Manager.Instance.GetIntClearStageNum() < iStageNum)
         {
             SaveData_Manager.Instance.SetIntClearStageNum(iStageNum);
             SaveGameProgress(0, 0);
@@ -46,16 +45,10 @@ public class GameAssistManager : MonoBehaviour
         // #. Volume 관리
         volume = FindObjectOfType<Volume>();
 
-
-
         volume.profile.TryGet(out vignette);
         volume.profile.TryGet(out colorAdjustments);
-
-        
     }
 
-
-   
 
 
     // #. 갱신해야 할 포지션과 카메라를 저장하는 함수

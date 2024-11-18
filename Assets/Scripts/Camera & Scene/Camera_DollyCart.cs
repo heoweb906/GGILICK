@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Camera_DollyCart : CameraObj
 {
-    public Transform player;  // 추적할 플레이어의 Transform
+    private Transform player;  // 추적할 플레이어의 Transform
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineDollyCart dollyCart;
     public DollyRotationAndPositonOffset dollyRotation;

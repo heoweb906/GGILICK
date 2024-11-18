@@ -1774,7 +1774,7 @@ Transform:
   m_GameObject: {fileID: 63534642}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0034081112, y: -0.008995485, z: 0.020777006, w: 0.99973786}
-  m_LocalPosition: {x: -52.53, y: 16.77, z: 91.09}
+  m_LocalPosition: {x: -64.57, y: 6.58, z: 76.34}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28634,7 +28634,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendStyle: 0
   duration: 0
-  player: {fileID: 0}
   dollyRotation: {fileID: 1038861612}
   FollowCart: {fileID: 1361588809}
 --- !u!114 &1439961441

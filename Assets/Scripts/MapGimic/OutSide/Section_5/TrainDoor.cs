@@ -16,13 +16,8 @@ public class TrainDoor : MonoBehaviour
     private Vector3 originalPosition_LeftDoor;     // 왼쪽 문의 원래 위치
     private Vector3 originalPosition_RightDoor;    // 오른쪽 문의 원래 위치
 
-
-    void Start()
-    {
-        // 문이 처음 시작하는 위치를 저장
-        originalPosition_LeftDoor = leftDoor.transform.position;
-        originalPosition_RightDoor = rightDoor.transform.position;
-    }
+    private bool bInPlayer;
+    
 
 
     public void StartOpen_Close(float doorTime)
@@ -33,6 +28,10 @@ public class TrainDoor : MonoBehaviour
     private IEnumerator OpenAndCloseDoors(float doorStayOpenDuration)
     {
         // 1. 문을 목표 위치로 이동 (문 열기)
+        originalPosition_LeftDoor = leftDoor.transform.position;
+        originalPosition_RightDoor = rightDoor.transform.position;
+
+
         leftDoor.transform.DOMove(position_target_LeftDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
         rightDoor.transform.DOMove(position_target_RightDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
 
@@ -40,8 +39,59 @@ public class TrainDoor : MonoBehaviour
         yield return new WaitForSeconds(doorStayOpenDuration - doorMoveDuration);
 
         // 3. 문을 원래 위치로 이동 (문 닫기)
+        if(bInPlayer)
+        {
+            // 나중에 플레이어 조작 방지 추가
+            // 나중에 플레이어 조작 방지 추가
+            // 나중에 플레이어 조작 방지 추가
+            // 나중에 플레이어 조작 방지 추가
+        }
+          
+
+
         leftDoor.transform.DOMove(originalPosition_LeftDoor, doorMoveDuration).SetEase(Ease.InOutCubic);
         rightDoor.transform.DOMove(originalPosition_RightDoor, doorMoveDuration).SetEase(Ease.InOutCubic);
+
+
+    }
+
+    public void StartOpen()
+    {
+        // 1. 문을 목표 위치로 이동 (문 열기)
+        originalPosition_LeftDoor = leftDoor.transform.position;
+        originalPosition_RightDoor = rightDoor.transform.position;
+
+        if (bInPlayer)
+        {
+            // 나중에 플레이어 조작 가능 추가
+            // 나중에 플레이어 조작 가능 추가
+            // 나중에 플레이어 조작 가능 추가
+            // 나중에 플레이어 조작 가능 추가
+            // 나중에 플레이어 조작 가능 추가
+        }
+
+        leftDoor.transform.DOMove(position_target_LeftDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
+        rightDoor.transform.DOMove(position_target_RightDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
+    }
+
+
+
+
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.transform.root.CompareTag("Player"))
+        {
+            bInPlayer = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.transform.root.CompareTag("Player"))
+        {
+            bInPlayer = false;
+        }
     }
 
 }

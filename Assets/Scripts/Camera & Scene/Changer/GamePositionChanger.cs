@@ -41,14 +41,12 @@ public class GamePositionChanger : MonoBehaviour
     private IEnumerator ChangePosition_()
     {
         InGameUIController.Instance.bIsUIDoing = true;
-        InGameUIController.Instance.FadeInOutImage(1f, 2.5f);
+        InGameUIController.Instance.FadeInOutImage(1f, 2f);
 
         yield return new WaitForSecondsRealtime(3f);
 
         cienCamareChager.CameraChange();
         player.transform.position = targetPosition.position;
-
-
         GameAssistManager.Instance.RespawnChangeAssist(targetPosition);
 
         yield return new WaitForSecondsRealtime(0.5f);

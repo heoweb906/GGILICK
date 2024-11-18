@@ -252,7 +252,6 @@ public class InGameUIController : MonoBehaviour
         Time.timeScale = 1f;
         if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
 
-   
 
         FadeInOutImage(0f, 0.2f);
         PanelNow.SetActive(false);
@@ -280,29 +279,20 @@ public class InGameUIController : MonoBehaviour
     {
         bUIOnOff = true;
 
+
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
-        // 알파값을 fTargetAlpha까지 duration 동안 올리는 애니메이션
-        DOTween.To(() => fadeColor.a, x => {
-            fadeColor.a = x;
-            fadeoutImage.color = fadeColor;
-        }, 1f, 0f)
-        .SetEase(Ease.Linear)
-        .SetUpdate(true).OnComplete(() => {
-
-            DOTween.To(() => fadeColor.a, x => {
-                fadeColor.a = x;
-                fadeoutImage.color = fadeColor;
-            }, 0f, 4.5f)
-                .SetEase(Ease.Linear)
-                  .SetUpdate(true);
-
-
-            bUIOnOff = false;
-            
-        });
+        FadeInOutImage(1f, 0f);
+        StartCoroutine(FadeOutImageEffect_());
     }
+    IEnumerator FadeOutImageEffect_()
+    {
+        yield return new WaitForSeconds(1f);
+        FadeInOutImage(0f, 3f);
+        bUIOnOff = false;
+    }
+
 
 
 
