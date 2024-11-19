@@ -146,7 +146,6 @@ public class GameAssistManager : MonoBehaviour
     {
         if (vignette == null || colorAdjustments == null) return;
 
-
         // 플레이어 위치를 화면 좌표로 변환, Vignette의 중심으로 함
         Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
         DOTween.To(() => vignette.center.value, x => vignette.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
@@ -154,9 +153,6 @@ public class GameAssistManager : MonoBehaviour
         // 1. 연출 진입
         DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, fStartImte);
         DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, -10f, fStartImte * 1.2f);
-
-
-
       
 
         // 2. 연출 아웃
@@ -215,6 +211,5 @@ public class GameAssistManager : MonoBehaviour
         }
         return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
     }
-
 
 }

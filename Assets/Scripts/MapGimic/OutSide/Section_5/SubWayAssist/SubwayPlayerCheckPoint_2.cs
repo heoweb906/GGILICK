@@ -17,7 +17,7 @@ public class SubwayPlayerCheckPoint_2 : MonoBehaviour
 
             transform_teleportTarget.position = transforms_Teleport[SubWayAssist.Instance.iCrowedRanNum].position;
 
-            Invoke("StartTrain_2", 6f);
+            Invoke("StartTrain_2", 8f);
         }
     }
 

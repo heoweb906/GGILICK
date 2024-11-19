@@ -17,25 +17,26 @@ public class GGILICK_ClockWork : InteractableObject
 
 
 
-
     public override void ActiveEvent()
     {
         canInteract = false;
         playerCameraAssist.SetActive(true);
         GameAssistManager.Instance.FadeOutInEffect(4.5f, 4.5f);
-        StartCoroutine(ChangeMap());
+
+        GameAssistManager.Instance.StartCoroutine(ChangeMap());
+        // StartCoroutine();
     }
 
     // #. 맵 변경 함수
     IEnumerator ChangeMap()
     {
         Rigidbody rigid = GameAssistManager.Instance.player.GetComponent<Rigidbody>();
+        rigid.constraints = RigidbodyConstraints.FreezePositionY;
         yield return new WaitForSeconds(1.2f);
+
         cineChager.CameraChange();
 
         yield return new WaitForSeconds(3.2f);
-
-        rigid.constraints = RigidbodyConstraints.FreezePositionY;
 
         map_InSide.SetActive(true);
         map_InSide.transform.position = new Vector3(
@@ -46,14 +47,21 @@ public class GGILICK_ClockWork : InteractableObject
         map_OutSide.SetActive(false);
 
         yield return new WaitForSeconds(0.2f);
-      
-        rigid.constraints = RigidbodyConstraints.None;
-        rigid.constraints = RigidbodyConstraints.FreezeRotation;
+
+        rigid.constraints = RigidbodyConstraints.None; // FreezePosition X, Y, Z 모두 false
+
+        // Freeze Rotation 설정
+        rigid.constraints = RigidbodyConstraints.FreezeRotationX |
+                            RigidbodyConstraints.FreezeRotationY |
+                            RigidbodyConstraints.FreezeRotationZ;
 
 
         yield return new WaitForSeconds(6f);
+        
 
-        playerCameraAssist.SetActive(false);
+        InsideAssist_GGILICK.Instance.bCarCreating = true;
+
+        playerCameraAssist.SetActive(false); // 오버레이용 카메라 OFF
     }
 
 
