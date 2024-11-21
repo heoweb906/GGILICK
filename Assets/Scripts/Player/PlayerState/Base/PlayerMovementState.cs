@@ -66,7 +66,8 @@ public class PlayerMovementState : BaseState
         }
         else
         {
-            player.curDirection = player.camTransform.right * _horizontal + player.camTransform.forward * _vertical;
+            Quaternion rotation = Quaternion.Euler(0, player.yAxis, 0);
+            player.curDirection = rotation * player.camTransform.right * _horizontal + rotation * player.camTransform.forward * _vertical;
         }
 
         if (_horizontal == 0 && _vertical == 0)
@@ -76,8 +77,6 @@ public class PlayerMovementState : BaseState
     // 플레이어 기본 이동
     public virtual void PlayerVelocityControll()
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-            machine.OnStateChange(machine.IdleState);
 
         player.curDirection.y = 0;
         player.curDirection = player.curDirection.normalized;

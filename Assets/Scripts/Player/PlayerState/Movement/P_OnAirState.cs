@@ -39,7 +39,7 @@ public class P_OnAirState : PlayerMovementState
     {
         if (Input.GetButton("Fire1"))
         {
-            Ray ray = new Ray(player.transform.position + new Vector3(0, 1.2f, 0), player.transform.forward);
+            Ray ray = new Ray(player.transform.position + new Vector3(0, player.hangingPosOffset_Height, 0), player.transform.forward);
             Debug.DrawRay(ray.origin, player.transform.forward * player.cliffCheckRayDistance, Color.red);
             if (Physics.Raycast(ray, out player.cliffRayHit, player.cliffCheckRayDistance, player.cliffLayer))
             {

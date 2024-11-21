@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class P_ClimbingToTopState : P_ClimbingState
 {
@@ -19,9 +20,6 @@ public class P_ClimbingToTopState : P_ClimbingState
     {
         base.OnExit();
         machine.StopAnimation(player.playerAnimationData.ClimbingToTopParameterHash);
-        //player.playerAnim.applyRootMotion = false;
-        player.SetColliderTrigger(true);
-        player.SetRootMotion();
     }
 
     public override void OnUpdate()
@@ -29,14 +27,26 @@ public class P_ClimbingToTopState : P_ClimbingState
         base.OnUpdate();
     }
 
+    public override void OnAnimationTransitionEvent()
+    {
+    }
+
     public override void OnAnimationExitEvent()
      {
-        player.transform.position = new Vector3(player.transform.position.x, player.hangingPos.y, player.transform.position.z);
+        //player.transform.position = new Vector3(player.transform.position.x, player.hangingPos.y, player.transform.position.z);
+        Debug.Log(player.hangingPos.y);
+
+        player.SetColliderTrigger(true);
+        player.playerAnim.applyRootMotion = false;
+        player.playerAnim.updateMode = AnimatorUpdateMode.Normal;
 
         machine.OnStateChange(machine.IdleState);
     }
 
-    
+    public override void SetDirection()
+    {
+        return;
+    }
 }
 
 

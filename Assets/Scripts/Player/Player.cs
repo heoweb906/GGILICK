@@ -45,7 +45,6 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public float moveLerpSpeed;
 
-
     [Header("°æ»ç·Î")]
     [SerializeField, Range(0, 2)]
     public float rayDistance = 1f;

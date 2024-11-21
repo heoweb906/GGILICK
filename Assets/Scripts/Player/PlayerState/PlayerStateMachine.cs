@@ -12,6 +12,8 @@ public class PlayerStateMachine : StateMachine
     public P_OnAirState OnAirState { get; private set; }
     public P_InteractionState InteractionState { get; private set; }
     public P_ClimbingState ClimbingState { get; private set; }
+    public P_UnControllable UnControllableState { get; private set; }
+    public P_UC_Idle UC_IdleState { get; private set; }
 
     public P_IdleState IdleState { get; private set; }
     public P_SoftLandingState SoftLandingState { get; private set; }
@@ -35,6 +37,8 @@ public class PlayerStateMachine : StateMachine
     public P_ClimbingToTopState ClimbingToTopState { get; private set; }
 
     public P_SpinClockWorkState SpinClockWorkState { get; private set; }
+    public P_SpinClockWorkWallState SpinClockWorkWallState { get; private set; }
+    public P_SpinClockWorkFloorState SpinClockWorkFloorState { get; private set; }
     public P_PickUpState PickUpState { get; private set; }
     public P_PutDownState PutDownState { get; private set; }
     public P_ThrowState ThrowState { get; private set; }
@@ -57,6 +61,9 @@ public class PlayerStateMachine : StateMachine
         OnAirState = new P_OnAirState(player, this);
         InteractionState = new P_InteractionState(player, this);
         ClimbingState = new P_ClimbingState(player, this);
+        UnControllableState = new P_UnControllable(player, this);
+        UC_IdleState = new P_UC_Idle(player, this);
+
         IdleState = new P_IdleState(player, this);
         SoftLandingState = new P_SoftLandingState(player, this);
         MoveLandingState = new P_MoveLandingState(player, this);
@@ -78,6 +85,8 @@ public class PlayerStateMachine : StateMachine
         ClimbingToTopState = new P_ClimbingToTopState(player, this);
 
         SpinClockWorkState = new P_SpinClockWorkState(player, this);
+        SpinClockWorkWallState = new P_SpinClockWorkWallState(player, this);
+        SpinClockWorkFloorState = new P_SpinClockWorkFloorState(player, this);
         PickUpState = new P_PickUpState(player, this);
         PutDownState = new P_PutDownState(player, this);
         ThrowState = new P_ThrowState(player, this);
@@ -131,6 +140,11 @@ public class PlayerStateMachine : StateMachine
     public void StopAnimation(int _parametgerHash)
     {
         player.playerAnim.SetBool(_parametgerHash, false);
+    }
+
+    public void StartAnimationTrigger(int _parametgerHash)
+    {
+        player.playerAnim.SetTrigger(_parametgerHash);
     }
 
     public void OnAnimationEnterEvent()

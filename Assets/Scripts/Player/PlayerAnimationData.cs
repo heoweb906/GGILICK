@@ -12,6 +12,8 @@ public class PlayerAnimationData
     [SerializeField] private string onAirParameterName = "OnAir";
     [SerializeField] private string interactionParameterName = "Interaction";
     [SerializeField] private string climbingParameterName = "Climbing";
+    [SerializeField] private string unControllableParameterName = "UnConrollable";
+    [SerializeField] private string uc_IdleParameterName = "UC_Idle";
     [SerializeField] private string moveStartParameterName = "MoveStart";
     [SerializeField] private string movingParameterName = "Move";
     [SerializeField] private string moveStopParameterName = "MoveStop";
@@ -49,6 +51,8 @@ public class PlayerAnimationData
 
     [Header("Interaction Group Parameter")]
     [SerializeField] private string spinClockWorkParameterName = "isSpinClockWork";
+    [SerializeField] private string spinClockWorkWallParameterName = "isSpinClockWorkWall";
+    [SerializeField] private string spinClockWorkFloorParameterName = "isSpinClockWorkFloor";
     [SerializeField] private string pickUpParameterName = "isPickUp";
     [SerializeField] private string putDownParameterName = "isPutDown";
     [SerializeField] private string throwParameterName = "isThrow";
@@ -64,6 +68,8 @@ public class PlayerAnimationData
     public int OnAirParameterHash { get; private set; }
     public int InteractionParameterHash { get; private set; }
     public int ClimbingParameterHash { get; private set; }
+    public int UnControllableParameterHash { get; private set; }
+    public int UC_IdleParameterHash { get; private set; }
     public int MoveStartParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
     public int MoveStopParameterHash { get; private set; }
@@ -93,6 +99,8 @@ public class PlayerAnimationData
     public int ClimbingToTopParameterHash { get; private set; }
 
     public int SpinClockWorkParameterHash { get; private set; }
+    public int SpinClockWorkWallParameterHash { get; private set; }
+    public int SpinClockWorkFloorParameterHash { get; private set; }
     public int PickUpParameterHash { get; private set; }
     public int PutDownParameterHash { get; private set; }
     public int ThrowParameterHash { get; private set; }
@@ -108,6 +116,8 @@ public class PlayerAnimationData
         OnAirParameterHash = Animator.StringToHash(onAirParameterName);
         InteractionParameterHash = Animator.StringToHash(interactionParameterName);
         ClimbingParameterHash = Animator.StringToHash(climbingParameterName);
+        UnControllableParameterHash = Animator.StringToHash(unControllableParameterName);
+        UC_IdleParameterHash = Animator.StringToHash(uc_IdleParameterName);
         MoveStartParameterHash = Animator.StringToHash(moveStartParameterName);
         MovingParameterHash = Animator.StringToHash(movingParameterName);
         MoveStopParameterHash = Animator.StringToHash(moveStopParameterName);
@@ -135,6 +145,8 @@ public class PlayerAnimationData
         ClimbingToTopParameterHash = Animator.StringToHash(ClimbingToTopParameterName);
 
         SpinClockWorkParameterHash = Animator.StringToHash(spinClockWorkParameterName);
+        SpinClockWorkWallParameterHash = Animator.StringToHash(spinClockWorkWallParameterName);
+        SpinClockWorkFloorParameterHash = Animator.StringToHash(spinClockWorkFloorParameterName);
         PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
         PutDownParameterHash = Animator.StringToHash(putDownParameterName);
         ThrowParameterHash = Animator.StringToHash(throwParameterName);

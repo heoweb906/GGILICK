@@ -115,7 +115,6 @@ public class P_GroundState : PlayerMovementState
             }
             else if (player.curInteractableObject.type == InteractableType.SingleEvent)
             {
-                Debug.Log("!!!!!!!!");
                 float angle = player.curInteractableObject.transform.eulerAngles.y * Mathf.Deg2Rad;
                 player.targetPos = player.curInteractableObject.transform.position - new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance;
             }
@@ -127,7 +126,12 @@ public class P_GroundState : PlayerMovementState
             if (Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.03f)
             {
                 if (player.curInteractableObject.type == InteractableType.ClockWork)
-                    machine.OnStateChange(machine.SpinClockWorkState);
+                {
+                    if(player.curClockWork.GetClockWorkType() == ClockWorkType.Wall)
+                        machine.OnStateChange(machine.SpinClockWorkWallState);
+                    else if(player.curClockWork.GetClockWorkType() == ClockWorkType.Floor)
+                        machine.OnStateChange(machine.SpinClockWorkFloorState);
+                }
                 else if (player.curInteractableObject.type == InteractableType.Carrried)
                     machine.OnStateChange(machine.PickUpState);
                 else if (player.curInteractableObject.type == InteractableType.Grab)

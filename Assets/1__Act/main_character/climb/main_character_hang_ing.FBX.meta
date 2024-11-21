@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2c13fc3f41f86f54a9fceb72c2b1f21c
+guid: e05899b5d143f934b91334e6298279d6
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,8 +36,8 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 150
-      lastFrame: 250
+      firstFrame: 30
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -60,7 +60,7 @@ ModelImporter:
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 30
     isReadable: 0
   meshes:
     lODScreenPercentages: []
