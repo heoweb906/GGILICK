@@ -2761,7 +2761,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 4640154499687642753}
-  area: {fileID: 0}
+  area: {fileID: 3205058074462765714, guid: 2ef20b18de5f5aa47acdbf691e885a69, type: 3}
   nav: {fileID: 0}
   transformPlayerGrab: {fileID: 4502280060262495799}
   fAttackRange: 3

@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35684659de01cf44cb9e3b9cc78c6a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bTriggerOff: 0
   TargetCamera: {fileID: 1094541977}
   TartgetTransform: {fileID: 0}
 --- !u!4 &12038029
@@ -13857,6 +13858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35684659de01cf44cb9e3b9cc78c6a1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bTriggerOff: 0
   TargetCamera: {fileID: 550965346}
   TartgetTransform: {fileID: 0}
 --- !u!1 &540106137
