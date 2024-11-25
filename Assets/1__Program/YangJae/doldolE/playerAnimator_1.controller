@@ -651,7 +651,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.25
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
   m_ExitTime: 0.89285713
   m_HasExitTime: 0
@@ -1195,7 +1195,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 412bac99e28f7e24aac99c63d6c6697a,
+  m_Motion: {fileID: 1827226128182048838, guid: 6ae7123aef1403343ad099bd17ab5e00,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -2811,7 +2811,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PickUp
-  m_Speed: 2.5
+  m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 1134598884908325715}
@@ -2825,7 +2825,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -203655887218126122, guid: 5d89611ff02e0354bbee1f1ec197eff4,
+  m_Motion: {fileID: 1827226128182048838, guid: 29d1123321f98c649889288ab3763108,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -2913,7 +2913,7 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: 3080434874368341761}
-    m_Position: {x: 180, y: 190, z: 0}
+    m_Position: {x: 230, y: 200, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

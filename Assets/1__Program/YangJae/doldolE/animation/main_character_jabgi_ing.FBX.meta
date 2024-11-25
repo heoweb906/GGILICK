@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 47bb49199d63e0b43b60e7d5dae9278b
+guid: 6ae7123aef1403343ad099bd17ab5e00
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -36,45 +36,31 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       internalID: 1827226128182048838
-      firstFrame: 31
-      lastFrame: 116
+      firstFrame: 41
+      lastFrame: 56
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 1
+      keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.05165913
-        functionName: TriggerOnMovementStateAnimationTransitionEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      - time: 1
-        functionName: TriggerOnMovementStateAnimationExitEvent
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+      additiveReferencePoseFrame: 41
     isReadable: 0
   meshes:
     lODScreenPercentages: []
