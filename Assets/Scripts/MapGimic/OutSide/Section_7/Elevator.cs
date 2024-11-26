@@ -23,8 +23,6 @@ public class Elevator : ClockBattery
     }
 
 
-
-
     private IEnumerator JustCloseDoors()
     {
         // 1. 문을 중간 위치로 천천히 이동 (문이 열리는 중간 단계)

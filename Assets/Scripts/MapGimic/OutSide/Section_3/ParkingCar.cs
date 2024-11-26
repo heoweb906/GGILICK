@@ -29,8 +29,6 @@ public class ParkingCar : ClockBattery
     }
 
 
-
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -38,10 +36,12 @@ public class ParkingCar : ClockBattery
 
     private IEnumerator MoveForwardWithAcceleration()
     {
+        RotateObject((int)fCurClockBattery);
+
         float currentSpeed = initialSpeed; // 시작 속도 유지
 
-        while (fCurClockBattery > 0)
-        {
+        while (fCurClockBattery > 0) 
+        { 
             // 배터리 잔량이 설정된 임계값 이하로 떨어지면 감속 모드로 전환
             if (fCurClockBattery < fLowClockBatteryPoint)
             {
@@ -55,7 +55,6 @@ public class ParkingCar : ClockBattery
             transform.position += transform.forward * currentSpeed * fMoveDirection * Time.deltaTime;
 
             fCurClockBattery -= Time.deltaTime;
-            TurningClockWork();
 
             yield return null;
         }

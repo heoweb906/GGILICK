@@ -22,18 +22,15 @@ public class TestObject_Clock : ClockBattery
 
     private IEnumerator MoveForwardWithAcceleration()
     {
+        RotateObject((int)fCurClockBattery);
+
         while (fCurClockBattery > 0)
         {
             fCurClockBattery -= Time.deltaTime;
-            TurningClockWork();
             yield return null;
         }
 
         TrunOffObj();
     }
-
-
-
-
 
 }

@@ -9,7 +9,10 @@ public class NPC_Sad_StateMachine : StateMachine
     public BaseState CurrentState { get; private set; }
     public BaseState PreState { get; private set; }
     public NPC_Sad_IDLEState IDLEState { get; private set; }
-
+    public NPC_Sad_WalkState WalkState { get; private set; }
+    public NPC_Sad_GrappedState GrappedState { get; private set; }
+    public NPC_Sad_ReactionThankState ThankState { get; private set; }
+    
 
 
     public NPC_Sad_StateMachine(NPC_Sad _npc)
@@ -20,9 +23,11 @@ public class NPC_Sad_StateMachine : StateMachine
     private void StateInit()
     {
         IDLEState = new NPC_Sad_IDLEState(npc, this);
+        WalkState = new NPC_Sad_WalkState(npc, this);
+        GrappedState = new NPC_Sad_GrappedState(npc, this);
+        ThankState = new NPC_Sad_ReactionThankState(npc, this);
 
-
-        CurrentState = IDLEState; // 최초 상태 결정
+        CurrentState = npc.bWalking ? IDLEState : WalkState;
         CurrentState.OnEnter();
     }
 
@@ -58,12 +63,6 @@ public class NPC_Sad_StateMachine : StateMachine
     {
         return PreState == _state;
     }
-
-
-
-
-
-
 
 
     public void StartAnimation(int _parametgerHash)

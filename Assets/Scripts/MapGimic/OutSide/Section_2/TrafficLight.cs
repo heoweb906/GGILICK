@@ -38,7 +38,7 @@ public class TrafficLight : ClockBattery
 
     private void Update()
     {
-        if (bDoing) TurningClockWork();
+        if (bDoing) TruningClockWork_Simple(50f);
 
         // 자동차 관련 부분
         spawnTimer += Time.deltaTime;
