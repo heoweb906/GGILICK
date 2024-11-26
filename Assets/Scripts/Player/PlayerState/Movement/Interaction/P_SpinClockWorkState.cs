@@ -1,9 +1,12 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class P_SpinClockWorkState : P_InteractionState
 {
     public P_SpinClockWorkState(Player player, PlayerStateMachine machine) : base(player, machine) { }
+
+    bool bCanExit = false;
 
     public override void OnEnter()
     {
@@ -23,7 +26,7 @@ public class P_SpinClockWorkState : P_InteractionState
     public override void OnUpdate()
     {
         base.OnUpdate();
-        Interaction();
+        CheckCanExit();
     }
 
     public override void SetDirection()
@@ -31,22 +34,31 @@ public class P_SpinClockWorkState : P_InteractionState
         player.curDirection = player.curInteractableObject.transform.position - player.transform.position;
     }
 
-    private void Interaction()
+    private void CheckCanExit()
     {
-        if (Input.GetButtonDown("Horizontal") || Input.GetButtonDown("Vertical") || Input.GetButtonUp("Fire1"))
+        if (!bCanExit) return;
+        if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") || !Input.GetButton("Fire1"))
         {
             machine.OnStateChange(machine.IdleState);
             return;
         }
-        else if (Input.GetButtonDown("Jump"))
+        
+    }
+
+    public override void OnAnimationEnterEvent()
+    {
+        bCanExit = false;
+    }
+
+    public override void OnAnimationExitEvent()
+    {
+        bCanExit = true;
+        player.curClockWork.ChargingBattery();
+
+        if (player.curClockWork.BoolBatteryFullCharging())
         {
-            machine.OnStateChange(machine.JumpStartIdleState);
-            return;
-        }
-        if (!player.curClockWork.BoolBatteryFullCharging())
-            player.curClockWork.ChargingBattery();
-        else
             machine.OnStateChange(machine.IdleState);
+        }
     }
 
 }
