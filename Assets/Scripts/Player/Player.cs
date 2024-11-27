@@ -78,7 +78,8 @@ public class Player : MonoBehaviour
 
     [Header("태엽 오브젝트")]
     public float detectionRadius = 10f; // 탐지 반경
-    public float clockWorkInteractionDistance = 1f; // 상호작용 거리
+    public float clockWorkInteractionDistance_Wall = 1f; // 상호작용 거리
+    public float clockWorkInteractionDistance_Floor = 1f; // 상호작용 거리
     public ClockWork curClockWork; // 가장 가까운 ClockWork 오브젝트
     public Vector3 targetPos; // 가장 가까운 ClockWork 오브젝트
     public bool isGoToTarget;

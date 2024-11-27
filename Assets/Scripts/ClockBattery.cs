@@ -26,6 +26,7 @@ public class ClockBattery : MonoBehaviour
         bDoing = false;
         clockWork.GetComponent<ClockWork>().canInteract = true;
         bBatteryFull = false;
+        fCurClockBattery = 0f;
     }
 
 
@@ -34,7 +35,7 @@ public class ClockBattery : MonoBehaviour
     {
         float rotationAmount = time * -180f;
 
-        clockWork.transform.DORotate(new Vector3(0, 0, rotationAmount), time * 2f, RotateMode.LocalAxisAdd)
+        clockWork.transform.DORotate(new Vector3(0, 0, rotationAmount), time , RotateMode.LocalAxisAdd)
                  .SetEase(Ease.OutQuad);
     }
 

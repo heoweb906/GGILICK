@@ -48,6 +48,7 @@ public class P_SpinClockWorkState : P_InteractionState
     public override void OnAnimationEnterEvent()
     {
         bCanExit = false;
+        player.curClockWork.ClockWorkRotate();
     }
 
     public override void OnAnimationExitEvent()

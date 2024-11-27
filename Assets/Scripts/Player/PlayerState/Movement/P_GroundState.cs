@@ -92,12 +92,20 @@ public class P_GroundState : PlayerMovementState
 
                 if (player.curClockWork.GetClockWorkType() == ClockWorkType.Floor)
                 {
-                    player.targetPos = player.curClockWork.transform.position + (player.transform.position - player.curClockWork.transform.position).normalized * player.clockWorkInteractionDistance;
+                    float angle = player.curClockWork.transform.eulerAngles.y * Mathf.Deg2Rad;
+                    Vector3 pos1 = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Floor;
+                    Vector3 pos2 = player.curClockWork.transform.position + (-new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Floor);
+                    //Debug.Log((pos1 - player.transform.position).magnitude + "//" + (pos2 - player.transform.position).magnitude);
+
+                    player.targetPos = (pos1 - player.transform.position).magnitude >= (pos2 - player.transform.position).magnitude ?  pos2 : pos1;
+                    Debug.Log(player.targetPos);
+
+                    //player.targetPos = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Floor;
                 }
                 else if (player.curClockWork.GetClockWorkType() == ClockWorkType.Wall)
                 {
                     float angle = player.curClockWork.transform.eulerAngles.y * Mathf.Deg2Rad;
-                    player.targetPos = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance;
+                    player.targetPos = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Wall;
                 }
             }
             else if (player.curInteractableObject.type == InteractableType.Carrried)
@@ -116,7 +124,7 @@ public class P_GroundState : PlayerMovementState
             else if (player.curInteractableObject.type == InteractableType.SingleEvent)
             {
                 float angle = player.curInteractableObject.transform.eulerAngles.y * Mathf.Deg2Rad;
-                player.targetPos = player.curInteractableObject.transform.position - new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance;
+                player.targetPos = player.curInteractableObject.transform.position - new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Wall;
             }
 
         }
