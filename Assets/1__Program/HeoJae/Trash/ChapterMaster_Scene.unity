@@ -13571,6 +13571,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60513fef8fae3a9449de911813f9b7c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stateChangeDebug: 0
+  isWorldAxis: 0
+  yAxis: 0
+  camTransform: {fileID: 0}
   rigid: {fileID: 820543029}
   playerCollider: []
   playerAnim: {fileID: 820543028}
@@ -13579,6 +13583,8 @@ MonoBehaviour:
     onAirParameterName: OnAir
     interactionParameterName: Interaction
     climbingParameterName: Climbing
+    unControllableParameterName: UnConrollable
+    uc_IdleParameterName: UC_Idle
     moveStartParameterName: MoveStart
     movingParameterName: Move
     moveStopParameterName: MoveStop
@@ -13603,13 +13609,20 @@ MonoBehaviour:
     HangingParameterName: Hanging
     ClimbingToTopParameterName: ClimbingToTop
     spinClockWorkParameterName: isSpinClockWork
+    spinClockWorkWallParameterName: isSpinClockWorkWall
+    spinClockWorkFloorParameterName: isSpinClockWorkFloor
     pickUpParameterName: isPickUp
     putDownParameterName: isPutDown
+    throwParameterName: isThrow
+    grabParameterName: Grab
+    pushParameterName: isPush
+    grabIdleParameterName: isGrabIdle
+    pullParameterName: isPull
   playerWalkSpeed: 2.7
   playerRunSpeed: 4.3
   playerMoveLerpSpeed: 12.8
   playerMoveLerpSpeedOnJump: 1.8
-  playerRotateLerpSpeed: 12.9
+  playerDefaultRotateLerpSpeed: 0
   firstJumpPower: 7.08
   fallingPower: 1.8
   maxFallingSpeed: 15.03
@@ -13623,6 +13636,7 @@ MonoBehaviour:
   platformVelocity: {x: 0, y: 0, z: 0}
   distanceGround: 0.218
   playerMoveSpeed: 5.1
+  rotateLerpSpeed: 0
   isRun: 0
   curDirection: {x: 0, y: 0, z: 0}
   preDirection: {x: 0, y: 0, z: 0}
@@ -13636,12 +13650,24 @@ MonoBehaviour:
   CarriedObjectPos: {fileID: 0}
   carriedObjectInteractionDistance: 1
   isCarryObject: 0
+  throwPower: 0
+  curGrabObject: {fileID: 0}
+  grabPos: {fileID: 0}
+  grabObjectInteractionDistance: 1
+  playerGrapRotateLerpSpeed: 0
+  playerGrapMoveSpeed: 0
   cliffCheckRayDistance: 1
   hangingPos: {x: 0, y: 0, z: 0}
   hangingPosOffset_Front: 0
   hangingPosOffset_Height: 0
+  isHandIK: 0
   groundList: []
   curMovingPlatform: {fileID: 0}
+  tf_L_UpperArm: {fileID: 0}
+  tf_L_Hand: {fileID: 0}
+  tf_R_UpperArm: {fileID: 0}
+  tf_R_Hand: {fileID: 0}
+  _x: 0
 --- !u!114 &820543031
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32993,6 +33019,8 @@ MonoBehaviour:
   xPos: 0
   yPos: 4
   zPos: -5.4
+  rotationSpeed: 20
+  moveSpeed: 10
 --- !u!114 &1804953667
 MonoBehaviour:
   m_ObjectHideFlags: 0

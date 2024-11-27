@@ -16,7 +16,7 @@ public class NPC_Sad_State : BaseState
 
     public virtual void OnEnter()
     {
-
+        
     }
 
     public virtual void OnExit()

@@ -11,6 +11,8 @@ public class NPC_Sad_WalkState : NPC_Sad_State
     {
         base.OnEnter();
 
+        npc.GetNav().enabled = true;
+
         int ranNum = Random.Range(0, 2);
         npc.GetAnimator().SetInteger("Walk_Num", ranNum);
     }
@@ -21,6 +23,20 @@ public class NPC_Sad_WalkState : NPC_Sad_State
         base.OnUpdate();
 
 
+        if (npc.checkPoints == null) return;
+
+        if (npc.GetNav().remainingDistance <= npc.GetNav().stoppingDistance && npc.bWalking)
+        {
+            if (npc.CurrentCheckPointIndex < npc.checkPoints.Length)
+            {
+                MoveToNextCheckPoint();
+            }
+            else
+            {
+                Object.Destroy(npc.gameObject);
+            }
+            npc.CurrentCheckPointIndex++;
+        }
 
     }
 
@@ -33,5 +49,14 @@ public class NPC_Sad_WalkState : NPC_Sad_State
     public override void OnExit()
     {
         base.OnExit();
+
+        npc.GetNav().enabled = false;
+    }
+
+
+    private void MoveToNextCheckPoint()
+    {
+        npc.GetNav().SetDestination(npc.checkPoints[npc.CurrentCheckPointIndex].position);
+        Debug.Log("걷는 중입니다!!!!!.");
     }
 }

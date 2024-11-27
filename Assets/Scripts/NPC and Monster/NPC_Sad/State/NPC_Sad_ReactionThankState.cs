@@ -31,7 +31,8 @@ public class NPC_Sad_ReactionThankState : NPC_Sad_State
         // 2초가 지나면 ChangeStateNPC 실행
         if (elapsedTime >= duration)
         {
-            machine.OnStateChange(npc.bWalking ? machine.IDLEState : machine.WalkState);
+            npc.CurrentCheckPointIndex--;
+            machine.OnStateChange(npc.bWalking ? machine.WalkState : machine.IDLEState);
         }
 
     }

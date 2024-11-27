@@ -12,8 +12,6 @@ public class NPC_Sad_StateMachine : StateMachine
     public NPC_Sad_WalkState WalkState { get; private set; }
     public NPC_Sad_GrappedState GrappedState { get; private set; }
     public NPC_Sad_ReactionThankState ThankState { get; private set; }
-    
-
 
     public NPC_Sad_StateMachine(NPC_Sad _npc)
     {
@@ -27,7 +25,7 @@ public class NPC_Sad_StateMachine : StateMachine
         GrappedState = new NPC_Sad_GrappedState(npc, this);
         ThankState = new NPC_Sad_ReactionThankState(npc, this);
 
-        CurrentState = npc.bWalking ? IDLEState : WalkState;
+        CurrentState = npc.bWalking ?  WalkState : IDLEState;
         CurrentState.OnEnter();
     }
 

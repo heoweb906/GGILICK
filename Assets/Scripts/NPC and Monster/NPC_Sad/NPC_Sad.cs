@@ -6,8 +6,8 @@ using UnityEngine.AI;
 
 public class NPC_Sad : MonoBehaviour
 {
-    public Animator anim;
-    public NavMeshAgent nav;
+    private Animator anim;
+    private NavMeshAgent agent;
     public NPC_Sad_StateMachine machine;
 
 
@@ -20,6 +20,12 @@ public class NPC_Sad : MonoBehaviour
     public NPC_ClockWork clockWork;
 
 
+    [Header("Walk 관련 컴포넌트들")]
+    public Transform[] checkPoints; // 목표 지점 배열
+    private int currentCheckPointIndex = 0; // 현재 목표 지점 인덱스
+
+
+  
     private void Awake()
     {
         Init();
@@ -30,13 +36,12 @@ public class NPC_Sad : MonoBehaviour
         anim.SetBool("Bool_Walk", bWalking);
         anim.SetBool("Bool_Sad", bSad);
 
-        nav = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
+
 
         machine = new NPC_Sad_StateMachine(this);
-
         clockWork.machine = machine;
     }
-
 
 
     private void Update()
@@ -57,8 +62,21 @@ public class NPC_Sad : MonoBehaviour
         return anim;
     }
 
+
+
     public NavMeshAgent GetNav()
     {
-        return nav;
+        return agent;
     }
+
+
+
+    public int CurrentCheckPointIndex
+    {
+        get => currentCheckPointIndex;
+        set => currentCheckPointIndex = value;
+    }
+
+
+
 }

@@ -43,12 +43,12 @@ public class NPC_FollowLine : MonoBehaviour
         }
     }
 
+
     private void MoveToNextCheckPoint()
     {
         agent.SetDestination(checkPoints[currentCheckPointIndex].position);
         anim.SetInteger("Walk_Num", iWalkAnimNum); // 이동 애니메이션 시작
     }
-
 
 
     private void OnCollisionEnter(Collision collision)
