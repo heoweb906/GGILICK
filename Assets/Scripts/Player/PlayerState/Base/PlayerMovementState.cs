@@ -30,7 +30,6 @@ public class PlayerMovementState : BaseState
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
-        if(!player.isCarryObject)
             player.isRun = Input.GetButton("Run");
         SetDirection();
     }
