@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 259078f15fcca2f43b1caea70c43b096
+guid: 01a0df20996343847abd4a5385fba3ae
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: p_blinker_material
-    second: {fileID: 2100000, guid: 6d7c659dd1eb1374fb56d5c2a670bf19, type: 2}
+    second: {fileID: 2100000, guid: c269f0f4e9ab9fc44bae3c7d3fd0e3e5, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
