@@ -1,9 +1,14 @@
 fileFormatVersion: 2
-guid: fd0edf146e7744c488f374f5d4972568
+guid: 7573f31bbcd9f454f9a384a36e2accba
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: p_street_lamp_material
+    second: {fileID: 2100000, guid: a7b2170f632ddd4488f754f9b8a3600a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

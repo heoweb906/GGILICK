@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: a58a9c06f3ee8b2499796f97d5356122
+guid: 1f1dfd981c6bd6743b7c2815f7057e74
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: p_hydrant_material
-    second: {fileID: 2100000, guid: 13a0033495e090d4895f88e6cc1518d8, type: 2}
+    second: {fileID: 2100000, guid: db0ff59e6f084d247af6bcbad5bbf3c7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
