@@ -25,7 +25,7 @@ public class GameAssistManager : MonoBehaviour
     private Vignette vignette;
     private ColorAdjustments colorAdjustments;
 
-    private void Start()
+    private void Awake()
     {
         Instance = this; // 인스턴스 생성
         player = FindPlayerRoot();

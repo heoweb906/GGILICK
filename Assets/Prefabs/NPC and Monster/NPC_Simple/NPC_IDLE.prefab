@@ -56,8 +56,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bSad: 1
   bWalking: 0
-  bEventNPC: 0
-  clockWork: {fileID: 6726311321795108807}
+  bClockWorkEventNPC: 0
+  bActionEventNPC: 0
+  clockworkEvent: 0
+  actionEventList: 0
+  npc_ClockWork: {fileID: 6726311321795108807}
   checkPoints: []
 --- !u!95 &7795427605289915666
 Animator:

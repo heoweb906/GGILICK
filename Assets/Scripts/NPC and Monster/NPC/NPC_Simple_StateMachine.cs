@@ -8,10 +8,19 @@ public class NPC_Simple_StateMachine : StateMachine
 
     public BaseState CurrentState { get; private set; }
     public BaseState PreState { get; private set; }
-    public NPC_Sad_IDLEState IDLEState { get; private set; }
-    public NPC_Sad_WalkState WalkState { get; private set; }
-    public NPC_Sad_GrappedState GrappedState { get; private set; }
-    public NPC_Sad_ReactionThankState ThankState { get; private set; }
+    public NPC_Simple_IDLEState IDLEState { get; private set; }
+    public NPC_Simple_WalkState WalkState { get; private set; }
+    public NPC_Simple_GrappedState GrappedState { get; private set; }
+    public NPC_Simple_ReactionThankState ThankState { get; private set; }
+
+
+    // #. 특정한 행동을 취하고 있는 NPC들
+    public NPC_Simple_ActionEvent ActionEventState { get; private set; }
+
+    public NPC_Simple_ActionEventSpinTaeYub SpinTaeYubState { get; private set; }
+
+
+
 
     public NPC_Simple_StateMachine(NPC_Simple _npc)
     {
@@ -20,12 +29,20 @@ public class NPC_Simple_StateMachine : StateMachine
     }
     private void StateInit()
     {
-        IDLEState = new NPC_Sad_IDLEState(npc, this);
-        WalkState = new NPC_Sad_WalkState(npc, this);
-        GrappedState = new NPC_Sad_GrappedState(npc, this);
-        ThankState = new NPC_Sad_ReactionThankState(npc, this);
+        IDLEState = new NPC_Simple_IDLEState(npc, this);
+        WalkState = new NPC_Simple_WalkState(npc, this);
+        GrappedState = new NPC_Simple_GrappedState(npc, this);
+        ThankState = new NPC_Simple_ReactionThankState(npc, this);
+        ActionEventState = new NPC_Simple_ActionEvent(npc, this);
+        SpinTaeYubState = new NPC_Simple_ActionEventSpinTaeYub(npc, this);
+
 
         CurrentState = npc.bWalking ?  WalkState : IDLEState;
+
+        if(npc.bActionEventNPC)
+        {
+            CurrentState = ActionEventState;
+        }
         CurrentState.OnEnter();
     }
 

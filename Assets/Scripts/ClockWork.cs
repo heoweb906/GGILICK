@@ -18,7 +18,7 @@ public class ClockWork : InteractableObject
     private void Start()
     {
         type = InteractableType.ClockWork;
-        canInteract = true;
+        // canInteract = true;
     }
 
     public void ChargingBattery()

@@ -1,8 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+
+public enum ClockWorkEventList
+{
+    None   // Num 0
+}
+
+public enum ActionEventList
+{ 
+    None,            // Num 0;
+    WorkInCompany    // Num 1;
+}
+
 
 public class NPC_Simple : MonoBehaviour
 {
@@ -14,10 +27,14 @@ public class NPC_Simple : MonoBehaviour
     [Header("NPC 상태들")]
     public bool bSad; // true = Sad <-> false = NotSad
     public bool bWalking; // true = Walking <-> false = IDLE
-    public bool bEventNPC; // true = 태엽을 돌려준 이후에 특정한 이벤트를 취하는 캐릭터인지
+    public bool bClockWorkEventNPC; // true = 태엽을 돌려준 이후에 특정한 이벤트를 취하는 캐릭터인지
+    public bool bActionEventNPC; // 생성 시점부터 특정한 행동을 취하고 있는 NPC;
+    public ClockWorkEventList clockworkEvent;
+    public ActionEventList actionEventList;
 
     [Header("기타 오브젝트들")]
-    public NPC_ClockWork clockWork;
+    public NPC_ClockWork npc_ClockWork; // 자기 등에 꽂혀 있는 태엽
+    private ClockWork clockWork;        // 직접 회전 시킬 태엽
 
 
     [Header("Walk 관련 컴포넌트들")]
@@ -25,7 +42,6 @@ public class NPC_Simple : MonoBehaviour
     private int currentCheckPointIndex = 0; // 현재 목표 지점 인덱스
 
 
-  
     private void Awake()
     {
         Init();
@@ -35,12 +51,13 @@ public class NPC_Simple : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetBool("Bool_Walk", bWalking);
         anim.SetBool("Bool_Sad", bSad);
+        anim.SetBool("Bool_ActionEvent", bActionEventNPC);
 
         agent = GetComponent<NavMeshAgent>();
 
 
         machine = new NPC_Simple_StateMachine(this);
-        clockWork.machine = machine;
+        npc_ClockWork.machine = machine;
     }
 
 
@@ -57,11 +74,19 @@ public class NPC_Simple : MonoBehaviour
 
 
 
+
+
+
+
+
+
+
+
+
     public Animator GetAnimator()
     {
         return anim;
     }
-
 
 
     public NavMeshAgent GetNav()
@@ -69,13 +94,25 @@ public class NPC_Simple : MonoBehaviour
         return agent;
     }
 
-
-
     public int CurrentCheckPointIndex
     {
         get => currentCheckPointIndex;
         set => currentCheckPointIndex = value;
     }
+
+
+    public ClockWork ClockWork
+    {
+        get { return clockWork; }  
+        set { clockWork = value; }
+    }
+
+    public void SpinClockWork()
+    {
+        clockWork.ClockWorkRotate();
+    }
+
+
 
 
 
