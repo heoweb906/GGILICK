@@ -3,7 +3,17 @@ guid: 0e627b9e7f487484b84d6654f44b11d2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #30
+    second: {fileID: 2100000, guid: b6c6ce9647083ae469e6a46894272308, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: p_blinker_material
+    second: {fileID: 2100000, guid: b6c6ce9647083ae469e6a46894272308, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
