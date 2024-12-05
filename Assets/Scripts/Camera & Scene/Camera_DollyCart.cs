@@ -22,7 +22,7 @@ public class Camera_DollyCart : CameraObj
 
     public void FixedUpdate()
     {
-        RoateCameraOnDollyTrack();
+        if(!GameAssistManager.Instance.GetBoolPlayerDie()) RoateCameraOnDollyTrack();
     }
 
     private void RoateCameraOnDollyTrack()

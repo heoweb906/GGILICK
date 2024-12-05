@@ -13,7 +13,7 @@ public class JustRotate : MonoBehaviour
 
     [Header("Rotation Settings")]
     public RotationAxis axis = RotationAxis.Y; // 기본 축: Y축
-    public float rotationSpeed = 10f;          // 회전 속도
+    public float rotationSpeed;          // 회전 속도
     public bool clockwise = true;             // 시계 방향 여부
 
     void Update()

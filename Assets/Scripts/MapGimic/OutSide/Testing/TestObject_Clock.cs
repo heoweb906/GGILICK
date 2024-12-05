@@ -12,6 +12,7 @@ public class TestObject_Clock : ClockBattery
         base.TrunOnObj();
 
         nowCoroutine = StartCoroutine(MoveForwardWithAcceleration());
+        RotateObject((int)fCurClockBattery);
     }
 
     public override void TrunOffObj()
@@ -22,7 +23,7 @@ public class TestObject_Clock : ClockBattery
 
     private IEnumerator MoveForwardWithAcceleration()
     {
-        RotateObject((int)fCurClockBattery);
+      
 
         while (fCurClockBattery > 0)
         {

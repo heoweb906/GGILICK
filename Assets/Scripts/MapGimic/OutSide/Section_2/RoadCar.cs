@@ -7,6 +7,7 @@ public class RoadCar : MonoBehaviour
 {
     [HideInInspector] public TrafficLight trafficLight; // 교통 신호
     public bool bMoveActive;
+    public bool bDirection;
 
     public float maxSpeed; // 최고 속력
     public float safeDistance; // 안전거리
@@ -16,11 +17,12 @@ public class RoadCar : MonoBehaviour
     private Rigidbody rb; // 자동차의 Rigidbody 컴포넌트
     private float currentSpeed; // 현재 속력
 
+    public JustRotate[] justRotates;  // 타이어들 회전 관리
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentSpeed = maxSpeed; // 초기 속력을 최고 속력으로 설정
-        Debug.Log("생성됨");
     }
 
     private void Update()
@@ -28,8 +30,13 @@ public class RoadCar : MonoBehaviour
         if (bMoveActive)
         {
             MoveCar(); // 자동차 이동 메서드 호출
+
             // positionEnd의 z값을 넘어가면 자동차 삭제
-            if (transform.position.z > trafficLight.postion_end.position.z) RemoveCar();
+            if ((bDirection && transform.position.z < trafficLight.postions_end[0].position.z) ||
+                (!bDirection && transform.position.z > trafficLight.postions_end[1].position.z))
+            {
+                RemoveCar();
+            }
         }
     }
 
@@ -45,11 +52,7 @@ public class RoadCar : MonoBehaviour
             {
                 // 안전 거리 확보를 위해 서서히 감속
                 currentSpeed -= deceleration * Time.deltaTime;
-                // 속도가 0 이하로 떨어지지 않도록 제한 (뒤로 가지 않도록 방지)
                 currentSpeed = Mathf.Max(currentSpeed, 0);
-
-                // 속도가 0이 되면 멈춤
-                if (currentSpeed == 0) rb.velocity = Vector3.zero;
             }
         }
         else
@@ -61,14 +64,34 @@ public class RoadCar : MonoBehaviour
             }
         }
 
-        // 자동차의 속도를 설정 (뒤로 가는 것을 방지)
-        rb.velocity = transform.forward * Mathf.Max(currentSpeed, 0);
+        // MovePosition을 사용해 오브젝트 이동
+        Vector3 targetPosition = transform.position + transform.forward * currentSpeed * Time.deltaTime;
+        rb.MovePosition(targetPosition);
+
+        // JustRotate 배열의 각 요소 회전 속도 업데이트
+        foreach (var rotate in justRotates)
+        {
+            if (rotate != null)
+            {
+                rotate.rotationSpeed = currentSpeed * 10f; // 속도에 비례하도록 조정 (10f는 비율 조정값)
+            }
+        }
     }
+
 
     private void RemoveCar()
     {
         // 리스트에서 이 자동차 제거
-        if (trafficLight != null && trafficLight.spawnedCars.Contains(gameObject)) trafficLight.spawnedCars.Remove(gameObject);
+        if(bDirection)
+        {
+            if (trafficLight != null && trafficLight.spawnedCars_1.Contains(gameObject)) trafficLight.spawnedCars_1.Remove(gameObject);
+        }
+        else
+        {
+            if (trafficLight != null && trafficLight.spawnedCars_2.Contains(gameObject)) trafficLight.spawnedCars_2.Remove(gameObject);
+        }
+
+        DOTween.Kill(gameObject);
         Destroy(gameObject);
     }
 
@@ -77,5 +100,16 @@ public class RoadCar : MonoBehaviour
         Gizmos.color = Color.red;
         Vector3 rayStart = transform.position + Vector3.up * 2;
         Gizmos.DrawLine(rayStart, rayStart + transform.forward * safeDistance);
+    }
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        // 충돌한 오브젝트의 태그가 "Player"인지 확인
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            Debug.Log("Detect On Player");
+            GameAssistManager.Instance.DiePlayerReset(2f);
+        }
     }
 }

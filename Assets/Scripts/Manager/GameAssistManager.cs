@@ -19,6 +19,7 @@ public class GameAssistManager : MonoBehaviour
     public int iStageNum;
     public Transform[] Transforms_Respawn;
     public GameObject[] Cameras;
+    private bool bPlayerDie;   // 현재 플레이어가 죽음 상태 -> 죽음 반복 방지
 
     [Header("연출 관련")]
     private Volume volume;
@@ -28,6 +29,10 @@ public class GameAssistManager : MonoBehaviour
     private void Awake()
     {
         Instance = this; // 인스턴스 생성
+        bPlayerDie = false;
+
+        Debug.Log(bPlayerDie);
+
         player = FindPlayerRoot();
 
         // #. 스테이지 관리
@@ -39,8 +44,6 @@ public class GameAssistManager : MonoBehaviour
             SaveGameProgress(0, 0);
         }
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
-
-
 
         // #. Volume 관리
         volume = FindObjectOfType<Volume>();
@@ -73,7 +76,11 @@ public class GameAssistManager : MonoBehaviour
     // #. 플레이어가 죽었을 때 실행시킬 함수
     public void DiePlayerReset(float fDieDelay = 2f)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
     {
-        StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
+        if (!bPlayerDie)
+        {
+            bPlayerDie = true;
+            StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
+        }
     }
     IEnumerator _DiePlayerReset(float _fDieDelay) 
     {
@@ -210,6 +217,15 @@ public class GameAssistManager : MonoBehaviour
             if (obj.transform.root.CompareTag("Player")) return obj.transform.root.gameObject;
         }
         return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
+    }
+
+
+
+
+
+    public bool GetBoolPlayerDie()
+    {
+        return bPlayerDie;
     }
 
 }

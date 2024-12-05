@@ -17,6 +17,7 @@ public class ParkingCar : ClockBattery
     {
         base.TrunOnObj();
 
+        RotateObject((int)fCurClockBattery);
         nowCoroutine = StartCoroutine(MoveForwardWithAcceleration());
     }
     public override void TrunOffObj()
@@ -28,32 +29,27 @@ public class ParkingCar : ClockBattery
         bMoveDirection = !bMoveDirection;
     }
 
-
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
     }
 
+
     private IEnumerator MoveForwardWithAcceleration()
     {
-        RotateObject((int)fCurClockBattery);
-
         float currentSpeed = initialSpeed; // 시작 속도 유지
 
-        while (fCurClockBattery > 0) 
-        { 
-            // 배터리 잔량이 설정된 임계값 이하로 떨어지면 감속 모드로 전환
+        while (fCurClockBattery > 0)
+        {
             if (fCurClockBattery < fLowClockBatteryPoint)
             {
-                // 감속 중
-                currentSpeed = Mathf.Lerp(0, initialSpeed, fCurClockBattery / fLowClockBatteryPoint); // 감속 처리
+                currentSpeed = Mathf.Lerp(0, initialSpeed, fCurClockBattery / fLowClockBatteryPoint);
             }
 
             float fMoveDirection = bMoveDirection ? -1f : 1f;
 
-            // Transform을 사용해 위치 업데이트
-            transform.position += transform.forward * currentSpeed * fMoveDirection * Time.deltaTime;
-
+            // Rigidbody를 사용해 위치 업데이트
+            rb.MovePosition(transform.position + transform.forward * currentSpeed * fMoveDirection * Time.deltaTime);
             fCurClockBattery -= Time.deltaTime;
 
             yield return null;
@@ -61,10 +57,9 @@ public class ParkingCar : ClockBattery
 
         TrunOffObj();
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        // 충돌한 대상이 RoadCar 스크립트를 가지고 있는지 확인
-        if (collision.gameObject.GetComponent<ParkingCar>() != null) 
+        if (other.GetComponent<ParkingCar>() != null)
         {
             TrunOffObj();
         }
