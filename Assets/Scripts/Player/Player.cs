@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Player : MonoBehaviour
 {
@@ -8,7 +9,7 @@ public class Player : MonoBehaviour
 
     [Header("월드 기준 이동")]
     public bool isWorldAxis;
-    [Range(0,360)]
+    [Range(0, 360)]
     public float yAxis;
 
     public PlayerStateMachine machine;
@@ -89,7 +90,7 @@ public class Player : MonoBehaviour
     public Transform CarriedObjectPos;
     public float carriedObjectInteractionDistance = 1f; // 상호작용 거리
     public bool isCarryObject;
-    [Range(0,50)]
+    [Range(0, 50)]
     public float throwPower;
 
     [Header("물건 밀기")]
@@ -192,8 +193,8 @@ public class Player : MonoBehaviour
     public Transform tf_R_UpperArm;
     public Transform tf_R_Hand;
     public int _x;
-    int _y;
-    int _z;
+    float angle = 0;
+
     public void LateUpdate()
     {
         if (!isHandIK)
@@ -206,22 +207,6 @@ public class Player : MonoBehaviour
             else
                 _x++;
         }
-        //else if (Input.GetKey(KeyCode.X))
-        //{
-        //    if (Input.GetKey(KeyCode.LeftShift))
-        //        _y--;
-        //    else
-        //        _y++;
-        //}
-        //else if (Input.GetKey(KeyCode.C))
-        //{
-        //    if (Input.GetKey(KeyCode.LeftShift))
-        //        _z--;
-        //    else
-        //        _z++;
-        //}
-        ////leftArm.localEulerAngles = new Vector3(3+_x,-14 + _y,7+ _z);
-        ///
 
         BoxCollider _col = curCarriedObject.GetComponent<BoxCollider>();
         Vector3 boxScale = Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
@@ -237,48 +222,27 @@ public class Player : MonoBehaviour
         float dotProduct = Vector2.Dot(upperArmToHand.normalized, upperArmToTarget.normalized);
 
 
-        //float magnitudeUpperArmToHand = upperArmToHand.magnitude;
-        //float magnitudeUpperArmToTarget = upperArmToTarget.magnitude;
-        //float angle = Mathf.Acos(dotProduct / (magnitudeUpperArmToHand * magnitudeUpperArmToTarget)) * Mathf.Rad2Deg;
+        float targetAngle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg + _x;
 
+        
+        DOTween.To(() => angle, x => angle = x, targetAngle, 0.6f);
 
-        float angle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg;
+        tf_L_UpperArm.eulerAngles = tf_L_UpperArm.eulerAngles + new Vector3(0, angle, 0);
 
-        tf_L_UpperArm.eulerAngles = tf_L_UpperArm.eulerAngles + new Vector3(0, angle + _x, 0);
+        tf_R_UpperArm.eulerAngles = tf_R_UpperArm.eulerAngles - new Vector3(0, angle, 0);
+    }
+    public float carryWeight = 1;
 
-
-        //Vector2 rightTargetPos = new Vector2(curCarriedObject.transform.position.x * transform.right.x - boxScale.y, curCarriedObject.transform.position.z * transform.forward.z);
-
-        //Vector2 _RightUpperArm = new Vector2(tf_R_UpperArm.transform.position.x, tf_R_UpperArm.transform.position.z);
-        //Vector2 _RightHand = new Vector2(tf_R_Hand.transform.position.x, tf_R_Hand.transform.position.z);
-
-        //upperArmToHand = _RightHand - _RightUpperArm;
-        //upperArmToTarget = _RightHand - rightTargetPos;
-
-        //dotProduct = Vector2.Dot(upperArmToHand, upperArmToTarget);
-        //magnitudeUpperArmToHand = upperArmToHand.magnitude;
-        //magnitudeUpperArmToTarget = upperArmToTarget.magnitude;
-
-        //angle = Mathf.Acos(dotProduct / (magnitudeUpperArmToHand * magnitudeUpperArmToTarget)) * Mathf.Rad2Deg;
-
-        tf_R_UpperArm.eulerAngles = tf_R_UpperArm.eulerAngles - new Vector3(0, angle + _x, 0);
+    public void SetCarryWeight()
+    {
+        carryWeight = 1;
+        DOTween.To(() => carryWeight, x => carryWeight = x, 0, 0.3f);
     }
 
-    //public void OnAnimatorIK(int layerIndex)
-    //{
-    //    if (!isHandIK)
-    //        return;
-    //    playerAnim.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-    //    playerAnim.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+    public void SetHandIKAngle()
+    {
 
-    //    BoxCollider _col = curCarriedObject.GetComponent<BoxCollider>();
-    //    Vector3 leftHandPos = curCarriedObject.transform.position - Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
-    //    Vector3 rightHandPos = curCarriedObject.transform.position + Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale);
-    //    Debug.Log(leftHandPos);
-
-    //    playerAnim.SetIKPosition(AvatarIKGoal.LeftHand, leftHandPos);
-    //    playerAnim.SetIKPosition(AvatarIKGoal.RightHand, rightHandPos);
-    //}
+    }
 
     public void SetColliderTrigger(bool _bool)
     {

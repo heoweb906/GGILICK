@@ -45,7 +45,7 @@ public class P_OnAirState : PlayerMovementState
             {
                 BoxCollider _col = player.cliffRayHit.collider.GetComponent<BoxCollider>();
                 Vector3 cliffPos = Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale) + player.cliffRayHit.transform.position;
-                if ((cliffPos.y - player.cliffRayHit.point.y) < 0.05f)
+                if ((cliffPos.y - player.cliffRayHit.point.y) < 0.05f && (cliffPos.y - player.cliffRayHit.point.y) > -0.05f)
                 {
                     Debug.Log((cliffPos.y - player.cliffRayHit.point.y));
                     player.hangingPos = new Vector3(player.cliffRayHit.point.x, cliffPos.y, player.cliffRayHit.point.z);

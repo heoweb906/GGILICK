@@ -1,4 +1,5 @@
 using UnityEngine;
+using DG.Tweening;
 
 public class P_ThrowState : P_InteractionState
 {
@@ -8,6 +9,8 @@ public class P_ThrowState : P_InteractionState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.ThrowParameterHash);
+
+        player.SetCarryWeight();
     }
 
     public override void OnExit()
@@ -19,6 +22,7 @@ public class P_ThrowState : P_InteractionState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        player.playerAnim.SetLayerWeight(1, player.carryWeight);
     }
 
     public override void OnAnimationTransitionEvent()
@@ -26,7 +30,6 @@ public class P_ThrowState : P_InteractionState
         Rigidbody _rigid = player.curCarriedObject.GetComponent<Rigidbody>();
 
         player.SetPlayerPhysicsIgnore(player.curCarriedObject.col, false);
-        player.playerAnim.SetLayerWeight(1, 0);
         player.isCarryObject = false;
         player.curCarriedObject.transform.parent = null;
         player.curCarriedObject.rigid.isKinematic = false;
