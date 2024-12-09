@@ -19,4 +19,6 @@ public class NPC_ClockWork : InteractableObject
         machine.OnStateChange(machine.GrappedState);
     }
 
+
+
 }

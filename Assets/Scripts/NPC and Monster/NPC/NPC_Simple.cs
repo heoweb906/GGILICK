@@ -5,14 +5,17 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+// #. 태엽을 돌려주고 난 이후에 취할 액션
 public enum ClockWorkEventList
 {
     None   // Num 0
 }
 
+// #. 평소에 취하고 있을 액션
 public enum ActionEventList
 { 
-    None,            // Num 0;
+    None,            // Num 0, IDLE or WALK;
     WorkInCompany    // Num 1;
 }
 

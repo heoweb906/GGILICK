@@ -196,18 +196,6 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
     // #. Player 태그가 붙은 오브젝트 중에 가장 부모 오브젝트를 찾아오는 함수
     private GameObject FindPlayerRoot()
     {
@@ -218,9 +206,6 @@ public class GameAssistManager : MonoBehaviour
         }
         return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
     }
-
-
-
 
 
     public bool GetBoolPlayerDie()

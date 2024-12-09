@@ -40,7 +40,7 @@ public class NPC_Simple_ActionEventSpinTaeYub : NPC_Simple_State
 
 
     // #. 애니메이션 이벤트에서 사용할 거임
-    public void SpinTaeYub()
+    public void SpinTaeYub() // 전방에 태엽을 돌리는 함수, 일하는 NPC들
     {
         npc.ClockWork.ClockWorkRotate();
     }

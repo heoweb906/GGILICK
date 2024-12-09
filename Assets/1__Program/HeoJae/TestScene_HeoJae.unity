@@ -5247,6 +5247,7 @@ MonoBehaviour:
   tf_R_UpperArm: {fileID: 392830191}
   tf_R_Hand: {fileID: 1419292095}
   _x: 0
+  carryWeight: 1
 --- !u!114 &648429434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5846,6 +5847,12 @@ MonoBehaviour:
   localInertiaProperty: 0
   windInfluenceProperty: 0
   blendWeightProperty: 0
+--- !u!1 &714658131 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9457b89d592f4794fa02f696f770e69b,
+    type: 3}
+  m_PrefabInstance: {fileID: 802011652}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &716586236
 GameObject:
   m_ObjectHideFlags: 0
@@ -10083,7 +10090,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbaa22fb55abdcf4598c461e88d6c9ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockWork: {fileID: 0}
+  clockWork: {fileID: 714658131}
   fMaxClockBattery: 10
   fCurClockBattery: 0
   fLowClockBatteryPoint: 0
@@ -14595,6 +14602,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_Walk
       objectReference: {fileID: 0}
+    - target: {fileID: 2711862296095051429, guid: b998c392163752c4fb60e98160fbd973,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3132463289444085103, guid: b998c392163752c4fb60e98160fbd973,
         type: 3}
       propertyPath: checkPoints.Array.data[0]
@@ -14677,6 +14689,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NPC
+      objectReference: {fileID: 0}
+    - target: {fileID: 5128564332118657555, guid: 0fa60e32d14314f47adf24ec541c0d41,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8926924752128090819, guid: 0fa60e32d14314f47adf24ec541c0d41,
         type: 3}

@@ -191,6 +191,7 @@ public class TrafficLight : ClockBattery
             if (positionCooldowns[ranNum_posotion] <= 0)
             {
                 GameObject car = Instantiate(roadCars[ranNum_car], positions_carCreate[ranNum_posotion].position, Quaternion.identity);
+                car.transform.SetParent(gameObject.transform);
                 RoadCar roadCar = car.GetComponent<RoadCar>();
 
                 roadCar.trafficLight = this;

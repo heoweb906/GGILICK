@@ -7,7 +7,6 @@ public class NPC_Simple_IDLEState : NPC_Simple_State
 {
     public NPC_Simple_IDLEState(NPC_Simple npc, NPC_Simple_StateMachine machine) : base(npc, machine) { }
 
-
     public override void OnEnter()
     {
         base.OnEnter();

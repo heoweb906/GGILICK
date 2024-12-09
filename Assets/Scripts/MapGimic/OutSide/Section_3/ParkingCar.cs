@@ -9,7 +9,12 @@ public class ParkingCar : ClockBattery
 
     public float initialSpeed;  // 처음 속도
 
-    private Rigidbody rb;
+
+    public GameObject CarObj; // 최종적으로 움직임이 적용될 오브젝트
+    public Rigidbody rb; // CarObj의 하위 항목에서 찾은 Rigidbody
+    public bool bIsWall;
+
+
     private Coroutine nowCoroutine;
 
 
@@ -29,15 +34,23 @@ public class ParkingCar : ClockBattery
         bMoveDirection = !bMoveDirection;
     }
 
+
+
+
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        // CarObj의 하위 오브젝트에서 Rigidbody 찾기
+        if (CarObj != null && !bIsWall)
+        {
+            rb = CarObj.GetComponentInChildren<Rigidbody>();
+        }
+
     }
 
 
     private IEnumerator MoveForwardWithAcceleration()
     {
-        float currentSpeed = initialSpeed; // 시작 속도 유지
+        float currentSpeed = initialSpeed;
 
         while (fCurClockBattery > 0)
         {
@@ -46,10 +59,12 @@ public class ParkingCar : ClockBattery
                 currentSpeed = Mathf.Lerp(0, initialSpeed, fCurClockBattery / fLowClockBatteryPoint);
             }
 
-            float fMoveDirection = bMoveDirection ? -1f : 1f;
+            float moveDirection = bMoveDirection ? -1f : 1f;
 
-            // Rigidbody를 사용해 위치 업데이트
-            rb.MovePosition(transform.position + transform.forward * currentSpeed * fMoveDirection * Time.deltaTime);
+            // CarObj의 위치 업데이트
+            CarObj.transform.position += CarObj.transform.forward * currentSpeed * moveDirection * Time.deltaTime;
+
+            // 배터리 소모
             fCurClockBattery -= Time.deltaTime;
 
             yield return null;
@@ -57,11 +72,17 @@ public class ParkingCar : ClockBattery
 
         TrunOffObj();
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<ParkingCar>() != null)
         {
+            Debug.Log("자동차에 닿음!!!");
             TrunOffObj();
+        }
+        else
+        {
+            Debug.Log("해당 물체는 ParkingCar 스크립트를 가지고 있지 않습니다.");
         }
     }
 }
