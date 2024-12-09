@@ -8,7 +8,7 @@ public class P_PutDownState : P_InteractionState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.PutDownParameterHash);
-        player.playerAnim.SetLayerWeight(1, 0);
+        player.SetCarryWeight();
     }
 
     public override void OnExit()
@@ -20,12 +20,14 @@ public class P_PutDownState : P_InteractionState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        player.playerAnim.SetLayerWeight(1, player.carryWeight);
     }
 
     public override void OnAnimationTransitionEvent()
     {
         player.curCarriedObject.transform.parent = null;
         player.curCarriedObject.rigid.isKinematic = false;
+        player.isSetAngleZero = true;
     }
 
     public override void OnAnimationExitEvent()

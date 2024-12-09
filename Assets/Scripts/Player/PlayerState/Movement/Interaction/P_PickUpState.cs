@@ -10,6 +10,8 @@ public class P_PickUpState : P_InteractionState
         player.isCarryObject = true;
         player.curCarriedObject.rigid.isKinematic = true;
         player.SetPlayerPhysicsIgnore(player.curCarriedObject.col, true);
+        player.angle = 0;
+        player.isSetAngleZero = false;
     }
 
     public override void OnExit()

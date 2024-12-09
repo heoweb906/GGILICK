@@ -33,7 +33,7 @@ public class P_ThrowState : P_InteractionState
         player.isCarryObject = false;
         player.curCarriedObject.transform.parent = null;
         player.curCarriedObject.rigid.isKinematic = false;
-        player.isHandIK = false;
+        player.isSetAngleZero = true;
         _rigid.AddForce((new Vector3(player.transform.forward.x, 0, player.transform.forward.z).normalized + Vector3.up) * player.throwPower, ForceMode.Impulse);
     }
 
@@ -42,6 +42,7 @@ public class P_ThrowState : P_InteractionState
         machine.OnStateChange(machine.IdleState);
         player.curInteractableObject = null;
         player.curCarriedObject = null;
+        player.isHandIK = false;
     }
 
 }

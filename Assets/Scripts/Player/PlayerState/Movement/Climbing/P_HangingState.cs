@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class P_HangingState : P_ClimbingState
@@ -10,6 +11,10 @@ public class P_HangingState : P_ClimbingState
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.HangingParameterHash);
+
+        player.curDirection = player.cliffRayHit.collider.GetComponent<BoxCollider>().ClosestPoint(player.transform.position) - player.transform.position;
+        player.transform.rotation = Quaternion.LookRotation(player.curDirection);
+
         Vector3 targetPos = new Vector3(0, player.hangingPosOffset_Height, 0) + player.transform.position
             + new Vector3(player.transform.position.x - player.cliffRayHit.point.x, 0, player.transform.position.z - player.cliffRayHit.point.z).normalized * player.hangingPosOffset_Front;
        // player.transform.DOMove(targetPos, 0.1f);
@@ -31,4 +36,13 @@ public class P_HangingState : P_ClimbingState
             machine.OnStateChange(machine.ClimbingToTopState);
         }
     }
+
+    public override void SetDirection()
+    {
+    }
+
+    public override void PlayerRotationControll()
+    {
+    }
+
 }

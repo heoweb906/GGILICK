@@ -193,7 +193,8 @@ public class Player : MonoBehaviour
     public Transform tf_R_UpperArm;
     public Transform tf_R_Hand;
     public int _x;
-    float angle = 0;
+    public float angle = 0;
+    public bool isSetAngleZero = false;
 
     public void LateUpdate()
     {
@@ -223,9 +224,10 @@ public class Player : MonoBehaviour
 
 
         float targetAngle = Mathf.Acos(dotProduct) * Mathf.Rad2Deg + _x;
-
+        if(isSetAngleZero)
+            targetAngle = 0;
         
-        DOTween.To(() => angle, x => angle = x, targetAngle, 0.6f);
+        DOTween.To(() => angle, x => angle = x, targetAngle, 1f);
 
         tf_L_UpperArm.eulerAngles = tf_L_UpperArm.eulerAngles + new Vector3(0, angle, 0);
 
@@ -268,5 +270,21 @@ public class Player : MonoBehaviour
         int layer1 = LayerMask.NameToLayer("Player");
         int layer2 = LayerMask.NameToLayer("Interactable");
         Physics.IgnoreLayerCollision(layer1, layer2, _bool);
+    }
+
+    public void StartExitClimbingToTop()
+    {
+        StartCoroutine(I_ExitClimbingToTop());
+    }
+
+    private IEnumerator I_ExitClimbingToTop()
+    {
+        machine.OnStateChange(machine.IdleState);
+        SetColliderTrigger(true);
+
+        yield return new WaitForSeconds(0.2f);
+
+        playerAnim.applyRootMotion = false;
+        playerAnim.updateMode = AnimatorUpdateMode.Normal;
     }
 }
