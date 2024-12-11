@@ -30,7 +30,7 @@ public class PlayerMovementState : BaseState
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
-            player.isRun = Input.GetButton("Run");
+        player.isRun = Input.GetButton("Run");
         SetDirection();
     }
 
@@ -45,7 +45,7 @@ public class PlayerMovementState : BaseState
     public virtual void OnAnimationTransitionEvent() { }
 
 
-    
+
 
 
 
@@ -80,14 +80,14 @@ public class PlayerMovementState : BaseState
         player.curDirection.y = 0;
         player.curDirection = player.curDirection.normalized;
 
-        
+
 
         PlayerRotationControll();
 
         // Rigid의 속도 조절로 이동, 보간 사용
         player.curDirection = Vector3.Lerp(player.preDirection, player.curDirection, player.moveLerpSpeed * Time.fixedDeltaTime);
 
-        Vector3 velocity = CalculateNextFrameGroundAngle(player.playerMoveSpeed) < player.maxSlopeAngle ? player.curDirection :  Vector3.zero;
+        Vector3 velocity = CalculateNextFrameGroundAngle(player.playerMoveSpeed) < player.maxSlopeAngle ? player.curDirection : Vector3.zero;
         Vector3 gravity;
 
 
@@ -97,7 +97,7 @@ public class PlayerMovementState : BaseState
             gravity = Vector3.zero;
             player.rigid.useGravity = false;
         }
-        else if(machine.CurrentState is not P_ClimbingState)
+        else if (machine.CurrentState is not P_ClimbingState)
         {
             gravity = new Vector3(0, player.rigid.velocity.y, 0);
             player.rigid.useGravity = true;
@@ -138,7 +138,7 @@ public class PlayerMovementState : BaseState
         }
     }
 
-    
+
 
     // 현재 밟고 있는 땅 경사 체크
     private bool IsOnSlope()
@@ -190,31 +190,31 @@ public class PlayerMovementState : BaseState
         }
     }
 
-    public virtual void OnTriggerStay(Collider other) { }
+    public virtual void OnTriggerStay(Collider other)
+    {
+    }
 
     public virtual void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("WalkableGround") || other.CompareTag("MovingPlatform"))
+
+        if (player.groundList.Contains(other.gameObject))
+            player.groundList.Remove(other.gameObject);
+
+        if (machine.CurrentState is not P_JumpStartState
+            && machine.CurrentState is not P_ClimbingState
+            && player.groundList.Count <= 0)
+            machine.OnStateChange(machine.FallingMoveState);
+
+        if (other.CompareTag("MovingPlatform"))
         {
-            if (player.groundList.Contains(other.gameObject))
-                player.groundList.Remove(other.gameObject);
-
-            if (machine.CurrentState is not P_JumpStartState
-                && machine.CurrentState is not P_ClimbingState
-                && player.groundList.Count<=0)
-                machine.OnStateChange(machine.FallingMoveState);
-
-            if (other.CompareTag("MovingPlatform"))
-            {
-                player.curMovingPlatform = null;
-            }
-
-            if (player.groundList.Count > 0) return;
-
-            
+            player.curMovingPlatform = null;
         }
+
+        if (player.groundList.Count > 0) return;
+
+
     }
 
 
-    
+
 }
