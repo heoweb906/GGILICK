@@ -28,7 +28,7 @@ public class ClockBattery : MonoBehaviour
         Debug.Log("¿€µø ≥°");
 
         bDoing = false;
-        clockWork.GetComponent<ClockWork>().canInteract = true;
+        if(clockWork != null) clockWork.GetComponent<ClockWork>().canInteract = true;
         bBatteryFull = false;
         fCurClockBattery = 0f;
     }

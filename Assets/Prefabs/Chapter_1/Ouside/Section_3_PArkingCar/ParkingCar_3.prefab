@@ -299,9 +299,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7485526727406377468}
   - component: {fileID: 1099385375382033745}
-  - component: {fileID: 8798220804900837811}
   - component: {fileID: 3986456257926719498}
-  m_Layer: 0
+  - component: {fileID: 2290355033737974901}
+  m_Layer: 19
   m_Name: ParkingCar_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -352,27 +352,6 @@ MonoBehaviour:
   CarObj: {fileID: 1054065264186792631}
   rb: {fileID: 3798342033531869651}
   bIsWall: 0
---- !u!65 &8798220804900837811
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1054065264186792631}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.04, y: 1, z: 2.32}
-  m_Center: {x: 0, y: 0.81, z: 0.15}
 --- !u!54 &3986456257926719498
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -400,6 +379,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &2290355033737974901
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1054065264186792631}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.09, y: 1.39, z: 2.37}
+  m_Center: {x: 0, y: 0.7, z: 0.17}
 --- !u!1 &1225499776301385884
 GameObject:
   m_ObjectHideFlags: 0
@@ -411,9 +411,10 @@ GameObject:
   - component: {fileID: 9123820414062711961}
   - component: {fileID: 718388395991602427}
   - component: {fileID: 3303186197234172391}
+  - component: {fileID: 6821364172393997074}
   m_Layer: 0
   m_Name: Collider_2
-  m_TagString: Untagged
+  m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,6 +463,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6821364172393997074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1225499776301385884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4287f73e86bb57b48a1e2acb08ae3671, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2449497565210834310
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +657,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1516383843139125473}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

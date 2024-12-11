@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 4052297896113163769}
   - component: {fileID: 170973500517459853}
   m_Layer: 0
-  m_Name: Cube (1)
+  m_Name: Collider_2
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -457,9 +457,9 @@ GameObject:
   m_Component:
   - component: {fileID: 421047856649623040}
   - component: {fileID: 3362356267248106992}
-  - component: {fileID: 6785539303016166296}
   - component: {fileID: 7991827226437900658}
-  m_Layer: 0
+  - component: {fileID: 8940415866772851126}
+  m_Layer: 19
   m_Name: ParkingCar_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -510,27 +510,6 @@ MonoBehaviour:
   CarObj: {fileID: 4644038891827082774}
   rb: {fileID: 6554521957564598515}
   bIsWall: 0
---- !u!65 &6785539303016166296
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4644038891827082774}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.42, y: 1.51, z: 3.65}
-  m_Center: {x: 0, y: 0.78, z: 0}
 --- !u!54 &7991827226437900658
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -558,6 +537,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!65 &8940415866772851126
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4644038891827082774}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.22, y: 1.31, z: 3.7}
+  m_Center: {x: 0, y: 0.94, z: 0}
 --- !u!1 &5762093889784942377
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,7 +737,7 @@ GameObject:
   - component: {fileID: 3596611078675529947}
   - component: {fileID: 97021507010648553}
   m_Layer: 0
-  m_Name: Cliff (1)
+  m_Name: Collider_1
   m_TagString: MovingPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
