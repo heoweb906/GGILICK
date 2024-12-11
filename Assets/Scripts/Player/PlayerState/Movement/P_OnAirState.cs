@@ -77,10 +77,7 @@ public class P_OnAirState : PlayerMovementState
             else if (machine.CheckCurrentState(machine.JumpStartMoveState) || machine.CheckCurrentState(machine.FallingMoveState))
                 machine.OnStateChange(machine.MoveLandingState);
         }
-    }
-
-    public override void OnTriggerStay(Collider other)
-    {
+        base.OnTriggerEnter(other);
     }
     public override void OnTriggerExit(Collider other)
     {
