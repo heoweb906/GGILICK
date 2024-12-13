@@ -3,7 +3,12 @@ guid: ac6446ae3a01bfe47815739daa0a3ef3
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: P_trashbukkit_001
+    second: {fileID: 2100000, guid: b374ee602d531fd43a8ffecea2ea8742, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
