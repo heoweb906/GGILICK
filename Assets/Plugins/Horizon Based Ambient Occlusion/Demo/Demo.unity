@@ -368,7 +368,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2010075578}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: UnityEngine.Light, UnityEngine
         m_MethodName: set_enabled
         m_Mode: 0
         m_Arguments:
@@ -466,7 +466,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 920586915}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HorizonBasedAmbientOcclusion.HBAO, HBAO.Runtime
         m_MethodName: set_enabled
         m_Mode: 0
         m_Arguments:
@@ -1702,7 +1702,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1461805783}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HorizonBasedAmbientOcclusion.HBAOControl, HBAO.Demo.Runtime
         m_MethodName: UpdateAoRadius
         m_Mode: 1
         m_Arguments:
@@ -1916,7 +1916,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1461805783}
-        m_TargetAssemblyTypeName: 
+        m_TargetAssemblyTypeName: HorizonBasedAmbientOcclusion.HBAOControl, HBAO.Demo.Runtime
         m_MethodName: ToggleShowAO
         m_Mode: 1
         m_Arguments:
