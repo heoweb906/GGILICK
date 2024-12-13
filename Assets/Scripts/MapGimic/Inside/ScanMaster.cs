@@ -59,8 +59,24 @@ public class ScanMaster : MonoBehaviour
     private bool BoolCheckObjOnScanner()
     {
         for (int i = 0; i < ColorCorrects.Length; i++)
-            if (scanners[i] == null || scanners[i].GetColorObj() == null || ColorCorrects[i] != scanners[i].GetColorObj().colorType)
-                return false;
+        {
+            bool matchFound = false;
+
+            if (scanners[i] != null)
+            {
+                foreach (var colorObj in scanners[i].GetColorObjList())
+                {
+                    if (colorObj != null && colorObj.colorType == ColorCorrects[i])
+                    {
+                        matchFound = true;
+                        break;
+                    }
+                }
+            }
+
+
+            if (!matchFound) return false;
+        }
 
         return true;
     }
@@ -72,6 +88,12 @@ public class ScanMaster : MonoBehaviour
         testFaces[0].SetActive(true);
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(false);
+
+
+        for(int i = 0; i < scanners.Length; i++)
+        {
+            scanners[i].ThrowOtherColorObj(ColorCorrects[i]);
+        }  
     }
     // #. 스캔 실패 ㅠㅠ
     private void Scan_Fail()
@@ -79,6 +101,12 @@ public class ScanMaster : MonoBehaviour
         testFaces[0].SetActive(false);
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(true);
+
+
+        for (int i = 0; i < scanners.Length; i++)
+        {
+            scanners[i].ThrowOtherColorObj(ColorCorrects[i]);
+        }
     }
     // #. 스캐너 초기 상태로 돌리기
     private void Scan_Reset()
