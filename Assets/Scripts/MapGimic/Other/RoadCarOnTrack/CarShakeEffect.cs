@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CarShakeEffect : MonoBehaviour
 {
-    public GameObject CarFrame; // ¶³¸²À» ³ÖÀ» ÀÚµ¿Â÷ ÇÁ·¹ÀÓ
+    public GameObject CarFrame; // ë–¨ë¦¼ì„ ë„£ì„ ìë™ì°¨ í”„ë ˆì„
     private Rigidbody rb;       
 
     private void Start()
@@ -16,19 +16,19 @@ public class CarShakeEffect : MonoBehaviour
 
  
 
-    // CarFrameÀÌ ¶³¸®´Â È¿°ú
+    // CarFrameì´ ë–¨ë¦¬ëŠ” íš¨ê³¼
     private void StartShakeEffect()
     {
-        // CarFrameÀÇ À§Ä¡¸¦ ¹Ì¼¼ÇÏ°Ô ¶³¸®´Â È¿°ú¸¦ DOTweenÀ¸·Î Àû¿ë
+        // CarFrameì˜ ìœ„ì¹˜ë¥¼ ë¯¸ì„¸í•˜ê²Œ ë–¨ë¦¬ëŠ” íš¨ê³¼ë¥¼ DOTweenìœ¼ë¡œ ì ìš©
         CarFrame.transform.DOShakePosition(
-            duration: 0.3f, // ¶³¸² Áö¼Ó ½Ã°£
-            strength: new Vector3(0.01f, 0.01f, 0f), // ¶³¸² °­µµ (X, YÃà¸¸ ¶³¸²)
-            vibrato: 2, // ¶³¸² ºóµµ
-            randomness: 90f, // ·£´ı¼º
-            fadeOut: false // È¿°ú°¡ °è¼Ó À¯ÁöµÇµµ·Ï ¼³Á¤
-        ).SetLoops(-1, LoopType.Restart) // ¹«ÇÑ ¹İº¹
+            duration: 0.3f, // ë–¨ë¦¼ ì§€ì† ì‹œê°„
+            strength: new Vector3(0.01f, 0.01f, 0f), // ë–¨ë¦¼ ê°•ë„ (X, Yì¶•ë§Œ ë–¨ë¦¼)
+            vibrato: 2, // ë–¨ë¦¼ ë¹ˆë„
+            randomness: 90f, // ëœë¤ì„±
+            fadeOut: false // íš¨ê³¼ê°€ ê³„ì† ìœ ì§€ë˜ë„ë¡ ì„¤ì •
+        ).SetLoops(-1, LoopType.Restart) // ë¬´í•œ ë°˜ë³µ
          .SetEase(Ease.Linear)
-         .SetRelative(true) // ·ÎÄÃ À§Ä¡ ±âÁØÀ¸·Î ¶³¸² Àû¿ë
-         .SetUpdate(UpdateType.Fixed); // FixedUpdate¿¡¼­ ½ÇÇàµÇµµ·Ï ¼³Á¤
+         .SetRelative(true) // ë¡œì»¬ ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ ë–¨ë¦¼ ì ìš©
+         .SetUpdate(UpdateType.Fixed); // FixedUpdateì—ì„œ ì‹¤í–‰ë˜ë„ë¡ ì„¤ì •
     }
 }

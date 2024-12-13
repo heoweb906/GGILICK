@@ -12,18 +12,18 @@ public enum ColorType
 
 public class ScanMaster : MonoBehaviour
 {
-    public ColorType[] ColorCorrects;       // ScanMasterÀÇ Á¤´ä ÄÃ·¯
-    public Scanner[] scanners;              // °¢ ½ºÅ×ÀÌÁöÀÇ Scanner 
-    public ScanMaster_ClockWork clockWork;  // ScanMaster Àü¿ë ClockWork
+    public ColorType[] ColorCorrects;       // ScanMasterì˜ ì •ë‹µ ì»¬ëŸ¬
+    public Scanner[] scanners;              // ê° ìŠ¤í…Œì´ì§€ì˜ Scanner 
+    public ScanMaster_ClockWork clockWork;  // ScanMaster ì „ìš© ClockWork
 
 
 
 
-    // Å×½ºÆ®·Î »ç¿ëÇÒ ÀÌ¹ÌÁö
+    // í…ŒìŠ¤íŠ¸ë¡œ ì‚¬ìš©í•  ì´ë¯¸ì§€
     public GameObject[] testFaces;
 
 
-    // #. ScanMaster ¸ŞÀÎ ½ºÄµ µ¿ÀÛ
+    // #. ScanMaster ë©”ì¸ ìŠ¤ìº” ë™ì‘
     public void ScanStart()
     {
         StartCoroutine(ScanStart_());
@@ -32,7 +32,7 @@ public class ScanMaster : MonoBehaviour
     {
 
 
-        if (BoolCheckObjOnScanner())  // ½ºÄµ ¼º°ø
+        if (BoolCheckObjOnScanner())  // ìŠ¤ìº” ì„±ê³µ
         {
             Scan_Success();
             yield break;
@@ -55,7 +55,7 @@ public class ScanMaster : MonoBehaviour
 
 
 
-    // #. ½ºÄ³³Ê À§ÀÇ ¿ÀºêÁ§Æ®µéÀÇ »ö»óÀÌ Á¤´ä°ú ÀÏÄ¡ÇÏ´ÂÁö °Ë»çÇÏ´Â ÇÔ¼ö
+    // #. ìŠ¤ìºë„ˆ ìœ„ì˜ ì˜¤ë¸Œì íŠ¸ë“¤ì˜ ìƒ‰ìƒì´ ì •ë‹µê³¼ ì¼ì¹˜í•˜ëŠ”ì§€ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜
     private bool BoolCheckObjOnScanner()
     {
         for (int i = 0; i < ColorCorrects.Length; i++)
@@ -66,21 +66,21 @@ public class ScanMaster : MonoBehaviour
     }
 
 
-    // #. ½ºÄµ ¼º°ø!
+    // #. ìŠ¤ìº” ì„±ê³µ!
     private void Scan_Success()
     {
         testFaces[0].SetActive(true);
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(false);
     }
-    // #. ½ºÄµ ½ÇÆĞ ¤Ğ¤Ğ
+    // #. ìŠ¤ìº” ì‹¤íŒ¨ ã… ã… 
     private void Scan_Fail()
     {
         testFaces[0].SetActive(false);
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(true);
     }
-    // #. ½ºÄ³³Ê ÃÊ±â »óÅÂ·Î µ¹¸®±â
+    // #. ìŠ¤ìºë„ˆ ì´ˆê¸° ìƒíƒœë¡œ ëŒë¦¬ê¸°
     private void Scan_Reset()
     {
         testFaces[0].SetActive(false);

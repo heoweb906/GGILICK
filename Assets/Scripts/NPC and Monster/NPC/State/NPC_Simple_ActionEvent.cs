@@ -11,7 +11,7 @@ public class NPC_Simple_ActionEvent : NPC_Simple_State
     {
         base.OnEnter();
 
-        // npc¿¡ actionEventListÀÌ enumÀ¸·Î Á¤¸®µÇ¾î ÀÖÀ½, ±×¿¡ ¸Â´Â ¾×¼ÇÀÇ ¼ø¼­¿¡ ¸Â´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ÀÛµ¿µÊ
+        // npcì— actionEventListì´ enumìœ¼ë¡œ ì •ë¦¬ë˜ì–´ ìˆìŒ, ê·¸ì— ë§ëŠ” ì•¡ì…˜ì˜ ìˆœì„œì— ë§ëŠ” ì• ë‹ˆë©”ì´ì…˜ì´ ì‘ë™ë¨
 
         switch ((int)npc.actionEventList)
         {

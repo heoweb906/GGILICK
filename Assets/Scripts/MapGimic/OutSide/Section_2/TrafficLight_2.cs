@@ -5,17 +5,17 @@ using UnityEngine;
 
 public class TrafficLight_2 : MonoBehaviour
 {
-    [Header("½ÅÈ£µî ºÒºû °ü¸®")]
-    public GameObject[] TrafficThreeColors;   // Â÷·® ½ÅÈ£µî
-    public GameObject[] TrafficTwoClolors;    // µµº¸ ½ÅÈ£µî
+    [Header("ì‹ í˜¸ë“± ë¶ˆë¹› ê´€ë¦¬")]
+    public GameObject[] TrafficThreeColors;   // ì°¨ëŸ‰ ì‹ í˜¸ë“±
+    public GameObject[] TrafficTwoClolors;    // ë„ë³´ ì‹ í˜¸ë“±
 
     public TrafficClockWorkAssist[] trafficClockWorkAssists;
 
 
 
 
-    // #. ½ÅÈ£µî ºÒ ±³Ã¼ ÇÔ¼ö 
-    // 0 = »¡°£ºÒ, 1 = ³ë¶õºÒ, 2 = ÃÊ·ÏºÒ
+    // #. ì‹ í˜¸ë“± ë¶ˆ êµì²´ í•¨ìˆ˜ 
+    // 0 = ë¹¨ê°„ë¶ˆ, 1 = ë…¸ë€ë¶ˆ, 2 = ì´ˆë¡ë¶ˆ
     public void ChangeTrafficColor_(int index)
     {
         if (index < 0 || index >= TrafficThreeColors.Length) return;
@@ -23,11 +23,11 @@ public class TrafficLight_2 : MonoBehaviour
         for (int i = 0; i < TrafficThreeColors.Length; i++) TrafficThreeColors[i].SetActive(false);
         for (int i = 0; i < TrafficTwoClolors.Length; i++) TrafficTwoClolors[i].SetActive(false);
 
-        // Â÷·® ½ÅÈ£µî °ü¸®
+        // ì°¨ëŸ‰ ì‹ í˜¸ë“± ê´€ë¦¬
         TrafficThreeColors[index].SetActive(true);
 
 
-        // ÀÎµµ ½ÅÈ£µî °ü¸®
+        // ì¸ë„ ì‹ í˜¸ë“± ê´€ë¦¬
         if (index == 0) TrafficTwoClolors[1].SetActive(true);
         else TrafficTwoClolors[0].SetActive(true);
     }

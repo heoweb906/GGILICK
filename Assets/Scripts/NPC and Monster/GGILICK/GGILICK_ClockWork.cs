@@ -27,7 +27,7 @@ public class GGILICK_ClockWork : InteractableObject
         // StartCoroutine();
     }
 
-    // #. ¸Ê º¯°æ ÇÔ¼ö
+    // #. ë§µ ë³€ê²½ í•¨ìˆ˜
     IEnumerator ChangeMap()
     {
         Rigidbody rigid = GameAssistManager.Instance.player.GetComponent<Rigidbody>();
@@ -40,17 +40,17 @@ public class GGILICK_ClockWork : InteractableObject
 
         map_InSide.SetActive(true);
         map_InSide.transform.position = new Vector3(
-           GameAssistManager.Instance.player.transform.position.x,  // playerÀÇ X ÁÂÇ¥ ±×´ë·Î
-           GameAssistManager.Instance.player.transform.position.y - 0.2f,  // playerÀÇ Y ÁÂÇ¥¿¡¼­ -2¸¸Å­
-           GameAssistManager.Instance.player.transform.position.z   // playerÀÇ Z ÁÂÇ¥ ±×´ë·Î
+           GameAssistManager.Instance.player.transform.position.x,  // playerì˜ X ì¢Œí‘œ ê·¸ëŒ€ë¡œ
+           GameAssistManager.Instance.player.transform.position.y - 0.2f,  // playerì˜ Y ì¢Œí‘œì—ì„œ -2ë§Œí¼
+           GameAssistManager.Instance.player.transform.position.z   // playerì˜ Z ì¢Œí‘œ ê·¸ëŒ€ë¡œ
                 );
         map_OutSide.SetActive(false);
 
         yield return new WaitForSeconds(0.2f);
 
-        rigid.constraints = RigidbodyConstraints.None; // FreezePosition X, Y, Z ¸ğµÎ false
+        rigid.constraints = RigidbodyConstraints.None; // FreezePosition X, Y, Z ëª¨ë‘ false
 
-        // Freeze Rotation ¼³Á¤
+        // Freeze Rotation ì„¤ì •
         rigid.constraints = RigidbodyConstraints.FreezeRotationX |
                             RigidbodyConstraints.FreezeRotationY |
                             RigidbodyConstraints.FreezeRotationZ;
@@ -61,7 +61,7 @@ public class GGILICK_ClockWork : InteractableObject
 
         InsideAssist_GGILICK.Instance.bCarCreating = true;
 
-        playerCameraAssist.SetActive(false); // ¿À¹ö·¹ÀÌ¿ë Ä«¸Ş¶ó OFF
+        playerCameraAssist.SetActive(false); // ì˜¤ë²„ë ˆì´ìš© ì¹´ë©”ë¼ OFF
     }
 
 

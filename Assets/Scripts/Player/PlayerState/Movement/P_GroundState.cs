@@ -20,20 +20,20 @@ public class P_GroundState : PlayerMovementState
     {
         base.OnUpdate();
 
-        if (GetCurDirection() != Vector3.zero && (machine.CheckCurrentState(machine.IdleState) || machine.CheckCurrentState(machine.SoftLandingState) 
-            || machine.CheckCurrentState(machine.SoftStopState)|| machine.CheckCurrentState(machine.HardStopState)
+        if (GetCurDirection() != Vector3.zero && (machine.CheckCurrentState(machine.IdleState) || machine.CheckCurrentState(machine.SoftLandingState)
+            || machine.CheckCurrentState(machine.SoftStopState) || machine.CheckCurrentState(machine.HardStopState)
             || machine.CheckCurrentState(machine.RunningState) || machine.CheckCurrentState(machine.WalkingState)))
         {
-            if(player.isRun)
+            if (player.isRun)
                 machine.OnStateChange(machine.RunningState);
             else
                 machine.OnStateChange(machine.WalkingState);
         }
         else if (GetCurDirection() == Vector3.zero)
         {
-            if(machine.CheckCurrentState(machine.WalkingState))
+            if (machine.CheckCurrentState(machine.WalkingState))
                 machine.OnStateChange(machine.IdleState);
-            else if(machine.CheckCurrentState(machine.RunningState))
+            else if (machine.CheckCurrentState(machine.RunningState))
                 machine.OnStateChange(machine.IdleState);
 
         }
@@ -63,8 +63,28 @@ public class P_GroundState : PlayerMovementState
             }
             else
             {
-                machine.OnStateChange(machine.ThrowState);
+                if (FindClosestPartsParent() && player.curCarriedObject.isParts)
+                {
+                    player.isGoToTarget = true;
+                    Debug.Log("ÌååÏ∏† Ï∞æÏùå");
+                }
+                else
+                {
+                    machine.OnStateChange(machine.ThrowState);
+                    Debug.Log("ÌååÏ∏† Î™ªÏ∞æÏùå");
+                }
             }
+        }
+        else if (Input.GetButton("Jump") && player.curInteractableObject != null)
+        {
+            if (Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.03f)
+            {
+                machine.OnStateChange(machine.PutPartsState);
+            }
+        }
+        else if (Input.GetButtonUp("Jump"))
+        {
+            player.isGoToTarget = false;
         }
     }
 
@@ -81,12 +101,12 @@ public class P_GroundState : PlayerMovementState
         if (player.isCarryObject)
             return;
 
-        if (Input.GetButtonDown("Fire1")) // ¡¬≈¨∏Ø
+        if (Input.GetButtonDown("Fire1")) // Ï¢åÌÅ¥Î¶≠
         {
             if (!FindClosestInteractableObject())
                 return;
 
-                if (player.curInteractableObject.type == InteractableType.ClockWork)
+            if (player.curInteractableObject.type == InteractableType.ClockWork)
             {
                 player.curClockWork = player.curInteractableObject.GetComponent<ClockWork>();
 
@@ -97,7 +117,7 @@ public class P_GroundState : PlayerMovementState
                     Vector3 pos2 = player.curClockWork.transform.position + (-new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Floor);
                     //Debug.Log((pos1 - player.transform.position).magnitude + "//" + (pos2 - player.transform.position).magnitude);
 
-                    player.targetPos = (pos1 - player.transform.position).magnitude >= (pos2 - player.transform.position).magnitude ?  pos2 : pos1;
+                    player.targetPos = (pos1 - player.transform.position).magnitude >= (pos2 - player.transform.position).magnitude ? pos2 : pos1;
                     Debug.Log(player.targetPos);
 
                     //player.targetPos = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Floor;
@@ -128,16 +148,16 @@ public class P_GroundState : PlayerMovementState
             }
 
         }
-        else if (Input.GetButton("Fire1") && player.curInteractableObject != null && machine.CurrentState is not P_MoveStopState) // ¡¬≈¨∏Ø¿ª ¥©∏£∞Ì ¿÷¥¬ µøæ»
+        else if (Input.GetButton("Fire1") && player.curInteractableObject != null && machine.CurrentState is not P_MoveStopState) // Ï¢åÌÅ¥Î¶≠ÏùÑ ÎàÑÎ•¥Í≥† ÏûàÎäî ÎèôÏïà
         {
             player.isGoToTarget = true;
             if (Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.03f)
             {
                 if (player.curInteractableObject.type == InteractableType.ClockWork)
                 {
-                    if(player.curClockWork.GetClockWorkType() == ClockWorkType.Wall)
+                    if (player.curClockWork.GetClockWorkType() == ClockWorkType.Wall)
                         machine.OnStateChange(machine.SpinClockWorkWallState);
-                    else if(player.curClockWork.GetClockWorkType() == ClockWorkType.Floor)
+                    else if (player.curClockWork.GetClockWorkType() == ClockWorkType.Floor)
                         machine.OnStateChange(machine.SpinClockWorkFloorState);
                 }
                 else if (player.curInteractableObject.type == InteractableType.Carrried)
@@ -152,14 +172,14 @@ public class P_GroundState : PlayerMovementState
                 }
             }
 
-            //player.closestClockWork.ChargingBattery(); // OnClockWork «‘ºˆ »£√‚
+            //player.closestClockWork.ChargingBattery(); // OnClockWork Ìï®Ïàò Ìò∏Ï∂ú
         }
-        else if (!Input.GetButton("Fire1")) // ∏∂øÏΩ∫∏¶ ∂º∏È
+        else if (!Input.GetButton("Fire1")) // ÎßàÏö∞Ïä§Î•º ÎñºÎ©¥
         {
-            player.curClockWork = null; // ∞°¿Â ∞°±ÓøÓ ClockWork ¬¸¡∂ √ ±‚»≠
-            player.curCarriedObject = null; // ∞°¿Â ∞°±ÓøÓ ClockWork ¬¸¡∂ √ ±‚»≠
-            player.curGrabObject = null; // ∞°¿Â ∞°±ÓøÓ ClockWork ¬¸¡∂ √ ±‚»≠
-            player.curInteractableObject = null; // ∞°¿Â ∞°±ÓøÓ ClockWork ¬¸¡∂ √ ±‚»≠
+            player.curClockWork = null; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï¥àÍ∏∞Ìôî
+            player.curCarriedObject = null; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï¥àÍ∏∞Ìôî
+            player.curGrabObject = null; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï¥àÍ∏∞Ìôî
+            player.curInteractableObject = null; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï¥àÍ∏∞Ìôî
             player.isCarryObject = false;
             player.isGoToTarget = false;
         }
@@ -167,7 +187,7 @@ public class P_GroundState : PlayerMovementState
 
     public override void SetDirection()
     {
-        if(!player.isGoToTarget)
+        if (!player.isGoToTarget)
             base.SetDirection();
         else
         {
@@ -180,7 +200,7 @@ public class P_GroundState : PlayerMovementState
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
         player.curInteractableObject = null;
 
-        player.curClockWork = null; // ¿Ã¿¸ ¬¸¡∂ √ ±‚»≠
+        player.curClockWork = null; // Ïù¥Ï†Ñ Ï∞∏Ï°∞ Ï¥àÍ∏∞Ìôî
         player.curCarriedObject = null;
         float closestDistance = Mathf.Infinity;
 
@@ -193,7 +213,7 @@ public class P_GroundState : PlayerMovementState
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    player.curInteractableObject = detectedObject; // ∞°¿Â ∞°±ÓøÓ ClockWork ¬¸¡∂ ¿˙¿Â
+                    player.curInteractableObject = detectedObject; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï†ÄÏû•
                 }
             }
         }
@@ -201,7 +221,38 @@ public class P_GroundState : PlayerMovementState
         if (player.curInteractableObject != null)
         {
             return true;
-            // ø©±‚ø°º≠ √ﬂ∞°¿˚¿Œ ∑Œ¡˜¿ª ±∏«ˆ«“ ºˆ ¿÷Ω¿¥œ¥Ÿ.
+            // Ïó¨Í∏∞ÏóêÏÑú Ï∂îÍ∞ÄÏ†ÅÏù∏ Î°úÏßÅÏùÑ Íµ¨ÌòÑÌï† Ïàò ÏûàÏäµÎãàÎã§.
+        }
+        else
+        {
+            return false;
+        }
+    }
+    public bool FindClosestPartsParent()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
+        player.curTrafficLight = null;
+
+        float closestDistance = Mathf.Infinity;
+
+        foreach (Collider collider in hitColliders)
+        {
+            TrafficLight detectedObject = collider.GetComponent<TrafficLight>();
+            if (detectedObject != null)
+            {
+                float distance = Vector3.Distance(player.transform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    player.curTrafficLight = detectedObject; // Í∞ÄÏû• Í∞ÄÍπåÏö¥ ClockWork Ï∞∏Ï°∞ Ï†ÄÏû•
+                }
+            }
+        }
+
+        if (player.curTrafficLight != null)
+        {
+            player.targetPos = player.curTrafficLight.partsInteractTransform.position;
+            return true;
         }
         else
         {
@@ -209,7 +260,6 @@ public class P_GroundState : PlayerMovementState
         }
     }
 
-    
 }
 
 

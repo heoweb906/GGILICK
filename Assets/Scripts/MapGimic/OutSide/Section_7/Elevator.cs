@@ -9,10 +9,10 @@ public class Elevator : ClockBattery
     public ElevatorDoor elevaDoor;
 
     public bool bScan;
-    public float doorMoveDuration_first;     // ¹®ÀÌ ¿­¸®´Â µ¥ °É¸®´Â ½Ã°£
-    public float doorMoveDuration_second;   // ¹®ÀÌ ¿­¸®´Â µ¥ °É¸®´Â ½Ã°£
-    public float shakeDuration;             // ¶³¸² ¾Ö´Ï¸ŞÀÌ¼Ç Áö¼Ó ½Ã°£
-    public float shakeStrength;             // ¶³¸² °­µµ
+    public float doorMoveDuration_first;     // ë¬¸ì´ ì—´ë¦¬ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
+    public float doorMoveDuration_second;   // ë¬¸ì´ ì—´ë¦¬ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
+    public float shakeDuration;             // ë–¨ë¦¼ ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„
+    public float shakeStrength;             // ë–¨ë¦¼ ê°•ë„
 
     public override void TrunOnObj()
     {
@@ -25,7 +25,7 @@ public class Elevator : ClockBattery
 
     private IEnumerator JustCloseDoors()
     {
-        // 1. ¹®À» Áß°£ À§Ä¡·Î ÃµÃµÈ÷ ÀÌµ¿ (¹®ÀÌ ¿­¸®´Â Áß°£ ´Ü°è)
+        // 1. ë¬¸ì„ ì¤‘ê°„ ìœ„ì¹˜ë¡œ ì²œì²œíˆ ì´ë™ (ë¬¸ì´ ì—´ë¦¬ëŠ” ì¤‘ê°„ ë‹¨ê³„)
         elevaDoor.leftDoor.transform.DOMove(elevaDoor.position_middle_LeftDoor.position, doorMoveDuration_first).SetEase(Ease.InOutCubic);
         elevaDoor.rightDoor.transform.DOMove(elevaDoor.position_middle_RightDoor.position, doorMoveDuration_first).SetEase(Ease.InOutCubic);
 
@@ -51,7 +51,7 @@ public class Elevator : ClockBattery
     {
         float fTime = 0;
 
-        // 1. ¹®À» Áß°£ À§Ä¡·Î ÃµÃµÈ÷ ÀÌµ¿ (¹®ÀÌ ¿­¸®´Â Áß°£ ´Ü°è)
+        // 1. ë¬¸ì„ ì¤‘ê°„ ìœ„ì¹˜ë¡œ ì²œì²œíˆ ì´ë™ (ë¬¸ì´ ì—´ë¦¬ëŠ” ì¤‘ê°„ ë‹¨ê³„)
         elevaDoor.leftDoor.transform.DOMove(elevaDoor.position_middle_LeftDoor.position, doorMoveDuration_first).SetEase(Ease.InOutCubic);
         elevaDoor.rightDoor.transform.DOMove(elevaDoor.position_middle_RightDoor.position, doorMoveDuration_first).SetEase(Ease.InOutCubic);
 
@@ -63,7 +63,7 @@ public class Elevator : ClockBattery
             yield return null;
         }
 
-        // ½ºÄµÀ» ÂïÁö ¾Ê¾ÒÀ» ¶§
+        // ìŠ¤ìº”ì„ ì°ì§€ ì•Šì•˜ì„ ë•Œ
         if (!bScan)
         {
             elevaDoor.leftDoor.transform.DOShakePosition(shakeDuration, new Vector3(shakeStrength, 0, 0), 10, 0, false, true);

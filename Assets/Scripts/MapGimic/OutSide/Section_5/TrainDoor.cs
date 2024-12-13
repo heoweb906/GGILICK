@@ -11,10 +11,10 @@ public class TrainDoor : MonoBehaviour
     public Transform position_target_LeftDoor;
     public Transform position_target_RightDoor;
 
-    public float doorMoveDuration;            // ¹®ÀÌ ¿­¸®´Â/´İÈ÷´Â µ¥ °É¸®´Â ½Ã°£
+    public float doorMoveDuration;            // ë¬¸ì´ ì—´ë¦¬ëŠ”/ë‹«íˆëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
 
-    private Vector3 originalPosition_LeftDoor;     // ¿ŞÂÊ ¹®ÀÇ ¿ø·¡ À§Ä¡
-    private Vector3 originalPosition_RightDoor;    // ¿À¸¥ÂÊ ¹®ÀÇ ¿ø·¡ À§Ä¡
+    private Vector3 originalPosition_LeftDoor;     // ì™¼ìª½ ë¬¸ì˜ ì›ë˜ ìœ„ì¹˜
+    private Vector3 originalPosition_RightDoor;    // ì˜¤ë¥¸ìª½ ë¬¸ì˜ ì›ë˜ ìœ„ì¹˜
 
     private bool bInPlayer;
     
@@ -24,10 +24,10 @@ public class TrainDoor : MonoBehaviour
     {
         StartCoroutine(OpenAndCloseDoors(doorTime));
     }
-    // ¹®À» ¿­°í ´İ´Â µ¿ÀÛÀ» ¼öÇàÇÏ´Â ÄÚ·çÆ¾
+    // ë¬¸ì„ ì—´ê³  ë‹«ëŠ” ë™ì‘ì„ ìˆ˜í–‰í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator OpenAndCloseDoors(float doorStayOpenDuration)
     {
-        // 1. ¹®À» ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ (¹® ¿­±â)
+        // 1. ë¬¸ì„ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™ (ë¬¸ ì—´ê¸°)
         originalPosition_LeftDoor = leftDoor.transform.position;
         originalPosition_RightDoor = rightDoor.transform.position;
 
@@ -35,16 +35,16 @@ public class TrainDoor : MonoBehaviour
         leftDoor.transform.DOMove(position_target_LeftDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
         rightDoor.transform.DOMove(position_target_RightDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);
 
-        // 2. Á¤°ÅÀå Ã¼·ù ½Ã°£º¸´Ù Á¶±İ Àû°Ô ¹®ÀÌ ¿­·Á ÀÖÀ½
+        // 2. ì •ê±°ì¥ ì²´ë¥˜ ì‹œê°„ë³´ë‹¤ ì¡°ê¸ˆ ì ê²Œ ë¬¸ì´ ì—´ë ¤ ìˆìŒ
         yield return new WaitForSeconds(doorStayOpenDuration - doorMoveDuration);
 
-        // 3. ¹®À» ¿ø·¡ À§Ä¡·Î ÀÌµ¿ (¹® ´İ±â)
+        // 3. ë¬¸ì„ ì›ë˜ ìœ„ì¹˜ë¡œ ì´ë™ (ë¬¸ ë‹«ê¸°)
         if(bInPlayer)
         {
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ ¹æÁö Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ ¹æÁö Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ ¹æÁö Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ ¹æÁö Ãß°¡
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ë°©ì§€ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ë°©ì§€ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ë°©ì§€ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ë°©ì§€ ì¶”ê°€
         }
           
 
@@ -57,17 +57,17 @@ public class TrainDoor : MonoBehaviour
 
     public void StartOpen()
     {
-        // 1. ¹®À» ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿ (¹® ¿­±â)
+        // 1. ë¬¸ì„ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™ (ë¬¸ ì—´ê¸°)
         originalPosition_LeftDoor = leftDoor.transform.position;
         originalPosition_RightDoor = rightDoor.transform.position;
 
         if (bInPlayer)
         {
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ °¡´É Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ °¡´É Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ °¡´É Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ °¡´É Ãß°¡
-            // ³ªÁß¿¡ ÇÃ·¹ÀÌ¾î Á¶ÀÛ °¡´É Ãß°¡
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ê°€ëŠ¥ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ê°€ëŠ¥ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ê°€ëŠ¥ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ê°€ëŠ¥ ì¶”ê°€
+            // ë‚˜ì¤‘ì— í”Œë ˆì´ì–´ ì¡°ì‘ ê°€ëŠ¥ ì¶”ê°€
         }
 
         leftDoor.transform.DOMove(position_target_LeftDoor.position, doorMoveDuration).SetEase(Ease.InOutCubic);

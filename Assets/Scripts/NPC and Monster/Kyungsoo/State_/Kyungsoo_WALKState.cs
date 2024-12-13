@@ -11,7 +11,7 @@ public class Kyungsoo_WALKState : Kyungsoo_State
     {
         base.OnEnter();
 
-        Debug.Log("Walk ½ºÅ×ÀÌÆ® ÁøÀÔ");
+        Debug.Log("Walk ìŠ¤í…Œì´íŠ¸ ì§„ì…");
 
         kyungsoo.GetAnimator().SetBool("Bool_Walk", true);
     }

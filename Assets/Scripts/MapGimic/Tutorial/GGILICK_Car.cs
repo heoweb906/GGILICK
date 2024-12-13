@@ -6,20 +6,20 @@ using UnityEngine.UIElements;
 
 public class GGILICK_Car : MonoBehaviour
 {
-    [Header("ÀÚµ¿Â÷ ¶³¸² ¾Ö´Ï¸ŞÀÌ¼Ç °ü·Ã")]
+    [Header("ìë™ì°¨ ë–¨ë¦¼ ì• ë‹ˆë©”ì´ì…˜ ê´€ë ¨")]
     public GameObject CarFrame;
     public GameObject TaeYub;
 
-    [Header("ÀÚµ¿Â÷ ¿òÁ÷ÀÓ °ü·Ã")]
-    public float fCarSpeed; // ÃÖ°í ¼Ó·Â
+    [Header("ìë™ì°¨ ì›€ì§ì„ ê´€ë ¨")]
+    public float fCarSpeed; // ìµœê³  ì†ë ¥
     public Transform transform_Destroy;
-    private Rigidbody rb; // ÀÚµ¿Â÷ÀÇ Rigidbody ÄÄÆ÷³ÍÆ®
+    private Rigidbody rb; // ìë™ì°¨ì˜ Rigidbody ì»´í¬ë„ŒíŠ¸
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        StartShakeEffect(); // CarFrameÀÇ ¶³¸² È¿°ú ½ÃÀÛ
+        StartShakeEffect(); // CarFrameì˜ ë–¨ë¦¼ íš¨ê³¼ ì‹œì‘
     }
 
     private void Update()
@@ -31,37 +31,37 @@ public class GGILICK_Car : MonoBehaviour
 
     private void FixedUpdate()
     {
-        RotateTaeYub(); // TaeYubÀÇ È¸Àü È¿°ú Àû¿ë
+        RotateTaeYub(); // TaeYubì˜ íšŒì „ íš¨ê³¼ ì ìš©
     }
 
 
-    // CarFrameÀÌ ¶³¸®´Â È¿°ú
+    // CarFrameì´ ë–¨ë¦¬ëŠ” íš¨ê³¼
     private void StartShakeEffect()
     {
-        // CarFrameÀÇ À§Ä¡¸¦ ¹Ì¼¼ÇÏ°Ô ¶³¸®´Â È¿°ú¸¦ DOTweenÀ¸·Î Àû¿ë
+        // CarFrameì˜ ìœ„ì¹˜ë¥¼ ë¯¸ì„¸í•˜ê²Œ ë–¨ë¦¬ëŠ” íš¨ê³¼ë¥¼ DOTweenìœ¼ë¡œ ì ìš©
         CarFrame.transform.DOShakePosition(
-            duration: 0.1f, // ¶³¸² Áö¼Ó ½Ã°£
-            strength: new Vector3(0.02f, 0.02f, 0f), // ¶³¸² °­µµ (X, YÃà¸¸ ¶³¸²)
-            vibrato: 10, // ¶³¸² ºóµµ
-            randomness: 90f, // ·£´ı¼º
-            fadeOut: false // È¿°ú°¡ °è¼Ó À¯ÁöµÇµµ·Ï ¼³Á¤
-        ).SetLoops(-1, LoopType.Restart) // ¹«ÇÑ ¹İº¹
+            duration: 0.1f, // ë–¨ë¦¼ ì§€ì† ì‹œê°„
+            strength: new Vector3(0.02f, 0.02f, 0f), // ë–¨ë¦¼ ê°•ë„ (X, Yì¶•ë§Œ ë–¨ë¦¼)
+            vibrato: 10, // ë–¨ë¦¼ ë¹ˆë„
+            randomness: 90f, // ëœë¤ì„±
+            fadeOut: false // íš¨ê³¼ê°€ ê³„ì† ìœ ì§€ë˜ë„ë¡ ì„¤ì •
+        ).SetLoops(-1, LoopType.Restart) // ë¬´í•œ ë°˜ë³µ
          .SetEase(Ease.Linear)
-         .SetRelative(true) // ·ÎÄÃ À§Ä¡ ±âÁØÀ¸·Î ¶³¸² Àû¿ë
-         .SetUpdate(UpdateType.Fixed); // FixedUpdate¿¡¼­ ½ÇÇàµÇµµ·Ï ¼³Á¤
+         .SetRelative(true) // ë¡œì»¬ ìœ„ì¹˜ ê¸°ì¤€ìœ¼ë¡œ ë–¨ë¦¼ ì ìš©
+         .SetUpdate(UpdateType.Fixed); // FixedUpdateì—ì„œ ì‹¤í–‰ë˜ë„ë¡ ì„¤ì •
     }
 
-    // TaeYubÀÇ ZÃà È¸Àü È¿°ú
+    // TaeYubì˜ Zì¶• íšŒì „ íš¨ê³¼
     private void RotateTaeYub()
     {
-        // ZÃàÀ¸·Î È¸Àü (Time.deltaTimeÀ» »ç¿ëÇØ ÇÁ·¹ÀÓ µ¶¸³Àû È¸Àü)
+        // Zì¶•ìœ¼ë¡œ íšŒì „ (Time.deltaTimeì„ ì‚¬ìš©í•´ í”„ë ˆì„ ë…ë¦½ì  íšŒì „)
         TaeYub.transform.Rotate(0f, 0f, 100f * Time.deltaTime);
     }
 
 
     private void MoveCar()
     {
-        // ÀÚµ¿Â÷¸¦ ZÃà ¹æÇâÀ¸·Î ÀÌµ¿ (fCarSpeed ¼Óµµ·Î)
+        // ìë™ì°¨ë¥¼ Zì¶• ë°©í–¥ìœ¼ë¡œ ì´ë™ (fCarSpeed ì†ë„ë¡œ)
         transform.Translate(Vector3.back * fCarSpeed * Time.deltaTime);
     }
 

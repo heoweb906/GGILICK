@@ -7,6 +7,9 @@ public class CarriedObject : InteractableObject
     public Rigidbody rigid;
     public Collider col;
 
+    public Vector3 holdPositionOffset;
+    public Vector3 holdRotationOffset;
+
     private void Start()
     {
         type = InteractableType.Carrried;

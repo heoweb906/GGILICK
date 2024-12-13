@@ -6,44 +6,44 @@ using DG.Tweening;
 public class TrackingHead_ToPlayer : MonoBehaviour
 {
     public bool bFindPlayer;
-    public Vector3 maxRotate; // ÃÖ´ë È¸Àü°ª
-    public Vector3 minRotate; // ÃÖ¼Ò È¸Àü°ª
-    private float rotationSpeed = 1f; // È¸Àü ¼Óµµ (1ÃÊ¿¡ ÇÑ¹ø È¸Àü)
+    public Vector3 maxRotate; // ìµœëŒ€ íšŒì „ê°’
+    public Vector3 minRotate; // ìµœì†Œ íšŒì „ê°’
+    private float rotationSpeed = 1f; // íšŒì „ ì†ë„ (1ì´ˆì— í•œë²ˆ íšŒì „)
     private float timeSinceLastRotation = 0f;
 
     void Update()
     {
         if (bFindPlayer && GameAssistManager.Instance.player != null)
         {
-            // ÇÃ·¹ÀÌ¾î¸¦ Ã£¾ÒÀ» ¶§ÀÇ È¸Àü
+            // í”Œë ˆì´ì–´ë¥¼ ì°¾ì•˜ì„ ë•Œì˜ íšŒì „
             Vector3 direction = GameAssistManager.Instance.player.transform.position - transform.position;
             Quaternion toRotation = Quaternion.LookRotation(direction);
 
-            // xÃà¿¡ +90µµ¸¦ Ãß°¡
+            // xì¶•ì— +90ë„ë¥¼ ì¶”ê°€
             Quaternion targetRotation = Quaternion.Euler(toRotation.eulerAngles.x - 80f, toRotation.eulerAngles.y, toRotation.eulerAngles.z);
 
-            // º¸°£À» ÅëÇØ ºÎµå·´°Ô È¸Àü
-            float rotationSpeed = 5f;  // È¸Àü ¼Óµµ Á¶Àı
+            // ë³´ê°„ì„ í†µí•´ ë¶€ë“œëŸ½ê²Œ íšŒì „
+            float rotationSpeed = 5f;  // íšŒì „ ì†ë„ ì¡°ì ˆ
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
         }
         else
         {
-            // ÇÃ·¹ÀÌ¾î¸¦ Ã£Áö ¸øÇßÀ» ¶§, ·£´ıÀ¸·Î µÎ¸®¹ø°Å¸®´Â È¸Àü
+            // í”Œë ˆì´ì–´ë¥¼ ì°¾ì§€ ëª»í–ˆì„ ë•Œ, ëœë¤ìœ¼ë¡œ ë‘ë¦¬ë²ˆê±°ë¦¬ëŠ” íšŒì „
             timeSinceLastRotation += Time.deltaTime;
 
-            if (timeSinceLastRotation >= 1f) // 1ÃÊ¸¶´Ù ·£´ı È¸Àü°ªÀ» °»½Å
+            if (timeSinceLastRotation >= 1f) // 1ì´ˆë§ˆë‹¤ ëœë¤ íšŒì „ê°’ì„ ê°±ì‹ 
             {
-                // ÃÖ¼Ò°ª°ú ÃÖ´ë°ª »çÀÌ¿¡¼­ ·£´ıÇÑ È¸Àü°ªÀ» °è»ê
+                // ìµœì†Œê°’ê³¼ ìµœëŒ€ê°’ ì‚¬ì´ì—ì„œ ëœë¤í•œ íšŒì „ê°’ì„ ê³„ì‚°
                 float randomX = Random.Range(minRotate.x, maxRotate.x);
                 float randomZ = Random.Range(minRotate.z, maxRotate.z);
 
-                // ·£´ı È¸Àü°ª
+                // ëœë¤ íšŒì „ê°’
                 Vector3 randomRotation = new Vector3(randomX, 0f, randomZ);
 
-                // DOTweenÀ» »ç¿ëÇÏ¿© ºÎµå·´°Ô È¸Àü
+                // DOTweenì„ ì‚¬ìš©í•˜ì—¬ ë¶€ë“œëŸ½ê²Œ íšŒì „
                 transform.DORotate(randomRotation, rotationSpeed).SetEase(Ease.InOutSine);
 
-                // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+                // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
                 timeSinceLastRotation = 0f;
             }
         }

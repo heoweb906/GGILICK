@@ -1,6 +1,9 @@
 using UnityEngine;
+using DG.Tweening;
 public class P_PickUpState : P_InteractionState
 {
+    private Sequence moveSequence;
+
     public P_PickUpState(Player player, PlayerStateMachine machine) : base(player, machine) { }
 
     public override void OnEnter()
@@ -17,6 +20,11 @@ public class P_PickUpState : P_InteractionState
     public override void OnExit()
     {
         base.OnExit();
+        if (moveSequence != null)
+        {
+            moveSequence.Kill();
+        }
+        player.KillArmAngleTween();
         machine.StopAnimation(player.playerAnimationData.PickUpParameterHash);
     }
 
@@ -28,7 +36,7 @@ public class P_PickUpState : P_InteractionState
 
     public override void SetDirection()
     {
-        if(player.isHandIK)
+        if (player.isHandIK)
             base.SetDirection();
         else
             player.curDirection = player.curInteractableObject.transform.position - player.transform.position;
@@ -38,7 +46,6 @@ public class P_PickUpState : P_InteractionState
     {
         if (player.isCarryObject && !Input.GetButton("Fire1") && !player.playerAnim.IsInTransition(0))
         {
-            machine.OnStateChange(machine.PutDownState);
 
             player.SetPlayerPhysicsIgnore(player.curCarriedObject.col, false);
             player.playerAnim.SetLayerWeight(1, 0);
@@ -53,12 +60,26 @@ public class P_PickUpState : P_InteractionState
 
     public override void OnAnimationTransitionEvent()
     {
+        if (moveSequence != null)
+        {
+            moveSequence.Kill();
+        }
+
         player.curCarriedObject.transform.parent = player.CarriedObjectPos;
         BoxCollider _col = player.curCarriedObject.GetComponent<BoxCollider>();
-        player.curCarriedObject.transform.localPosition = Vector3.zero;
-        Debug.Log(Vector3.Scale(_col.size * 0.5f, _col.transform.lossyScale).y);
-        player.curCarriedObject.transform.localPosition -= new Vector3(Vector3.Scale(_col.size * 0.5f, _col.transform.localScale).y,0,0);
-        player.curCarriedObject.transform.localRotation = Quaternion.identity;
+        Vector3 targetPosition = Vector3.zero;
+        targetPosition -= new Vector3(Vector3.Scale(_col.size * 0.5f, _col.transform.localScale).y, 0, 0);
+        targetPosition += player.curCarriedObject.holdPositionOffset;
+
+        Quaternion targetRotation = Quaternion.Euler
+            (new Vector3(player.curCarriedObject.holdRotationOffset.x + player.curCarriedObject.transform.eulerAngles.x,
+            player.curCarriedObject.holdRotationOffset.y + player.curCarriedObject.transform.eulerAngles.y,
+            player.curCarriedObject.holdRotationOffset.z + player.curCarriedObject.transform.eulerAngles.z));
+
+        moveSequence = DOTween.Sequence();
+        moveSequence.Join(player.curCarriedObject.transform.DOLocalMove(targetPosition, 0.5f));
+        moveSequence.Join(player.curCarriedObject.transform.DORotate(targetRotation.eulerAngles, 0.5f));
+
         player.isHandIK = true;
     }
 

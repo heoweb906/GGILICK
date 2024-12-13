@@ -11,7 +11,7 @@ public class GamePositionChanger : MonoBehaviour
     private GameObject player;
     public string sChangeSceneName = "NULL";
 
-    [Header("Position ÀÌµ¿ÀÏ °æ¿ì¿¡ ÇÊ¿äÇÑ Á¤º¸µé")]
+    [Header("Position ì´ë™ì¼ ê²½ìš°ì— í•„ìš”í•œ ì •ë³´ë“¤")]
 
     public CineCameraChager cienCamareChager;
     public Transform targetPosition;

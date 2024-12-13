@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Train : MonoBehaviour
 {
-    // #. ½ÃÀÛ ÁöÁ¡, Á¤°ÅÀå ÁöÁ¡, ³¡ ÁöÁ¡ Transform ´Ù ¼³Á¤ ÇØ¾ß ÇÔ
+    // #. ì‹œì‘ ì§€ì , ì •ê±°ì¥ ì§€ì , ë ì§€ì  Transform ë‹¤ ì„¤ì • í•´ì•¼ í•¨
     public Transform position_StartPoint;
     public Transform position_StationPoint;
     public Transform position_EndPoint;
 
 
-    public float travelDuration;        // Ãâ¹ßÁ¡ -> Á¤°ÅÀå, Á¤°ÅÀå -> ÃÖÁ¾ ¸ñÀûÁö ÀÌµ¿ ½Ã°£
-    public float stopDuration;          // Á¤°ÅÀå¿¡¼­ ¸ØÃß´Â ½Ã°£
+    public float travelDuration;        // ì¶œë°œì  -> ì •ê±°ì¥, ì •ê±°ì¥ -> ìµœì¢… ëª©ì ì§€ ì´ë™ ì‹œê°„
+    public float stopDuration;          // ì •ê±°ì¥ì—ì„œ ë©ˆì¶”ëŠ” ì‹œê°„
 
     public TrainDoor[] trainDoors;
     public GameObject[] crowds;
@@ -20,38 +20,38 @@ public class Train : MonoBehaviour
 
     public void StartTrain()
     {
-        transform.position = position_StartPoint.position;  // ±âÂ÷¸¦ StartPoint À§Ä¡·Î ÀÌµ¿½ÃÅ´
+        transform.position = position_StartPoint.position;  // ê¸°ì°¨ë¥¼ StartPoint ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚´
         StartCoroutine(StartTrainJourney());
     }
 
-    // ±âÂ÷ ¿©Á¤À» ½ÃÀÛÇÏ´Â ÄÚ·çÆ¾
+    // ê¸°ì°¨ ì—¬ì •ì„ ì‹œì‘í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator StartTrainJourney()
     {
-        // ¿­¸®´Â ¹® Áß¿¡¼­ ÇÏ³ªÀÇ ¹®¿¡¸¸ Å¾½ÂÇÒ ¼ö ÀÖµµ·Ï
+        // ì—´ë¦¬ëŠ” ë¬¸ ì¤‘ì—ì„œ í•˜ë‚˜ì˜ ë¬¸ì—ë§Œ íƒ‘ìŠ¹í•  ìˆ˜ ìˆë„ë¡
         SubWayAssist.Instance.iCrowedRanNum = Random.Range(0, trainDoors.Length);
         for(int i = 0; i < trainDoors.Length; i++) crowds[i].SetActive(true);
         crowds[SubWayAssist.Instance.iCrowedRanNum].SetActive(false);
 
 
 
-        // 1. StartPoint¿¡¼­ StationPoint·Î ÀÌµ¿ (¼­¼­È÷ ¸ØÃß´Â È¿°ú)
+        // 1. StartPointì—ì„œ StationPointë¡œ ì´ë™ (ì„œì„œíˆ ë©ˆì¶”ëŠ” íš¨ê³¼)
         transform.DOMove(position_StationPoint.position, travelDuration)
-            .SetEase(Ease.OutCubic);  // ÀÌµ¿ÀÌ ³¡³ª°¥ ¶§ Á¡Á¡ ´À·ÁÁü
+            .SetEase(Ease.OutCubic);  // ì´ë™ì´ ëë‚˜ê°ˆ ë•Œ ì ì  ëŠë ¤ì§
         yield return new WaitForSeconds(travelDuration);
 
 
-        // 2. ±âÂ÷ ¹®À» ¿­°í ÀÏÁ¤ ½Ã°£ µÚ¿¡ ´Ù½Ã Ãâ¹ß
+        // 2. ê¸°ì°¨ ë¬¸ì„ ì—´ê³  ì¼ì • ì‹œê°„ ë’¤ì— ë‹¤ì‹œ ì¶œë°œ
         foreach (TrainDoor traindoor in trainDoors) traindoor.StartOpen_Close(stopDuration);
         yield return new WaitForSeconds(stopDuration);
 
 
-        // 4. StationPoint¿¡¼­ EndPoint·Î ÀÌµ¿ (¼­¼­È÷ °¡¼ÓÇÏ´Â È¿°ú)
+        // 4. StationPointì—ì„œ EndPointë¡œ ì´ë™ (ì„œì„œíˆ ê°€ì†í•˜ëŠ” íš¨ê³¼)
         transform.DOMove(position_EndPoint.position, travelDuration)
-            .SetEase(Ease.InCubic);   // Ãâ¹ß ½Ã ¼­¼­È÷ °¡¼Ó
+            .SetEase(Ease.InCubic);   // ì¶œë°œ ì‹œ ì„œì„œíˆ ê°€ì†
         yield return new WaitForSeconds(travelDuration);
 
 
-        // ¸¸¾à ÇÃ·¹ÀÌ¾î°¡ Å¾½ÂÇÑ °ÍÀÌ È®ÀÎµÇÁö ¾Ê¾Ò´Ù¸é ´Ù½Ã µÇµ¹¸²
+        // ë§Œì•½ í”Œë ˆì´ì–´ê°€ íƒ‘ìŠ¹í•œ ê²ƒì´ í™•ì¸ë˜ì§€ ì•Šì•˜ë‹¤ë©´ ë‹¤ì‹œ ë˜ëŒë¦¼
         if (!SubWayAssist.Instance.bPlayerTakeTrain) StartCoroutine(StartTrainJourney());
     }
 

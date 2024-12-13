@@ -11,7 +11,7 @@ public class Button_Continue : MenuButton
     {
         if (string.IsNullOrEmpty(SaveData_Manager.Instance.GetStringSceneName()))
         {
-            Debug.Log("ÀÌ¾îÇÏ±â ¹öÆ°À» Áö¿ó´Ï´Ù");
+            Debug.Log("ì´ì–´í•˜ê¸° ë²„íŠ¼ì„ ì§€ì›ë‹ˆë‹¤");
             RemoveFromMenuButtons();
             Destroy(gameObject);
         }     
@@ -64,7 +64,7 @@ public class Button_Continue : MenuButton
 
     private void RemoveFromMenuButtons()
     {
-        // MenuButton ¹è¿­ÀÌ ÀÖ´ÂÁö È®ÀÎ
+        // MenuButton ë°°ì—´ì´ ìˆëŠ”ì§€ í™•ì¸
         if (mainMenuController.menuButtons != null)
         {
             List<MenuButton> buttonList = new List<MenuButton>(mainMenuController.menuButtons);

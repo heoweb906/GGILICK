@@ -23,7 +23,7 @@ public class CineCameraChager : MonoBehaviour
     }
 
 
-    // #. ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ ÀÛµ¿ÇÏ´Â ¿ë
+    // #. ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì‘ë™í•˜ëŠ” ìš©
     public void CameraChange()
     {
         BlendChanger(TargetCamera);
@@ -32,7 +32,7 @@ public class CineCameraChager : MonoBehaviour
     }
 
 
-    // #. Æ®¸®°Å·Î ÀÛµ¿ÇÏ´Â ¹æ½Ä
+    // #. íŠ¸ë¦¬ê±°ë¡œ ì‘ë™í•˜ëŠ” ë°©ì‹
     private void OnTriggerExit(Collider other) 
     {
         if (other.transform.root.CompareTag("Player") && !bTriggerOff) 
@@ -44,13 +44,13 @@ public class CineCameraChager : MonoBehaviour
 
 
        
-    // #. CinemachineBrain - ¹öÃò¾ó Ä«¸Ş¶ó ÀüÈ¯½Ã °ª ºÒ·¯¿Í¼­ Àû¿ë
+    // #. CinemachineBrain - ë²„ì¸„ì–¼ ì¹´ë©”ë¼ ì „í™˜ì‹œ ê°’ ë¶ˆëŸ¬ì™€ì„œ ì ìš©
     private void BlendChanger(GameObject targetCamera)
     {
         if (GameAssistManager.Instance.BoolNowActiveCameraObj(targetCamera)) return;
 
         GameAssistManager.Instance.CameraChangeAssist(targetCamera);
-        Debug.Log($"Ä«¸Ş¶ó ÀüÈ¯ - È£ÃâÇÑ ¿ÀºêÁ§Æ®: {gameObject.name}");
+        Debug.Log($"ì¹´ë©”ë¼ ì „í™˜ - í˜¸ì¶œí•œ ì˜¤ë¸Œì íŠ¸: {gameObject.name}");
 
         CameraObj camObj = targetCamera.GetComponent<CameraObj>();
         cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(camObj.blendStyle, camObj.duration);

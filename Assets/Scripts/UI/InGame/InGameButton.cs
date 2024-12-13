@@ -44,7 +44,7 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         SelectButtonOff();
     }
 
-    // #. MenuButtonÀ» »ó¼Ó ¹ŞÀº ¹öÆ°µéÀÇ ½ÇÇà ±â´ÉÀ» ¿©±â¿¡ ´Ù ±¸ÇöÇÏ´Â °ÅÀÓ
+    // #. MenuButtonì„ ìƒì† ë°›ì€ ë²„íŠ¼ë“¤ì˜ ì‹¤í–‰ ê¸°ëŠ¥ì„ ì—¬ê¸°ì— ë‹¤ êµ¬í˜„í•˜ëŠ” ê±°ì„
     public virtual void ImplementButton()
     {
         SelectButtonOff();
@@ -57,8 +57,8 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         ingameUIController.nowPlayerButton = this;
     }
 
-    // #. ¹öÆ°ÀÌ ºñÈ°¼ºÈ­ µÇ¾úÀ» ¶§ ÃëÇÒ ¾×¼ÇÀÇ ³»¿ëÀ» ´ãÀ» ÇÔ¼ö
-    // °¢ ¹öÆ° º°·Î ´Ù¸¥ È¿°ú¸¦ ÁÙ ¼ö ÀÖÀ¸¹Ç·Î ³»¿ëÀº ÀÚ½Ä¿¡¼­ ÀÛ¼º
+    // #. ë²„íŠ¼ì´ ë¹„í™œì„±í™” ë˜ì—ˆì„ ë•Œ ì·¨í•  ì•¡ì…˜ì˜ ë‚´ìš©ì„ ë‹´ì„ í•¨ìˆ˜
+    // ê° ë²„íŠ¼ ë³„ë¡œ ë‹¤ë¥¸ íš¨ê³¼ë¥¼ ì¤„ ìˆ˜ ìˆìœ¼ë¯€ë¡œ ë‚´ìš©ì€ ìì‹ì—ì„œ ì‘ì„±
     public virtual void SelectButtonOff()
     {
         ingameUIController.nowPlayerButton = null;

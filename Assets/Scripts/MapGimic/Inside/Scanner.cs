@@ -9,7 +9,7 @@ public class Scanner : MonoBehaviour
     private ColorObj colorObj;
 
 
-    // ±â´É È®ÀÎ¿ëÀ¸·Î ÀÖ´Â ½ºÅ©¸³Æ®, ³ªÁß¿¡ Áö¿ö¾ßÇÔ
+    // ê¸°ëŠ¥ í™•ì¸ìš©ìœ¼ë¡œ ìˆëŠ” ìŠ¤í¬ë¦½íŠ¸, ë‚˜ì¤‘ì— ì§€ì›Œì•¼í•¨
     public GameObject testEffect;
 
 
@@ -21,7 +21,7 @@ public class Scanner : MonoBehaviour
     }
 
 
-    // #. ½ºÄ³³Ê À§¿¡ ÀÖ´Â ColorObjÀÇ Á¤º¸¸¦ °¡Á®¿È
+    // #. ìŠ¤ìºë„ˆ ìœ„ì— ìˆëŠ” ColorObjì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜´
     public ColorObj GetColorObj()
     {
         if (colorObj != null) return colorObj;

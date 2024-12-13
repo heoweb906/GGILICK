@@ -57,6 +57,6 @@ public class NPC_Simple_WalkState : NPC_Simple_State
     private void MoveToNextCheckPoint()
     {
         npc.GetNav().SetDestination(npc.checkPoints[npc.CurrentCheckPointIndex].position);
-        Debug.Log("°È´Â ÁßÀÔ´Ï´Ù!!!!!.");
+        Debug.Log("ê±·ëŠ” ì¤‘ìž…ë‹ˆë‹¤!!!!!.");
     }
 }

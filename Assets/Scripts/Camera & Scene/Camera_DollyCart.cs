@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Camera_DollyCart : CameraObj
 {
-    private Transform player;  // ÃßÀûÇÒ ÇÃ·¹ÀÌ¾îÀÇ Transform
+    private Transform player;  // ì¶”ì í•  í”Œë ˆì´ì–´ì˜ Transform
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineDollyCart dollyCart;
     public DollyRotationAndPositonOffset dollyRotation;
@@ -31,21 +31,21 @@ public class Camera_DollyCart : CameraObj
         int currentIndex = Mathf.FloorToInt(currentPosition);
         int nextIndex = currentIndex + 1;
 
-        // ÀÎµ¦½º°¡ ¹è¿­ ¹üÀ§¸¦ ¹ş¾î³ªÁö ¾Êµµ·Ï Ã¼Å©
+        // ì¸ë±ìŠ¤ê°€ ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ì§€ ì•Šë„ë¡ ì²´í¬
         if (currentIndex >= dollyRotation.Offsets.Length - 1) return;
         if (nextIndex >= dollyRotation.Offsets.Length) return;
 
-        // ÇöÀç À§Ä¡¿¡¼­ÀÇ º¸°£ ºñÀ² °è»ê
-        float t = currentPosition - currentIndex;  // ºÎµå·¯¿î º¸°£À» À§ÇØ float »ç¿ë
+        // í˜„ì¬ ìœ„ì¹˜ì—ì„œì˜ ë³´ê°„ ë¹„ìœ¨ ê³„ì‚°
+        float t = currentPosition - currentIndex;  // ë¶€ë“œëŸ¬ìš´ ë³´ê°„ì„ ìœ„í•´ float ì‚¬ìš©
 
-        // È¸Àü º¸°£ (Quaternion.Slerp¸¦ »ç¿ëÇÏ¿© ºÎµå·´°Ô È¸Àü)
+        // íšŒì „ ë³´ê°„ (Quaternion.Slerpë¥¼ ì‚¬ìš©í•˜ì—¬ ë¶€ë“œëŸ½ê²Œ íšŒì „)
         Quaternion startRotation = Quaternion.Euler(dollyRotation.Offsets[currentIndex].lookAtOffset);
         Quaternion endRotation = Quaternion.Euler(dollyRotation.Offsets[nextIndex].lookAtOffset);
         Quaternion interpolatedRotation = Quaternion.Slerp(startRotation, endRotation, t);
 
-        // Ä«¸Ş¶óÀÇ È¸Àü Àû¿ë
-        // ±âÁ¸ È¸Àü°ª¿¡ ´õ ºÎµå·´°Ô Àû¿ëµÇµµ·Ï È¸Àü°ªÀ» Á¶±İ¾¿ º¸Á¤
-        virtualCamera.transform.rotation = Quaternion.Slerp(virtualCamera.transform.rotation, interpolatedRotation, Time.deltaTime * 5f); // 5f´Â ºÎµå·¯¿î ¼Óµµ¸¦ À§ÇÑ °ªÀÔ´Ï´Ù.
+        // ì¹´ë©”ë¼ì˜ íšŒì „ ì ìš©
+        // ê¸°ì¡´ íšŒì „ê°’ì— ë” ë¶€ë“œëŸ½ê²Œ ì ìš©ë˜ë„ë¡ íšŒì „ê°’ì„ ì¡°ê¸ˆì”© ë³´ì •
+        virtualCamera.transform.rotation = Quaternion.Slerp(virtualCamera.transform.rotation, interpolatedRotation, Time.deltaTime * 5f); // 5fëŠ” ë¶€ë“œëŸ¬ìš´ ì†ë„ë¥¼ ìœ„í•œ ê°’ì…ë‹ˆë‹¤.
     }
 
 

@@ -8,8 +8,8 @@ public class NPC_Simple_ReactionThankState : NPC_Simple_State
     public NPC_Simple_ReactionThankState(NPC_Simple npc, NPC_Simple_StateMachine machine) : base(npc, machine) { }
 
 
-    private float elapsedTime; // ½Ã°£ ÃøÁ¤¿ë º¯¼ö
-    private const float duration = 2f; // 2ÃÊ ÈÄ¿¡ »óÅÂ º¯°æ
+    private float elapsedTime; // ì‹œê°„ ì¸¡ì •ìš© ë³€ìˆ˜
+    private const float duration = 2f; // 2ì´ˆ í›„ì— ìƒíƒœ ë³€ê²½
 
 
     public override void OnEnter()
@@ -28,7 +28,7 @@ public class NPC_Simple_ReactionThankState : NPC_Simple_State
 
         elapsedTime += Time.deltaTime;
 
-        // 2ÃÊ°¡ Áö³ª¸é ChangeStateNPC ½ÇÇà
+        // 2ì´ˆê°€ ì§€ë‚˜ë©´ ChangeStateNPC ì‹¤í–‰
         if (elapsedTime >= duration)
         {
             npc.CurrentCheckPointIndex--;

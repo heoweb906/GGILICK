@@ -21,7 +21,7 @@ public class SubwayPlayerCheckPoint_2 : MonoBehaviour
         }
     }
 
-    // ÀÚ½Ä, ºÎ¸ğ ¸ğµÎ Æ÷ÇÔÇØ¼­ "Player" ÅÂ±×¸¦ °¡Áø ¿ÀºêÁ§Æ®°¡ ÀÖ´ÂÁö °Ë»ç
+    // ìì‹, ë¶€ëª¨ ëª¨ë‘ í¬í•¨í•´ì„œ "Player" íƒœê·¸ë¥¼ ê°€ì§„ ì˜¤ë¸Œì íŠ¸ê°€ ìˆëŠ”ì§€ ê²€ì‚¬
     private bool IsPlayerInHierarchy(Transform current)
     {
         while (current != null)

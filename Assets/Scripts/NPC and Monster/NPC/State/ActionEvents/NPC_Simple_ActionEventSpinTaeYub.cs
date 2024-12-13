@@ -13,7 +13,7 @@ public class NPC_Simple_ActionEventSpinTaeYub : NPC_Simple_State
         base.OnEnter();
 
 
-        Debug.Log("ÅÂ¿± µ¹¸®±â »óÅÂ ÁøÀÔ ¿Ï·á");
+        Debug.Log("íƒœì—½ ëŒë¦¬ê¸° ìƒíƒœ ì§„ì… ì™„ë£Œ");
 
         npc.GetAnimator().SetInteger("ActionEvent_Num",(int)npc.actionEventList);
 
@@ -39,8 +39,8 @@ public class NPC_Simple_ActionEventSpinTaeYub : NPC_Simple_State
     }
 
 
-    // #. ¾Ö´Ï¸ŞÀÌ¼Ç ÀÌº¥Æ®¿¡¼­ »ç¿ëÇÒ °ÅÀÓ
-    public void SpinTaeYub() // Àü¹æ¿¡ ÅÂ¿±À» µ¹¸®´Â ÇÔ¼ö, ÀÏÇÏ´Â NPCµé
+    // #. ì• ë‹ˆë©”ì´ì…˜ ì´ë²¤íŠ¸ì—ì„œ ì‚¬ìš©í•  ê±°ì„
+    public void SpinTaeYub() // ì „ë°©ì— íƒœì—½ì„ ëŒë¦¬ëŠ” í•¨ìˆ˜, ì¼í•˜ëŠ” NPCë“¤
     {
         npc.ClockWork.ClockWorkRotate();
     }

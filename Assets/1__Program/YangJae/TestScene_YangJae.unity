@@ -427,8 +427,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   canInteract: 0
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
+  holdPositionOffset: {x: 0, y: 0, z: 0}
+  holdRotationOffset: {x: 30, y: 0, z: 0}
 --- !u!65 &300432754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -703,6 +706,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
   rigid: {fileID: 416001044}
   col: {fileID: 416001045}
   joint: {fileID: 0}
@@ -1219,6 +1223,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
   clockBattery: {fileID: 1533973335}
   clockWorkType: 0
   plusClockWorksList: []
@@ -1305,8 +1310,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   canInteract: 0
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
+  holdPositionOffset: {x: 0, y: 0, z: 0}
+  holdRotationOffset: {x: 30, y: 30, z: 30}
 --- !u!65 &800279374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2763,8 +2771,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   canInteract: 0
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
+  holdPositionOffset: {x: 0, y: 0, z: 0}
+  holdRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &1584502455
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3433,6 +3444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
   clockBattery: {fileID: 1533973335}
   clockWorkType: 1
   plusClockWorksList: []

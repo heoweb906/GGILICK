@@ -6,10 +6,10 @@ public class SubWayAssist : MonoBehaviour
 {
     public static SubWayAssist Instance;
 
-    [Header("ÇÃ·¹ÀÌ¾î À§Ä¡ Ã¼Å©")]
-    public bool bPlayerInSubway;   // ÁöÇÏÃ¶ ÁøÀÔ ¿Ï·á
-    public bool bPlayerTakeTrain;  // ±âÂ÷ Å¾½Â ¿Ï·á
-    public bool bPlayerTeleport;   // ÁöÇÏÃ¶¿ª 2±¸¿ª ÁøÀÔ ¿Ï·á
+    [Header("í”Œë ˆì´ì–´ ìœ„ì¹˜ ì²´í¬")]
+    public bool bPlayerInSubway;   // ì§€í•˜ì²  ì§„ì… ì™„ë£Œ
+    public bool bPlayerTakeTrain;  // ê¸°ì°¨ íƒ‘ìŠ¹ ì™„ë£Œ
+    public bool bPlayerTeleport;   // ì§€í•˜ì² ì—­ 2êµ¬ì—­ ì§„ì… ì™„ë£Œ
 
     public GameObject TrainObj;
 

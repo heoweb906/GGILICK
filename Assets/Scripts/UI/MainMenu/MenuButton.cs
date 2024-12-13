@@ -43,22 +43,22 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         SelectButtonOff();
     }
 
-    // #. MenuButtonÀ» »ó¼Ó ¹ÞÀº ¹öÆ°µéÀÇ ½ÇÇà ±â´ÉÀ» ¿©±â¿¡ ´Ù ±¸ÇöÇÏ´Â °ÅÀÓ
+    // #. MenuButtonì„ ìƒì† ë°›ì€ ë²„íŠ¼ë“¤ì˜ ì‹¤í–‰ ê¸°ëŠ¥ì„ ì—¬ê¸°ì— ë‹¤ êµ¬í˜„í•˜ëŠ” ê±°ìž„
     public virtual void ImplementButton()
     {
         SelectButtonOff();
     }
 
-    // #. ¹öÆ°ÀÌ È°¼ºÈ­ µÇ¾úÀ» ¶§ ÃëÇÒ ¾×¼ÇÀÇ ³»¿ëÀ» ´ãÀ» ÇÔ¼ö
-    // °¢ ¹öÆ° º°·Î ´Ù¸¥ È¿°ú¸¦ ÁÙ ¼ö ÀÖÀ¸¹Ç·Î ³»¿ëÀº ÀÚ½Ä¿¡¼­ ÀÛ¼º
+    // #. ë²„íŠ¼ì´ í™œì„±í™” ë˜ì—ˆì„ ë•Œ ì·¨í•  ì•¡ì…˜ì˜ ë‚´ìš©ì„ ë‹´ì„ í•¨ìˆ˜
+    // ê° ë²„íŠ¼ ë³„ë¡œ ë‹¤ë¥¸ íš¨ê³¼ë¥¼ ì¤„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ë‚´ìš©ì€ ìžì‹ì—ì„œ ìž‘ì„±
     public virtual void SelectButtonOn()
     {
         DOTween.Kill(gameObject);
         mainMenuController.nowPlayerButton = this;
     }
 
-    // #. ¹öÆ°ÀÌ ºñÈ°¼ºÈ­ µÇ¾úÀ» ¶§ ÃëÇÒ ¾×¼ÇÀÇ ³»¿ëÀ» ´ãÀ» ÇÔ¼ö
-    // °¢ ¹öÆ° º°·Î ´Ù¸¥ È¿°ú¸¦ ÁÙ ¼ö ÀÖÀ¸¹Ç·Î ³»¿ëÀº ÀÚ½Ä¿¡¼­ ÀÛ¼º
+    // #. ë²„íŠ¼ì´ ë¹„í™œì„±í™” ë˜ì—ˆì„ ë•Œ ì·¨í•  ì•¡ì…˜ì˜ ë‚´ìš©ì„ ë‹´ì„ í•¨ìˆ˜
+    // ê° ë²„íŠ¼ ë³„ë¡œ ë‹¤ë¥¸ íš¨ê³¼ë¥¼ ì¤„ ìˆ˜ ìžˆìœ¼ë¯€ë¡œ ë‚´ìš©ì€ ìžì‹ì—ì„œ ìž‘ì„±
     public virtual void SelectButtonOff()
     {
         mainMenuController.nowPlayerButton = null;

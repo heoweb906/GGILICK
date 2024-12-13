@@ -55,6 +55,7 @@ public class PlayerAnimationData
     [SerializeField] private string spinClockWorkFloorParameterName = "isSpinClockWorkFloor";
     [SerializeField] private string pickUpParameterName = "isPickUp";
     [SerializeField] private string putDownParameterName = "isPutDown";
+    [SerializeField] private string putPartsParameterName = "isPutParts";
     [SerializeField] private string throwParameterName = "isThrow";
 
     [Header("Interaction_Grap Group Parameter")]
@@ -103,6 +104,7 @@ public class PlayerAnimationData
     public int SpinClockWorkFloorParameterHash { get; private set; }
     public int PickUpParameterHash { get; private set; }
     public int PutDownParameterHash { get; private set; }
+    public int PutPartsParameterHash { get; private set; }
     public int ThrowParameterHash { get; private set; }
 
     public int GrabParameterHash { get; private set; }
@@ -149,6 +151,7 @@ public class PlayerAnimationData
         SpinClockWorkFloorParameterHash = Animator.StringToHash(spinClockWorkFloorParameterName);
         PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
         PutDownParameterHash = Animator.StringToHash(putDownParameterName);
+        PutPartsParameterHash = Animator.StringToHash(putPartsParameterName);
         ThrowParameterHash = Animator.StringToHash(throwParameterName);
 
         GrabParameterHash = Animator.StringToHash(grabParameterName);

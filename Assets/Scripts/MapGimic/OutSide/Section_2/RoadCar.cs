@@ -5,33 +5,33 @@ using DG.Tweening;
 
 public class RoadCar : MonoBehaviour
 {
-    [HideInInspector] public TrafficLight trafficLight; // ±³Åë ½ÅÈ£
+    [HideInInspector] public TrafficLight trafficLight; // êµí†µ ì‹ í˜¸
     public bool bMoveActive;
     public bool bDirection;
 
-    public float maxSpeed; // ÃÖ°í ¼Ó·Â
-    public float safeDistance; // ¾ÈÀü°Å¸®
-    public float deceleration; // °¨¼Ó ºñÀ²
-    public float acceleration; // °¡¼Ó ºñÀ²
+    public float maxSpeed; // ìµœê³  ì†ë ¥
+    public float safeDistance; // ì•ˆì „ê±°ë¦¬
+    public float deceleration; // ê°ì† ë¹„ìœ¨
+    public float acceleration; // ê°€ì† ë¹„ìœ¨
 
-    private Rigidbody rb; // ÀÚµ¿Â÷ÀÇ Rigidbody ÄÄÆ÷³ÍÆ®
-    private float currentSpeed; // ÇöÀç ¼Ó·Â
+    private Rigidbody rb; // ìë™ì°¨ì˜ Rigidbody ì»´í¬ë„ŒíŠ¸
+    private float currentSpeed; // í˜„ì¬ ì†ë ¥
 
-    public JustRotate[] justRotates;  // Å¸ÀÌ¾îµé È¸Àü °ü¸®
+    public JustRotate[] justRotates;  // íƒ€ì´ì–´ë“¤ íšŒì „ ê´€ë¦¬
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
-        currentSpeed = maxSpeed; // ÃÊ±â ¼Ó·ÂÀ» ÃÖ°í ¼Ó·ÂÀ¸·Î ¼³Á¤
+        currentSpeed = maxSpeed; // ì´ˆê¸° ì†ë ¥ì„ ìµœê³  ì†ë ¥ìœ¼ë¡œ ì„¤ì •
     }
 
     private void Update()
     {
         if (bMoveActive)
         {
-            MoveCar(); // ÀÚµ¿Â÷ ÀÌµ¿ ¸Ş¼­µå È£Ãâ
+            MoveCar(); // ìë™ì°¨ ì´ë™ ë©”ì„œë“œ í˜¸ì¶œ
 
-            // positionEndÀÇ z°ªÀ» ³Ñ¾î°¡¸é ÀÚµ¿Â÷ »èÁ¦
+            // positionEndì˜ zê°’ì„ ë„˜ì–´ê°€ë©´ ìë™ì°¨ ì‚­ì œ
             if ((bDirection && transform.position.z < trafficLight.postions_end[0].position.z) ||
                 (!bDirection && transform.position.z > trafficLight.postions_end[1].position.z))
             {
@@ -43,37 +43,37 @@ public class RoadCar : MonoBehaviour
     private void MoveCar()
     {
         RaycastHit hit;
-        Vector3 rayStart = transform.position + Vector3.up * 2; // Ray ¹ß»ç À§Ä¡¸¦ »ìÂ¦ ¿Ã·ÁÁÜ
+        Vector3 rayStart = transform.position + Vector3.up * 2; // Ray ë°œì‚¬ ìœ„ì¹˜ë¥¼ ì‚´ì§ ì˜¬ë ¤ì¤Œ
 
-        // Ãæµ¹ÀÌ °¨ÁöµÇ¸é °¨¼Ó
+        // ì¶©ëŒì´ ê°ì§€ë˜ë©´ ê°ì†
         if (Physics.Raycast(rayStart, transform.forward, out hit, safeDistance))
         {
             if (hit.collider.GetComponent<RoadCar>() != null)
             {
-                // ¾ÈÀü °Å¸® È®º¸¸¦ À§ÇØ ¼­¼­È÷ °¨¼Ó
+                // ì•ˆì „ ê±°ë¦¬ í™•ë³´ë¥¼ ìœ„í•´ ì„œì„œíˆ ê°ì†
                 currentSpeed -= deceleration * Time.deltaTime;
                 currentSpeed = Mathf.Max(currentSpeed, 0);
             }
         }
         else
         {
-            // ¾ÈÀü °Å¸®°¡ È®º¸µÇ¸é °¡¼Ó
+            // ì•ˆì „ ê±°ë¦¬ê°€ í™•ë³´ë˜ë©´ ê°€ì†
             if (currentSpeed < maxSpeed)
             {
                 currentSpeed += acceleration * Time.deltaTime;
             }
         }
 
-        // MovePositionÀ» »ç¿ëÇØ ¿ÀºêÁ§Æ® ÀÌµ¿
+        // MovePositionì„ ì‚¬ìš©í•´ ì˜¤ë¸Œì íŠ¸ ì´ë™
         Vector3 targetPosition = transform.position + transform.forward * currentSpeed * Time.deltaTime;
         rb.MovePosition(targetPosition);
 
-        // JustRotate ¹è¿­ÀÇ °¢ ¿ä¼Ò È¸Àü ¼Óµµ ¾÷µ¥ÀÌÆ®
+        // JustRotate ë°°ì—´ì˜ ê° ìš”ì†Œ íšŒì „ ì†ë„ ì—…ë°ì´íŠ¸
         foreach (var rotate in justRotates)
         {
             if (rotate != null)
             {
-                rotate.rotationSpeed = currentSpeed * 10f; // ¼Óµµ¿¡ ºñ·ÊÇÏµµ·Ï Á¶Á¤ (10f´Â ºñÀ² Á¶Á¤°ª)
+                rotate.rotationSpeed = currentSpeed * 10f; // ì†ë„ì— ë¹„ë¡€í•˜ë„ë¡ ì¡°ì • (10fëŠ” ë¹„ìœ¨ ì¡°ì •ê°’)
             }
         }
     }
@@ -81,7 +81,7 @@ public class RoadCar : MonoBehaviour
 
     private void RemoveCar()
     {
-        // ¸®½ºÆ®¿¡¼­ ÀÌ ÀÚµ¿Â÷ Á¦°Å
+        // ë¦¬ìŠ¤íŠ¸ì—ì„œ ì´ ìë™ì°¨ ì œê±°
         if(bDirection)
         {
             if (trafficLight != null && trafficLight.spawnedCars_1.Contains(gameObject)) trafficLight.spawnedCars_1.Remove(gameObject);
@@ -105,7 +105,7 @@ public class RoadCar : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®ÀÇ ÅÂ±×°¡ "Player"ÀÎÁö È®ÀÎ
+        // ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ì˜ íƒœê·¸ê°€ "Player"ì¸ì§€ í™•ì¸
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Detect On Player");

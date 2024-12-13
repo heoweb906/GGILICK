@@ -22,7 +22,7 @@ public class TrainAssist : MonoBehaviour
             train.m_Path = path;
             train.m_Speed = fSpeed;
 
-            yield return new WaitForSeconds(fInterval); // fInterval °£°ÝÀ¸·Î ´ë±â
+            yield return new WaitForSeconds(fInterval); // fInterval ê°„ê²©ìœ¼ë¡œ ëŒ€ê¸°
         }
     }
 

@@ -13,7 +13,7 @@ using TMPro;
 public class MainMenuController : MonoBehaviour
 {
 
-    public MenuButton nowPlayerButton; // ÇöÀç ¼±ÅÃµÇ¾î ÀÖ´Â ¹öÆ°
+    public MenuButton nowPlayerButton; // í˜„ì¬ ì„ íƒë˜ì–´ ìˆëŠ” ë²„íŠ¼
     public MenuButton lastButton;
     public MenuButton[] menuButtons;
 
@@ -37,12 +37,12 @@ public class MainMenuController : MonoBehaviour
 
 
 
-    [Header("UI ¾Ö´Ï¸ŞÀÌ¼Ç ºÎµå·¯¿ò ¼öÄ¡")]
+    [Header("UI ì• ë‹ˆë©”ì´ì…˜ ë¶€ë“œëŸ¬ì›€ ìˆ˜ì¹˜")]
     private Vignette vignette;
-    public GameObject image_FadeOut; // FadeOut¿¡ »ç¿ëÇÒ Image
-    public bool bIsUIDoing; // UI°¡ ¹º°¡ ±â´É ÁßÀÓ
-    public float duration; // ¾Ö´Ï¸ŞÀÌ¼Ç Áö¼Ó ½Ã°£
-    public float maxScale; // ÃÖ´ë Å©±â (Ä¿Áú ¶§ÀÇ Å©±â)
+    public GameObject image_FadeOut; // FadeOutì— ì‚¬ìš©í•  Image
+    public bool bIsUIDoing; // UIê°€ ë­”ê°€ ê¸°ëŠ¥ ì¤‘ì„
+    public float duration; // ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„
+    public float maxScale; // ìµœëŒ€ í¬ê¸° (ì»¤ì§ˆ ë•Œì˜ í¬ê¸°)
 
 
 
@@ -130,7 +130,7 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    // #. Arrow Key¸¦ ÀÌ¿ëÇØ¼­ ÇöÀç ¼±ÅÃµÇ¾î ÀÖ´Â UI Button¿¡¼­ °¡Àå °¡±îÀÌ¿¡ ÀÖ´Â UI ButtonÀ» ¼±ÅÃÇÏµµ·Ï ÇÏ´Â ÇÔ¼ö
+    // #. Arrow Keyë¥¼ ì´ìš©í•´ì„œ í˜„ì¬ ì„ íƒë˜ì–´ ìˆëŠ” UI Buttonì—ì„œ ê°€ì¥ ê°€ê¹Œì´ì— ìˆëŠ” UI Buttonì„ ì„ íƒí•˜ë„ë¡ í•˜ëŠ” í•¨ìˆ˜
     private void FindClosestButton(Vector2 direction)
     {
         if (nowPlayerButton == null)
@@ -150,9 +150,9 @@ public class MainMenuController : MonoBehaviour
 
             Vector2 directionToButton = (Vector2)button.transform.position - currentPosition;
 
-            // Á¤È®ÇÑ ¹æÇâ Å½»ö: ÁöÁ¤µÈ ¹æÇâ°úÀÇ °¢µµ°¡ 30µµ ÀÌ³»ÀÏ ¶§¸¸ ¼±ÅÃ
+            // ì •í™•í•œ ë°©í–¥ íƒìƒ‰: ì§€ì •ëœ ë°©í–¥ê³¼ì˜ ê°ë„ê°€ 30ë„ ì´ë‚´ì¼ ë•Œë§Œ ì„ íƒ
             float angle = Vector2.Angle(direction, directionToButton);
-            if (angle <= 45f) // 30µµ ¹üÀ§·Î Á¦ÇÑ
+            if (angle <= 45f) // 30ë„ ë²”ìœ„ë¡œ ì œí•œ
             {
                 float distance = directionToButton.magnitude;
                 if (distance < closestDistance)
@@ -173,18 +173,18 @@ public class MainMenuController : MonoBehaviour
 
 
 
-    // #. PanelÀÌ È°¼ºÈ­ µÉ ¶§ ÇÏÀ§ ¹öÆ° Ç×¸ñµéÀ» º¯°æÇØÁÜ
+    // #. Panelì´ í™œì„±í™” ë  ë•Œ í•˜ìœ„ ë²„íŠ¼ í•­ëª©ë“¤ì„ ë³€ê²½í•´ì¤Œ
     public void PanelChage(int index)
     {
         nowPlayerButton = null;
 
         switch (index)
         {
-            case 0: // Main Panel ÄÑ±â
+            case 0: // Main Panel ì¼œê¸°
                 Panel_Main.SetActive(true);
                 PanelNow = Panel_Main;
                 break;
-            case 1: // Option Panel ÄÑ±â
+            case 1: // Option Panel ì¼œê¸°
                 Panel_Option.SetActive(true);
                 PanelNow = Panel_Option;
                 break;
@@ -227,14 +227,14 @@ public class MainMenuController : MonoBehaviour
         PanelOn(PanelNow);
         nowPanelNum = index;
 
-        // PanelÀÇ ¸ğµç ÇÏÀ§ GameObjectµéÀ» °¡Á®¿È
+        // Panelì˜ ëª¨ë“  í•˜ìœ„ GameObjectë“¤ì„ ê°€ì ¸ì˜´
         Transform[] childTransforms = PanelNow.GetComponentsInChildren<Transform>(true);
 
-        // MenuButton ½ºÅ©¸³Æ®¸¦ »ó¼Ó¹ŞÀº ÄÄÆ÷³ÍÆ®µéÀ» Ã£¾Æ¼­ menuButtons ¹è¿­¿¡ ÇÒ´ç
+        // MenuButton ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìƒì†ë°›ì€ ì»´í¬ë„ŒíŠ¸ë“¤ì„ ì°¾ì•„ì„œ menuButtons ë°°ì—´ì— í• ë‹¹
         List<MenuButton> foundButtons = new List<MenuButton>();
         foreach (Transform childTransform in childTransforms)
         {
-            // ÇÏÀ§ GameObject¿¡¼­ MenuButton ½ºÅ©¸³Æ®¸¦ »ó¼Ó¹ŞÀº ÄÄÆ÷³ÍÆ®¸¦ Ã£À½
+            // í•˜ìœ„ GameObjectì—ì„œ MenuButton ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìƒì†ë°›ì€ ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ìŒ
             MenuButton menuButton = childTransform.GetComponent<MenuButton>();
             if (menuButton != null)
             {
@@ -242,7 +242,7 @@ public class MainMenuController : MonoBehaviour
             }
         }
 
-        // List¸¦ ¹è¿­·Î º¯È¯ÇÏ¿© menuButtons¿¡ ÇÒ´ç
+        // Listë¥¼ ë°°ì—´ë¡œ ë³€í™˜í•˜ì—¬ menuButtonsì— í• ë‹¹
         menuButtons = foundButtons.ToArray();
         if (menuButtons.Length != 0) lastButton = menuButtons[0];
         lastButton = menuButtons[0];
@@ -252,18 +252,18 @@ public class MainMenuController : MonoBehaviour
 
     public void PanelOff(int index)
     {
-        // # ¿¬Ãâ 1¹ø
+        // # ì—°ì¶œ 1ë²ˆ
         PanelNow.SetActive(false);
         PanelChage(index);
 
-        // #.¿¬Ãâ 2¹ø
+        // #.ì—°ì¶œ 2ë²ˆ
         //PanelNow.transform.DOScale(maxScale, duration / 2)
-        //.SetEase(Ease.OutBack) // EaseOutBack È¿°ú·Î Ä¿Áü
-        //.OnComplete(() => // Ä¿Áø ÈÄ¿¡ Å©±â¸¦ 0À¸·Î ÁÙÀÓ
+        //.SetEase(Ease.OutBack) // EaseOutBack íš¨ê³¼ë¡œ ì»¤ì§
+        //.OnComplete(() => // ì»¤ì§„ í›„ì— í¬ê¸°ë¥¼ 0ìœ¼ë¡œ ì¤„ì„
         //{
         //    PanelNow.transform.DOScale(Vector3.zero, duration / 2)
         //        .SetEase(Ease.InBack)
-        //        .OnComplete(() => // Å©±â°¡ 0ÀÌ µÈ ÈÄ¿¡ SetActive(false) ½ÇÇà
+        //        .OnComplete(() => // í¬ê¸°ê°€ 0ì´ ëœ í›„ì— SetActive(false) ì‹¤í–‰
         //        {
         //            PanelNow.SetActive(false);
         //            PanelChage(index);
@@ -272,40 +272,40 @@ public class MainMenuController : MonoBehaviour
     }
     public void PanelOn(GameObject ActivePanel)
     {
-        // ¿¬Ãâ 1¹ø
+        // ì—°ì¶œ 1ë²ˆ
         //ActivePanel.transform.localScale = Vector3.one * 0.5f;
         //ActivePanel.transform.DOScale(Vector3.one, duration / 2)
-        //.SetEase(Ease.OutBack); // EaseOutBack È¿°ú·Î ÀÚ¿¬½º·´°Ô Ä¿Áü
+        //.SetEase(Ease.OutBack); // EaseOutBack íš¨ê³¼ë¡œ ìì—°ìŠ¤ëŸ½ê²Œ ì»¤ì§
 
 
-        // ¿¬Ãâ 2¹ø
+        // ì—°ì¶œ 2ë²ˆ
         Image[] images = ActivePanel.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textMeshes = ActivePanel.GetComponentsInChildren<TextMeshProUGUI>();
 
-        // °¢ ImageÀÇ ¾ËÆÄ°ªÀ» 0¿¡¼­ 1±îÁö ¼­¼­È÷ º¯È­
+        // ê° Imageì˜ ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ê¹Œì§€ ì„œì„œíˆ ë³€í™”
         foreach (Image img in images)
         {
-            // ImageÀÇ ÃÊ±â ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
+            // Imageì˜ ì´ˆê¸° ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
             Color tempColor = img.color;
             tempColor.a = 0f;
             img.color = tempColor;
 
-            // ¾ËÆÄ°ªÀ» 0¿¡¼­ 1·Î 1ÃÊ µ¿¾È ¼­¼­È÷ ¿Ã¸²
+            // ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ë¡œ 1ì´ˆ ë™ì•ˆ ì„œì„œíˆ ì˜¬ë¦¼
             DOTween.To(() => img.color.a, x => {
                 tempColor.a = x;
                 img.color = tempColor;
-            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1ÃÊ µ¿¾È ¾ËÆÄ°ªÀ» 1·Î ¸¸µê
+            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1ì´ˆ ë™ì•ˆ ì•ŒíŒŒê°’ì„ 1ë¡œ ë§Œë“¦
         }
 
-        // °¢ TextMeshProÀÇ »ö»óÀ» 0¿¡¼­ 1±îÁö ¼­¼­È÷ º¯È­
+        // ê° TextMeshProì˜ ìƒ‰ìƒì„ 0ì—ì„œ 1ê¹Œì§€ ì„œì„œíˆ ë³€í™”
         foreach (TextMeshProUGUI textMesh in textMeshes)
         {
-            // TextMeshProÀÇ ÃÊ±â ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
+            // TextMeshProì˜ ì´ˆê¸° ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
             Color textColor = textMesh.color;
             textColor.a = 0f;
             textMesh.color = textColor;
 
-            // ÅØ½ºÆ® »ö»ó ¾ËÆÄ°ªÀ» 0¿¡¼­ 1·Î 1ÃÊ µ¿¾È ¼­¼­È÷ ¿Ã¸²
+            // í…ìŠ¤íŠ¸ ìƒ‰ìƒ ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ë¡œ 1ì´ˆ ë™ì•ˆ ì„œì„œíˆ ì˜¬ë¦¼
             DOTween.To(() => textMesh.color.a, x => {
                 textColor.a = x;
                 textMesh.color = textColor;
@@ -324,19 +324,19 @@ public class MainMenuController : MonoBehaviour
 
 
     /// <summary>
-    /// ´Ù¸¥ ¾À°úÀÇ ¿¬°á, È¤Àº ±âÅ¸ ÀÛ¾÷µé
+    /// ë‹¤ë¥¸ ì”¬ê³¼ì˜ ì—°ê²°, í˜¹ì€ ê¸°íƒ€ ì‘ì—…ë“¤
     /// </summary>
 
-    // #. Scene ÀüÈ¯ ÇÔ¼ö, °ÔÀÓ ½ÃÀÛ ¹öÆ°¿¡¼­ »ç¿ëÇÏÁö¸¸, ¹öÆ°¿¡´Â ¹öÆ° °ü·Ã ±â´É¸¸ ³Ö±â À§ÇØ¼­
+    // #. Scene ì „í™˜ í•¨ìˆ˜, ê²Œì„ ì‹œì‘ ë²„íŠ¼ì—ì„œ ì‚¬ìš©í•˜ì§€ë§Œ, ë²„íŠ¼ì—ëŠ” ë²„íŠ¼ ê´€ë ¨ ê¸°ëŠ¥ë§Œ ë„£ê¸° ìœ„í•´ì„œ
     public void StartNewGame(string sSceneSname = "Chapter_1_City1")
     {
-        // VignetteÀÇ intensity¸¦ ÇöÀç °ª¿¡¼­ 1·Î ¼­¼­È÷ º¯È­
+        // Vignetteì˜ intensityë¥¼ í˜„ì¬ ê°’ì—ì„œ 1ë¡œ ì„œì„œíˆ ë³€í™”
         if (vignette != null)
         {
             DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, 2.5f)
                 .SetEase(Ease.OutQuad);
 
-            // VignetteÀÇ smoothness¸¦ ¼­¼­È÷ 1·Î º¯È­, ¸¶Áö¸·¿¡ °¨¼Ó
+            // Vignetteì˜ smoothnessë¥¼ ì„œì„œíˆ 1ë¡œ ë³€í™”, ë§ˆì§€ë§‰ì— ê°ì†
             DOTween.To(() => vignette.smoothness.value, x => vignette.smoothness.value = x, 1f, 2.5f)
                 .SetEase(Ease.OutQuad);
         }
@@ -345,14 +345,14 @@ public class MainMenuController : MonoBehaviour
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
-        // ¾ËÆÄ°ªÀ» ¼­¼­È÷ 1·Î, ¸¶Áö¸·¿¡ °¨¼Ó ÈÄ ¾À ÀüÈ¯
+        // ì•ŒíŒŒê°’ì„ ì„œì„œíˆ 1ë¡œ, ë§ˆì§€ë§‰ì— ê°ì† í›„ ì”¬ ì „í™˜
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
         }, 1f, 2.5f)
         .SetEase(Ease.OutQuad)
         .OnComplete(() => {
-            // ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ³¡³­ ÈÄ 'Chapter_1' ¾ÀÀ¸·Î ÀüÈ¯
+            // ì• ë‹ˆë©”ì´ì…˜ì´ ëë‚œ í›„ 'Chapter_1' ì”¬ìœ¼ë¡œ ì „í™˜
             SceneManager.LoadScene(sSceneSname);
         });
     }

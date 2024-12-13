@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class ParkingCar : ClockBattery
 {
-    public bool bMoveDirection; // ÇöÀç ÁøÇàÇØ¾ß ÇÏ´Â ¹æÇâ true = ¾Õ ¹æÇâ / false = µŞ ¹æÇâ
+    public bool bMoveDirection; // í˜„ì¬ ì§„í–‰í•´ì•¼ í•˜ëŠ” ë°©í–¥ true = ì• ë°©í–¥ / false = ë’· ë°©í–¥
     private bool bIsMove;
 
-    public float initialSpeed;  // Ã³À½ ¼Óµµ
+    public float initialSpeed;  // ì²˜ìŒ ì†ë„
 
-    public GameObject CarObj; // ÃÖÁ¾ÀûÀ¸·Î ¿òÁ÷ÀÓÀÌ Àû¿ëµÉ ¿ÀºêÁ§Æ®
-    public Rigidbody rb; // CarObjÀÇ ÇÏÀ§ Ç×¸ñ¿¡¼­ Ã£Àº Rigidbody
+    public GameObject CarObj; // ìµœì¢…ì ìœ¼ë¡œ ì›€ì§ì„ì´ ì ìš©ë  ì˜¤ë¸Œì íŠ¸
+    public Rigidbody rb; // CarObjì˜ í•˜ìœ„ í•­ëª©ì—ì„œ ì°¾ì€ Rigidbody
     public bool bIsWall;
 
 
@@ -31,7 +31,7 @@ public class ParkingCar : ClockBattery
     {
         base.TrunOffObj();
 
-        Debug.Log("½ÇÇà");
+        Debug.Log("ì‹¤í–‰");
 
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
         if(rb != null) rb.velocity = Vector3.zero;
@@ -48,7 +48,7 @@ public class ParkingCar : ClockBattery
 
     private void Awake()
     {
-        // CarObjÀÇ ÇÏÀ§ ¿ÀºêÁ§Æ®¿¡¼­ Rigidbody Ã£±â
+        // CarObjì˜ í•˜ìœ„ ì˜¤ë¸Œì íŠ¸ì—ì„œ Rigidbody ì°¾ê¸°
         if (CarObj != null && !bIsWall)
         {
             rb = CarObj.GetComponentInChildren<Rigidbody>();
@@ -88,7 +88,7 @@ public class ParkingCar : ClockBattery
     {
         if(other.GetComponent<ParkingCar>() != null && bIsMove)
         {
-            Debug.Log("Ãæµ¹!!!");
+            Debug.Log("ì¶©ëŒ!!!");
             TrunOffObj();
         }
     }

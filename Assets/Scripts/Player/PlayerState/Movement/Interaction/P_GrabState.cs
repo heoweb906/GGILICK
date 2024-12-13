@@ -63,7 +63,7 @@ public class P_GrabState : P_InteractionState
 
     public override void PlayerRotationControll()
     {
-        // Rotation ¿Ãµø πÊ«‚¿∏∑Œ ¡∂¿˝
+        // Rotation Ïù¥Îèô Î∞©Ìñ•ÏúºÎ°ú Ï°∞Ï†à
         if (player.curDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(-player.curDirection);
