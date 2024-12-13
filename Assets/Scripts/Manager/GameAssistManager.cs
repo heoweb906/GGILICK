@@ -15,27 +15,27 @@ public class GameAssistManager : MonoBehaviour
 
     public GameObject player;
 
-    [Header("½ºÅ×ÀÌÁö / ¸®½ºÆù °ü·Ã")]
+    [Header("ìŠ¤í…Œì´ì§€ / ë¦¬ìŠ¤í° ê´€ë ¨")]
     public int iStageNum;
     public Transform[] Transforms_Respawn;
     public GameObject[] Cameras;
-    private bool bPlayerDie;   // ÇöÀç ÇÃ·¹ÀÌ¾î°¡ Á×À½ »óÅÂ -> Á×À½ ¹İº¹ ¹æÁö
+    private bool bPlayerDie;   // í˜„ì¬ í”Œë ˆì´ì–´ê°€ ì£½ìŒ ìƒíƒœ -> ì£½ìŒ ë°˜ë³µ ë°©ì§€
 
-    [Header("¿¬Ãâ °ü·Ã")]
+    [Header("ì—°ì¶œ ê´€ë ¨")]
     private Volume volume;
     private Vignette vignette;
     private ColorAdjustments colorAdjustments;
 
     private void Awake()
     {
-        Instance = this; // ÀÎ½ºÅÏ½º »ı¼º
+        Instance = this; // ì¸ìŠ¤í„´ìŠ¤ ìƒì„±
         bPlayerDie = false;
 
         Debug.Log(bPlayerDie);
 
         player = FindPlayerRoot();
 
-        // #. ½ºÅ×ÀÌÁö °ü¸®
+        // #. ìŠ¤í…Œì´ì§€ ê´€ë¦¬
         SaveData_Manager.Instance.SetStringSceneName(SceneManager.GetActiveScene().name);
 
         if(SaveData_Manager.Instance.GetIntClearStageNum() < iStageNum)
@@ -45,7 +45,7 @@ public class GameAssistManager : MonoBehaviour
         }
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
 
-        // #. Volume °ü¸®
+        // #. Volume ê´€ë¦¬
         volume = FindObjectOfType<Volume>();
 
         volume.profile.TryGet(out vignette);
@@ -54,14 +54,14 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. °»½ÅÇØ¾ß ÇÒ Æ÷Áö¼Ç°ú Ä«¸Ş¶ó¸¦ ÀúÀåÇÏ´Â ÇÔ¼ö
+    // #. ê°±ì‹ í•´ì•¼ í•  í¬ì§€ì…˜ê³¼ ì¹´ë©”ë¼ë¥¼ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
     public void SaveGameProgress(int iTransform, int iCamera)
     {
         SaveData_Manager.Instance.SetIntTransformRespawn(iTransform);
         SaveData_Manager.Instance.SetIntCameraNum(iCamera);
     }
 
-    // #. ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿Í Ä«¸Ş¶ó¸¦ ¼³Á¤ÇØÁÖ´Â ÇÔ¼ö
+    // #. í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì™€ ì¹´ë©”ë¼ë¥¼ ì„¤ì •í•´ì£¼ëŠ” í•¨ìˆ˜
     public void PlayerStartSeeting(int iTransform, int iCamera)
     {
         player.transform.position = Transforms_Respawn[iTransform].position;
@@ -73,13 +73,13 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. ÇÃ·¹ÀÌ¾î°¡ Á×¾úÀ» ¶§ ½ÇÇà½ÃÅ³ ÇÔ¼ö
-    public void DiePlayerReset(float fDieDelay = 2f)  // Á×À½ ÇÔ¼ö¸¦ ½ÇÇà ½ÃÅ°°í ¾ó¸¶³ª µÚ¿¡ »óÅÂ¸¦ ¸®¼ÂÇÒ °ÇÁö Á¤ÇÒ ¼ö ÀÖµµ·Ï
+    // #. í”Œë ˆì´ì–´ê°€ ì£½ì—ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¬ í•¨ìˆ˜
+    public void DiePlayerReset(float fDieDelay = 2f)  // ì£½ìŒ í•¨ìˆ˜ë¥¼ ì‹¤í–‰ ì‹œí‚¤ê³  ì–¼ë§ˆë‚˜ ë’¤ì— ìƒíƒœë¥¼ ë¦¬ì…‹í•  ê±´ì§€ ì •í•  ìˆ˜ ìˆë„ë¡
     {
         if (!bPlayerDie)
         {
             bPlayerDie = true;
-            StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'ÀÌ¶ó´Â ÄÚ·çÆ¾À» È£ÃâÇÕ´Ï´Ù.
+            StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'ì´ë¼ëŠ” ì½”ë£¨í‹´ì„ í˜¸ì¶œí•©ë‹ˆë‹¤.
         }
     }
     IEnumerator _DiePlayerReset(float _fDieDelay) 
@@ -96,8 +96,8 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. Respawn ÁöÁ¡ ¾÷µ¥ÀÌÆ®
-    // GameAssist¿¡¼­ °¡Áö°í ÀÖ´Â À§Ä¡¿Í µ¿ÀÏÇØ¾ß µÊ
+    // #. Respawn ì§€ì  ì—…ë°ì´íŠ¸
+    // GameAssistì—ì„œ ê°€ì§€ê³  ìˆëŠ” ìœ„ì¹˜ì™€ ë™ì¼í•´ì•¼ ë¨
     public void RespawnChangeAssist(Transform transform)
     {
         for (int i = 0; i < Transforms_Respawn.Length; i++)
@@ -112,7 +112,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. ½ÇÁ¦·Î »ç¿ëÇÒ Ä«¸Ş¶ó¸¸ True·Î ÇÏ°í ³ª¸ÓÁö´Â ¸ğµÎ false
+    // #. ì‹¤ì œë¡œ ì‚¬ìš©í•  ì¹´ë©”ë¼ë§Œ Trueë¡œ í•˜ê³  ë‚˜ë¨¸ì§€ëŠ” ëª¨ë‘ false
     public void CameraChangeAssist(GameObject camera)
     {
         for (int i = 0; i < Cameras.Length; i++)
@@ -126,7 +126,7 @@ public class GameAssistManager : MonoBehaviour
                
         }
     }
-    // #. ÇöÀç È°¼ºÈ­µÈ Ä«¸Ş¶ó¿Í º¯°æÇÏ·Á´Â Ä«¸Ş¶ó°¡ ´Ù¸¥Áö ±¸ºĞÇÏ´Â ÇÔ¼ö
+    // #. í˜„ì¬ í™œì„±í™”ëœ ì¹´ë©”ë¼ì™€ ë³€ê²½í•˜ë ¤ëŠ” ì¹´ë©”ë¼ê°€ ë‹¤ë¥¸ì§€ êµ¬ë¶„í•˜ëŠ” í•¨ìˆ˜
     public bool BoolNowActiveCameraObj(GameObject camera)
     {
         GameObject obj = null;
@@ -138,7 +138,7 @@ public class GameAssistManager : MonoBehaviour
                 break;
             }
         }
-        if(camera == obj) return true; // ÇöÀç È°¼ºÈ­ µÇ¾î ÀÖ´Â Ä«¸Ş¶ó¿Í µ¿ÀÏÇÏ¸é true¸¦ ¹İÈ¯
+        if(camera == obj) return true; // í˜„ì¬ í™œì„±í™” ë˜ì–´ ìˆëŠ” ì¹´ë©”ë¼ì™€ ë™ì¼í•˜ë©´ trueë¥¼ ë°˜í™˜
                           return false;
     }
 
@@ -148,21 +148,21 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. ³»ºÎ ÁøÀÔ 
+    // #. ë‚´ë¶€ ì§„ì… 
     public void FadeOutInEffect(float fStartImte = 3.0f, float fEndTime = 3.0f)
     {
         if (vignette == null || colorAdjustments == null) return;
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡¸¦ È­¸é ÁÂÇ¥·Î º¯È¯, VignetteÀÇ Áß½ÉÀ¸·Î ÇÔ
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ë¥¼ í™”ë©´ ì¢Œí‘œë¡œ ë³€í™˜, Vignetteì˜ ì¤‘ì‹¬ìœ¼ë¡œ í•¨
         Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
         DOTween.To(() => vignette.center.value, x => vignette.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
 
-        // 1. ¿¬Ãâ ÁøÀÔ
+        // 1. ì—°ì¶œ ì§„ì…
         DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, fStartImte);
         DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, -10f, fStartImte * 1.2f);
       
 
-        // 2. ¿¬Ãâ ¾Æ¿ô
+        // 2. ì—°ì¶œ ì•„ì›ƒ
         DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, fStartImte)
             .SetDelay(fEndTime);
         DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, 0f, fStartImte * 1.2f)
@@ -196,7 +196,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. Player ÅÂ±×°¡ ºÙÀº ¿ÀºêÁ§Æ® Áß¿¡ °¡Àå ºÎ¸ğ ¿ÀºêÁ§Æ®¸¦ Ã£¾Æ¿À´Â ÇÔ¼ö
+    // #. Player íƒœê·¸ê°€ ë¶™ì€ ì˜¤ë¸Œì íŠ¸ ì¤‘ì— ê°€ì¥ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ë¥¼ ì°¾ì•„ì˜¤ëŠ” í•¨ìˆ˜
     private GameObject FindPlayerRoot()
     {
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
@@ -204,7 +204,7 @@ public class GameAssistManager : MonoBehaviour
         {
             if (obj.transform.root.CompareTag("Player")) return obj.transform.root.gameObject;
         }
-        return null; // "Player" ÅÂ±×ÀÇ ÃÖ°í ºÎ¸ğ ¿ÀºêÁ§Æ®°¡ ¾øÀ» °æ¿ì
+        return null; // "Player" íƒœê·¸ì˜ ìµœê³  ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ê°€ ì—†ì„ ê²½ìš°
     }
 
 

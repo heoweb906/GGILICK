@@ -6,9 +6,9 @@ using UnityEngine;
 
 public class CameraObj : MonoBehaviour
 {
-    [Header("Ä«¸Ş¶ó ÀüÈ¯½Ã Àû¿ëµÉ º¸°£")]
-    public CinemachineBlendDefinition.Style blendStyle; // ºí·»µå ½ºÅ¸ÀÏ
-    public float duration; // Áö¼Ó ½Ã°£
+    [Header("ì¹´ë©”ë¼ ì „í™˜ì‹œ ì ìš©ë  ë³´ê°„")]
+    public CinemachineBlendDefinition.Style blendStyle; // ë¸”ë Œë“œ ìŠ¤íƒ€ì¼
+    public float duration; // ì§€ì† ì‹œê°„
     [Space(50f)]
 
     private GameObject emptyObj;

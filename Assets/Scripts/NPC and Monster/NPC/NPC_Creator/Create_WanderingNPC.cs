@@ -28,7 +28,7 @@ public class Create_WanderingNPC : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("NPC¸¦ »ı¼ºÇÏ¿´½À´Ï´Ù.");
+            Debug.Log("NPCë¥¼ ìƒì„±í•˜ì˜€ìŠµë‹ˆë‹¤.");
 
             int randomIndex = Random.Range(0, positionArray[0].points.Length);
             Transform spawnPosition = positionArray[0].points[randomIndex];
@@ -38,7 +38,7 @@ public class Create_WanderingNPC : MonoBehaviour
             NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
             nPC_Wanderring.bWalking = true;
 
-            // ¸®½ºÆ®¸¦ »ç¿ëÇÏ¿© ¸ñÇ¥ ÁöÁ¡µéÀ» Ãß°¡
+            // ë¦¬ìŠ¤íŠ¸ë¥¼ ì‚¬ìš©í•˜ì—¬ ëª©í‘œ ì§€ì ë“¤ì„ ì¶”ê°€
             List<Transform> tempCheckpoints = new List<Transform>();
 
 

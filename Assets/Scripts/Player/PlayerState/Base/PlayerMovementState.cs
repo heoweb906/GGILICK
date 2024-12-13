@@ -30,7 +30,7 @@ public class PlayerMovementState : BaseState
     {
         _horizontal = Input.GetAxisRaw("Horizontal");
         _vertical = Input.GetAxisRaw("Vertical");
-            player.isRun = Input.GetButton("Run");
+        player.isRun = Input.GetButton("Run");
         SetDirection();
     }
 
@@ -45,7 +45,7 @@ public class PlayerMovementState : BaseState
     public virtual void OnAnimationTransitionEvent() { }
 
 
-    
+
 
 
 
@@ -73,31 +73,31 @@ public class PlayerMovementState : BaseState
             player.curDirection = Vector3.zero;
     }
 
-    // ÇÃ·¹ÀÌ¾î ±âº» ÀÌµ¿
+    // í”Œë ˆì´ì–´ ê¸°ë³¸ ì´ë™
     public virtual void PlayerVelocityControll()
     {
 
         player.curDirection.y = 0;
         player.curDirection = player.curDirection.normalized;
 
-        
+
 
         PlayerRotationControll();
 
-        // RigidÀÇ ¼Óµµ Á¶Àı·Î ÀÌµ¿, º¸°£ »ç¿ë
+        // Rigidì˜ ì†ë„ ì¡°ì ˆë¡œ ì´ë™, ë³´ê°„ ì‚¬ìš©
         player.curDirection = Vector3.Lerp(player.preDirection, player.curDirection, player.moveLerpSpeed * Time.fixedDeltaTime);
 
-        Vector3 velocity = CalculateNextFrameGroundAngle(player.playerMoveSpeed) < player.maxSlopeAngle ? player.curDirection :  Vector3.zero;
+        Vector3 velocity = CalculateNextFrameGroundAngle(player.playerMoveSpeed) < player.maxSlopeAngle ? player.curDirection : Vector3.zero;
         Vector3 gravity;
 
 
-        if (IsOnSlope()) // °æ»ç·Î¶ó¸é °æ»ç¿¡ ¸ÂÃç¼­ ¹æÇâ°ª ¼¼ÆÃ
+        if (IsOnSlope()) // ê²½ì‚¬ë¡œë¼ë©´ ê²½ì‚¬ì— ë§ì¶°ì„œ ë°©í–¥ê°’ ì„¸íŒ…
         {
             velocity = AdjustDirectionToSlope(player.curDirection);
             gravity = Vector3.zero;
             player.rigid.useGravity = false;
         }
-        else if(machine.CurrentState is not P_ClimbingState)
+        else if (machine.CurrentState is not P_ClimbingState)
         {
             gravity = new Vector3(0, player.rigid.velocity.y, 0);
             player.rigid.useGravity = true;
@@ -130,7 +130,7 @@ public class PlayerMovementState : BaseState
 
     public virtual void PlayerRotationControll()
     {
-        // Rotation ÀÌµ¿ ¹æÇâÀ¸·Î Á¶Àı
+        // Rotation ì´ë™ ë°©í–¥ìœ¼ë¡œ ì¡°ì ˆ
         if (player.curDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(player.curDirection);
@@ -138,9 +138,9 @@ public class PlayerMovementState : BaseState
         }
     }
 
-    
 
-    // ÇöÀç ¹â°í ÀÖ´Â ¶¥ °æ»ç Ã¼Å©
+
+    // í˜„ì¬ ë°Ÿê³  ìˆëŠ” ë•… ê²½ì‚¬ ì²´í¬
     private bool IsOnSlope()
     {
         Ray ray = new Ray(player.transform.position, Vector3.down);
@@ -153,17 +153,17 @@ public class PlayerMovementState : BaseState
         return false;
     }
 
-    // ¹â°í ÀÖ´Â ¶¥ ±âÁØÀ¸·Î ¹æÇâ Àç¼³Á¤
+    // ë°Ÿê³  ìˆëŠ” ë•… ê¸°ì¤€ìœ¼ë¡œ ë°©í–¥ ì¬ì„¤ì •
     private Vector3 AdjustDirectionToSlope(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, player.slopeHit.normal);
     }
-
     private float CalculateNextFrameGroundAngle(float _moveSpeed)
     {
         var nextFramePlayerPosition = player.raycastOrigin.transform.position + player.curDirection * _moveSpeed * Time.fixedDeltaTime;
 
-        if (Physics.Raycast(nextFramePlayerPosition, Vector3.down, out RaycastHit hitInfo, 1f))
+        int layerMask = ~(1 << LayerMask.NameToLayer("Carry")); // Carry ë ˆì´ì–´ë§Œ ë¬´ì‹œ
+        if (Physics.Raycast(nextFramePlayerPosition, Vector3.down, out RaycastHit hitInfo, 1f, layerMask))
         {
             return Vector3.Angle(Vector3.up, hitInfo.normal);
         }
@@ -201,7 +201,7 @@ public class PlayerMovementState : BaseState
 
             if (machine.CurrentState is not P_JumpStartState
                 && machine.CurrentState is not P_ClimbingState
-                && player.groundList.Count<=0)
+                && player.groundList.Count <= 0)
                 machine.OnStateChange(machine.FallingMoveState);
 
             if (other.CompareTag("MovingPlatform"))
@@ -211,10 +211,10 @@ public class PlayerMovementState : BaseState
 
             if (player.groundList.Count > 0) return;
 
-            
+
         }
     }
 
 
-    
+
 }

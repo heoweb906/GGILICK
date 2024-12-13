@@ -6,13 +6,13 @@ using UnityEngine;
 using UnityEngine.AI;
 
 
-// #. ÅÂ¿±À» µ¹·ÁÁÖ°í ³­ ÀÌÈÄ¿¡ ÃëÇÒ ¾×¼Ç
+// #. íƒœì—½ì„ ëŒë ¤ì£¼ê³  ë‚œ ì´í›„ì— ì·¨í•  ì•¡ì…˜
 public enum ClockWorkEventList
 {
     None   // Num 0
 }
 
-// #. Æò¼Ò¿¡ ÃëÇÏ°í ÀÖÀ» ¾×¼Ç
+// #. í‰ì†Œì— ì·¨í•˜ê³  ìˆì„ ì•¡ì…˜
 public enum ActionEventList
 { 
     None,            // Num 0, IDLE or WALK;
@@ -27,22 +27,22 @@ public class NPC_Simple : MonoBehaviour
     public NPC_Simple_StateMachine machine;
 
 
-    [Header("NPC »óÅÂµé")]
+    [Header("NPC ìƒíƒœë“¤")]
     public bool bSad; // true = Sad <-> false = NotSad
     public bool bWalking; // true = Walking <-> false = IDLE
-    public bool bClockWorkEventNPC; // true = ÅÂ¿±À» µ¹·ÁÁØ ÀÌÈÄ¿¡ Æ¯Á¤ÇÑ ÀÌº¥Æ®¸¦ ÃëÇÏ´Â Ä³¸¯ÅÍÀÎÁö
-    public bool bActionEventNPC; // »ı¼º ½ÃÁ¡ºÎÅÍ Æ¯Á¤ÇÑ Çàµ¿À» ÃëÇÏ°í ÀÖ´Â NPC;
+    public bool bClockWorkEventNPC; // true = íƒœì—½ì„ ëŒë ¤ì¤€ ì´í›„ì— íŠ¹ì •í•œ ì´ë²¤íŠ¸ë¥¼ ì·¨í•˜ëŠ” ìºë¦­í„°ì¸ì§€
+    public bool bActionEventNPC; // ìƒì„± ì‹œì ë¶€í„° íŠ¹ì •í•œ í–‰ë™ì„ ì·¨í•˜ê³  ìˆëŠ” NPC;
     public ClockWorkEventList clockworkEvent;
     public ActionEventList actionEventList;
 
-    [Header("±âÅ¸ ¿ÀºêÁ§Æ®µé")]
-    public NPC_ClockWork npc_ClockWork; // ÀÚ±â µî¿¡ ²ÈÇô ÀÖ´Â ÅÂ¿±
-    private ClockWork clockWork;        // Á÷Á¢ È¸Àü ½ÃÅ³ ÅÂ¿±
+    [Header("ê¸°íƒ€ ì˜¤ë¸Œì íŠ¸ë“¤")]
+    public NPC_ClockWork npc_ClockWork; // ìê¸° ë“±ì— ê½‚í˜€ ìˆëŠ” íƒœì—½
+    private ClockWork clockWork;        // ì§ì ‘ íšŒì „ ì‹œí‚¬ íƒœì—½
 
 
-    [Header("Walk °ü·Ã ÄÄÆ÷³ÍÆ®µé")]
-    public Transform[] checkPoints; // ¸ñÇ¥ ÁöÁ¡ ¹è¿­
-    private int currentCheckPointIndex = 0; // ÇöÀç ¸ñÇ¥ ÁöÁ¡ ÀÎµ¦½º
+    [Header("Walk ê´€ë ¨ ì»´í¬ë„ŒíŠ¸ë“¤")]
+    public Transform[] checkPoints; // ëª©í‘œ ì§€ì  ë°°ì—´
+    private int currentCheckPointIndex = 0; // í˜„ì¬ ëª©í‘œ ì§€ì  ì¸ë±ìŠ¤
 
 
     private void Awake()

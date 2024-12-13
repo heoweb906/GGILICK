@@ -10,14 +10,14 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private Animator playerAnim;
 
-    [Header("ÀÌµ¿¼Óµµ")]
+    [Header("ì´ë™ì†ë„")]
     [SerializeField, Range(0,60)]
     private float playerMoveSpeed;
     [SerializeField, Range(0,60)]
     private float playerMoveLerpSpeed;
     [SerializeField, Range(0,60)]
     private float playerRotateLerpSpeed;
-    [Header("Á¡ÇÁ")]
+    [Header("ì í”„")]
     [SerializeField, Range(0,20)]
     private float firstJumpPower;
     [SerializeField, Range(0,100)]
@@ -30,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     
     private int jumpCount;
 
-    [Header("°æ»ç·Î")]
+    [Header("ê²½ì‚¬ë¡œ")]
     [SerializeField,Range(0,2)]
     private float rayDistance = 1f;
     private RaycastHit slopeHit;
@@ -51,7 +51,7 @@ public class PlayerMovement : MonoBehaviour
         groundLayer = ~(1 << LayerMask.NameToLayer("Player"));
     }
 
-    // ÇÃ·¹ÀÌ¾î ºü¸£°Ô ¶³¾îÁöµµ·Ï
+    // í”Œë ˆì´ì–´ ë¹ ë¥´ê²Œ ë–¨ì–´ì§€ë„ë¡
     private void ControllGravity()
     {
         if(playerRigid.velocity.y < 3 && groundList.Count == 0)
@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 platformVelocity;
     public float platformVelocityLerp;
 
-    // ÇÃ·¹ÀÌ¾î ±âº» ÀÌµ¿
+    // í”Œë ˆì´ì–´ ê¸°ë³¸ ì´ë™
     private void PlayerWalk()
     {
         float _horizontal = Input.GetAxisRaw("Horizontal");
@@ -74,22 +74,22 @@ public class PlayerMovement : MonoBehaviour
 
         curDirection = new Vector3(_horizontal, 0, _vertical);
 
-        // Rotation ÀÌµ¿ ¹æÇâÀ¸·Î Á¶Àı
+        // Rotation ì´ë™ ë°©í–¥ìœ¼ë¡œ ì¡°ì ˆ
         if(curDirection != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(curDirection);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, playerRotateLerpSpeed * Time.fixedDeltaTime);
         }
 
-        // RigidÀÇ ¼Óµµ Á¶Àı·Î ÀÌµ¿, º¸°£ »ç¿ë
+        // Rigidì˜ ì†ë„ ì¡°ì ˆë¡œ ì´ë™, ë³´ê°„ ì‚¬ìš©
         curDirection = Vector3.Lerp(preDirection, curDirection, playerMoveLerpSpeed * Time.fixedDeltaTime);
-        playerAnim.SetFloat("moveSpeed", curDirection.magnitude); // ¾Ö´Ï¸ŞÀÌÅÍ moveSpeed°ª ¼¼ÆÃ
+        playerAnim.SetFloat("moveSpeed", curDirection.magnitude); // ì• ë‹ˆë©”ì´í„° moveSpeedê°’ ì„¸íŒ…
 
         Vector3 velocity = CalculateNextFrameGroundAngle(playerMoveSpeed) < maxSlopeAngle ? curDirection : Vector3.zero;
         Vector3 gravity;
         
 
-        if (IsOnSlope()) // °æ»ç·Î¶ó¸é °æ»ç¿¡ ¸ÂÃç¼­ ¹æÇâ°ª ¼¼ÆÃ
+        if (IsOnSlope()) // ê²½ì‚¬ë¡œë¼ë©´ ê²½ì‚¬ì— ë§ì¶°ì„œ ë°©í–¥ê°’ ì„¸íŒ…
         {
             velocity = AdjustDirectionToSlope(curDirection);
             gravity = Vector3.zero;
@@ -141,7 +141,7 @@ public class PlayerMovement : MonoBehaviour
         preDirection = curDirection;
     }
 
-    // ÇöÀç ¹â°í ÀÖ´Â ¶¥ °æ»ç Ã¼Å©
+    // í˜„ì¬ ë°Ÿê³  ìˆëŠ” ë•… ê²½ì‚¬ ì²´í¬
     private bool IsOnSlope()
     {
         Ray ray = new Ray(transform.position, Vector3.down);
@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
         return false;
     }
 
-    // ¹â°í ÀÖ´Â ¶¥ ±âÁØÀ¸·Î ¹æÇâ Àç¼³Á¤
+    // ë°Ÿê³  ìˆëŠ” ë•… ê¸°ì¤€ìœ¼ë¡œ ë°©í–¥ ì¬ì„¤ì •
     private Vector3 AdjustDirectionToSlope(Vector3 direction)
     {
         return Vector3.ProjectOnPlane(direction, slopeHit.normal);

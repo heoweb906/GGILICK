@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public bool stateChangeDebug;
 
-    [Header("¿ùµå ±âÁØ ÀÌµ¿")]
+    [Header("ì›”ë“œ ê¸°ì¤€ ì´ë™")]
     public bool isWorldAxis;
     [Range(0, 360)]
     public float yAxis;
@@ -24,7 +24,7 @@ public class Player : MonoBehaviour
     public Animator playerAnim;
     [field: SerializeField] public PlayerAnimationData playerAnimationData { get; private set; }
 
-    [Header("ÀÌµ¿¼Óµµ")]
+    [Header("ì´ë™ì†ë„")]
     [SerializeField, Range(0, 60)]
     public float playerWalkSpeed;
     [SerializeField, Range(0, 60)]
@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
     public float playerMoveLerpSpeedOnJump;
     [SerializeField, Range(0, 60)]
     public float playerDefaultRotateLerpSpeed;
-    [Header("Á¡ÇÁ")]
+    [Header("ì í”„")]
     [SerializeField, Range(0, 20)]
     public float firstJumpPower;
     [SerializeField, Range(0, 100)]
@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
     [HideInInspector]
     public float moveLerpSpeed;
 
-    [Header("°æ»ç·Î")]
+    [Header("ê²½ì‚¬ë¡œ")]
     [SerializeField, Range(0, 2)]
     public float rayDistance = 1f;
     public RaycastHit slopeHit;
@@ -74,36 +74,37 @@ public class Player : MonoBehaviour
     public Vector3 curDirection = Vector3.zero;
     public Vector3 preDirection = Vector3.zero;
 
-    [Header("»óÈ£ÀÛ¿ë ¿ÀºêÁ§Æ®")]
+    [Header("ìƒí˜¸ì‘ìš© ì˜¤ë¸Œì íŠ¸")]
     public InteractableObject curInteractableObject;
 
-    [Header("ÅÂ¿± ¿ÀºêÁ§Æ®")]
-    public float detectionRadius = 10f; // Å½Áö ¹İ°æ
-    public float clockWorkInteractionDistance_Wall = 1f; // »óÈ£ÀÛ¿ë °Å¸®
-    public float clockWorkInteractionDistance_Floor = 1f; // »óÈ£ÀÛ¿ë °Å¸®
-    public ClockWork curClockWork; // °¡Àå °¡±î¿î ClockWork ¿ÀºêÁ§Æ®
-    public Vector3 targetPos; // °¡Àå °¡±î¿î ClockWork ¿ÀºêÁ§Æ®
+    [Header("íƒœì—½ ì˜¤ë¸Œì íŠ¸")]
+    public float detectionRadius = 10f; // íƒì§€ ë°˜ê²½
+    public float clockWorkInteractionDistance_Wall = 1f; // ìƒí˜¸ì‘ìš© ê±°ë¦¬
+    public float clockWorkInteractionDistance_Floor = 1f; // ìƒí˜¸ì‘ìš© ê±°ë¦¬
+    public ClockWork curClockWork; // ê°€ì¥ ê°€ê¹Œìš´ ClockWork ì˜¤ë¸Œì íŠ¸
+    public Vector3 targetPos; // ê°€ì¥ ê°€ê¹Œìš´ ClockWork ì˜¤ë¸Œì íŠ¸
     public bool isGoToTarget;
 
-    [Header("¹°°Ç ¿Å±â±â")]
+    [Header("ë¬¼ê±´ ì˜®ê¸°ê¸°")]
     public CarriedObject curCarriedObject;
     public Transform CarriedObjectPos;
-    public float carriedObjectInteractionDistance = 1f; // »óÈ£ÀÛ¿ë °Å¸®
+    public float carriedObjectInteractionDistance = 1f; // ìƒí˜¸ì‘ìš© ê±°ë¦¬
     public bool isCarryObject;
     [Range(0, 50)]
     public float throwPower;
+    public TrafficLight curTrafficLight;
 
-    [Header("¹°°Ç ¹Ğ±â")]
+    [Header("ë¬¼ê±´ ë°€ê¸°")]
     public GrabObject curGrabObject;
     public Transform grabPos;
-    public float grabObjectInteractionDistance = 1f; // »óÈ£ÀÛ¿ë °Å¸®
+    public float grabObjectInteractionDistance = 1f; // ìƒí˜¸ì‘ìš© ê±°ë¦¬
     [SerializeField, Range(0, 60)]
     public float playerGrapRotateLerpSpeed;
     [SerializeField, Range(0, 60)]
     public float playerGrapMoveSpeed;
 
     [Header("Climb")]
-    public float cliffCheckRayDistance = 1f; // Å½Áö ¹İ°æ
+    public float cliffCheckRayDistance = 1f; // íƒì§€ ë°˜ê²½
     public RaycastHit cliffRayHit;
     [HideInInspector]
     public Vector3 hangingPos;
@@ -111,9 +112,10 @@ public class Player : MonoBehaviour
     public float hangingPosOffset_Height;
 
 
-    [Header("¹°°Ç Àâ±â IK")]
+    [Header("ë¬¼ê±´ ì¡ê¸° IK")]
     public bool isHandIK = false;
 
+    private Tween armAngleTween;
 
     private void Awake()
     {
@@ -125,6 +127,10 @@ public class Player : MonoBehaviour
         Application.targetFrameRate = 180;
         isHandIK = false;
         camTransform = FindObjectOfType<Camera>().transform;
+
+        int layer1 = LayerMask.NameToLayer("Player");
+        int layer2 = LayerMask.NameToLayer("Carry");
+        Physics.IgnoreLayerCollision(layer1, layer2, true);
     }
 
     private void Init()
@@ -182,9 +188,9 @@ public class Player : MonoBehaviour
     ///////////////////
     private void OnDrawGizmos()
     {
-        // Å½Áö ¹İ°æÀ» ½Ã°¢ÀûÀ¸·Î Ç¥½Ã
-        Gizmos.color = Color.green; // ±âÁî¸ğ »ö»ó ¼³Á¤
-        Gizmos.DrawWireSphere(transform.position, detectionRadius); // WireSphere·Î Å½Áö ¹üÀ§ ±×¸®±â
+        // íƒì§€ ë°˜ê²½ì„ ì‹œê°ì ìœ¼ë¡œ í‘œì‹œ
+        Gizmos.color = Color.green; // ê¸°ì¦ˆëª¨ ìƒ‰ìƒ ì„¤ì •
+        Gizmos.DrawWireSphere(transform.position, detectionRadius); // WireSphereë¡œ íƒì§€ ë²”ìœ„ ê·¸ë¦¬ê¸°
     }
 
 
@@ -227,11 +233,15 @@ public class Player : MonoBehaviour
         if(isSetAngleZero)
             targetAngle = 0;
         
-        DOTween.To(() => angle, x => angle = x, targetAngle, 1f);
+        SetArmAngle(targetAngle);
+        
+        Vector3 leftArmRotation = tf_L_UpperArm.eulerAngles;
+        leftArmRotation.y += angle;
+        tf_L_UpperArm.eulerAngles = leftArmRotation;
 
-        tf_L_UpperArm.eulerAngles = tf_L_UpperArm.eulerAngles + new Vector3(0, angle, 0);
-
-        tf_R_UpperArm.eulerAngles = tf_R_UpperArm.eulerAngles - new Vector3(0, angle, 0);
+        Vector3 rightArmRotation = tf_R_UpperArm.eulerAngles;
+        rightArmRotation.y -= angle;
+        tf_R_UpperArm.eulerAngles = rightArmRotation;
     }
     public float carryWeight = 1;
 
@@ -267,9 +277,10 @@ public class Player : MonoBehaviour
 
     public void SetPlayerPhysicsIgnore(Collider _col, bool _bool)
     {
-        int layer1 = LayerMask.NameToLayer("Player");
-        int layer2 = LayerMask.NameToLayer("Interactable");
-        Physics.IgnoreLayerCollision(layer1, layer2, _bool);
+        if(_bool)
+            _col.gameObject.layer = LayerMask.NameToLayer("Carry");
+        else
+            _col.gameObject.layer = LayerMask.NameToLayer("Interactable");
     }
 
     public void StartExitClimbingToTop()
@@ -286,5 +297,22 @@ public class Player : MonoBehaviour
 
         playerAnim.applyRootMotion = false;
         playerAnim.updateMode = AnimatorUpdateMode.Normal;
+    }
+
+    public void SetArmAngle(float targetAngle)
+    {
+        if (armAngleTween != null)
+        {
+            armAngleTween.Kill();
+        }
+        armAngleTween = DOTween.To(() => angle, x => angle = x, targetAngle, 0.5f);
+    }
+
+    public void KillArmAngleTween()
+    {
+        if (armAngleTween != null)
+        {
+            armAngleTween.Kill();
+        }
     }
 }

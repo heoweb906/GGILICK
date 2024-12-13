@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class Train_2 : MonoBehaviour
 {
-    // #. ½ÃÀÛ ÁöÁ¡, Á¤°ÅÀå ÁöÁ¡, ³¡ ÁöÁ¡ Transform ´Ù ¼³Á¤ ÇØ¾ß ÇÔ
+    // #. ì‹œì‘ ì§€ì , ì •ê±°ì¥ ì§€ì , ë ì§€ì  Transform ë‹¤ ì„¤ì • í•´ì•¼ í•¨
     public Transform position_StationPoint_2;
 
-    public float travelDuration;        // Ãâ¹ßÁ¡ -> Á¤°ÅÀå, Á¤°ÅÀå -> ÃÖÁ¾ ¸ñÀûÁö ÀÌµ¿ ½Ã°£
+    public float travelDuration;        // ì¶œë°œì  -> ì •ê±°ì¥, ì •ê±°ì¥ -> ìµœì¢… ëª©ì ì§€ ì´ë™ ì‹œê°„
 
     public TrainDoor[] trainDoors;
     public GameObject[] crowds;
@@ -18,12 +18,12 @@ public class Train_2 : MonoBehaviour
         StartCoroutine(StartTrainJourney());
     }
 
-    // ±âÂ÷ ¿©Á¤À» ½ÃÀÛÇÏ´Â ÄÚ·çÆ¾
+    // ê¸°ì°¨ ì—¬ì •ì„ ì‹œì‘í•˜ëŠ” ì½”ë£¨í‹´
     private IEnumerator StartTrainJourney()
     {
         GameAssistManager.Instance.player.transform.SetParent(transform);
 
-        // ¿­¸®´Â ¹® Áß¿¡¼­ ÇÏ³ªÀÇ ¹®¿¡¸¸ Å¾½ÂÇÒ ¼ö ÀÖµµ·Ï
+        // ì—´ë¦¬ëŠ” ë¬¸ ì¤‘ì—ì„œ í•˜ë‚˜ì˜ ë¬¸ì—ë§Œ íƒ‘ìŠ¹í•  ìˆ˜ ìˆë„ë¡
         for (int i = 0; i < trainDoors.Length; i++)
         {
             crowds[i].SetActive(true);
@@ -33,13 +33,13 @@ public class Train_2 : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
 
-        // ±âÂ÷°¡ °è¼Ó ÀÌµ¿ÇÕ´Ï´Ù.
+        // ê¸°ì°¨ê°€ ê³„ì† ì´ë™í•©ë‹ˆë‹¤.
         transform.DOMove(position_StationPoint_2.position, travelDuration)
                        .SetEase(Ease.OutCubic);  
         yield return new WaitForSeconds(travelDuration);
 
 
-        // ¹®À» ¿±´Ï´Ù
+        // ë¬¸ì„ ì—½ë‹ˆë‹¤
         GameAssistManager.Instance.player.transform.SetParent(null);
         foreach (TrainDoor traindoor in trainDoors)
             traindoor.StartOpen();

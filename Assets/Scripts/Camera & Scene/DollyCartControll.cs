@@ -6,12 +6,12 @@ using DG.Tweening;
 
 public class DollyCartControll : MonoBehaviour
 {
-    private Transform player; // ÇÃ·¹ÀÌ¾îÀÇ Transform
+    private Transform player; // í”Œë ˆì´ì–´ì˜ Transform
     public CinemachineDollyCart dollyCart; // Cinemachine Dolly Cart
     public CinemachineSmoothPath dollyPath; // Cinemachine Path
     public DollyRotationAndPositonOffset dollyRotation;
 
-    // Ä«Æ®°¡ ÇÃ·¹ÀÌ¾î À§Ä¡¿¡ ¸ÂÃç ÀÌµ¿ÇÏ´Â ¼Óµµ Á¶Á¤
+    // ì¹´íŠ¸ê°€ í”Œë ˆì´ì–´ ìœ„ì¹˜ì— ë§žì¶° ì´ë™í•˜ëŠ” ì†ë„ ì¡°ì •
     public float followSpeed;
 
     private void Start()
@@ -23,15 +23,15 @@ public class DollyCartControll : MonoBehaviour
     {
         if (player != null && dollyPath != null)
         {
-            // ÇÃ·¹ÀÌ¾î À§Ä¡¿¡¼­ °¡Àå °¡±î¿î ÁöÁ¡À» Ã£À½
+            // í”Œë ˆì´ì–´ ìœ„ì¹˜ì—ì„œ ê°€ìž¥ ê°€ê¹Œìš´ ì§€ì ì„ ì°¾ìŒ
             float closestPoint = dollyPath.FindClosestPoint(player.position, 0, -1, 10);
             float targetPosition = Mathf.Clamp(closestPoint, 0, dollyPath.PathLength);
 
-            // ÇöÀç ÀÎµ¦½º¿Í ´ÙÀ½ ÀÎµ¦½º °è»ê
+            // í˜„ìž¬ ì¸ë±ìŠ¤ì™€ ë‹¤ìŒ ì¸ë±ìŠ¤ ê³„ì‚°
             int currentIndex = Mathf.FloorToInt(targetPosition);
             int nextIndex = currentIndex + 1;
 
-            // ÀÎµ¦½º°¡ ¹è¿­ ¹üÀ§¸¦ ¹þ¾î³ª´Â °æ¿ì, ¸¶Áö¸· ÀÎµ¦½º¸¦ »ç¿ë
+            // ì¸ë±ìŠ¤ê°€ ë°°ì—´ ë²”ìœ„ë¥¼ ë²—ì–´ë‚˜ëŠ” ê²½ìš°, ë§ˆì§€ë§‰ ì¸ë±ìŠ¤ë¥¼ ì‚¬ìš©
             if (currentIndex >= dollyRotation.Offsets.Length - 1)
             {
                 currentIndex = dollyRotation.Offsets.Length - 1;
@@ -42,18 +42,18 @@ public class DollyCartControll : MonoBehaviour
                 nextIndex = dollyRotation.Offsets.Length - 1;
             }
 
-            // º¸°£ ºñÀ² °è»ê
+            // ë³´ê°„ ë¹„ìœ¨ ê³„ì‚°
             float t = targetPosition - currentIndex;
 
-            // fPositionOffset º¸°£
+            // fPositionOffset ë³´ê°„
             float startOffset = dollyRotation.Offsets[currentIndex].fPositionOffest;
             float endOffset = dollyRotation.Offsets[nextIndex].fPositionOffest;
             float interpolatedOffset = Mathf.Lerp(startOffset, endOffset, t);
 
-            // º¸Á¤µÈ ¸ñÇ¥ À§Ä¡ °è»ê
+            // ë³´ì •ëœ ëª©í‘œ ìœ„ì¹˜ ê³„ì‚°
             float adjustedTargetPosition = Mathf.Clamp(targetPosition + interpolatedOffset, 0, dollyPath.PathLength);
 
-            // ÇöÀç À§Ä¡°¡ ¸ñÇ¥ À§Ä¡¿Í ´Ù¸¦ °æ¿ì¿¡¸¸ ÀÌµ¿
+            // í˜„ìž¬ ìœ„ì¹˜ê°€ ëª©í‘œ ìœ„ì¹˜ì™€ ë‹¤ë¥¼ ê²½ìš°ì—ë§Œ ì´ë™
             if (Mathf.Abs(dollyCart.m_Position - adjustedTargetPosition) > 0.01f)
             {
                 DOTween.To(() => dollyCart.m_Position, x => dollyCart.m_Position = x, adjustedTargetPosition, followSpeed);

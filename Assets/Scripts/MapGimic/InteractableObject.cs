@@ -8,6 +8,7 @@ public class InteractableObject : MonoBehaviour
     [HideInInspector]
     public InteractableType type;
     public bool canInteract;
+    public bool isParts;
 
     public virtual void ActiveEvent() { }
 }

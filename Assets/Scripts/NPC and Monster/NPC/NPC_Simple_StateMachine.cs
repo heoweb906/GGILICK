@@ -14,7 +14,7 @@ public class NPC_Simple_StateMachine : StateMachine
     public NPC_Simple_ReactionThankState ThankState { get; private set; }
 
 
-    // #. Æ¯Á¤ÇÑ Çàµ¿À» ÃëÇÏ°í ÀÖ´Â NPCµé
+    // #. íŠ¹ì •í•œ í–‰ë™ì„ ì·¨í•˜ê³  ìˆëŠ” NPCë“¤
     public NPC_Simple_ActionEvent ActionEventState { get; private set; }
 
     public NPC_Simple_ActionEventSpinTaeYub SpinTaeYubState { get; private set; }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable] // ÀÌ ¾îÆ®¸®ºäÆ®¸¦ Ãß°¡ÇØ¾ß Inspector¿¡¼­ ÀÎ½ÄµË´Ï´Ù.
+[System.Serializable] // ì´ ì–´íŠ¸ë¦¬ë·°íŠ¸ë¥¼ ì¶”ê°€í•´ì•¼ Inspectorì—ì„œ ì¸ì‹ë©ë‹ˆë‹¤.
 public class Offset
 {
     public float fPositionOffest;

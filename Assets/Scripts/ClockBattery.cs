@@ -6,7 +6,7 @@ using DG.Tweening;
 public class ClockBattery : MonoBehaviour
 {
     public GameObject clockWork;
-    [Header("¹èÅÍ¸®")]
+    [Header("ë°°í„°ë¦¬")]
     public float fMaxClockBattery;
     public float fCurClockBattery;
     public float fLowClockBatteryPoint;
@@ -16,16 +16,16 @@ public class ClockBattery : MonoBehaviour
 
     public virtual void TrunOnObj()
     {
-        Debug.Log("ÀÛµ¿ ½ÃÀÛ");
+        Debug.Log("ì‘ë™ ì‹œì‘");
 
         bDoing = true;
-        clockWork.GetComponent<ClockWork>().canInteract = false; // º¸Çè (»ç½Ç ÇÊ¿ä¾øÀ½ )
+        clockWork.GetComponent<ClockWork>().canInteract = false; // ë³´í—˜ (ì‚¬ì‹¤ í•„ìš”ì—†ìŒ )
     }
 
 
     public virtual void TrunOffObj()
     {
-        Debug.Log("ÀÛµ¿ ³¡");
+        Debug.Log("ì‘ë™ ë");
 
         bDoing = false;
         if(clockWork != null) clockWork.GetComponent<ClockWork>().canInteract = true;
@@ -34,7 +34,7 @@ public class ClockBattery : MonoBehaviour
     }
 
 
-    // #. È¸Àü ½Ã°£¿¡ µû¶ó ÅÂ¿±À» È¸Àü, ¿ÀºêÁ§Æ® º°·Î È¸Àü ½Ã°£À» ´Ù¸£°Ô Á¶ÀıÇÏ±â À§ÇØ TurnOn() ÇÔ¼ö¿¡¼­ »ç¿ëÇÏÁö ¾ÊÀ½
+    // #. íšŒì „ ì‹œê°„ì— ë”°ë¼ íƒœì—½ì„ íšŒì „, ì˜¤ë¸Œì íŠ¸ ë³„ë¡œ íšŒì „ ì‹œê°„ì„ ë‹¤ë¥´ê²Œ ì¡°ì ˆí•˜ê¸° ìœ„í•´ TurnOn() í•¨ìˆ˜ì—ì„œ ì‚¬ìš©í•˜ì§€ ì•ŠìŒ
     protected void RotateObject(int time)
     {
         float rotationAmount = time * -180f;
@@ -45,19 +45,19 @@ public class ClockBattery : MonoBehaviour
 
 
 
-    // #. ÅÂ¿± ±âº» È¸Àü ÇÔ¼ö (Ã³À½¿¡´Â ºü¸£°Ô È¸Àü, ¼­¼­È÷ ÃµÃµÈ÷ È¸Àü)
+    // #. íƒœì—½ ê¸°ë³¸ íšŒì „ í•¨ìˆ˜ (ì²˜ìŒì—ëŠ” ë¹ ë¥´ê²Œ íšŒì „, ì„œì„œíˆ ì²œì²œíˆ íšŒì „)
     //protected void TurningClockWork()
     //{
-    //    Debug.Log("¹èÅÍ¸® ÀÛµ¿ Áß!!!!!!!!!");
+    //    Debug.Log("ë°°í„°ë¦¬ ì‘ë™ ì¤‘!!!!!!!!!");
 
     //    float batteryRatio = fCurClockBattery / fMaxClockBattery;
 
-    //    float rotationSpeed = Mathf.Lerp(-100f, -20f, 1f - batteryRatio); // ÃÖ¼Ò È¸Àü ¼Óµµ 10f, ÃÖ´ë ¼Óµµ 200f
+    //    float rotationSpeed = Mathf.Lerp(-100f, -20f, 1f - batteryRatio); // ìµœì†Œ íšŒì „ ì†ë„ 10f, ìµœëŒ€ ì†ë„ 200f
 
     //    clockWork.transform.Rotate(Vector3.forward * rotationSpeed * Time.deltaTime);
     //}
 
-    // #. ÅÂ¿±ÀÇ ÀÏ¹İ È¸Àü
+    // #. íƒœì—½ì˜ ì¼ë°˜ íšŒì „
     protected void TruningClockWork_Simple(float fRoateSpeed)
     {
         clockWork.transform.Rotate(Vector3.forward * fRoateSpeed * Time.deltaTime);
@@ -69,7 +69,7 @@ public class ClockBattery : MonoBehaviour
 
 
 
-    // #. ÅÂ¿±À» Èçµë (¿ÀÀÛµ¿ ¿¬Ãâ)
+    // #. íƒœì—½ì„ í”ë“¬ (ì˜¤ì‘ë™ ì—°ì¶œ)
     protected void TruningClockWork_Shake(float fDuration, float dShakeStength = 20f)
     {
         clockWork.transform.DOPunchRotation(new Vector3(0, 0, 5), fDuration, 20, 1);

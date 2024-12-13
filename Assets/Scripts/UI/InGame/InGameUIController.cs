@@ -15,7 +15,7 @@ public class InGameUIController : MonoBehaviour
 {
     public static InGameUIController Instance { get; private set; }
 
-    public InGameButton nowPlayerButton; // ÇöÀç ¼±ÅÃµÇ¾î ÀÖ´Â ¹öÆ°
+    public InGameButton nowPlayerButton; // í˜„ì¬ ì„ íƒë˜ì–´ ìˆëŠ” ë²„íŠ¼
     public InGameButton lastButton;
     public InGameButton[] ingameButtons;
 
@@ -23,7 +23,7 @@ public class InGameUIController : MonoBehaviour
 
     private GameObject PanelNow;
     private bool bUIOnOff;
-    // Panel Number = 643  / Panel Off »óÅÂ
+    // Panel Number = 643  / Panel Off ìƒíƒœ
     [Header("InGameUI Panel")]
     public GameObject Panel_InGameUI; // Panel Number = 0;
 
@@ -32,12 +32,12 @@ public class InGameUIController : MonoBehaviour
     public GameObject Panel_Resolution; // Panel Number = 8;
 
 
-    [Header("UI ¾Ö´Ï¸ŞÀÌ¼Ç ºÎµå·¯¿ò ¼öÄ¡")]
-    public Volume volume_global; // Àü¿ª Volume ÄÄÆ÷³ÍÆ®
-    public GameObject image_FadeOut; // UI È°¼ºÈ­½Ã¿¡ »ç¿ëÇÒ ÀÌ¹ÌÁö
-    public GameObject image_FadeOut_ForReturn; // ¾À ÀüÈ¯¿¡ »ç¿ëÇÒ °ËÀº»ö ÀÌ¹ÌÁö
-    public bool bIsUIDoing; // UI°¡ ¹º°¡ ±â´É ÁßÀÓ
-    public float duration; // ¾Ö´Ï¸ŞÀÌ¼Ç Áö¼Ó ½Ã°£
+    [Header("UI ì• ë‹ˆë©”ì´ì…˜ ë¶€ë“œëŸ¬ì›€ ìˆ˜ì¹˜")]
+    public Volume volume_global; // ì „ì—­ Volume ì»´í¬ë„ŒíŠ¸
+    public GameObject image_FadeOut; // UI í™œì„±í™”ì‹œì— ì‚¬ìš©í•  ì´ë¯¸ì§€
+    public GameObject image_FadeOut_ForReturn; // ì”¬ ì „í™˜ì— ì‚¬ìš©í•  ê²€ì€ìƒ‰ ì´ë¯¸ì§€
+    public bool bIsUIDoing; // UIê°€ ë­”ê°€ ê¸°ëŠ¥ ì¤‘ì„
+    public float duration; // ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„
 
 
     private void Start()
@@ -78,7 +78,7 @@ public class InGameUIController : MonoBehaviour
         }
 
 
-        // #. ESCÅ°´Â µû·Î °ü¸®
+        // #. ESCí‚¤ëŠ” ë”°ë¡œ ê´€ë¦¬
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (nowPanelNum == 643)
@@ -101,7 +101,7 @@ public class InGameUIController : MonoBehaviour
         }
     }
 
-    // #. Arrow Key¸¦ ÀÌ¿ëÇØ¼­ ÇöÀç ¼±ÅÃµÇ¾î ÀÖ´Â UI Button¿¡¼­ °¡Àå °¡±îÀÌ¿¡ ÀÖ´Â UI ButtonÀ» ¼±ÅÃÇÏµµ·Ï ÇÏ´Â ÇÔ¼ö
+    // #. Arrow Keyë¥¼ ì´ìš©í•´ì„œ í˜„ì¬ ì„ íƒë˜ì–´ ìˆëŠ” UI Buttonì—ì„œ ê°€ì¥ ê°€ê¹Œì´ì— ìˆëŠ” UI Buttonì„ ì„ íƒí•˜ë„ë¡ í•˜ëŠ” í•¨ìˆ˜
     private void FindClosestButton(Vector2 direction)
     {
         if (nowPlayerButton == null)
@@ -121,9 +121,9 @@ public class InGameUIController : MonoBehaviour
 
             Vector2 directionToButton = (Vector2)button.transform.position - currentPosition;
 
-            // Á¤È®ÇÑ ¹æÇâ Å½»ö: ÁöÁ¤µÈ ¹æÇâ°úÀÇ °¢µµ°¡ 30µµ ÀÌ³»ÀÏ ¶§¸¸ ¼±ÅÃ
+            // ì •í™•í•œ ë°©í–¥ íƒìƒ‰: ì§€ì •ëœ ë°©í–¥ê³¼ì˜ ê°ë„ê°€ 30ë„ ì´ë‚´ì¼ ë•Œë§Œ ì„ íƒ
             float angle = Vector2.Angle(direction, directionToButton);
-            if (angle <= 45f) // 30µµ ¹üÀ§·Î Á¦ÇÑ
+            if (angle <= 45f) // 30ë„ ë²”ìœ„ë¡œ ì œí•œ
             {
                 float distance = directionToButton.magnitude;
                 if (distance < closestDistance)
@@ -144,22 +144,22 @@ public class InGameUIController : MonoBehaviour
 
 
 
-    // #. PanelÀÌ È°¼ºÈ­ µÉ ¶§ ÇÏÀ§ ¹öÆ° Ç×¸ñµéÀ» º¯°æÇØÁÜ
+    // #. Panelì´ í™œì„±í™” ë  ë•Œ í•˜ìœ„ ë²„íŠ¼ í•­ëª©ë“¤ì„ ë³€ê²½í•´ì¤Œ
     public void PanelChage(int index)
     {
         nowPlayerButton = null;
 
         switch (index)
         {
-            case 0: // Main Panel ÄÑ±â
+            case 0: // Main Panel ì¼œê¸°
                 Panel_InGameUI.SetActive(true);
                 PanelNow = Panel_InGameUI;
                 break;
-            case 1: // Option Panel ÄÑ±â
+            case 1: // Option Panel ì¼œê¸°
                 Panel_Option.SetActive(true);
                 PanelNow = Panel_Option;
                 break;
-            case 8: // Option Panel ÄÑ±â
+            case 8: // Option Panel ì¼œê¸°
                 Panel_Resolution.SetActive(true);
                 PanelNow = Panel_Resolution;
                 break;
@@ -174,14 +174,14 @@ public class InGameUIController : MonoBehaviour
         PanelOn(PanelNow);
         nowPanelNum = index;
 
-        // PanelÀÇ ¸ğµç ÇÏÀ§ GameObjectµéÀ» °¡Á®¿È
+        // Panelì˜ ëª¨ë“  í•˜ìœ„ GameObjectë“¤ì„ ê°€ì ¸ì˜´
         Transform[] childTransforms = PanelNow.GetComponentsInChildren<Transform>(true);
 
-        // MenuButton ½ºÅ©¸³Æ®¸¦ »ó¼Ó¹ŞÀº ÄÄÆ÷³ÍÆ®µéÀ» Ã£¾Æ¼­ menuButtons ¹è¿­¿¡ ÇÒ´ç
+        // MenuButton ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìƒì†ë°›ì€ ì»´í¬ë„ŒíŠ¸ë“¤ì„ ì°¾ì•„ì„œ menuButtons ë°°ì—´ì— í• ë‹¹
         List<InGameButton> foundButtons = new List<InGameButton>();
         foreach (Transform childTransform in childTransforms)
         {
-            // ÇÏÀ§ GameObject¿¡¼­ MenuButton ½ºÅ©¸³Æ®¸¦ »ó¼Ó¹ŞÀº ÄÄÆ÷³ÍÆ®¸¦ Ã£À½
+            // í•˜ìœ„ GameObjectì—ì„œ MenuButton ìŠ¤í¬ë¦½íŠ¸ë¥¼ ìƒì†ë°›ì€ ì»´í¬ë„ŒíŠ¸ë¥¼ ì°¾ìŒ
             InGameButton menuButton = childTransform.GetComponent<InGameButton>();
             if (menuButton != null)
             {
@@ -189,7 +189,7 @@ public class InGameUIController : MonoBehaviour
             }
         }
 
-        // List¸¦ ¹è¿­·Î º¯È¯ÇÏ¿© menuButtons¿¡ ÇÒ´ç
+        // Listë¥¼ ë°°ì—´ë¡œ ë³€í™˜í•˜ì—¬ menuButtonsì— í• ë‹¹
         ingameButtons = foundButtons.ToArray();
         if (ingameButtons.Length != 0) lastButton = ingameButtons[0];
         bIsUIDoing = false;
@@ -204,40 +204,40 @@ public class InGameUIController : MonoBehaviour
     }
     public void PanelOn(GameObject ActivePanel)
     {
-        // ¿¬Ãâ 1¹ø
+        // ì—°ì¶œ 1ë²ˆ
         //ActivePanel.transform.localScale = Vector3.one * 0.5f;
         //ActivePanel.transform.DOScale(Vector3.one, duration / 2)
-        //.SetEase(Ease.OutBack); // EaseOutBack È¿°ú·Î ÀÚ¿¬½º·´°Ô Ä¿Áü
+        //.SetEase(Ease.OutBack); // EaseOutBack íš¨ê³¼ë¡œ ìì—°ìŠ¤ëŸ½ê²Œ ì»¤ì§
 
 
-        // ¿¬Ãâ 2¹ø
+        // ì—°ì¶œ 2ë²ˆ
         Image[] images = ActivePanel.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textMeshes = ActivePanel.GetComponentsInChildren<TextMeshProUGUI>();
 
-        // °¢ ImageÀÇ ¾ËÆÄ°ªÀ» 0¿¡¼­ 1±îÁö ¼­¼­È÷ º¯È­
+        // ê° Imageì˜ ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ê¹Œì§€ ì„œì„œíˆ ë³€í™”
         foreach (Image img in images)
         {
-            // ImageÀÇ ÃÊ±â ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
+            // Imageì˜ ì´ˆê¸° ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
             Color tempColor = img.color;
             tempColor.a = 0f;
             img.color = tempColor;
 
-            // ¾ËÆÄ°ªÀ» 0¿¡¼­ 1·Î 1ÃÊ µ¿¾È ¼­¼­È÷ ¿Ã¸²
+            // ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ë¡œ 1ì´ˆ ë™ì•ˆ ì„œì„œíˆ ì˜¬ë¦¼
             DOTween.To(() => img.color.a, x => {
                 tempColor.a = x;
                 img.color = tempColor;
-            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1ÃÊ µ¿¾È ¾ËÆÄ°ªÀ» 1·Î ¸¸µê
+            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1ì´ˆ ë™ì•ˆ ì•ŒíŒŒê°’ì„ 1ë¡œ ë§Œë“¦
         }
 
-        // °¢ TextMeshProÀÇ »ö»óÀ» 0¿¡¼­ 1±îÁö ¼­¼­È÷ º¯È­
+        // ê° TextMeshProì˜ ìƒ‰ìƒì„ 0ì—ì„œ 1ê¹Œì§€ ì„œì„œíˆ ë³€í™”
         foreach (TextMeshProUGUI textMesh in textMeshes)
         {
-            // TextMeshProÀÇ ÃÊ±â ¾ËÆÄ°ªÀ» 0À¸·Î ¼³Á¤
+            // TextMeshProì˜ ì´ˆê¸° ì•ŒíŒŒê°’ì„ 0ìœ¼ë¡œ ì„¤ì •
             Color textColor = textMesh.color;
             textColor.a = 0f;
             textMesh.color = textColor;
 
-            // ÅØ½ºÆ® »ö»ó ¾ËÆÄ°ªÀ» 0¿¡¼­ 1·Î 1ÃÊ µ¿¾È ¼­¼­È÷ ¿Ã¸²
+            // í…ìŠ¤íŠ¸ ìƒ‰ìƒ ì•ŒíŒŒê°’ì„ 0ì—ì„œ 1ë¡œ 1ì´ˆ ë™ì•ˆ ì„œì„œíˆ ì˜¬ë¦¼
             DOTween.To(() => textMesh.color.a, x => {
                 textColor.a = x;
                 textMesh.color = textColor;
@@ -274,7 +274,7 @@ public class InGameUIController : MonoBehaviour
     }
 
 
-    // #. Scene ÃÖÃÊ ½ÇÇà ½Ã È­¸é
+    // #. Scene ìµœì´ˆ ì‹¤í–‰ ì‹œ í™”ë©´
     private void FadeOutImageEffect()
     {
         bUIOnOff = true;
@@ -296,7 +296,7 @@ public class InGameUIController : MonoBehaviour
 
 
 
-    // #. UI Panel È°¼º ¿©ºÎ È®ÀÎ
+    // #. UI Panel í™œì„± ì—¬ë¶€ í™•ì¸
     public bool GetbUIOnOff()
     {
         return bUIOnOff;
@@ -305,28 +305,28 @@ public class InGameUIController : MonoBehaviour
 
 
     /// <summary>
-    /// ´Ù¸¥ ¾À°úÀÇ ¿¬°á, È¤Àº ±âÅ¸ ÀÛ¾÷µé
+    /// ë‹¤ë¥¸ ì”¬ê³¼ì˜ ì—°ê²°, í˜¹ì€ ê¸°íƒ€ ì‘ì—…ë“¤
     /// </summary>
 
-    // FadeInOutImage ¾ËÆÄ°ª Á¶Àı ÇÔ¼ö
-    public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // ¸Å°³º¯¼ö´Â ¸ñÇ¥ ¼öÄ¡, °É¸®´Â ½Ã°£
+    // FadeInOutImage ì•ŒíŒŒê°’ ì¡°ì ˆ í•¨ìˆ˜
+    public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // ë§¤ê°œë³€ìˆ˜ëŠ” ëª©í‘œ ìˆ˜ì¹˜, ê±¸ë¦¬ëŠ” ì‹œê°„
     {
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
-        // ¾ËÆÄ°ªÀ» fTargetAlpha±îÁö duration µ¿¾È ¿Ã¸®´Â ¾Ö´Ï¸ŞÀÌ¼Ç
+        // ì•ŒíŒŒê°’ì„ fTargetAlphaê¹Œì§€ duration ë™ì•ˆ ì˜¬ë¦¬ëŠ” ì• ë‹ˆë©”ì´ì…˜
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
         }, fTargetAlpha, fFadeDuration)
         .SetEase(Ease.Linear)
-        .SetUpdate(true); // Time.timeScaleÀÇ ¿µÇâÀ» ¹ŞÁö ¾Êµµ·Ï SetUpdate(true) ¼³Á¤
+        .SetUpdate(true); // Time.timeScaleì˜ ì˜í–¥ì„ ë°›ì§€ ì•Šë„ë¡ SetUpdate(true) ì„¤ì •
     }
 
 
 
 
-    // #. Scene ÀüÈ¯ ÇÔ¼ö, main È­¸éÀ¸·Î µ¹¾Æ°¡±â
+    // #. Scene ì „í™˜ í•¨ìˆ˜, main í™”ë©´ìœ¼ë¡œ ëŒì•„ê°€ê¸°
     public void ChangeScene(string SceneName)
     {
         bUIOnOff = true;
@@ -335,14 +335,14 @@ public class InGameUIController : MonoBehaviour
         Image fadeoutImage = image_FadeOut_ForReturn.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
-        // ¾ËÆÄ°ªÀ» ¼­¼­È÷ 1·Î, ¸¶Áö¸·¿¡ °¨¼Ó ÈÄ ¾À ÀüÈ¯
+        // ì•ŒíŒŒê°’ì„ ì„œì„œíˆ 1ë¡œ, ë§ˆì§€ë§‰ì— ê°ì† í›„ ì”¬ ì „í™˜
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
         }, 1f, 2.5f)
         .SetEase(Ease.OutQuad).SetUpdate(true)
         .OnComplete(() => {
-            // ¾À ÀüÈ¯ Á÷Àü¿¡ Time.timeScaleÀ» 1·Î µ¹¸²
+            // ì”¬ ì „í™˜ ì§ì „ì— Time.timeScaleì„ 1ë¡œ ëŒë¦¼
             Time.timeScale = 1f;
 
             bUIOnOff = false;

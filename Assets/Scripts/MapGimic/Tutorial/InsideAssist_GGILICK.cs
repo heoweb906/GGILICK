@@ -6,16 +6,16 @@ public class InsideAssist_GGILICK : MonoBehaviour
 {
     public static InsideAssist_GGILICK Instance;
 
-    [Header("Â÷·® °ü¸®")]
-    public bool bCarCreating; // Â÷·® »ı¼º Áß
+    [Header("ì°¨ëŸ‰ ê´€ë¦¬")]
+    public bool bCarCreating; // ì°¨ëŸ‰ ìƒì„± ì¤‘
 
     public GameObject[] roadCars;
     public Transform[] positions_carCreate;
     public Transform postion_end;
-    public float spawnRate; // ÀÚµ¿Â÷°¡ »ı¼ºµÇ´Â Æò±Õ ½Ã°£
-    public float cooldownDuration; // »ı¼ºµÈ À§Ä¡°¡ »ç¿ë ºÒ°¡´ÉÇÑ ½Ã°£
-    private float spawnTimer = 0f; // Å¸ÀÌ¸Ó
-    private float[] positionCooldowns; // °¢ À§Ä¡ÀÇ Äğ´Ù¿î Å¸ÀÌ¸Ó
+    public float spawnRate; // ìë™ì°¨ê°€ ìƒì„±ë˜ëŠ” í‰ê·  ì‹œê°„
+    public float cooldownDuration; // ìƒì„±ëœ ìœ„ì¹˜ê°€ ì‚¬ìš© ë¶ˆê°€ëŠ¥í•œ ì‹œê°„
+    private float spawnTimer = 0f; // íƒ€ì´ë¨¸
+    private float[] positionCooldowns; // ê° ìœ„ì¹˜ì˜ ì¿¨ë‹¤ìš´ íƒ€ì´ë¨¸
 
 
 
@@ -34,16 +34,16 @@ public class InsideAssist_GGILICK : MonoBehaviour
 
     private void Update()
     {
-        // ÀÚµ¿Â÷ °ü·Ã ºÎºĞ
+        // ìë™ì°¨ ê´€ë ¨ ë¶€ë¶„
         if (bCarCreating)
         {
             spawnTimer += Time.deltaTime;
 
-            // Æò±ÕÀûÀ¸·Î 3ÃÊ¿¡ 2´ë »ı¼º (1.5ÃÊ¸¶´Ù 1´ë)
+            // í‰ê· ì ìœ¼ë¡œ 3ì´ˆì— 2ëŒ€ ìƒì„± (1.5ì´ˆë§ˆë‹¤ 1ëŒ€)
             if (spawnTimer >= spawnRate)
             {
                 SpawnCars();
-                spawnTimer = 0f; // Å¸ÀÌ¸Ó ÃÊ±âÈ­
+                spawnTimer = 0f; // íƒ€ì´ë¨¸ ì´ˆê¸°í™”
             }
 
             for (int i = 0; i < positionCooldowns.Length; i++) if (positionCooldowns[i] > 0) positionCooldowns[i] -= Time.deltaTime;

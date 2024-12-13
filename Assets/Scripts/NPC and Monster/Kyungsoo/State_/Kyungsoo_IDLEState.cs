@@ -11,7 +11,7 @@ public class Kyungsoo_IDLEState : Kyungsoo_State
     {
         base.OnEnter();
 
-        Debug.Log("IDLE ½ºÅ×ÀÌÆ® ÁøÀÔ");
+        Debug.Log("IDLE ìŠ¤í…Œì´íŠ¸ ì§„ì…");
 
         kyungsoo.GetAnimator().SetBool("Bool_Walk", false);
     }

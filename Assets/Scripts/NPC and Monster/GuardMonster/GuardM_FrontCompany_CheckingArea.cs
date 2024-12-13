@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class GuardM_CheckingArea : MonoBehaviour
 {
-    public bool isPlayerInArea = false; // ÇÃ·¹ÀÌ¾î°¡ ¹üÀ§ ³»¿¡ ÀÖ´ÂÁö ¿©ºÎ
-    public Transform playerPosition; // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ÀúÀåÇÒ º¯¼ö
+    public bool isPlayerInArea = false; // í”Œë ˆì´ì–´ê°€ ë²”ìœ„ ë‚´ì— ìˆëŠ”ì§€ ì—¬ë¶€
+    public Transform playerPosition; // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ì €ì¥í•  ë³€ìˆ˜
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             isPlayerInArea = true;
-            playerPosition = other.transform.root; // ÇÃ·¹ÀÌ¾îÀÇ ÃÖ»óÀ§ ºÎ¸ğ ¿ÀºêÁ§Æ® À§Ä¡ ÀúÀå
+            playerPosition = other.transform.root; // í”Œë ˆì´ì–´ì˜ ìµœìƒìœ„ ë¶€ëª¨ ì˜¤ë¸Œì íŠ¸ ìœ„ì¹˜ ì €ì¥
             Debug.Log("Player has entered the area.");
         }
     }
@@ -22,7 +22,7 @@ public class GuardM_CheckingArea : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             isPlayerInArea = false;
-            playerPosition = null; // ÇÃ·¹ÀÌ¾î À§Ä¡ ÃÊ±âÈ­
+            playerPosition = null; // í”Œë ˆì´ì–´ ìœ„ì¹˜ ì´ˆê¸°í™”
             Debug.Log("Player has exited the area.");
         }
     }

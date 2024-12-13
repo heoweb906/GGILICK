@@ -4,46 +4,51 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.EventSystems;
 using System;
+using UnityEngine.UIElements;
 
 public class TrafficLight : ClockBattery
 {
-    [Header("½ÇÁ¦ ½ÅÈ£µî ÀÛµ¿ °ü¸®")]
-    [SerializeField] private bool bTrafficLightOnOff; // ÇöÀç ½ÅÈ£µîÀÇ »óÅÂ
-    public GameObject crossWalk_Assist; // È¾´Üº¸µµ ÀÛµ¿ ½Ã¿¡ Àå¾Ö¹° ¿ªÇÒ ÇØÁÙ ¿ÀºêÁ§Æ® 
+    [Header("ì‹¤ì œ ì‹ í˜¸ë“± ì‘ë™ ê´€ë¦¬")]
+    [SerializeField] private bool bTrafficLightOnOff; // í˜„ì¬ ì‹ í˜¸ë“±ì˜ ìƒíƒœ
+    public GameObject crossWalk_Assist; // íš¡ë‹¨ë³´ë„ ì‘ë™ ì‹œì— ì¥ì• ë¬¼ ì—­í•  í•´ì¤„ ì˜¤ë¸Œì íŠ¸ 
     
-    [Header("½ÅÈ£µî ºÒºû °ü¸®")]
-    public GameObject[] TrafficThreeColors;   // Â÷·® ½ÅÈ£µî
-    public GameObject[] TrafficTwoClolors;    // µµº¸ ½ÅÈ£µî
+    [Header("ì‹ í˜¸ë“± ë¶ˆë¹› ê´€ë¦¬")]
+    public GameObject[] TrafficThreeColors;   // ì°¨ëŸ‰ ì‹ í˜¸ë“±
+    public GameObject[] TrafficTwoClolors;    // ë„ë³´ ì‹ í˜¸ë“±
     public TrafficLight_2 trraficLight_2;
 
-    [Header("Ãß°¡ ÅÂ¿±µé")]
+    [Header("ì¶”ê°€ íƒœì—½ë“¤")]
     public GameObject testObj;
-    private bool bInClockWork; // °íÀå³­ ÅÂ¿±À» °¡Á®´Ù ³Ö¾ú´ÂÁö
+    private bool bInClockWork; // ê³ ì¥ë‚œ íƒœì—½ì„ ê°€ì ¸ë‹¤ ë„£ì—ˆëŠ”ì§€
     private List<TrafficClockWorkAssist> trafficClockWorkAssists = new List<TrafficClockWorkAssist>();
     public TrafficClockWorkAssist plusClockWorkObj;
     
 
     [Space(30f)]
 
-    // µû·Î ºĞ¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Ù°í ÆÇ´ÜµÇ¾î ½ÅÈ£µî ½ºÅ©¸³Æ® ÇÏ³ª¿¡¼­ °ü¸®ÇÕ´Ï´Ù.
-    [Header("Â÷·® °ü¸®")] 
+    // ë”°ë¡œ ë¶„ë¦¬í•  í•„ìš”ê°€ ì—†ë‹¤ê³  íŒë‹¨ë˜ì–´ ì‹ í˜¸ë“± ìŠ¤í¬ë¦½íŠ¸ í•˜ë‚˜ì—ì„œ ê´€ë¦¬í•©ë‹ˆë‹¤.
+    [Header("ì°¨ëŸ‰ ê´€ë¦¬")] 
     public GameObject[] roadCars;
     public Transform[] positions_carCreate;
     public Transform[] positions_carCreate_2;
     public Transform[] postions_end;
 
 
-    private float[] positionCooldowns; // °¢ À§Ä¡ÀÇ Äğ´Ù¿î Å¸ÀÌ¸Ó
-    public float spawnRate_1; // ÀÚµ¿Â÷°¡ »ı¼ºµÇ´Â Æò±Õ ½Ã°£
-    public float cooldownDuration_1; // »ı¼ºµÈ À§Ä¡°¡ »ç¿ë ºÒ°¡´ÉÇÑ ½Ã°£
-    public int iMaxCarCnt_1; // ÇÏ³ªÀÇ µµ·Î¿¡¼­ »ı¼ºµÉ ¼ö ÀÖ´Â ÃÖ´ë Â÷·® ¼ö
-    private float spawnTimer_1 = 0f; // Å¸ÀÌ¸Ó
-    public List<GameObject> spawnedCars_1 = new List<GameObject>(); // »ı¼ºµÈ ÀÚµ¿Â÷¸¦ ´ãÀ» ¸®½ºÆ®
+    private float[] positionCooldowns; // ê° ìœ„ì¹˜ì˜ ì¿¨ë‹¤ìš´ íƒ€ì´ë¨¸
+    public float spawnRate_1; // ìë™ì°¨ê°€ ìƒì„±ë˜ëŠ” í‰ê·  ì‹œê°„
+    public float cooldownDuration_1; // ìƒì„±ëœ ìœ„ì¹˜ê°€ ì‚¬ìš© ë¶ˆê°€ëŠ¥í•œ ì‹œê°„
+    public int iMaxCarCnt_1; // í•˜ë‚˜ì˜ ë„ë¡œì—ì„œ ìƒì„±ë  ìˆ˜ ìˆëŠ” ìµœëŒ€ ì°¨ëŸ‰ ìˆ˜
+    private float spawnTimer_1 = 0f; // íƒ€ì´ë¨¸
+    public List<GameObject> spawnedCars_1 = new List<GameObject>(); // ìƒì„±ëœ ìë™ì°¨ë¥¼ ë‹´ì„ ë¦¬ìŠ¤íŠ¸
     public List<GameObject> spawnedCars_2 = new List<GameObject>(); 
 
 
     private Coroutine nowCoroutine;
 
+    
+    [Header("íŒŒì¸  ê´€ë ¨")] 
+    public Transform partsTransform;
+    public Transform partsInteractTransform;
 
     private void Awake()
     {
@@ -58,9 +63,9 @@ public class TrafficLight : ClockBattery
             InsertClockWorkPiece(testObj);
         }
 
-        // ÀÚµ¿Â÷ °ü·Ã ºÎºĞ
+        // ìë™ì°¨ ê´€ë ¨ ë¶€ë¶„
         spawnTimer_1 += Time.deltaTime;
-        if (spawnedCars_1.Count < iMaxCarCnt_1 && bTrafficLightOnOff) // »ı¼ºµÈ ÀÚµ¿Â÷°¡ 100´ë ¹Ì¸¸ÀÏ ¶§
+        if (spawnedCars_1.Count < iMaxCarCnt_1 && bTrafficLightOnOff) // ìƒì„±ëœ ìë™ì°¨ê°€ 100ëŒ€ ë¯¸ë§Œì¼ ë•Œ
         {
             if (spawnTimer_1 >= spawnRate_1)
             {
@@ -103,7 +108,7 @@ public class TrafficLight : ClockBattery
 
 
 
-    // #. ÅÂ¿± µ¿ÀÛ
+    // #. íƒœì—½ ë™ì‘
     private IEnumerator ChangeToYellowAndRed()
     {
         if (bInClockWork)
@@ -113,7 +118,7 @@ public class TrafficLight : ClockBattery
             yield return new WaitForSeconds(1.5f);
             ChangeTrafficColor(0);
 
-            // ¹èÅÍ¸®°¡ ÀÖ´Â µ¿¾È fCurClockBattery °¨¼Ò
+            // ë°°í„°ë¦¬ê°€ ìˆëŠ” ë™ì•ˆ fCurClockBattery ê°ì†Œ
             while (fCurClockBattery > 0)
             {
                 fCurClockBattery -= Time.deltaTime;
@@ -133,8 +138,8 @@ public class TrafficLight : ClockBattery
 
    
 
-    // #. ½ÅÈ£µî ºÒ ±³Ã¼ ÇÔ¼ö 
-    // 0 = »¡°£ºÒ, 1 = ³ë¶õºÒ, 2 = ÃÊ·ÏºÒ
+    // #. ì‹ í˜¸ë“± ë¶ˆ êµì²´ í•¨ìˆ˜ 
+    // 0 = ë¹¨ê°„ë¶ˆ, 1 = ë…¸ë€ë¶ˆ, 2 = ì´ˆë¡ë¶ˆ
     private void ChangeTrafficColor(int index) 
     {
         trraficLight_2.ChangeTrafficColor_(index);
@@ -147,11 +152,11 @@ public class TrafficLight : ClockBattery
         bTrafficLightOnOff = (index == 2);
         crossWalk_Assist.SetActive(!bTrafficLightOnOff);
 
-        // Â÷·® ½ÅÈ£µî °ü¸®
+        // ì°¨ëŸ‰ ì‹ í˜¸ë“± ê´€ë¦¬
         TrafficThreeColors[index].SetActive(true);
 
 
-        // ÀÎµµ ½ÅÈ£µî °ü¸®
+        // ì¸ë„ ì‹ í˜¸ë“± ê´€ë¦¬
         if(index == 0) TrafficTwoClolors[1].SetActive(true);
         else TrafficTwoClolors[0].SetActive(true);
     }
@@ -161,7 +166,7 @@ public class TrafficLight : ClockBattery
 
 
 
-    // #. ÀÚµ¿Â÷ °ü·Ã ºÎºĞ
+    // #. ìë™ì°¨ ê´€ë ¨ ë¶€ë¶„
     private void SpawnCars_1()
     {
         int ranNum_posotion = UnityEngine.Random.Range(0, positions_carCreate.Length);
@@ -181,7 +186,7 @@ public class TrafficLight : ClockBattery
                 roadCar.bMoveActive = true;
                 roadCar.bDirection = true;
 
-                spawnedCars_1.Add(car); // »ı¼ºµÈ ÀÚµ¿Â÷¸¦ ¸®½ºÆ®¿¡ Ãß°¡
+                spawnedCars_1.Add(car); // ìƒì„±ëœ ìë™ì°¨ë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                 positionCooldowns[ranNum_posotion] = cooldownDuration_1;
             }
             else SpawnCars_1();
@@ -197,7 +202,7 @@ public class TrafficLight : ClockBattery
                 roadCar.trafficLight = this;
                 roadCar.bMoveActive = true;
 
-                spawnedCars_2.Add(car); // »ı¼ºµÈ ÀÚµ¿Â÷¸¦ ¸®½ºÆ®¿¡ Ãß°¡
+                spawnedCars_2.Add(car); // ìƒì„±ëœ ìë™ì°¨ë¥¼ ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
                 positionCooldowns[ranNum_posotion] = cooldownDuration_1;
             }
             else SpawnCars_1();
@@ -208,12 +213,12 @@ public class TrafficLight : ClockBattery
 
 
 
-    // #. ÅÂ¿±À» ²È¾Æ¼­ ³Ö¾îÁÖ´Â ÇÔ¼ö
+    // #. íƒœì—½ì„ ê½‚ì•„ì„œ ë„£ì–´ì£¼ëŠ” í•¨ìˆ˜
     public void InsertClockWorkPiece(GameObject clockWorkObj)
     {
         TrafficClockWorkAssist assist = clockWorkObj.GetComponent<TrafficClockWorkAssist>();
         trafficClockWorkAssists.Add(assist);  
-        trafficClockWorkAssists.Add(plusClockWorkObj);  // plusClockWorkObjµµ Ãß°¡
+        trafficClockWorkAssists.Add(plusClockWorkObj);  // plusClockWorkObjë„ ì¶”ê°€
 
 
         ClockWork clockWorkMine = clockWork.GetComponent<ClockWork>(); ;
@@ -221,7 +226,7 @@ public class TrafficLight : ClockBattery
         ClockWork clockwork_1 = trafficClockWorkAssists[0].GetComponent<ClockWork>();
         ClockWork clockwork_2 = trafficClockWorkAssists[1].GetComponent<ClockWork>();
 
-        // clockWorkMine.plusClockWorks¸¦ List·Î º¯°æÇÏ¿© Ãß°¡
+        // clockWorkMine.plusClockWorksë¥¼ Listë¡œ ë³€ê²½í•˜ì—¬ ì¶”ê°€
         clockWorkMine.plusClockWorksList.Add(clockwork_1);
         clockWorkMine.plusClockWorksList.Add(clockwork_2);
  

@@ -3,10 +3,10 @@ using UnityEngine;
 
 public class Camera_PlayerFollow : CameraObj
 {
-    private Transform player;  // ÃßÀûÇÒ ÇÃ·¹ÀÌ¾îÀÇ Transform
-    public Vector3 offset;    // Ä«¸Ş¶ó¿Í ÇÃ·¹ÀÌ¾î °£ÀÇ ¿ÀÇÁ¼Â
-    public Vector3 rotationOffset; // Ä«¸Ş¶óÀÇ È¸Àü ¿ÀÇÁ¼Â
-    public float smoothSpeed;  // Ä«¸Ş¶ó ÀÌµ¿ ¼Óµµ
+    private Transform player;  // ì¶”ì í•  í”Œë ˆì´ì–´ì˜ Transform
+    public Vector3 offset;    // ì¹´ë©”ë¼ì™€ í”Œë ˆì´ì–´ ê°„ì˜ ì˜¤í”„ì…‹
+    public Vector3 rotationOffset; // ì¹´ë©”ë¼ì˜ íšŒì „ ì˜¤í”„ì…‹
+    public float smoothSpeed;  // ì¹´ë©”ë¼ ì´ë™ ì†ë„
 
     
     private void Start()
@@ -19,14 +19,14 @@ public class Camera_PlayerFollow : CameraObj
     {
         if (!GameAssistManager.Instance.GetBoolPlayerDie())
         {
-            // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿¡ ¿ÀÇÁ¼ÂÀ» ´õÇÑ ¸ñÇ¥ À§Ä¡
+            // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì— ì˜¤í”„ì…‹ì„ ë”í•œ ëª©í‘œ ìœ„ì¹˜
             Vector3 targetPosition = player.position + offset;
 
-            // ºÎµå·´°Ô Ä«¸Ş¶ó¸¦ ¸ñÇ¥ À§Ä¡·Î ÀÌµ¿
+            // ë¶€ë“œëŸ½ê²Œ ì¹´ë©”ë¼ë¥¼ ëª©í‘œ ìœ„ì¹˜ë¡œ ì´ë™
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, targetPosition, smoothSpeed);
             transform.position = smoothedPosition;
 
-            // Ä«¸Ş¶óÀÇ È¸Àü ¼³Á¤
+            // ì¹´ë©”ë¼ì˜ íšŒì „ ì„¤ì •
             Quaternion targetRotation = Quaternion.Euler(rotationOffset);
             transform.rotation = targetRotation;
         }

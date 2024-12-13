@@ -8,8 +8,8 @@ public class GuardM : MonoBehaviour
 {
     private GameObject player;
     private LayerMask obstacleLayerMask;
-    private Vector3 guardRayOriginOffset = Vector3.up; // °¨½ÃÀÚ Ray ½ÃÀÛ À§Ä¡ ¿ÀÇÁ¼Â
-    private Vector3 playerRayTargetOffset = Vector3.up; // ÇÃ·¹ÀÌ¾î Ray ¸ñÇ¥ À§Ä¡ ¿ÀÇÁ¼Â
+    private Vector3 guardRayOriginOffset = Vector3.up; // ê°ì‹œì Ray ì‹œì‘ ìœ„ì¹˜ ì˜¤í”„ì…‹
+    private Vector3 playerRayTargetOffset = Vector3.up; // í”Œë ˆì´ì–´ Ray ëª©í‘œ ìœ„ì¹˜ ì˜¤í”„ì…‹
     private Vector3 transformHome;
 
     public Animator anim;
@@ -67,26 +67,26 @@ public class GuardM : MonoBehaviour
         return player;
     }
 
-    // #. ÇÃ·¹ÀÌ¾î¶û °æºñº´ »çÀÌ¿¡ Àå¾Ö¹°ÀÌ ÀÖ´ÂÁö È®ÀÎ
+    // #. í”Œë ˆì´ì–´ë‘ ê²½ë¹„ë³‘ ì‚¬ì´ì— ì¥ì• ë¬¼ì´ ìˆëŠ”ì§€ í™•ì¸
     public bool IsObstacleBetween()
     {
-        // °¨½ÃÀÚ¿Í ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¿¡ ¿ÀÇÁ¼Â Àû¿ë
+        // ê°ì‹œìì™€ í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ì— ì˜¤í”„ì…‹ ì ìš©
         Vector3 guardPosition = transform.position + guardRayOriginOffset;
         Vector3 playerPosition = player.transform.position + playerRayTargetOffset;
         Vector3 direction = (playerPosition - guardPosition).normalized;
         float distance = Vector3.Distance(guardPosition, playerPosition);
 
-        // Ray¸¦ ´«À¸·Î È®ÀÎÇÏ±â À§ÇØ Debug.DrawRay »ç¿ë
+        // Rayë¥¼ ëˆˆìœ¼ë¡œ í™•ì¸í•˜ê¸° ìœ„í•´ Debug.DrawRay ì‚¬ìš©
         Debug.DrawRay(guardPosition, direction * distance, Color.red);
 
-        // Raycast·Î °¨½ÃÀÚ¿Í ÇÃ·¹ÀÌ¾î »çÀÌ¸¦ °Ë»ç (Obstacle ·¹ÀÌ¾î¸¸ °¨Áö)
+        // Raycastë¡œ ê°ì‹œìì™€ í”Œë ˆì´ì–´ ì‚¬ì´ë¥¼ ê²€ì‚¬ (Obstacle ë ˆì´ì–´ë§Œ ê°ì§€)
         if (Physics.Raycast(guardPosition, direction, out RaycastHit hit, distance, obstacleLayerMask))
         {
-            Debug.Log("Àå¾Ö¹°ÀÌ °¨ÁöµË´Ï´Ù");
+            Debug.Log("ì¥ì• ë¬¼ì´ ê°ì§€ë©ë‹ˆë‹¤");
             return true;
         }
 
-        Debug.Log("Àå¾Ö¹°ÀÌ °¨ÁöµÇÁö ¾Ê½À´Ï´Ù.");
+        Debug.Log("ì¥ì• ë¬¼ì´ ê°ì§€ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
         return false;
     }
 

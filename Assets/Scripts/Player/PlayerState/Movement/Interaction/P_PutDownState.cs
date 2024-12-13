@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class P_PutDownState : P_InteractionState
@@ -15,6 +16,7 @@ public class P_PutDownState : P_InteractionState
     {
         base.OnExit();
         machine.StopAnimation(player.playerAnimationData.PutDownParameterHash);
+
     }
 
     public override void OnUpdate()
@@ -25,19 +27,24 @@ public class P_PutDownState : P_InteractionState
 
     public override void OnAnimationTransitionEvent()
     {
+
         player.curCarriedObject.transform.parent = null;
         player.curCarriedObject.rigid.isKinematic = false;
         player.isSetAngleZero = true;
+
     }
 
     public override void OnAnimationExitEvent()
     {
+
         player.SetPlayerPhysicsIgnore(player.curCarriedObject.col, false);
         machine.OnStateChange(machine.IdleState);
         player.isCarryObject = false;
         player.curInteractableObject = null;
         player.curCarriedObject = null;
         player.isHandIK = false;
+
     }
+
 
 }

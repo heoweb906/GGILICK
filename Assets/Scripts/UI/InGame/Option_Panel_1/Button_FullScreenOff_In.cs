@@ -90,7 +90,7 @@ public class Button_FullScreenOff_in : InGameButton
                 otherButton.bButtonSelceted = false;
                 otherButton.SelectButtonOff();
             }
-            Debug.Log("Off ½ÇÇà");
+            Debug.Log("Off ì‹¤í–‰");
         }
     }
 

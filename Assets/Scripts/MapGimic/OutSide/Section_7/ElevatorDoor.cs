@@ -15,8 +15,8 @@ public class ElevatorDoor : MonoBehaviour
     public Transform position_middle_RightDoor;
 
 
-    public Vector3 originalPosition_LeftDoor;     // ¿ŞÂÊ ¹®ÀÇ ¿ø·¡ À§Ä¡
-    public Vector3 originalPosition_RightDoor;    // ¿À¸¥ÂÊ ¹®ÀÇ ¿ø·¡ À§Ä¡
+    public Vector3 originalPosition_LeftDoor;     // ì™¼ìª½ ë¬¸ì˜ ì›ë˜ ìœ„ì¹˜
+    public Vector3 originalPosition_RightDoor;    // ì˜¤ë¥¸ìª½ ë¬¸ì˜ ì›ë˜ ìœ„ì¹˜
 
     void Start()
     {

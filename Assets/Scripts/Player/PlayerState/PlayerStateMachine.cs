@@ -48,6 +48,7 @@ public class PlayerStateMachine : StateMachine
     public P_PushState PushState { get; private set; }
     public P_PullState PullState { get; private set; }
 
+    public P_PutPartsState PutPartsState { get; private set; }
 
     public PlayerStateMachine(Player _player)
     {
@@ -95,6 +96,8 @@ public class PlayerStateMachine : StateMachine
         GrabIdleState = new P_GrabIdleState(player, this);
         PushState = new P_PushState(player, this);
         PullState = new P_PullState(player, this);
+
+        PutPartsState = new P_PutPartsState(player, this);
 
         CurrentState = IdleState;
         CurrentState.OnEnter();

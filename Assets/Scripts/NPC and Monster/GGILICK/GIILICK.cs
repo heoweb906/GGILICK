@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GIILICK : MonoBehaviour
 {
-    // ¹«½¼ »óÅÂ°¡ ÀÖÀ»±î...
-    // ´ë±â, Ãß°İ, °ø°İ, ±âÀı
+    // ë¬´ìŠ¨ ìƒíƒœê°€ ìˆì„ê¹Œ...
+    // ëŒ€ê¸°, ì¶”ê²©, ê³µê²©, ê¸°ì ˆ
 
     // Start is called before the first frame update
     void Start()

@@ -22,14 +22,14 @@ public class GM_BackHomeState : GuardMState
 
         if (!bAnimEnd) return;
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡°¡ ¾ø°Å³ª ObstacleÀÌ ÀÖ´Â °æ¿ì ÁıÀ¸·Î µ¹¾Æ°¨
+        // í”Œë ˆì´ì–´ ìœ„ì¹˜ê°€ ì—†ê±°ë‚˜ Obstacleì´ ìˆëŠ” ê²½ìš° ì§‘ìœ¼ë¡œ ëŒì•„ê°
         if (guardM.area.playerPosition == null || guardM.IsObstacleBetween())
         {
             ReturnHome();
         }
         else
         {
-            // Àå¾Ö¹°ÀÌ ¾ø°í ÇÃ·¹ÀÌ¾î À§Ä¡°¡ ÀÖ´Â °æ¿ì Ãß°İ »óÅÂ·Î ÀüÈ¯
+            // ì¥ì• ë¬¼ì´ ì—†ê³  í”Œë ˆì´ì–´ ìœ„ì¹˜ê°€ ìˆëŠ” ê²½ìš° ì¶”ê²© ìƒíƒœë¡œ ì „í™˜
             bAnimEnd = false;
             machine.OnStateChange(machine.ChaseState);
         }
@@ -64,7 +64,7 @@ public class GM_BackHomeState : GuardMState
     {
         guardM.nav.SetDestination(guardM.GetHomeTransform());
 
-        // Áı¿¡ µµÂøÇÑ °æ¿ì
+        // ì§‘ì— ë„ì°©í•œ ê²½ìš°
         if (Vector3.Distance(guardM.transform.position, guardM.GetHomeTransform()) <= 0.1f)
         {
             float rotationTimer = 0;
@@ -73,11 +73,11 @@ public class GM_BackHomeState : GuardMState
             guardM.nav.isStopped = true;
             guardM.anim.SetBool("isWalking", false);
 
-            // È¸Àü Ã³¸®
+            // íšŒì „ ì²˜ë¦¬
             Quaternion targetRotation = Quaternion.Euler(0, -90, 0);
             guardM.transform.rotation = Quaternion.Slerp(guardM.transform.rotation, targetRotation, rotationTimer / 1f);
 
-            // È¸ÀüÀÌ ¿Ï·áµÇ¸é ReadyState·Î ÀüÈ¯
+            // íšŒì „ì´ ì™„ë£Œë˜ë©´ ReadyStateë¡œ ì „í™˜
             if (rotationTimer >= 1f)
             {
                 guardM.transform.rotation = targetRotation;

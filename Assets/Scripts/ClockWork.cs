@@ -28,7 +28,7 @@ public class ClockWork : InteractableObject
     {
         if (clockBattery.fMaxClockBattery > clockBattery.fCurClockBattery && !clockBattery.bDoing)
         {
-            //Debug.Log("≈¬ø± µπ∏Æ¥¬ ¡ﬂ");
+            //Debug.Log("ÌÉúÏóΩ ÎèåÎ¶¨Îäî Ï§ë");
             clockBattery.fCurClockBattery += 1;
             //transform.Rotate(Vector3.forward * 80f * Time.deltaTime);
             clockBattery.clockWork = this.gameObject;
@@ -41,7 +41,7 @@ public class ClockWork : InteractableObject
     {
         if (!canInteract)
         {
-            //Debug.Log("≈¬ø± -> πË≈Õ∏Æ ∞°µø");
+            //Debug.Log("ÌÉúÏóΩ -> Î∞∞ÌÑ∞Î¶¨ Í∞ÄÎèô");
             clockBattery.TrunOnObj();
         }
     }
@@ -65,7 +65,7 @@ public class ClockWork : InteractableObject
             gameObject.transform.DORotate(new Vector3(0, 0, 180 * fRotateDirection), 0.3f, RotateMode.LocalAxisAdd)
                 .SetEase(Ease.Linear);
 
-            for (int i = 0; i < plusClockWorksList?.Count; i++)  // ºˆ¡§µ» ∫Œ∫–
+            for (int i = 0; i < plusClockWorksList?.Count; i++)  // ÏàòÏ†ïÎêú Î∂ÄÎ∂Ñ
             {
                 plusClockWorksList[i].ClockWorkRotate(i % 2 == 0 ? 1f : -1f, 0.3f, 0.3f);
             }
@@ -75,7 +75,7 @@ public class ClockWork : InteractableObject
             gameObject.transform.DORotate(new Vector3(0, 0, 180 * fRotateDirection), fRotateSpeed_Floor, RotateMode.LocalAxisAdd)
                 .SetEase(Ease.Linear);
 
-            for (int i = 0; i < plusClockWorksList?.Count; i++)  // ºˆ¡§µ» ∫Œ∫–
+            for (int i = 0; i < plusClockWorksList?.Count; i++)  // ÏàòÏ†ïÎêú Î∂ÄÎ∂Ñ
             {
                 plusClockWorksList[i].ClockWorkRotate(i % 2 == 0 ? 1f : -1f, 0.8f, 0.8f);
             }
