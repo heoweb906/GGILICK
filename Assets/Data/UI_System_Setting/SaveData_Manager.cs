@@ -100,7 +100,7 @@ public class SaveData_Manager : MonoBehaviour
         SaveSettings();
     }
 
-    public void SetEffectVolume(float value)
+    public void SetSFXVolume(float value)
     {
         settingsData.Volume.Effect = value;
         SaveSettings();
@@ -117,7 +117,7 @@ public class SaveData_Manager : MonoBehaviour
         return settingsData.Volume.BGM;
     }
 
-    public float GetEffectVolume()
+    public float GetSFXVolume()
     {
         return settingsData.Volume.Effect;
     }
@@ -239,9 +239,9 @@ public class SaveData_Manager : MonoBehaviour
         else
         {
             // Default values
-            settingsData.Volume.Master = 1.0f;
-            settingsData.Volume.BGM = 0.5f;
-            settingsData.Volume.Effect = 0.5f;
+            settingsData.Volume.Master = 0.7f;
+            settingsData.Volume.BGM = 0.7f;
+            settingsData.Volume.Effect = 0.7f;
 
             SetFullScreen(true);
             SetResolution(3);
@@ -262,9 +262,9 @@ public class SaveData_Manager : MonoBehaviour
 
     private void ClearData()
     {
-        settingsData.Volume.Master = 1.0f;
-        settingsData.Volume.BGM = 0.5f;
-        settingsData.Volume.Effect = 0.5f;
+        settingsData.Volume.Master = 0.7f;
+        settingsData.Volume.BGM = 0.7f;
+        settingsData.Volume.Effect = 0.7f;
 
         SetFullScreen(true);
         SetResolution(3);

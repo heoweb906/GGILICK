@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using TMPro;
+using UnityEngine.Audio;
 
 public class MainMenuController : MonoBehaviour
 {
@@ -25,7 +26,9 @@ public class MainMenuController : MonoBehaviour
     public GameObject Panel_Main; // Panel Number = 0;
 
     [Header("Option Panel")]
+    public AudioMixer audioMixer_Master;
     public GameObject Panel_Option; // Panel Number = 1;
+    public Slider[] soundSliders;
 
     [Header("Other Panel")]
     public GameObject Panel_Other; // Panel Numebr 5;
@@ -51,6 +54,8 @@ public class MainMenuController : MonoBehaviour
     private void Awake()
     {
         PanelChage(0);
+
+        SliderValueSet();
     }
     private void Update()
     {
@@ -181,6 +186,7 @@ public class MainMenuController : MonoBehaviour
         switch (index)
         {
             case 0: // Main Panel 켜기
+                SaveData_Manager.Instance.SaveSettings();
                 Panel_Main.SetActive(true);
                 PanelNow = Panel_Main;
                 break;
@@ -226,6 +232,7 @@ public class MainMenuController : MonoBehaviour
 
         PanelOn(PanelNow);
         nowPanelNum = index;
+
 
         // Panel의 모든 하위 GameObject들을 가져옴
         Transform[] childTransforms = PanelNow.GetComponentsInChildren<Transform>(true);
@@ -323,6 +330,11 @@ public class MainMenuController : MonoBehaviour
 
 
 
+
+
+
+
+
     /// <summary>
     /// 다른 씬과의 연결, 혹은 기타 작업들
     /// </summary>
@@ -357,6 +369,45 @@ public class MainMenuController : MonoBehaviour
         });
     }
 
- 
+
+
+    // #. 사운드 슬라이더 함수
+    private void SliderValueSet()
+    {
+        soundSliders[0].value = SaveData_Manager.Instance.GetMasterVolume();
+        soundSliders[1].value = SaveData_Manager.Instance.GetBGMVolume();
+        soundSliders[2].value = SaveData_Manager.Instance.GetSFXVolume();
+
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[0].value);
+        audioMixer_Master.SetFloat("Master", adjustedVolume);
+        adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[1].value);
+        audioMixer_Master.SetFloat("BGM", adjustedVolume);
+        adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[2].value);
+        audioMixer_Master.SetFloat("SFX", adjustedVolume);
+    }
+
+    public void ControllSoundVolume_Master()
+    {
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[0].value);
+        audioMixer_Master.SetFloat("Master", adjustedVolume);
+
+        SaveData_Manager.Instance.SetMasterVolume(soundSliders[0].value);
+    }
+    public void ControllSoundVolume_BGM()
+    {
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[1].value);
+        audioMixer_Master.SetFloat("BGM", adjustedVolume);
+
+        SaveData_Manager.Instance.SetBGMVolume(soundSliders[1].value);
+    }
+    public void ControllSoundVolume_SFX()
+    {
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[2].value);
+        audioMixer_Master.SetFloat("SFX", adjustedVolume);
+
+        SaveData_Manager.Instance.SetSFXVolume(soundSliders[2].value);
+    }
+
+
 
 }
