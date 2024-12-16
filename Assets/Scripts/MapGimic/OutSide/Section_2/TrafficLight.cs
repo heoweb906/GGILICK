@@ -58,10 +58,10 @@ public class TrafficLight : ClockBattery
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            InsertClockWorkPiece(testObj);
-        }
+        //if(Input.GetKeyDown(KeyCode.T))
+        //{
+        //    InsertClockWorkPiece(testObj);
+        //}
 
         // 자동차 관련 부분
         spawnTimer_1 += Time.deltaTime;

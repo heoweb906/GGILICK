@@ -92,6 +92,7 @@ public class GameAssistManager : MonoBehaviour
 
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
+     
     }
 
 
@@ -144,9 +145,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-  
-
-
+ 
 
     // #. 내부 진입 
     public void FadeOutInEffect(float fStartImte = 3.0f, float fEndTime = 3.0f)
@@ -168,20 +167,6 @@ public class GameAssistManager : MonoBehaviour
         DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, 0f, fStartImte * 1.2f)
             .SetDelay(fEndTime);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

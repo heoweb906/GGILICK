@@ -1,30 +1,55 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class SoundAssistManager : MonoBehaviour
 {
-    public static SoundAssistManager Instance;
+    public static SoundAssistManager Instance { get; private set; }
 
     // 딕셔너리로 변경 (파일명을 키로 사용)
     public Dictionary<string, AudioClip> soundDictionary = new Dictionary<string, AudioClip>();
+    public AudioMixer audioMixer_Master;
 
 
-    // 풀링 관련
+    [Header("AudioBlock_BGM")]
+    public AudioSource audioSource_BGM;
+
+    [Header("AudioBlock_SFX")]
     public int iPoolSize;
     public GameObject audioPlaterBlockPrefab; 
     public Queue<GameObject> audioPlayerBlockPool = new Queue<GameObject>();
     public List<AudioPlayerBlock> audioPlayerBlockList = new List<AudioPlayerBlock>();
 
+
+
     private void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            LoadSounds("Sounds");
+            InitializeAudioPlayerBlockPool(iPoolSize);
 
-        LoadSounds("Sounds");
-        InitializeAudioPlayerBlockPool(iPoolSize);
+            Invoke("AudioMixerSet",0.1f);
+
+            DebugSoundDictionary();
+
+            DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
+        }
+        else
+        {
+            UnmuteMasterVolume();
+
+            Destroy(gameObject); // 이미 존재하는 인스턴스가 있으면 현재 오브젝트 파괴
+        }
+
+        
     }
 
     // 사운드 찾기
@@ -32,38 +57,57 @@ public class SoundAssistManager : MonoBehaviour
 
     private void LoadSounds(string folderPath)
     {
-        string fullPath = Path.Combine(Application.dataPath, "Resources", folderPath);
-        string[] files = Directory.GetFiles(fullPath, "*.mp3", SearchOption.AllDirectories);  // MP3 파일만 로드
+        //string fullPath = Path.Combine(Application.dataPath, "Resources", folderPath);
+        //string[] files = Directory.GetFiles(fullPath, "*.mp3", SearchOption.AllDirectories);  // MP3 파일만 로드
 
-        foreach (var file in files)
+        //foreach (var file in files)
+        //{
+        //    string relativePath = "Sounds" + file.Substring(Application.dataPath.Length).Replace("\\", "/").Replace(Path.GetExtension(file), "");
+
+        //    StartCoroutine(LoadMP3AudioClip(file));
+        //}
+
+        AudioClip[] clips = Resources.LoadAll<AudioClip>(folderPath);
+        foreach (AudioClip clip in clips)
         {
-            string relativePath = "Sounds" + file.Substring(Application.dataPath.Length).Replace("\\", "/").Replace(Path.GetExtension(file), "");
-
-            StartCoroutine(LoadMP3AudioClip(file));
+            soundDictionary[clip.name] = clip;
         }
     }
 
     private IEnumerator LoadMP3AudioClip(string filePath)
     {
-        UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file:///" + filePath, AudioType.MPEG);
-        yield return www.SendWebRequest();
-
-        if (www.result == UnityWebRequest.Result.Success)
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip("file:///" + filePath, AudioType.MPEG))
         {
-            AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
-            if (clip != null)
+            yield return www.SendWebRequest();
+
+            if (www.result == UnityWebRequest.Result.Success)
             {
-                // 파일명을 키로 사용하여 딕셔너리에 추가
-                string clipName = Path.GetFileNameWithoutExtension(filePath);
-                soundDictionary[clipName] = clip;
+                AudioClip clip = DownloadHandlerAudioClip.GetContent(www);
+                if (clip != null)
+                {
+                    string clipName = Path.GetFileNameWithoutExtension(filePath);
+                    soundDictionary[clipName] = clip;
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"Failed to load sound from {filePath}: {www.error}");
             }
         }
-        else
+    }
+
+    // #. 현재 딕셔너리에 담겨 있는 AudioClip Key / Value 출력
+    public void DebugSoundDictionary()
+    {
+        foreach (var entry in soundDictionary)
         {
-            Debug.LogWarning($"Failed to load sound from {filePath}: {www.error}");
+            string clipName = entry.Key;
+            AudioClip clip = entry.Value;
+            Debug.Log($"Key: {clipName}, Clip: {clip.name}, Length: {clip.length} seconds");
         }
     }
     #endregion
+
 
 
 
@@ -82,8 +126,6 @@ public class SoundAssistManager : MonoBehaviour
             audioPlayerBlockPool.Enqueue(newAudioPlayerBlock);
 
             audioPlayerBlockList.Add(audioBlock);
-
-            Debug.Log("생성됨");
         }
     }
 
@@ -159,6 +201,121 @@ public class SoundAssistManager : MonoBehaviour
 
 
 
+    // 사운드 조절 관련
+    #region
+
+
+
+    // #. 저장 데이터에서 사운드 값 불러오기
+    public void AudioMixerSet()
+    {
+        float masterVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetMasterVolume());
+        audioMixer_Master.SetFloat("Master", masterVolume);
+
+        float bgmVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetBGMVolume());
+        audioMixer_Master.SetFloat("BGM", bgmVolume);
+
+        float sfxVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetSFXVolume());
+        audioMixer_Master.SetFloat("SFX", sfxVolume);
+
+        //bool isMasterMuted = masterVolume <= -30f;
+        //audioMixer_Master.SetFloat("MasterMute", isMasterMuted ? 1f : 0f);
+
+        //bool isBGMMuted = bgmVolume <= -50f;
+        //.SetFloat("BGMMute", isBGMMuted ? 1f : 0f);
+
+        //bool isSFXMuted = sfxVolume <= -50f;
+        //audioMixer_Master.SetFloat("SFXMute", isSFXMuted ? 1f : 0f);
+
+
+        audioSource_BGM.Play();
+    }
+
+
+    public void MuteMasterVolume()
+    {
+        float muteVolume = -80f;
+
+        // DOTween을 사용하여 볼륨을 2초 동안 서서히 -80f로 변경
+        DOTween.To(() => {
+            audioMixer_Master.GetFloat("Master", out float tempMaster);
+            return tempMaster;
+        },
+            x => {
+                audioMixer_Master.SetFloat("Master", x);
+                // audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // 볼륨 값에 따라 뮤트 처리
+            },
+            muteVolume, 2f).SetUpdate(true);
+    }
+    public void UnmuteMasterVolume()
+    {
+        // 저장된 원래 볼륨 값 가져오기 (0과 1 사이의 값)
+        float originalVolume = SaveData_Manager.Instance.GetMasterVolume();
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, originalVolume);
+
+        DOTween.To(() => {
+            audioMixer_Master.GetFloat("Master", out float tempMaster);
+            return tempMaster;
+        },
+            x => {
+                audioMixer_Master.SetFloat("Master", x);
+                //audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // 볼륨 값에 따라 뮤트 처리
+            },
+            adjustedVolume, 2f).SetUpdate(true);
+    }
+
+
+
+    // #. 다른 코드들에서 호출하고 있음
+    public void BGMChange(string sceneName = null)
+    {
+        switch (sceneName)
+        {
+            case "Chapter1_1_City":
+            case "Chapter1_2_Subway":
+            case "Chapter1_3_City":
+            case "Chapter_1_11_Inside":
+                if (audioSource_BGM.clip != soundDictionary["TestBGM"])
+                {
+                    audioSource_BGM.Stop();
+                    audioSource_BGM.clip = soundDictionary["TestBGM"];
+                    audioSource_BGM.Play(); 
+                    Debug.Log("soundDictionary[TestBGM] 재생");
+                }
+                break;
+
+            case "MainMenu":
+                if (audioSource_BGM.clip != soundDictionary["TestBGM_2"])
+                {
+                    audioSource_BGM.Stop();
+                    audioSource_BGM.clip = soundDictionary["TestBGM_2"];
+                    audioSource_BGM.Play(); 
+                    Debug.Log("soundDictionary[TestBGM] 재생");
+                }
+                break;
+
+            default:
+                audioSource_BGM.Stop();
+                break;
+        }
+
+       
+
+    }
+
+
+
+
+
+
+
+    #endregion
 
 
 }
+
+
+
+
+
+

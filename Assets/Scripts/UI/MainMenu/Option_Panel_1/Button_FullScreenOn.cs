@@ -92,7 +92,6 @@ public class Button_FullScreenOn : MenuButton
                 otherButton.bButtonSelceted = false;
                 otherButton.SelectButtonOff();
             }
-            Debug.Log("On 실행");
         }
     }
 

@@ -30,7 +30,6 @@ public class Button_StartNewGame : MenuButton
             return;
         }
 
-
         SaveData_Manager.Instance.GameClearDataReset();
         mainMenuController.StartNewGame("Chapter1_1_City");
     }

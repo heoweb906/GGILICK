@@ -55,7 +55,6 @@ public class MainMenuController : MonoBehaviour
     {
         PanelChage(0);
 
-        SliderValueSet();
     }
     private void Update()
     {
@@ -191,6 +190,7 @@ public class MainMenuController : MonoBehaviour
                 PanelNow = Panel_Main;
                 break;
             case 1: // Option Panel 켜기
+                SliderValueSet();
                 Panel_Option.SetActive(true);
                 PanelNow = Panel_Option;
                 break;
@@ -319,18 +319,7 @@ public class MainMenuController : MonoBehaviour
             }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
         }
 
-
-
     }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -340,7 +329,7 @@ public class MainMenuController : MonoBehaviour
     /// </summary>
 
     // #. Scene 전환 함수, 게임 시작 버튼에서 사용하지만, 버튼에는 버튼 관련 기능만 넣기 위해서
-    public void StartNewGame(string sSceneSname = "Chapter_1_City1")
+    public void StartNewGame(string sSceneSname = "Chapter1_1_City")
     {
         // Vignette의 intensity를 현재 값에서 1로 서서히 변화
         if (vignette != null)
@@ -357,6 +346,13 @@ public class MainMenuController : MonoBehaviour
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
+
+        //SaveData_Manager.Instance.SetMasterVolume(soundSliders[0].value);
+        //SaveData_Manager.Instance.SetBGMVolume(soundSliders[1].value);
+        //SaveData_Manager.Instance.SetSFXVolume(soundSliders[2].value);
+
+        SoundAssistManager.Instance.MuteMasterVolume();
+
         // 알파값을 서서히 1로, 마지막에 감속 후 씬 전환
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
@@ -365,7 +361,9 @@ public class MainMenuController : MonoBehaviour
         .SetEase(Ease.OutQuad)
         .OnComplete(() => {
             // 애니메이션이 끝난 후 'Chapter_1' 씬으로 전환
+            SoundAssistManager.Instance.BGMChange(sSceneSname);
             SceneManager.LoadScene(sSceneSname);
+           
         });
     }
 
@@ -377,19 +375,18 @@ public class MainMenuController : MonoBehaviour
         soundSliders[0].value = SaveData_Manager.Instance.GetMasterVolume();
         soundSliders[1].value = SaveData_Manager.Instance.GetBGMVolume();
         soundSliders[2].value = SaveData_Manager.Instance.GetSFXVolume();
-
-        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[0].value);
-        audioMixer_Master.SetFloat("Master", adjustedVolume);
-        adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[1].value);
-        audioMixer_Master.SetFloat("BGM", adjustedVolume);
-        adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[2].value);
-        audioMixer_Master.SetFloat("SFX", adjustedVolume);
     }
+
+
+
 
     public void ControllSoundVolume_Master()
     {
         float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[0].value);
         audioMixer_Master.SetFloat("Master", adjustedVolume);
+
+        //bool isMuted = adjustedVolume <= -30f;
+        //audioMixer_Master.SetFloat("MasterMute", isMuted ? 1f : 0f);
 
         SaveData_Manager.Instance.SetMasterVolume(soundSliders[0].value);
     }
@@ -398,12 +395,18 @@ public class MainMenuController : MonoBehaviour
         float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[1].value);
         audioMixer_Master.SetFloat("BGM", adjustedVolume);
 
+        //bool isMuted = adjustedVolume <= -50f;
+        //audioMixer_Master.SetFloat("BGMMute", isMuted ? 1f : 0f);
+
         SaveData_Manager.Instance.SetBGMVolume(soundSliders[1].value);
     }
     public void ControllSoundVolume_SFX()
     {
         float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[2].value);
         audioMixer_Master.SetFloat("SFX", adjustedVolume);
+
+        //bool isMuted = adjustedVolume <= -50f;
+        //audioMixer_Master.SetFloat("SFXMute", isMuted ? 1f : 0f);
 
         SaveData_Manager.Instance.SetSFXVolume(soundSliders[2].value);
     }

@@ -47,6 +47,9 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     // #. MenuButton을 상속 받은 버튼들의 실행 기능을 여기에 다 구현하는 거임
     public virtual void ImplementButton()
     {
+        SoundAssistManager.Instance.GetEffectAudioBlock("POP Brust 08", ingameUIController.gameObject.transform);
+
+
         SelectButtonOff();
     }
 

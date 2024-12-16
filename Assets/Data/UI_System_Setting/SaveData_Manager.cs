@@ -223,8 +223,6 @@ public class SaveData_Manager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(settingsData, true);
         File.WriteAllText(filePath, json);
-
-        Debug.Log("현재 상태를 저장하였습니다");
     }
 
     private void LoadSettings()

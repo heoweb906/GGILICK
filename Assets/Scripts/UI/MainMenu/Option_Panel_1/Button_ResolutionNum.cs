@@ -53,7 +53,6 @@ public class Button_ResolutionNum : MenuButton
         {
             textButton.DOFontSize(24f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
             textButton.DOColor(new Color(0.58f, 1f, 1f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
-            Debug.Log(1);
         }
     }
 
@@ -70,7 +69,6 @@ public class Button_ResolutionNum : MenuButton
         {
             textButton.DOFontSize(20f, fButtonAnimationDelay).SetEase(Ease.OutCirc);
             textButton.DOColor(new Color(1f, 1f, 0f, 1f), fButtonAnimationDelay).SetEase(Ease.OutCirc);
-            Debug.Log(2);
         }
     }
 
