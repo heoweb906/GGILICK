@@ -11,13 +11,13 @@ public class CarShakeEffect : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>(); 
-        StartShakeEffect(); 
+        // StartShakeEffect(); 
     }
 
  
 
     // CarFrame이 떨리는 효과
-    private void StartShakeEffect()
+    public void StartShakeEffect()
     {
         // CarFrame의 위치를 미세하게 떨리는 효과를 DOTween으로 적용
         CarFrame.transform.DOShakePosition(
@@ -31,4 +31,5 @@ public class CarShakeEffect : MonoBehaviour
          .SetRelative(true) // 로컬 위치 기준으로 떨림 적용
          .SetUpdate(UpdateType.Fixed); // FixedUpdate에서 실행되도록 설정
     }
+
 }

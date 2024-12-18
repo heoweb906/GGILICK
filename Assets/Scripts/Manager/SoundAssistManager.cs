@@ -38,8 +38,6 @@ public class SoundAssistManager : MonoBehaviour
 
             Invoke("AudioMixerSet",0.1f);
 
-            DebugSoundDictionary();
-
             DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
         }
         else
@@ -131,7 +129,7 @@ public class SoundAssistManager : MonoBehaviour
 
 
     // 오브젝트 풀에서 사운드 블럭 가져오기 (효과음)
-    public GameObject GetEffectAudioBlock(string audioClipName = null, Transform objTransform = null)
+    public GameObject GetSFXAudioBlock(string audioClipName = null, Transform objTransform = null)
     {
         if (audioClipName != null)
         {

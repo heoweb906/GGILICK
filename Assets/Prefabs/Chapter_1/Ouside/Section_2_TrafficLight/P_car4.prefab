@@ -396,13 +396,14 @@ MonoBehaviour:
   trafficLight: {fileID: 0}
   bMoveActive: 0
   bDirection: 0
-  maxSpeed: 20
-  safeDistance: 5
-  deceleration: 32
+  maxSpeed: 17
+  safeDistance: 6
+  deceleration: 45
   acceleration: 15
   justRotates:
   - {fileID: 3540493582148269636}
   - {fileID: 4943137844970469313}
+  CarFrame: {fileID: 2015243624852822212}
 --- !u!1 &7020347259942120923
 GameObject:
   m_ObjectHideFlags: 0

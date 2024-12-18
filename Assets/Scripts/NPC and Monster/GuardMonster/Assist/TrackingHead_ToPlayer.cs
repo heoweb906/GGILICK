@@ -17,10 +17,13 @@ public class TrackingHead_ToPlayer : MonoBehaviour
         {
             // 플레이어를 찾았을 때의 회전
             Vector3 direction = GameAssistManager.Instance.player.transform.position - transform.position;
-            Quaternion toRotation = Quaternion.LookRotation(direction);
+            direction.y = 0f;  // x, z 평면에서만 회전하도록 y값을 0으로 설정
 
-            // x축에 +90도를 추가
-            Quaternion targetRotation = Quaternion.Euler(toRotation.eulerAngles.x - 80f, toRotation.eulerAngles.y, toRotation.eulerAngles.z);
+            // 타겟 방향을 계산 (z축과 y축만 회전하도록 설정)
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+
+            // x축을 0으로 고정하고, y, z축만 회전하도록 설정
+            targetRotation.eulerAngles = new Vector3(0f, targetRotation.eulerAngles.y + 90f, targetRotation.eulerAngles.z);
 
             // 보간을 통해 부드럽게 회전
             float rotationSpeed = 5f;  // 회전 속도 조절
@@ -33,12 +36,12 @@ public class TrackingHead_ToPlayer : MonoBehaviour
 
             if (timeSinceLastRotation >= 1f) // 1초마다 랜덤 회전값을 갱신
             {
-                // 최소값과 최대값 사이에서 랜덤한 회전값을 계산
-                float randomX = Random.Range(minRotate.x, maxRotate.x);
+                // 최소값과 최대값 사이에서 랜덤한 회전값을 계산 (y, z축만 회전)
+                float randomY = Random.Range(minRotate.y, maxRotate.y);
                 float randomZ = Random.Range(minRotate.z, maxRotate.z);
 
-                // 랜덤 회전값
-                Vector3 randomRotation = new Vector3(randomX, 0f, randomZ);
+                // 랜덤 회전값 (x축은 항상 0으로 고정)
+                Vector3 randomRotation = new Vector3(0f, randomY, randomZ);
 
                 // DOTween을 사용하여 부드럽게 회전
                 transform.DORotate(randomRotation, rotationSpeed).SetEase(Ease.InOutSine);

@@ -18,11 +18,13 @@ public class RoadCar : MonoBehaviour
     private float currentSpeed; // 현재 속력
 
     public JustRotate[] justRotates;  // 타이어들 회전 관리
+    public GameObject CarFrame;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
         currentSpeed = maxSpeed; // 초기 속력을 최고 속력으로 설정
+        if(CarFrame != null) StartShakeEffect();
     }
 
     private void Update()
@@ -81,8 +83,12 @@ public class RoadCar : MonoBehaviour
 
     private void RemoveCar()
     {
+        if (CarFrame != null) DOTween.Kill(CarFrame);
+        DOTween.Kill(gameObject);
+       
+
         // 리스트에서 이 자동차 제거
-        if(bDirection)
+        if (bDirection)
         {
             if (trafficLight != null && trafficLight.spawnedCars_1.Contains(gameObject)) trafficLight.spawnedCars_1.Remove(gameObject);
         }
@@ -91,7 +97,6 @@ public class RoadCar : MonoBehaviour
             if (trafficLight != null && trafficLight.spawnedCars_2.Contains(gameObject)) trafficLight.spawnedCars_2.Remove(gameObject);
         }
 
-        DOTween.Kill(gameObject);
         Destroy(gameObject);
     }
 
@@ -112,4 +117,24 @@ public class RoadCar : MonoBehaviour
             GameAssistManager.Instance.DiePlayerReset(2f);
         }
     }
+
+
+    public void StartShakeEffect()
+    {
+        // CarFrame의 위치를 미세하게 떨리는 효과를 DOTween으로 적용
+        CarFrame.transform.DOShakePosition(
+            duration: 0.3f,
+            strength: new Vector3(0.01f, 0.01f, 0f),
+            vibrato: 2,
+            randomness: 90f,
+            fadeOut: false
+        )
+        .SetLoops(-1, LoopType.Restart)
+        .SetEase(Ease.Linear)
+        .SetRelative(true)
+        .SetUpdate(UpdateType.Fixed)
+        .SetAutoKill(true); // 자동으로 Kill
+    }
+
+
 }

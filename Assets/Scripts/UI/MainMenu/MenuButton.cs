@@ -46,7 +46,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     // #. MenuButton을 상속 받은 버튼들의 실행 기능을 여기에 다 구현하는 거임
     public virtual void ImplementButton()
     {
-        SoundAssistManager.Instance.GetEffectAudioBlock("POP Brust 08", mainMenuController.gameObject.transform);
+        SoundAssistManager.Instance.GetSFXAudioBlock("POP Brust 08", mainMenuController.gameObject.transform);
         Debug.Log("소리 실행!!");
 
         SelectButtonOff();
