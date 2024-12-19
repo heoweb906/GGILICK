@@ -43,6 +43,6 @@ MonoBehaviour:
   sceneDepthFadeEnd: 0
   useCameraDepthFade: 1
   useCameraDistanceFade: 1
-  useSceneDepthFade: 0
+  useSceneDepthFade: 1
   useVariation: 0
   needsToBeUpdated: 0
