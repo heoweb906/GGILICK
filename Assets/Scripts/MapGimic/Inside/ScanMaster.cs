@@ -17,8 +17,6 @@ public class ScanMaster : MonoBehaviour
     public ScanMaster_ClockWork clockWork;  // ScanMaster 전용 ClockWork
 
 
-
-
     // 테스트로 사용할 이미지
     public GameObject[] testFaces;
 
