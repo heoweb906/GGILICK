@@ -92,7 +92,7 @@ public class Player : MonoBehaviour
     public bool isCarryObject;
     [Range(0, 50)]
     public float throwPower;
-    public TrafficLight curTrafficLight;
+    public IPartOwner partOwner;
 
     [Header("물건 밀기")]
     public GrabObject curGrabObject;

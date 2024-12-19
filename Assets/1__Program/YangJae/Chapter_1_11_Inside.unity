@@ -419,7 +419,6 @@ GameObject:
   m_Component:
   - component: {fileID: 70915242}
   - component: {fileID: 70915243}
-  - component: {fileID: 70915244}
   m_Layer: 0
   m_Name: PartPoint_1
   m_TagString: Untagged
@@ -458,27 +457,6 @@ MonoBehaviour:
   partsTransform: {fileID: 70915242}
   partsInteractTransform: {fileID: 3026445}
   iIndex: 1
---- !u!65 &70915244
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 70915241}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &100291274
 GameObject:
   m_ObjectHideFlags: 0
@@ -2253,7 +2231,6 @@ GameObject:
   m_Component:
   - component: {fileID: 591719067}
   - component: {fileID: 591719068}
-  - component: {fileID: 591719069}
   m_Layer: 0
   m_Name: PartPoint_3
   m_TagString: Untagged
@@ -2292,27 +2269,6 @@ MonoBehaviour:
   partsTransform: {fileID: 591719067}
   partsInteractTransform: {fileID: 733163388}
   iIndex: 3
---- !u!65 &591719069
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 591719066}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &599544773
 GameObject:
   m_ObjectHideFlags: 0
@@ -2468,7 +2424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -2582,7 +2538,7 @@ Transform:
   m_GameObject: {fileID: 643582279}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 2.5, y: -0.09, z: -3.185}
+  m_LocalPosition: {x: 2.5, y: -0.09, z: -2}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3149,7 +3105,7 @@ Transform:
   m_GameObject: {fileID: 744973795}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 1.41, y: -0.09, z: -3.015}
+  m_LocalPosition: {x: 1.41, y: -0.09, z: -1.83}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -3169,7 +3125,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -3337,7 +3293,6 @@ GameObject:
   m_Component:
   - component: {fileID: 852756443}
   - component: {fileID: 852756444}
-  - component: {fileID: 852756445}
   m_Layer: 0
   m_Name: PartPoint_2
   m_TagString: Untagged
@@ -3376,27 +3331,6 @@ MonoBehaviour:
   partsTransform: {fileID: 852756443}
   partsInteractTransform: {fileID: 1883873787}
   iIndex: 2
---- !u!65 &852756445
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 852756442}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &895230374
 GameObject:
   m_ObjectHideFlags: 0
@@ -5409,7 +5343,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -5523,7 +5457,7 @@ Transform:
   m_GameObject: {fileID: 1457022118}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 7.83, y: -0.09, z: -3.395}
+  m_LocalPosition: {x: 7.83, y: -0.09, z: -2.21}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -5946,7 +5880,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -6060,7 +5994,7 @@ Transform:
   m_GameObject: {fileID: 1498601263}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 6.81, y: -0.09, z: -3.335}
+  m_LocalPosition: {x: 6.81, y: -0.09, z: -2.15}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6392,7 +6326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -6506,7 +6440,7 @@ Transform:
   m_GameObject: {fileID: 1663435745}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 8.82, y: -0.09, z: -3.435}
+  m_LocalPosition: {x: 8.82, y: -0.09, z: -2.25}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -6817,7 +6751,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -6931,7 +6865,7 @@ Transform:
   m_GameObject: {fileID: 1777860856}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 3.63, y: -0.09, z: -3.3049998}
+  m_LocalPosition: {x: 3.63, y: -0.09, z: -2.12}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -7961,7 +7895,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -8075,7 +8009,7 @@ Transform:
   m_GameObject: {fileID: 2089858712}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 4.67, y: -0.09, z: -3.2849998}
+  m_LocalPosition: {x: 4.67, y: -0.09, z: -2.1}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -8321,7 +8255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
-  isParts: 1
+  isParts: 0
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
@@ -8435,7 +8369,7 @@ Transform:
   m_GameObject: {fileID: 2128762093}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000003091003, y: -0.9394592, z: -0.00000024032147, w: 0.34266073}
-  m_LocalPosition: {x: 5.81, y: -0.09, z: -3.3049998}
+  m_LocalPosition: {x: 5.81, y: -0.09, z: -2.12}
   m_LocalScale: {x: 0.34651163, y: 0.34651163, z: 0.34651154}
   m_ConstrainProportionsScale: 1
   m_Children: []

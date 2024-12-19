@@ -41,6 +41,7 @@ public class PlayerStateMachine : StateMachine
     public P_SpinClockWorkFloorState SpinClockWorkFloorState { get; private set; }
     public P_PickUpState PickUpState { get; private set; }
     public P_PutDownState PutDownState { get; private set; }
+    public P_RemovePartsState RemovePartsState { get; private set; }
     public P_ThrowState ThrowState { get; private set; }
 
     public P_GrabState GrabState { get; private set; }
@@ -90,6 +91,7 @@ public class PlayerStateMachine : StateMachine
         SpinClockWorkFloorState = new P_SpinClockWorkFloorState(player, this);
         PickUpState = new P_PickUpState(player, this);
         PutDownState = new P_PutDownState(player, this);
+        RemovePartsState = new P_RemovePartsState(player, this);
         ThrowState = new P_ThrowState(player, this);
 
         GrabState = new P_GrabState(player, this);

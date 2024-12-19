@@ -28,11 +28,11 @@ public class P_PutPartsState : P_InteractionState
     public override void OnAnimationTransitionEvent()
     {
 
-        player.curCarriedObject.transform.parent = player.curTrafficLight.transform;
+        player.curCarriedObject.transform.parent = player.partOwner.PartsTransform;
         player.isSetAngleZero = true;
-        player.curTrafficLight.InsertClockWorkPiece(player.curCarriedObject.gameObject);
+        player.partOwner.InsertParts(player.curCarriedObject.gameObject);
         player.SetCarryWeight();
-        player.curCarriedObject.transform.parent = player.curTrafficLight.partsTransform;
+        player.curCarriedObject.transform.parent = player.partOwner.PartsTransform;
         player.curCarriedObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
         player.curCarriedObject.transform.DOLocalMove(Vector3.zero, 0.5f);
         player.curCarriedObject.canInteract = false;
@@ -41,7 +41,6 @@ public class P_PutPartsState : P_InteractionState
 
     public override void OnAnimationExitEvent()
     {
-        Debug.Log("나감");
         player.SetPlayerPhysicsIgnore(player.curCarriedObject.col, false);
         player.isCarryObject = false;
         player.curInteractableObject = null;
@@ -53,7 +52,7 @@ public class P_PutPartsState : P_InteractionState
 
     public override void SetDirection()
     {
-        player.curDirection = player.curTrafficLight.partsTransform.position - player.transform.position;
+        player.curDirection = player.partOwner.PartsTransform.position - player.transform.position;
     }
 
     public override void PlayerRotationControll()

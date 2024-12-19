@@ -56,6 +56,7 @@ public class PlayerAnimationData
     [SerializeField] private string pickUpParameterName = "isPickUp";
     [SerializeField] private string putDownParameterName = "isPutDown";
     [SerializeField] private string putPartsParameterName = "isPutParts";
+    [SerializeField] private string removePartsParameterName = "isRemoveParts";
     [SerializeField] private string throwParameterName = "isThrow";
 
     [Header("Interaction_Grap Group Parameter")]
@@ -105,6 +106,7 @@ public class PlayerAnimationData
     public int PickUpParameterHash { get; private set; }
     public int PutDownParameterHash { get; private set; }
     public int PutPartsParameterHash { get; private set; }
+    public int RemovePartsParameterHash { get; private set; }
     public int ThrowParameterHash { get; private set; }
 
     public int GrabParameterHash { get; private set; }
@@ -152,6 +154,7 @@ public class PlayerAnimationData
         PickUpParameterHash = Animator.StringToHash(pickUpParameterName);
         PutDownParameterHash = Animator.StringToHash(putDownParameterName);
         PutPartsParameterHash = Animator.StringToHash(putPartsParameterName);
+        RemovePartsParameterHash = Animator.StringToHash(removePartsParameterName);
         ThrowParameterHash = Animator.StringToHash(throwParameterName);
 
         GrabParameterHash = Animator.StringToHash(grabParameterName);

@@ -63,6 +63,7 @@ public class P_GroundState : PlayerMovementState
             }
             else
             {
+                bool temp = FindClosestPartsParent();
                 if (FindClosestPartsParent() && player.curCarriedObject.isParts)
                 {
                     player.isGoToTarget = true;
@@ -87,6 +88,8 @@ public class P_GroundState : PlayerMovementState
             player.isGoToTarget = false;
         }
     }
+
+   
 
     public void CheckPutDownObject()
     {
@@ -128,11 +131,16 @@ public class P_GroundState : PlayerMovementState
                     player.targetPos = player.curClockWork.transform.position + new Vector3(Mathf.Sin(angle), 0, Mathf.Cos(angle)).normalized * player.clockWorkInteractionDistance_Wall;
                 }
             }
-            else if (player.curInteractableObject.type == InteractableType.Carrried)
+            else if (player.curInteractableObject.type == InteractableType.Carrried && player.partOwner == null)
             {
                 player.curCarriedObject = player.curInteractableObject.GetComponent<CarriedObject>();
                 player.targetPos = player.curCarriedObject.transform.position + (player.transform.position - player.curCarriedObject.transform.position).normalized * player.carriedObjectInteractionDistance;
 
+            }
+            else if (player.curInteractableObject.type == InteractableType.Carrried && player.partOwner != null)
+            {
+                player.curCarriedObject = player.curInteractableObject.GetComponent<CarriedObject>();
+                player.targetPos = player.partOwner.PartsInteractTransform.position;
             }
             else if (player.curInteractableObject.type == InteractableType.Grab)
             {
@@ -160,7 +168,7 @@ public class P_GroundState : PlayerMovementState
                     else if (player.curClockWork.GetClockWorkType() == ClockWorkType.Floor)
                         machine.OnStateChange(machine.SpinClockWorkFloorState);
                 }
-                else if (player.curInteractableObject.type == InteractableType.Carrried)
+                else if (player.curInteractableObject.type == InteractableType.Carrried && player.partOwner == null)
                     machine.OnStateChange(machine.PickUpState);
                 else if (player.curInteractableObject.type == InteractableType.Grab)
                     machine.OnStateChange(machine.GrabIdleState);
@@ -170,6 +178,10 @@ public class P_GroundState : PlayerMovementState
                     player.curInteractableObject = null;
                     player.isGoToTarget = false;
                 }
+                else if (player.curInteractableObject.type == InteractableType.Carrried && player.partOwner != null)
+                {
+                    machine.OnStateChange(machine.RemovePartsState);
+                }
             }
 
             //player.closestClockWork.ChargingBattery(); // OnClockWork 함수 호출
@@ -177,11 +189,12 @@ public class P_GroundState : PlayerMovementState
         else if (!Input.GetButton("Fire1")) // 마우스를 떼면
         {
             player.curClockWork = null; // 가장 가까운 ClockWork 참조 초기화
-            player.curCarriedObject = null; // 가장 가까운 ClockWork 참조 초기화
-            player.curGrabObject = null; // 가장 가까운 ClockWork 참조 초기화
-            player.curInteractableObject = null; // 가장 가까운 ClockWork 참조 초기화
+            player.curCarriedObject = null;
+            player.curGrabObject = null;
+            player.curInteractableObject = null;
             player.isCarryObject = false;
             player.isGoToTarget = false;
+            player.partOwner = null;
         }
     }
 
@@ -199,6 +212,7 @@ public class P_GroundState : PlayerMovementState
     {
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
         player.curInteractableObject = null;
+        player.partOwner = null;
 
         player.curClockWork = null; // 이전 참조 초기화
         player.curCarriedObject = null;
@@ -213,13 +227,30 @@ public class P_GroundState : PlayerMovementState
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    player.curInteractableObject = detectedObject; // 가장 가까운 ClockWork 참조 저장
+                    player.curInteractableObject = detectedObject; 
+                }
+            }
+        }
+
+        foreach (Collider collider in hitColliders)
+        {
+            IPartOwner detectedObject = collider.GetComponent<IPartOwner>();
+            if (detectedObject != null && detectedObject.Parts != null)
+            {
+                float distance = Vector3.Distance(player.transform.position, collider.transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    player.partOwner = detectedObject;
+                    player.curInteractableObject = detectedObject.Parts.GetComponent<InteractableObject>();
                 }
             }
         }
 
         if (player.curInteractableObject != null)
         {
+            if (player.partOwner == null)
+                Debug.Log("!!!!!!!!!!");
             return true;
             // 여기에서 추가적인 로직을 구현할 수 있습니다.
         }
@@ -228,30 +259,31 @@ public class P_GroundState : PlayerMovementState
             return false;
         }
     }
+
     public bool FindClosestPartsParent()
     {
         Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
-        player.curTrafficLight = null;
+        player.partOwner = null;
 
         float closestDistance = Mathf.Infinity;
 
         foreach (Collider collider in hitColliders)
         {
-            TrafficLight detectedObject = collider.GetComponent<TrafficLight>();
-            if (detectedObject != null)
+            IPartOwner detectedObject = collider.GetComponent<IPartOwner>();
+            if (detectedObject != null && detectedObject.Parts == null)
             {
                 float distance = Vector3.Distance(player.transform.position, collider.transform.position);
                 if (distance < closestDistance)
                 {
                     closestDistance = distance;
-                    player.curTrafficLight = detectedObject; // 가장 가까운 ClockWork 참조 저장
+                    player.partOwner = detectedObject; // 가장 가까운 ClockWork 참조 저장
                 }
             }
         }
 
-        if (player.curTrafficLight != null)
+        if (player.partOwner != null)
         {
-            player.targetPos = player.curTrafficLight.partsInteractTransform.position;
+            player.targetPos = player.partOwner.PartsInteractTransform.position;
             return true;
         }
         else
@@ -259,6 +291,7 @@ public class P_GroundState : PlayerMovementState
             return false;
         }
     }
+
 
 }
 
