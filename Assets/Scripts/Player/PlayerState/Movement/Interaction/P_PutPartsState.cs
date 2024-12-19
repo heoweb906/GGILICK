@@ -28,11 +28,11 @@ public class P_PutPartsState : P_InteractionState
     public override void OnAnimationTransitionEvent()
     {
 
-        player.curCarriedObject.transform.parent = player.partOwner.PartsTransform;
+        player.curCarriedObject.transform.parent = player.partsArea.PartsTransform;
         player.isSetAngleZero = true;
-        player.partOwner.InsertParts(player.curCarriedObject.gameObject);
+        player.partsArea.InsertParts(player.curCarriedObject.gameObject);
         player.SetCarryWeight();
-        player.curCarriedObject.transform.parent = player.partOwner.PartsTransform;
+        player.curCarriedObject.transform.parent = player.partsArea.PartsTransform;
         player.curCarriedObject.transform.DOLocalRotate(Vector3.zero, 0.5f);
         player.curCarriedObject.transform.DOLocalMove(Vector3.zero, 0.5f);
         player.curCarriedObject.canInteract = false;
@@ -52,7 +52,7 @@ public class P_PutPartsState : P_InteractionState
 
     public override void SetDirection()
     {
-        player.curDirection = player.partOwner.PartsTransform.position - player.transform.position;
+        player.curDirection = player.partsArea.PartsTransform.position - player.transform.position;
     }
 
     public override void PlayerRotationControll()

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SoundBlockMachine : ClockBattery
+public class SoundBlockMachine : ClockBattery, IPartsOwner
 {
     private Coroutine nowCoroutine;
 
@@ -11,18 +11,6 @@ public class SoundBlockMachine : ClockBattery
     public SoundPiece[] soundPieces = new SoundPiece[4];
     public int[] iCorrectArray;
     private bool bScanFail;
-
-    [Header("PartOwner 관련")]
-    public SoundBlockMachine_PartOwner[] partOwners;
-
-
-
-
-
-    private void Awake()
-    {
-        foreach (var partOwner in partOwners) partOwner.SoundBlockMachine_ = this;
-    }
 
 
     public override void TrunOnObj()
@@ -92,6 +80,11 @@ public class SoundBlockMachine : ClockBattery
 
 
 
+
+
+
+
+
     // #. 연주에 성공했을 때 실행시킬 함수
     private void SuccesPlayAction()
     {
@@ -110,22 +103,37 @@ public class SoundBlockMachine : ClockBattery
     // 리스트 관련 함수 모음
     #region
 
-    public void AddSoundPiece(GameObject soundPieceObj, int index)
+    //public void AddSoundPiece(GameObject soundPieceObj, int index)
+    //{
+    //    SoundPiece soundPiece = soundPieceObj.GetComponent<SoundPiece>();
+    //    soundPieces[index] = soundPiece;
+    //}
+    //public void RemoveSoundPiece(int index)
+    //{
+    //    soundPieces[index] = null;
+    //}
+
+
+    public void InsertOwnerFunc(GameObject soundPieceObj, int index)
     {
         SoundPiece soundPiece = soundPieceObj.GetComponent<SoundPiece>();
         soundPieces[index] = soundPiece;
     }
-    public void RemoveSoundPiece(int index)
+
+    public void RemoveOwnerFunc(int index)
     {
         soundPieces[index] = null;
     }
+
+
+
     #endregion
 
 
 
 
 
-    
+
 
 
 

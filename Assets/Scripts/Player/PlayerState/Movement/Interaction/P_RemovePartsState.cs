@@ -30,7 +30,7 @@ public class P_RemovePartsState : P_InteractionState
 
     public override void SetDirection()
     {
-        player.curDirection = player.partOwner.PartsTransform.position - player.transform.position;
+        player.curDirection = player.partsArea.PartsTransform.position - player.transform.position;
     }
 
     public override void OnAnimationTransitionEvent()
@@ -50,7 +50,7 @@ public class P_RemovePartsState : P_InteractionState
         moveSequence.Join(player.curCarriedObject.transform.DOLocalMove(targetPosition, 0.5f));
         moveSequence.Join(player.curCarriedObject.transform.DORotate(targetRotation.eulerAngles, 0.5f));
 
-        player.partOwner.RemoveParts();
+        player.partsArea.RemoveParts();
 
         player.isHandIK = true;
     }

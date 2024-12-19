@@ -2,38 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundBlockMachine_PartOwner : MonoBehaviour, IPartOwner
+public class SoundBlockMachine_PartOwner : PartsArea
 {
-    public Transform partsTransform;
-    public Transform partsInteractTransform;
+
     public int iIndex;
-    public SoundBlockMachine SoundBlockMachine_ { get; set; }
+    public SoundBlockMachine SoundBlockMachine_;
 
 
-    // #. 인터페이스 구현 부분
-    public GameObject Parts { get; set; }
-    public Transform PartsTransform { get; set; }
-    public Transform PartsInteractTransform { get; set; }
 
-    private void Awake()
-    {
-        PartsTransform = partsTransform;
-        PartsInteractTransform = partsInteractTransform;
-    }
 
-    public void InsertParts(GameObject partsObj)
-    {
-        Parts = partsObj;
+    //public override void InsertParts(GameObject partsObj)
+    //{
+    //    base.InsertParts(partsObj);
 
-        SoundBlockMachine_.AddSoundPiece(partsObj, iIndex);
-    }
+    //    SoundBlockMachine_.AddSoundPiece(partsObj, iIndex);
+    //}
 
-    public void RemoveParts() 
-    {
-        Parts = null;
+    //public override void RemoveParts() 
+    //{
+    //    base.RemoveParts();
 
-        SoundBlockMachine_.RemoveSoundPiece(iIndex);
-    }
+    //    SoundBlockMachine_.RemoveSoundPiece(iIndex);
+    //}
 
 
 

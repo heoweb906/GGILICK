@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class CarriedObject : InteractableObject
 {
+    public PartOwnerType partOwnerType = PartOwnerType.Nothing;
+
     public Rigidbody rigid;
     public Collider col;
 
