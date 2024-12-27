@@ -13,16 +13,16 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
     private bool bScanFail;
 
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
 
         RotateObject((int)fCurClockBattery);
         nowCoroutine = StartCoroutine(PlayPitchSoundsCoroutine());
     }
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
 
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
 
@@ -62,7 +62,7 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
                 if (iCurBattery <= 0)
                 {
                     fCurClockBattery = 0;
-                    TrunOffObj();
+                    TurnOffObj();
                     yield break; // 코루틴 종료
                 }
 
@@ -70,7 +70,7 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
             }
 
 
-            TrunOffObj();
+            TurnOffObj();
             yield break; // 모든 작업이 완료되면 코루틴 종료
         }
 
@@ -100,19 +100,8 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 
 
 
-    // 리스트 관련 함수 모음
+    // #. IPartOwner 인터페이스
     #region
-
-    //public void AddSoundPiece(GameObject soundPieceObj, int index)
-    //{
-    //    SoundPiece soundPiece = soundPieceObj.GetComponent<SoundPiece>();
-    //    soundPieces[index] = soundPiece;
-    //}
-    //public void RemoveSoundPiece(int index)
-    //{
-    //    soundPieces[index] = null;
-    //}
-
 
     public void InsertOwnerFunc(GameObject soundPieceObj, int index)
     {

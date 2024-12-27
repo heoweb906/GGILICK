@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using UnityEngine.UIElements;
 
-public class TrafficLight : ClockBattery
+public class TrafficLight : ClockBattery, IPartsOwner
 {
     [Header("실제 신호등 작동 관리")]
     [SerializeField] private bool bTrafficLightOnOff; // 현재 신호등의 상태
@@ -79,9 +79,9 @@ public class TrafficLight : ClockBattery
 
 
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
         RotateObject((int)fCurClockBattery + 2);
 
         if(bInClockWork)
@@ -96,9 +96,9 @@ public class TrafficLight : ClockBattery
         nowCoroutine = StartCoroutine(ChangeToYellowAndRed());
     }
 
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
 
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
         ChangeTrafficColor(2);
@@ -125,12 +125,12 @@ public class TrafficLight : ClockBattery
                 yield return null;
             }
 
-            TrunOffObj();
+            TurnOffObj();
         }
         else
         {
             yield return new WaitForSeconds(4.1f);
-            TrunOffObj();
+            TurnOffObj();
         }
 
            
@@ -211,10 +211,12 @@ public class TrafficLight : ClockBattery
 
 
 
+  
+
 
 
     // #. 태엽을 꽂아서 넣어주는 함수
-    public void InsertClockWorkPiece(GameObject clockWorkObj)
+    public void InsertOwnerFunc(GameObject clockWorkObj,int iIndex)
     {
         TrafficClockWorkAssist assist = clockWorkObj.GetComponent<TrafficClockWorkAssist>();
         trafficClockWorkAssists.Add(assist);  
@@ -232,5 +234,12 @@ public class TrafficLight : ClockBattery
  
         bInClockWork = true;
     }
+
+    public void RemoveOwnerFunc(int iIndex)
+    {
+
+    }
+
+   
 
 }

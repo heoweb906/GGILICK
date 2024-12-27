@@ -18,18 +18,18 @@ public class ParkingCar : ClockBattery
     private Coroutine nowCoroutine;
 
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
 
         bIsMove = true;
 
         RotateObject((int)fCurClockBattery);
         nowCoroutine = StartCoroutine(MoveForwardWithAcceleration());
     }
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
 
         Debug.Log("실행");
 
@@ -79,7 +79,7 @@ public class ParkingCar : ClockBattery
         }
 
 
-        TrunOffObj();
+        TurnOffObj();
     }
 
 
@@ -89,7 +89,7 @@ public class ParkingCar : ClockBattery
         if(other.GetComponent<ParkingCar>() != null && bIsMove)
         {
             Debug.Log("충돌!!!");
-            TrunOffObj();
+            TurnOffObj();
         }
     }
 

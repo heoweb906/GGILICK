@@ -14,7 +14,7 @@ public class ClockBattery : MonoBehaviour
     public bool bDoing;
     public bool bBatteryFull;
 
-    public virtual void TrunOnObj()
+    public virtual void TurnOnObj()
     {
         Debug.Log("작동 시작");
 
@@ -23,7 +23,7 @@ public class ClockBattery : MonoBehaviour
     }
 
 
-    public virtual void TrunOffObj()
+    public virtual void TurnOffObj()
     {
         Debug.Log("작동 끝");
 
