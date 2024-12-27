@@ -14,9 +14,9 @@ public class Elevator : ClockBattery
     public float shakeDuration;             // 떨림 애니메이션 지속 시간
     public float shakeStrength;             // 떨림 강도
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
 
         if (fCurClockBattery < 4f) StartCoroutine(JustCloseDoors());
         else StartCoroutine(OpenAndCloseDoors());
@@ -41,7 +41,7 @@ public class Elevator : ClockBattery
         elevaDoor.leftDoor.transform.DOMove(elevaDoor.originalPosition_LeftDoor, doorMoveDuration_first).SetEase(Ease.OutCubic);
         elevaDoor.rightDoor.transform.DOMove(elevaDoor.originalPosition_RightDoor, doorMoveDuration_first).SetEase(Ease.OutCubic);
 
-        TrunOffObj();
+        TurnOffObj();
     }
 
 
@@ -101,15 +101,15 @@ public class Elevator : ClockBattery
             yield return null;
         }
 
-        TrunOffObj();
+        TurnOffObj();
 
     }
 
 
 
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
     }
 
 

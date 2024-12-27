@@ -7,17 +7,17 @@ public class TestObject_Clock : ClockBattery
 {
     Coroutine nowCoroutine;
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
 
         nowCoroutine = StartCoroutine(MoveForwardWithAcceleration());
         RotateObject((int)fCurClockBattery);
     }
 
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
     }
 
 
@@ -31,7 +31,7 @@ public class TestObject_Clock : ClockBattery
             yield return null;
         }
 
-        TrunOffObj();
+        TurnOffObj();
     }
 
 }

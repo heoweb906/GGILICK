@@ -15,16 +15,16 @@ public class Toy_Train : ClockBattery
         rb = GetComponent<Rigidbody>();
     }
 
-    public override void TrunOnObj()
+    public override void TurnOnObj()
     {
-        base.TrunOnObj();
+        base.TurnOnObj();
 
         RotateObject((int)fCurClockBattery);
         nowCoroutine = StartCoroutine(MoveForward());
     }
-    public override void TrunOffObj()
+    public override void TurnOffObj()
     {
-        base.TrunOffObj();
+        base.TurnOffObj();
     }
 
 
@@ -45,7 +45,7 @@ public class Toy_Train : ClockBattery
             yield return null;
         }
 
-        TrunOffObj();
+        TurnOffObj();
 
 
     }

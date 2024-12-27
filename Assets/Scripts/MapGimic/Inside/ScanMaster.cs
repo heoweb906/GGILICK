@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -12,10 +13,15 @@ public enum ColorType
 
 public class ScanMaster : MonoBehaviour
 {
+    [Header("스탠 기능 관련")]
     public ColorType[] ColorCorrects;       // ScanMaster의 정답 컬러
     public Scanner[] scanners;              // 각 스테이지의 Scanner 
     public ScanMaster_ClockWork clockWork;  // ScanMaster 전용 ClockWork
 
+    [Header("MasterObj 관련")]
+    public GameObject masterObject;         // 스캔에 성공하면 획득할 수 있는 오브젝트
+    public Transform transformMasterObj;    // 마스터 오브젝트 생성 위치
+        
 
     // 테스트로 사용할 이미지
     public GameObject[] testFaces;
@@ -35,14 +41,12 @@ public class ScanMaster : MonoBehaviour
             Scan_Success();
             yield break;
         }
-        else if (!BoolCheckObjOnScanner())
+        else
         {
             Scan_Fail();
         }
-            
-       
-        yield return new WaitForSeconds(1f);
 
+        yield return new WaitForSeconds(1f);
 
         Scan_Reset();
     }
@@ -71,8 +75,6 @@ public class ScanMaster : MonoBehaviour
                     }
                 }
             }
-
-
             if (!matchFound) return false;
         }
 
@@ -80,18 +82,44 @@ public class ScanMaster : MonoBehaviour
     }
 
 
+
     // #. 스캔 성공!
     private void Scan_Success()
     {
+        GameObject spawnedObject = Instantiate(masterObject, transformMasterObj.position, Quaternion.identity);
+
+        // Collider와 Rigidbody 참조
+        Collider objCollider = spawnedObject.GetComponent<Collider>();
+        Rigidbody objRigidbody = spawnedObject.GetComponent<Rigidbody>();
+
+        // 초기 위치를 바닥으로 설정 (Y축으로 -2만큼 아래로)
+        Vector3 startPosition = transformMasterObj.position;
+        startPosition.y -= 2f;
+        spawnedObject.transform.position = startPosition;
+
+        // Collider 및 Rigidbody 비활성화
+        if (objCollider != null) objCollider.enabled = false;
+        if (objRigidbody != null) objRigidbody.isKinematic = true;
+
+        // DOTween으로 부드럽게 올라오는 애니메이션
+        spawnedObject.transform.DOMoveY(transformMasterObj.position.y, 1f)
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                // 애니메이션 완료 후 Collider 및 Rigidbody 활성화
+                if (objCollider != null) objCollider.enabled = true;
+                if (objRigidbody != null) objRigidbody.isKinematic = false;
+            });
+
+        // 추가 기능들
         testFaces[0].SetActive(true);
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(false);
 
-
-        for(int i = 0; i < scanners.Length; i++)
+        for (int i = 0; i < scanners.Length; i++)
         {
             scanners[i].ThrowOtherColorObj(ColorCorrects[i]);
-        }  
+        }
     }
     // #. 스캔 실패 ㅠㅠ
     private void Scan_Fail()
@@ -100,8 +128,7 @@ public class ScanMaster : MonoBehaviour
         testFaces[1].SetActive(false);
         testFaces[2].SetActive(true);
 
-
-        for (int i = 0; i < scanners.Length; i++)
+        for (int i = 0; i < scanners.Length; i++) 
         {
             scanners[i].ThrowOtherColorObj(ColorCorrects[i]);
         }
@@ -109,11 +136,23 @@ public class ScanMaster : MonoBehaviour
     // #. 스캐너 초기 상태로 돌리기
     private void Scan_Reset()
     {
+
+
+
+
+        clockWork.canInteract = true;
+
+
+
+
+
+
+        // #. 테스트용 함수
         testFaces[0].SetActive(false);
         testFaces[1].SetActive(true);
         testFaces[2].SetActive(false);
 
-        clockWork.canInteract = true;
+        
     }
 
 

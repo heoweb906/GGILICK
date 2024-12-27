@@ -42,7 +42,7 @@ public class ClockWork : InteractableObject
         if (!canInteract)
         {
             //Debug.Log("태엽 -> 배터리 가동");
-            clockBattery.TrunOnObj();
+            clockBattery.TurnOnObj();
         }
     }
 
