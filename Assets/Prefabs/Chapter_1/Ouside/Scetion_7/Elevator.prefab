@@ -392,6 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
   elevator: {fileID: 724149070985410536}
 --- !u!1 &3249074708474428129
 GameObject:
@@ -545,7 +546,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd27d8b177a9a954a853453b52d358a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clockWork: {fileID: 0}
+  clockWork: {fileID: 5871413671880429212}
   fMaxClockBattery: 10
   fCurClockBattery: 0
   fLowClockBatteryPoint: 0
@@ -708,9 +709,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
+  isParts: 0
   clockBattery: {fileID: 724149070985410536}
   clockWorkType: 1
+  plusClockWorksList: []
 --- !u!1 &7149335045827573539
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class CineCameraChager : MonoBehaviour
 {
+    public bool bNotChangeSpawnPoint;           // 스폰 포인트를 변경하지 않으면 true
     public bool bTriggerOff;
 
     public GameObject TargetCamera;

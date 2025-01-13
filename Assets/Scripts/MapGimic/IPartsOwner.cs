@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface IPartsOwner
 {
-    void InsertOwnerFunc(GameObject pats, int iIndex = 0);
+    void InsertOwnerFunc(GameObject parts, int iIndex = 0);
     void RemoveOwnerFunc(int iIndex = 0);
 }

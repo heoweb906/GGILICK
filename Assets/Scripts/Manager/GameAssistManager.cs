@@ -21,16 +21,24 @@ public class GameAssistManager : MonoBehaviour
     public GameObject[] Cameras;
     private bool bPlayerDie;   // 현재 플레이어가 죽음 상태 -> 죽음 반복 방지
 
-    [Header("연출 관련")]
-    private Volume volume;
-    private Vignette vignette;
-    private ColorAdjustments colorAdjustments;
+    [Header("연출 관련 내면 세계 진입")]
+    public GameObject CameraOverlay;
+    public Volume volume_1;
+    public Volume volume_2;
+
+    private Vignette vignette_1;
+    private ColorAdjustments colorAdjustments_1;
+    private DepthOfField depthOfField_1;
+    private Bloom bloom_1;
+    private ShadowsMidtonesHighlights midtonesHighlights_1;
+    private WhiteBalance whiteBalance_1;
+
 
     private void Awake()
     {
         Instance = this; // 인스턴스 생성
         bPlayerDie = false;
-
+        
         Debug.Log(bPlayerDie);
 
         player = FindPlayerRoot();
@@ -46,10 +54,17 @@ public class GameAssistManager : MonoBehaviour
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
 
         // #. Volume 관리
-        volume = FindObjectOfType<Volume>();
+        if (volume_1 == null) Debug.Log("Volume이 비어있습니다.");
+  
 
-        volume.profile.TryGet(out vignette);
-        volume.profile.TryGet(out colorAdjustments);
+        volume_1.profile.TryGet(out vignette_1);
+        volume_1.profile.TryGet(out colorAdjustments_1);
+        volume_1.profile.TryGet(out depthOfField_1);
+        volume_1.profile.TryGet(out midtonesHighlights_1);
+        volume_1.profile.TryGet(out bloom_1);
+        volume_1.profile.TryGet(out whiteBalance_1);
+
+
     }
 
 
@@ -145,28 +160,69 @@ public class GameAssistManager : MonoBehaviour
 
 
 
- 
+
 
     // #. 내부 진입 
     public void FadeOutInEffect(float fStartImte = 3.0f, float fEndTime = 3.0f)
     {
-        if (vignette == null || colorAdjustments == null) return;
+        if (vignette_1 == null || colorAdjustments_1 == null) return;
+        // if (vignette_2 == null || colorAdjustments_2 == null) return;
 
-        // 플레이어 위치를 화면 좌표로 변환, Vignette의 중심으로 함
-        Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
-        DOTween.To(() => vignette.center.value, x => vignette.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
-
-        // 1. 연출 진입
-        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, fStartImte);
-        DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, -10f, fStartImte * 1.2f);
-      
-
-        // 2. 연출 아웃
-        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, fStartImte)
-            .SetDelay(fEndTime);
-        DOTween.To(() => colorAdjustments.postExposure.value, x => colorAdjustments.postExposure.value = x, 0f, fStartImte * 1.2f)
-            .SetDelay(fEndTime);
+       
+       
+        StartCoroutine(FadeOutInEffect_(fStartImte, fEndTime));
+       
     }
+
+
+    IEnumerator FadeOutInEffect_(float fStartImte = 3.0f, float fEndTime = 3.0f)
+    {
+        CameraOverlay.SetActive(true);
+        colorAdjustments_1.postExposure.value = 0f;
+        colorAdjustments_1.contrast.value = 0f;
+        colorAdjustments_1.colorFilter.value = Color.white;
+        colorAdjustments_1.saturation.value = 0f;
+        depthOfField_1.active = false;
+        bloom_1.active = false;
+        midtonesHighlights_1.active = false;
+        whiteBalance_1.active = false;
+
+
+
+
+        Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
+        DOTween.To(() => vignette_1.center.value, x => vignette_1.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
+        DOTween.To(() => vignette_1.intensity.value, x => vignette_1.intensity.value = x, 1f, 2f).SetEase(Ease.InOutQuad);
+
+        DOTween.To(() => colorAdjustments_1.postExposure.value, x => colorAdjustments_1.postExposure.value = x, -10f, 2f).SetEase(Ease.InOutQuad);
+
+
+        yield return new WaitForSeconds(fStartImte);
+
+
+        DOTween.To(() => vignette_1.center.value, x => vignette_1.center.value = x, new Vector2(0.5f, 0.05f), 0f);
+        DOTween.To(() => vignette_1.intensity.value, x => vignette_1.intensity.value = x, 0.155f, fStartImte).SetEase(Ease.InOutQuad);
+
+        DOTween.To(() => colorAdjustments_1.postExposure.value, x => colorAdjustments_1.postExposure.value = x, 0f, fStartImte).SetEase(Ease.InOutQuad);
+
+
+        yield return new WaitForSeconds(fStartImte);
+
+        CameraOverlay.SetActive(false);
+        colorAdjustments_1.postExposure.value = -0.46f;
+        colorAdjustments_1.contrast.value = 38f;
+        colorAdjustments_1.colorFilter.value = new Color(0.737f, 0.71f, 0.71f);
+        colorAdjustments_1.saturation.value = -14f;
+        depthOfField_1.active = true;
+        bloom_1.active = true;
+        midtonesHighlights_1.active = true;
+        whiteBalance_1.active = true;
+
+    }
+
+
+
+
 
 
 

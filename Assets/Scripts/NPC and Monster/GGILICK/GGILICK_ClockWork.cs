@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GGILICK_ClockWork : InteractableObject
 {
-    public GameObject playerCameraAssist;
     public CineCameraChager cineChager;
     public GameObject map_OutSide;
     public GameObject map_InSide;
@@ -20,7 +19,6 @@ public class GGILICK_ClockWork : InteractableObject
     public override void ActiveEvent()
     {
         canInteract = false;
-        playerCameraAssist.SetActive(true);
         GameAssistManager.Instance.FadeOutInEffect(4.5f, 4.5f);
 
         GameAssistManager.Instance.StartCoroutine(ChangeMap());
@@ -60,8 +58,6 @@ public class GGILICK_ClockWork : InteractableObject
         
 
         InsideAssist_GGILICK.Instance.bCarCreating = true;
-
-        playerCameraAssist.SetActive(false); // 오버레이용 카메라 OFF
     }
 
 

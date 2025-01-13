@@ -18,6 +18,7 @@ public class Elevator : ClockBattery
     {
         base.TurnOnObj();
 
+        RotateObject((int)fCurClockBattery);
         if (fCurClockBattery < 4f) StartCoroutine(JustCloseDoors());
         else StartCoroutine(OpenAndCloseDoors());
     }

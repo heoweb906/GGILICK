@@ -18,7 +18,7 @@ public class GamePositionChanger : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("DolDolE");
+        player = GameObject.Find("MainCharacter");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -28,15 +28,15 @@ public class GamePositionChanger : MonoBehaviour
             if(sChangeSceneName != "NULL") InGameUIController.Instance.ChangeScene(sChangeSceneName);
             else
             {
-                if(cienCamareChager != null && targetPosition != null) ChangePosition();
+                if(cienCamareChager != null && targetPosition != null) JustChangePosition();
             }
         }
     }
 
-    private void ChangePosition()
+    // #. Scene은 변경하지 않고 위치만 변경
+    private void JustChangePosition() 
     {
         StartCoroutine(ChangePosition_());
-        
     }
     private IEnumerator ChangePosition_()
     {

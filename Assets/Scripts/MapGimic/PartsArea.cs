@@ -5,8 +5,9 @@ using UnityEngine;
 public enum PartOwnerType
 {
     Nothing,
-    TrafficLightClockWork,
-    SoundPiece
+    TrafficLightClockWork,      // 신호등 
+    SoundPiece,                 // 사운드 블록
+    ToyTruckClockWork           // 장난감 트럭에 장착할 태엽 
 }
 
 public class PartsArea : MonoBehaviour
@@ -18,34 +19,40 @@ public class PartsArea : MonoBehaviour
     public int iIndex;
 
     public PartOwnerType PartOwnertype;              // 파츠 타입 구분
-    public GameObject partsOwnerObject;
+    public GameObject[] partsOwnerObjects;
     private IPartsOwner partsOwner;
 
     private void Awake()
     {
         BCanInteract = true;
-
-        if (partsOwnerObject != null) partsOwner = partsOwnerObject.GetComponent<IPartsOwner>();
-        else Debug.Log("여기 비었다 채워라");
-
     }
 
     // #. 파츠를 장착했을 때 실행시키는 함수
-    public virtual void InsertParts(GameObject partsObj) 
+    public virtual void InsertParts(GameObject partsObj)
     {
         OffCanInteract();
         Parts = partsObj;
 
-        partsOwner.InsertOwnerFunc(partsObj, iIndex);
+
+        foreach (var owner in partsOwnerObjects)
+        {
+            partsOwner = owner.GetComponent<IPartsOwner>();
+            if (partsOwner != null) partsOwner.InsertOwnerFunc(partsObj, iIndex);
+        }
     }
 
     // #. 파츠를 제거했을 때 실행시키는 함수
-    public virtual void RemoveParts() 
+    public virtual void RemoveParts()
     {
         OffCanInteract();
         Parts = null;
 
-        partsOwner.RemoveOwnerFunc(iIndex);
+
+        foreach (var owner in partsOwnerObjects)
+        {
+            partsOwner = owner.GetComponent<IPartsOwner>();
+            if (partsOwner != null) partsOwner.RemoveOwnerFunc(iIndex);
+        }
     }
 
 
