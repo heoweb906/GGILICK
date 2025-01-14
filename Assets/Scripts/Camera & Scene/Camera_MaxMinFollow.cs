@@ -11,9 +11,12 @@ public class Camera_MaxMinFollow : CameraObj
     public Vector3 maxPosition; // 카메라의 최대 위치 제한
     public Vector3 minPosition; // 카메라의 최소 위치 제한
 
-    private void Start()
+    private void Awake()
     {
         player = GameAssistManager.Instance.player.transform;
+
+        Quaternion targetRotation = Quaternion.Euler(rotationOffset);
+        transform.rotation = targetRotation;
         //GameObject.FindWithTag("Player").transform;
     }
 
@@ -32,7 +35,7 @@ public class Camera_MaxMinFollow : CameraObj
         transform.position = smoothedPosition;
 
         // 카메라의 회전 설정
-        Quaternion targetRotation = Quaternion.Euler(rotationOffset);
-        transform.rotation = targetRotation;
+        //Quaternion targetRotation = Quaternion.Euler(rotationOffset);
+        //transform.rotation = targetRotation;
     }
 }
