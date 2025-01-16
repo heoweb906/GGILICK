@@ -9,6 +9,7 @@ public class P_UC_Idle : P_UnControllable
     {
         base.OnEnter();
         machine.StartAnimation(player.playerAnimationData.UC_IdleParameterHash);
+        ;
     }
 
     public override void OnExit()
