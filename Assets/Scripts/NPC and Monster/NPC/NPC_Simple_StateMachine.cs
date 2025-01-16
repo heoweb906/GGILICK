@@ -18,6 +18,7 @@ public class NPC_Simple_StateMachine : StateMachine
     public NPC_Simple_ActionEvent ActionEventState { get; private set; }
 
     public NPC_Simple_ActionEventSpinTaeYub SpinTaeYubState { get; private set; }
+    public NPC_Simple_Action_TextingSmartPhone TextingSmartPhoneState { get; private set; }
 
 
 
@@ -33,8 +34,10 @@ public class NPC_Simple_StateMachine : StateMachine
         WalkState = new NPC_Simple_WalkState(npc, this);
         GrappedState = new NPC_Simple_GrappedState(npc, this);
         ThankState = new NPC_Simple_ReactionThankState(npc, this);
+
         ActionEventState = new NPC_Simple_ActionEvent(npc, this);
         SpinTaeYubState = new NPC_Simple_ActionEventSpinTaeYub(npc, this);
+        TextingSmartPhoneState = new NPC_Simple_Action_TextingSmartPhone(npc, this);
 
 
         CurrentState = npc.bWalking ?  WalkState : IDLEState;

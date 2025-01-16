@@ -8,6 +8,8 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Unity.VisualScripting;
+using JetBrains.Annotations;
 
 public class GameAssistManager : MonoBehaviour
 {
@@ -24,7 +26,6 @@ public class GameAssistManager : MonoBehaviour
     [Header("연출 관련 내면 세계 진입")]
     public GameObject CameraOverlay;
     public Volume volume_1;
-    public Volume volume_2;
 
     private Vignette vignette_1;
     private ColorAdjustments colorAdjustments_1;
@@ -168,13 +169,9 @@ public class GameAssistManager : MonoBehaviour
         if (vignette_1 == null || colorAdjustments_1 == null) return;
         // if (vignette_2 == null || colorAdjustments_2 == null) return;
 
-       
-       
+     
         StartCoroutine(FadeOutInEffect_(fStartImte, fEndTime));
-       
     }
-
-
     IEnumerator FadeOutInEffect_(float fStartImte = 3.0f, float fEndTime = 3.0f)
     {
         CameraOverlay.SetActive(true);
@@ -235,6 +232,9 @@ public class GameAssistManager : MonoBehaviour
 
 
 
+    // 플레이어 관련
+    #region
+
 
 
     // #. Player 태그가 붙은 오브젝트 중에 가장 부모 오브젝트를 찾아오는 함수
@@ -253,5 +253,28 @@ public class GameAssistManager : MonoBehaviour
     {
         return bPlayerDie;
     }
+
+
+
+    public void PlayerInputLockOn()
+    {
+        Player playerScript = player.GetComponent<Player>();
+        if (playerScript == null) return;
+
+        playerScript.machine.OnStateChange(playerScript.machine.UC_IdleState);
+    }
+
+
+    public void PlayerInputLockOff()
+    {
+        Player playerScript = player.GetComponent<Player>();
+        if (playerScript == null) return;
+
+        playerScript.machine.OnStateChange(playerScript.machine.IdleState);
+    }
+
+
+
+    #endregion
 
 }

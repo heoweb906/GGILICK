@@ -15,8 +15,9 @@ public enum ClockWorkEventList
 // #. 평소에 취하고 있을 액션
 public enum ActionEventList
 { 
-    None,            // Num 0, IDLE or WALK;
-    WorkInCompany    // Num 1;
+    None,               // Num 0, IDLE or WALK;
+    WorkInCompany,      // Num 1;
+    TextingSmartPhone   // Num 2
 }
 
 

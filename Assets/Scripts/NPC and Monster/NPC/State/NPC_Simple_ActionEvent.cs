@@ -18,12 +18,17 @@ public class NPC_Simple_ActionEvent : NPC_Simple_State
             case 0:
                 machine.OnStateChange(machine.IDLEState);
                 break;
+
             case 1:
                 machine.OnStateChange(machine.SpinTaeYubState);
                 break;
 
-            default:
+            case 2: 
+                machine.OnStateChange(machine.TextingSmartPhoneState);
                 break;
+
+            default:
+                break; 
 
         }
     }

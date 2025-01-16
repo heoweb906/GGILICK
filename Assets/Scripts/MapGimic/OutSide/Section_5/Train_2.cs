@@ -13,6 +13,10 @@ public class Train_2 : MonoBehaviour
     public TrainDoor[] trainDoors;
     public GameObject[] crowds;
 
+    [Header("지하철 바닥 활성화 여부 관리")]
+    public GameObject Floor;
+    public GameObject Wall;
+
     public void StartTrain()
     {
         StartCoroutine(StartTrainJourney());
@@ -39,10 +43,14 @@ public class Train_2 : MonoBehaviour
         yield return new WaitForSeconds(travelDuration);
 
 
-        // 문을 엽니다
+        // 문을 엽니다.
         GameAssistManager.Instance.player.transform.SetParent(null);
         foreach (TrainDoor traindoor in trainDoors)
             traindoor.StartOpen();
+
+        GameAssistManager.Instance.PlayerInputLockOff();
+        Floor.SetActive(true);
+        Wall.SetActive(false);
 
     }
 }

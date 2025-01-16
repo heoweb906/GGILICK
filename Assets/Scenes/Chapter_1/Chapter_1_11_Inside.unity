@@ -4100,6 +4100,9 @@ MonoBehaviour:
   - {fileID: 277433323}
   Cameras:
   - {fileID: 284461752}
+  CameraOverlay: {fileID: 109322032}
+  volume_1: {fileID: 1318685606}
+  volume_2: {fileID: 0}
 --- !u!4 &599544775
 Transform:
   m_ObjectHideFlags: 0
