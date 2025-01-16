@@ -213,8 +213,6 @@ public class TrafficLight : ClockBattery, IPartsOwner
 
   
 
-
-
     // #. 태엽을 꽂아서 넣어주는 함수
     public void InsertOwnerFunc(GameObject clockWorkObj,int iIndex)
     {

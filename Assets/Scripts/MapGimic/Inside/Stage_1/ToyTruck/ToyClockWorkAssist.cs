@@ -4,26 +4,21 @@ using UnityEngine;
 
 public class ToyClockWorkAssist : MonoBehaviour, IPartsOwner
 {
-    // 0 = Carried , 1 = ClockWork
-    private BoxCollider boxColliders;       
-    private CarriedObject carriedObject;
-    private ClockWork clockWork;
-
-    private void Awake()
-    {
-        boxColliders = GetComponent<BoxCollider>();
-        carriedObject = GetComponent<CarriedObject>();
-        clockWork = GetComponent<ClockWork>();
-    }
-
+    public GameObject TruckClockWork;   // 활성화 할 트럭 태엽
 
     public void InsertOwnerFunc(GameObject soundPieceObj, int index)
     {
-        boxColliders.size = new Vector3(0.6f, 0.37f, 0.5f);
-
-        Destroy(carriedObject, 1.1f);
-        clockWork.enabled = true;
+        // 잠시 뒤에 ClockWork 오브젝트로 바꿔버림
+        StartCoroutine(ChangeLayerWithDelay(1.1f));
     }
+    private IEnumerator ChangeLayerWithDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        TruckClockWork.SetActive(true);
+        Destroy(gameObject);
+    }
+
+
 
     public void RemoveOwnerFunc(int index)
     {

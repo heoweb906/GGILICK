@@ -39,7 +39,6 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
     // #. 악기 작동
     private IEnumerator PlayPitchSoundsCoroutine()
     {
-        int iCurBattery = (int)fCurClockBattery;
         bScanFail = false;
 
         while (fCurClockBattery > 0)
@@ -57,16 +56,16 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
                     SoundAssistManager.Instance.GetSFXAudioBlock("POP Brust 08", gameObject.transform);
                 }
 
+                yield return new WaitForSecondsRealtime(1.0f);
+
                 // 배터리 감소
-                iCurBattery -= 1;
-                if (iCurBattery <= 0)
+                fCurClockBattery -= 1;
+                if (fCurClockBattery <= 0)
                 {
                     fCurClockBattery = 0;
                     TurnOffObj();
                     yield break; // 코루틴 종료
                 }
-
-                yield return new WaitForSecondsRealtime(1.0f);
             }
 
 
