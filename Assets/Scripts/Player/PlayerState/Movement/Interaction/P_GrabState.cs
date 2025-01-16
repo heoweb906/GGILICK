@@ -45,9 +45,6 @@ public class P_GrabState : P_InteractionState
             // 이동하려는 방향
             Vector3 moveDirection = player.curDirection.normalized;
             
-            // 디버그용 로그 추가
-            Debug.Log($"toObject: {toObject}, moveDirection: {moveDirection}, dot: {Vector3.Dot(toObject, moveDirection)}");
-            
             float dotProduct = Vector3.Dot(toObject, moveDirection);
             
             if (dotProduct > 0) // 물체 방향으로 이동 = 밀기
