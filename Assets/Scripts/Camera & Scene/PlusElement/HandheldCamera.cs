@@ -7,11 +7,17 @@ public class HandheldCamera : MonoBehaviour
     public float rotationSpeed; // Rotation speed
 
     private Quaternion originalRotation;
+    private Camera_PlayerFollow camera_PlayerFollow;
+    private Camera_MaxMinFollow camera_MaxMinFollow; 
 
     private void Start()
     {
+        camera_PlayerFollow = GetComponent<Camera_PlayerFollow>();
+        camera_MaxMinFollow = GetComponent<Camera_MaxMinFollow>();
         // 초기 로테이션 저장
-        originalRotation = transform.localRotation;
+
+        if(camera_PlayerFollow != null) originalRotation = Quaternion.Euler(camera_PlayerFollow.rotationOffset);
+        else if(camera_MaxMinFollow != null) originalRotation = Quaternion.Euler(camera_MaxMinFollow.rotationOffset);
     }
 
     void FixedUpdate()

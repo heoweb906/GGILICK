@@ -6,12 +6,10 @@ using DG.Tweening;
 
 public class MovingPlatform : MonoBehaviour
 {
-    
     private Vector3 prePosition;
     private Vector3 curPosition;
 
-   
-
+  
     private void FixedUpdate()
     {
         prePosition = curPosition;
