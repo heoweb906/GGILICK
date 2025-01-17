@@ -8,6 +8,11 @@ public class StampMacine : ClockBattery, IPartsOwner
 {
     private Coroutine nowCoroutine;
 
+    [Header("서류 오브젝트")]
+    public GameObject obj_Document;         // 커다랑 상태의 서류
+    public GameObject obj_SmallDocument;    // 생성할 ColorObj
+    public Transform transform_CreateDocument;
+
     [Header("스탬프 정보")]
     private int iStampNum = 0;
     public GameObject[] Stamps;         // 찍을 스탬프들
@@ -26,26 +31,18 @@ public class StampMacine : ClockBattery, IPartsOwner
     public override void TurnOffObj()
     {
         base.TurnOffObj();
+
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
 
 
-
-
-
-
-
-        if (queueStamp.Count == 0)
+        // 도장을 알맞은 모양으로 찍었다면
+        if(IsQueueInOrder(queueStamp))
         {
-            Debug.Log("스택이 비어 있습니다.");
-            return;
-        }
-        Debug.Log("스택에 있는 도장들:");
-        // 스택을 순차적으로 출력
-        foreach (int stamp in queueStamp)
-        {
-            Debug.Log("iStampNum: " + stamp);
+            obj_Document.SetActive(false);
+            GameObject instantiatedObject = Instantiate(obj_SmallDocument, transform_CreateDocument);
         }
     }
+
 
 
     private IEnumerator HitStamp()
@@ -77,8 +74,7 @@ public class StampMacine : ClockBattery, IPartsOwner
         TurnOffObj();
         yield break;
     }
-
-
+    // #. 도장 생성하기
     public void CreateStackedStamps()
     {
         // 이미 생성되어 있는 도장들을 지움
@@ -100,9 +96,6 @@ public class StampMacine : ClockBattery, IPartsOwner
         {
             queueStamp.Enqueue(tempQueue.Dequeue());
         }
-
-
-
 
 
 
@@ -141,6 +134,27 @@ public class StampMacine : ClockBattery, IPartsOwner
 
 
 
+
+    private bool IsQueueInOrder(Queue<int> queue)
+    {
+        // 올바른 순서를 미리 정의합니다.
+        int[] correctOrder = { 1, 2, 3, 4 };
+
+        // 요소 개수가 다르면 순서가 맞을 수 없습니다.
+        if (queue.Count != correctOrder.Length)
+            return false;
+
+        // Queue를 배열로 변환하여 순서를 비교합니다.
+        int[] queueArray = queue.ToArray();
+
+        for (int i = 0; i < correctOrder.Length; i++)
+        {
+            if (queueArray[i] != correctOrder[i])
+                return false;
+        }
+
+        return true;
+    }
 
 
 

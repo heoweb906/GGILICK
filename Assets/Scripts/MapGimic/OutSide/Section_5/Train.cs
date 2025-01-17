@@ -43,7 +43,7 @@ public class Train : MonoBehaviour
         // 1. StartPoint에서 StationPoint로 이동 (서서히 멈추는 효과)
         transform.DOMove(position_StationPoint.position, travelDuration)
             .SetEase(Ease.OutCubic)  // 이동이 끝나갈 때 점점 느려짐
-            .SetUpdate(true);
+            .SetUpdate(UpdateType.Fixed, true);
 
         yield return new WaitForSeconds(travelDuration);
 
@@ -67,7 +67,7 @@ public class Train : MonoBehaviour
            
         transform.DOMove(position_EndPoint.position, travelDuration)
             .SetEase(Ease.InCubic)   // 출발 시 서서히 가속
-            .SetUpdate(true);
+            .SetUpdate(UpdateType.Fixed, true);
 
         yield return new WaitForSeconds(travelDuration);
 
