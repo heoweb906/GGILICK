@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class P_PutDownState : P_InteractionState
 {
@@ -27,11 +28,14 @@ public class P_PutDownState : P_InteractionState
 
     public override void OnAnimationTransitionEvent()
     {
-
         player.curCarriedObject.transform.parent = null;
         player.curCarriedObject.rigid.isKinematic = false;
         player.isSetAngleZero = true;
 
+        Vector3 targetPosition = player.curCarriedObject.transform.position + player.curCarriedObject.putDownPositionOffset;
+        Vector3 targetRotation = player.curCarriedObject.transform.eulerAngles + player.curCarriedObject.putDownRotationOffset;
+        
+        player.curCarriedObject.transform.DORotate(targetRotation, 0.2f);
     }
 
     public override void OnAnimationExitEvent()

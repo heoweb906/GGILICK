@@ -64,7 +64,7 @@ public class P_GroundState : PlayerMovementState
             else
             {
                 bool temp = FindClosestPartsParent();
-                if (FindClosestPartsParent() && player.curCarriedObject.isParts)
+                if (FindClosestPartsParent() && player.curCarriedObject.isParts && player.partsArea.PartOwnertype == player.curCarriedObject.partOwnerType)
                 {
                     player.isGoToTarget = true;
                     Debug.Log("파츠 찾음");
