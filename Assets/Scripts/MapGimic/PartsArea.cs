@@ -8,7 +8,8 @@ public enum PartOwnerType
     TrafficLightClockWork,      // 신호등 
     SoundPiece,                 // 사운드 블록
     ToyTruckClockWork,          // 장난감 트럭에 장착할 태엽 
-    StampMachine
+    StampMachine,               // 도장 찍는 기계
+    GameMachine                 // 게임 기계
 }
 
 public class PartsArea : MonoBehaviour

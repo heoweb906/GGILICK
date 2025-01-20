@@ -81,6 +81,20 @@ public class ClockWork : InteractableObject
             }
         }
     }
+
+
+
+    public void SetClockWorkType(int index)
+    {
+        if(index == 0)
+        {
+            clockWorkType = ClockWorkType.Floor;
+        }
+        else
+        {
+            clockWorkType = ClockWorkType.Wall;
+        }
+    }
 }
 
 

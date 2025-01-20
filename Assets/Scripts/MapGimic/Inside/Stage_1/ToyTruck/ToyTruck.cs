@@ -18,6 +18,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
     public Vector3 throwDirection; // 물체를 날릴 방향
 
 
+
     private void Awake()
     {
         originRotate = Trunk.transform.localRotation.eulerAngles;
@@ -36,7 +37,6 @@ public class ToyTruck : ClockBattery, IPartsOwner
     public override void TurnOffObj()
     {
         base.TurnOffObj();
-
 
         if (nowCoroutine != null)
         {
@@ -66,7 +66,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
 
         while (fCurClockBattery > 0)
         {
-            fCurClockBattery -= 1;
+            
 
             if (Trunk != null)
             {
@@ -86,14 +86,19 @@ public class ToyTruck : ClockBattery, IPartsOwner
                     float targetRotation = 40f;
                     currentRotate.z = targetRotation; // 새로운 목표 회전 값을 설정
                     Trunk.transform.DOLocalRotate(currentRotate, 1f)
-                        .SetEase(Ease.OutBack);
+                    .SetEase(Ease.OutBack);
+               
 
                     yield return new WaitForSecondsRealtime(2.0f);
+                    
                     StopCoroutine(nowCoroutine);
                     yield break;
                 }
             }
 
+            yield return new WaitForSecondsRealtime(1.0f); // 1초 대기
+
+            fCurClockBattery -= 1;
             // 배터리가 다 되면 초기 상태로 복원
             if (fCurClockBattery <= 0)
             {
@@ -103,7 +108,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
                 yield break;
             }
 
-            yield return new WaitForSecondsRealtime(1.0f); // 1초 대기
+            
         }
 
         TurnOffObj(); // 배터리가 다 되면 종료
