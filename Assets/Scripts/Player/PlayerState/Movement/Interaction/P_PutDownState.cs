@@ -35,7 +35,7 @@ public class P_PutDownState : P_InteractionState
         Vector3 targetPosition = player.curCarriedObject.transform.position + player.curCarriedObject.putDownPositionOffset;
         Vector3 targetRotation = player.curCarriedObject.transform.eulerAngles + player.curCarriedObject.putDownRotationOffset;
         
-        player.curCarriedObject.transform.DORotate(targetRotation, 0.2f);
+        player.curCarriedObject.transform.DORotate(player.curCarriedObject.putDownRotationOffset, 0.2f);
     }
 
     public override void OnAnimationExitEvent()
