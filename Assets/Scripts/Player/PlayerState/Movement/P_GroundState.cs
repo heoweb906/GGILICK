@@ -210,7 +210,8 @@ public class P_GroundState : PlayerMovementState
 
     public bool FindClosestInteractableObject()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
+        int interactableLayer = 1 << LayerMask.NameToLayer("Interactable");
+        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius, interactableLayer);
         player.curInteractableObject = null;
         player.partsArea = null;
 
@@ -262,7 +263,8 @@ public class P_GroundState : PlayerMovementState
 
     public bool FindClosestPartsParent()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius);
+        int interactableLayer = 1 << LayerMask.NameToLayer("Interactable");
+        Collider[] hitColliders = Physics.OverlapSphere(player.transform.position, player.detectionRadius, interactableLayer);
         player.partsArea = null;
 
         float closestDistance = Mathf.Infinity;
