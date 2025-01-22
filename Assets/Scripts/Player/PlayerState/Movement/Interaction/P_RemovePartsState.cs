@@ -56,9 +56,9 @@ public class P_RemovePartsState : P_InteractionState
         targetPosition += player.curCarriedObject.holdPositionOffset;
 
         Quaternion targetRotation = Quaternion.Euler
-            (new Vector3(player.curCarriedObject.holdRotationOffset.x + player.curCarriedObject.transform.eulerAngles.x,
-            player.curCarriedObject.holdRotationOffset.y + player.curCarriedObject.transform.eulerAngles.y,
-            player.curCarriedObject.holdRotationOffset.z + player.curCarriedObject.transform.eulerAngles.z));
+            (new Vector3(player.curCarriedObject.holdRotationOffset.x,
+            player.curCarriedObject.holdRotationOffset.y,
+            player.curCarriedObject.holdRotationOffset.z));
 
         moveSequence = DOTween.Sequence();
         moveSequence.Join(player.curCarriedObject.transform.DOLocalMove(targetPosition, 0.5f));
