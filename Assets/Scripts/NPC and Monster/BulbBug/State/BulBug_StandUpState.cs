@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulBug_StandUpState : BulbBugState
 {
-    public BulBug_StandUpState(BulbBug guardM, BulbBugStateMachine machine) : base(guardM, machine) { }
+    public BulBug_StandUpState(BulbBug bulbBug, BulbBugStateMachine machine) : base(bulbBug, machine) { }
 
     public override void OnEnter()
     {

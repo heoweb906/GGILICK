@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BulBug_IDLEState : BulbBugState
 {
-    public BulBug_IDLEState(BulbBug guardM, BulbBugStateMachine machine) : base(guardM, machine) { }
+    public BulBug_IDLEState(BulbBug bulbBug, BulbBugStateMachine machine) : base(bulbBug, machine) { }
 
     public override void OnEnter()
     {

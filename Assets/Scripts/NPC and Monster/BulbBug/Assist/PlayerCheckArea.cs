@@ -13,7 +13,6 @@ public class PlayerCheckArea : MonoBehaviour
         {
             isPlayerInArea = true;
             playerPosition = other.transform.root; // 플레이어의 최상위 부모 오브젝트 위치 저장
-            Debug.Log("Player has entered the area.");
         }
     }
 
@@ -23,17 +22,6 @@ public class PlayerCheckArea : MonoBehaviour
         {
             isPlayerInArea = false;
             playerPosition = null; // 플레이어 위치 초기화
-            Debug.Log("Player has exited the area.");
         }
-    }
-
-    public bool IsPlayerInArea()
-    {
-        return isPlayerInArea;
-    }
-
-    public Transform GetPlayerPosition()
-    {
-        return playerPosition;
     }
 }

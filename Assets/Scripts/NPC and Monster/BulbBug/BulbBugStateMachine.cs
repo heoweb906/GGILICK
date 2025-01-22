@@ -30,7 +30,7 @@ public class BulbBugStateMachine : StateMachine
         StandUpState = new BulBug_StandUpState(bulBug, this);
 
 
-        CurrentState = IDLEState;
+        CurrentState = WanderingState;
 
         CurrentState.OnEnter();
     }
