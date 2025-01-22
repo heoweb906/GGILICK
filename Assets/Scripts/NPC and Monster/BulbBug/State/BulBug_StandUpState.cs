@@ -17,7 +17,8 @@ public class BulBug_StandUpState : BulbBugState
 
         bulbBug.rigid.isKinematic = true;
 
-        rotateTweener = bulbBug.transform.DORotate(Vector3.zero, duration, RotateMode.FastBeyond360)
+        rotateTweener = bulbBug.transform.DORotate(Vector3.zero, duration, RotateMode.Fast)
+           .SetEase(Ease.OutQuad)
            .OnComplete(OnRotationComplete); // 애니메이션이 끝났을 때 호출될 메서드 지정
 
     }

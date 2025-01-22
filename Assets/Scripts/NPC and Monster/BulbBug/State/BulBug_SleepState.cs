@@ -6,6 +6,8 @@ public class BulBug_SleepState : BulbBugState
 {
     public BulBug_SleepState(BulbBug bulbBug, BulbBugStateMachine machine) : base(bulbBug, machine) { }
 
+    private float elapsedTime = 0f;  // 경과 시간 추적
+
     public override void OnEnter()
     {
         base.OnEnter();
@@ -27,23 +29,27 @@ public class BulBug_SleepState : BulbBugState
 
         if (!bulbBug.CheckingArea_2.isPlayerInArea && bulbBug.carriedObj.canInteract)
         {
-            Vector3 rotation = bulbBug.gameObject.transform.rotation.eulerAngles;
-
-            if (Mathf.Abs(Mathf.DeltaAngle(rotation.x, 0)) <= 4f &&
-               Mathf.Abs(Mathf.DeltaAngle(rotation.y, 0)) <= 4f &&
-               Mathf.Abs(Mathf.DeltaAngle(rotation.z, 0)) <= 4f)
-            {
-                machine.OnStateChange(machine.WanderingState);
-            }
-            else
-            {
-                machine.OnStateChange(machine.StandUpState);
-            }
-
-        }
             
+            elapsedTime += Time.deltaTime;  // 매 프레임 경과 시간 추가
 
+            if (elapsedTime >= 1f)
+            {
+                Vector3 rotation = bulbBug.gameObject.transform.rotation.eulerAngles;
 
+                if (Mathf.Abs(Mathf.DeltaAngle(rotation.x, 0)) <= 4f &&
+                   Mathf.Abs(Mathf.DeltaAngle(rotation.y, 0)) <= 4f &&
+                   Mathf.Abs(Mathf.DeltaAngle(rotation.z, 0)) <= 4f)
+                {
+                    machine.OnStateChange(machine.WanderingState);
+                }
+                else
+                {
+                    machine.OnStateChange(machine.StandUpState);
+                }
+            }
+        }
+
+        if(bulbBug.CheckingArea_2.isPlayerInArea) elapsedTime = 0f;
     }
 
     public override void OnFixedUpdate()
