@@ -10,13 +10,27 @@ public class P_PutPartsState : P_InteractionState
     public override void OnEnter()
     {
         base.OnEnter();
-        machine.StartAnimation(player.playerAnimationData.PutPartsParameterHash);
+        if(player.partsArea.PartsAreaType == PartsAreaType.Wall)
+        {
+            machine.StartAnimation(player.playerAnimationData.PutPartsParameterHash);
+        }
+        else if(player.partsArea.PartsAreaType == PartsAreaType.Floor)
+        {
+            machine.StartAnimation(player.playerAnimationData.PutDownParameterHash);
+        }
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        machine.StopAnimation(player.playerAnimationData.PutPartsParameterHash);
+        if(player.partsArea.PartsAreaType == PartsAreaType.Wall)
+        {
+            machine.StopAnimation(player.playerAnimationData.PutPartsParameterHash);
+        }
+        else if(player.partsArea.PartsAreaType == PartsAreaType.Floor)
+        {
+            machine.StopAnimation(player.playerAnimationData.PutDownParameterHash);
+        }
     }
 
     public override void OnUpdate()

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class DissapearobjEffect : MonoBehaviour
 {
-    public float DissolveSpeed = 0.01f;  // Dissolve ¼Óµµ
-    public float FadeSpeed = 0.05f;      // ¾ËÆÄ °ª °¨¼Ò ¼Óµµ
-    public float DissolveYield = 0.1f;   // ÄÚ·çÆ¾ ´ë±â ½Ã°£
+    public float DissolveSpeed = 0.01f;  // Dissolve ì†ë„
+    public float FadeSpeed = 0.05f;      // ì•ŒíŒŒ ê°’ ê°ì†Œ ì†ë„
+    public float DissolveYield = 0.1f;   // ì½”ë£¨í‹´ ëŒ€ê¸° ì‹œê°„
 
-    public ParticleSystem Particle = null; // ÆÄÆ¼Å¬ ½Ã½ºÅÛ
+    public ParticleSystem Particle = null; // íŒŒí‹°í´ ì‹œìŠ¤í…œ
 
     private MeshRenderer meshRenderer;
     private Material material;
@@ -18,10 +18,10 @@ public class DissapearobjEffect : MonoBehaviour
 
     private void Awake()
     {
-        // ÇöÀç ¿ÀºêÁ§Æ®¿¡¼­ MeshRenderer ÄÄÆ÷³ÍÆ® °¡Á®¿À±â
+        // í˜„ì¬ ì˜¤ë¸Œì íŠ¸ì—ì„œ MeshRenderer ì»´í¬ë„ŒíŠ¸ ê°€ì ¸ì˜¤ê¸°
         meshRenderer = GetComponent<MeshRenderer>();
 
-        // MeshRenderer¿¡¼­ Material °¡Á®¿À±â
+        // MeshRendererì—ì„œ Material ê°€ì ¸ì˜¤ê¸°
         if (meshRenderer != null)
         {
             material = meshRenderer.material;
@@ -30,7 +30,7 @@ public class DissapearobjEffect : MonoBehaviour
 
     private void Update()
     {
-        // Å×½ºÆ®¿ë: T Å°¸¦ ´©¸£¸é Dissolve È¿°ú ½ÇÇà
+        // í…ŒìŠ¤íŠ¸ìš©: T í‚¤ë¥¼ ëˆ„ë¥´ë©´ Dissolve íš¨ê³¼ ì‹¤í–‰
         if (Input.GetKeyDown(KeyCode.T))
         {
             StartCoroutine(DissolveCoroutine());
@@ -46,7 +46,7 @@ public class DissapearobjEffect : MonoBehaviour
 
         float dissolveAmount = dissolveStart;
         float speedMultiplier = 1f;
-        Color color = material.color; // ÇöÀç ¸ÓÅ×¸®¾ó »ö»ó °¡Á®¿À±â
+        Color color = material.color; // í˜„ì¬ ë¨¸í…Œë¦¬ì–¼ ìƒ‰ìƒ ê°€ì ¸ì˜¤ê¸°
 
         while (dissolveAmount < dissolveEnd)
         {
@@ -55,9 +55,9 @@ public class DissapearobjEffect : MonoBehaviour
 
             if (material != null)
             {
-                // ¸ÓÅ×¸®¾óÀÇ ¾ËÆÄ °ªÀ» °¨¼Ò
+                // ë¨¸í…Œë¦¬ì–¼ì˜ ì•ŒíŒŒ ê°’ì„ ê°ì†Œ
                 color.a -= FadeSpeed;
-                color.a = Mathf.Clamp01(color.a); // ¾ËÆÄ °ªÀÌ 0°ú 1 »çÀÌ·Î À¯ÁöµÇµµ·Ï Á¦ÇÑ
+                color.a = Mathf.Clamp01(color.a); // ì•ŒíŒŒ ê°’ì´ 0ê³¼ 1 ì‚¬ì´ë¡œ ìœ ì§€ë˜ë„ë¡ ì œí•œ
                 material.color = color;
             }
 

@@ -14,6 +14,7 @@ public class PlayerAnimationData
     [SerializeField] private string climbingParameterName = "Climbing";
     [SerializeField] private string unControllableParameterName = "UnConrollable";
     [SerializeField] private string uc_IdleParameterName = "UC_Idle";
+    [SerializeField] private string uc_DieParameterName = "UC_Die";
     [SerializeField] private string moveStartParameterName = "MoveStart";
     [SerializeField] private string movingParameterName = "Move";
     [SerializeField] private string moveStopParameterName = "MoveStop";
@@ -72,6 +73,7 @@ public class PlayerAnimationData
     public int ClimbingParameterHash { get; private set; }
     public int UnControllableParameterHash { get; private set; }
     public int UC_IdleParameterHash { get; private set; }
+    public int UC_DieParameterHash { get; private set; }
     public int MoveStartParameterHash { get; private set; }
     public int MovingParameterHash { get; private set; }
     public int MoveStopParameterHash { get; private set; }
@@ -122,6 +124,7 @@ public class PlayerAnimationData
         ClimbingParameterHash = Animator.StringToHash(climbingParameterName);
         UnControllableParameterHash = Animator.StringToHash(unControllableParameterName);
         UC_IdleParameterHash = Animator.StringToHash(uc_IdleParameterName);
+        UC_DieParameterHash = Animator.StringToHash(uc_DieParameterName);
         MoveStartParameterHash = Animator.StringToHash(moveStartParameterName);
         MovingParameterHash = Animator.StringToHash(movingParameterName);
         MoveStopParameterHash = Animator.StringToHash(moveStopParameterName);

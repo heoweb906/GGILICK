@@ -117,6 +117,26 @@ public class Player : MonoBehaviour
 
     private Tween armAngleTween;
 
+    [Header("Ragdoll")]
+    public Transform pelvis;
+    public Transform leftHips;
+    public Transform leftKnee;
+    public Transform leftFoot;
+    public Transform rightHips;
+    public Transform rightKnee;
+    public Transform rightFoot;
+    public Transform leftArm;
+    public Transform leftElbow;
+    public Transform rightArm;
+    public Transform rightElbow;
+    public Transform middleSpine;
+    public Transform head;
+    [Range(0, 100)]
+    public float totalMass = 20f;
+    [Range(0, 100)]
+    public float strength = 0f;
+    public bool flipForward = false;
+
     private void Awake()
     {
         playerAnimationData.Initialize();

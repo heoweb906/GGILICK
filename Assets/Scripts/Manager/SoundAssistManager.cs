@@ -12,7 +12,7 @@ public class SoundAssistManager : MonoBehaviour
 {
     public static SoundAssistManager Instance { get; private set; }
 
-    // µñ¼Å³Ê¸®·Î º¯°æ (ÆÄÀÏ¸íÀ» Å°·Î »ç¿ë)
+    // ë”•ì…”ë„ˆë¦¬ë¡œ ë³€ê²½ (íŒŒì¼ëª…ì„ í‚¤ë¡œ ì‚¬ìš©)
     public Dictionary<string, AudioClip> soundDictionary = new Dictionary<string, AudioClip>();
     public AudioMixer audioMixer_Master;
 
@@ -38,25 +38,25 @@ public class SoundAssistManager : MonoBehaviour
 
             Invoke("AudioMixerSet",0.1f);
 
-            DontDestroyOnLoad(gameObject); // ¾À ÀüÈ¯ ½Ã¿¡µµ ÆÄ±«µÇÁö ¾Êµµ·Ï ¼³Á¤
+            DontDestroyOnLoad(gameObject); // ì”¬ ì „í™˜ ì‹œì—ë„ íŒŒê´´ë˜ì§€ ì•Šë„ë¡ ì„¤ì •
         }
         else
         {
             UnmuteMasterVolume();
 
-            Destroy(gameObject); // ÀÌ¹Ì Á¸ÀçÇÏ´Â ÀÎ½ºÅÏ½º°¡ ÀÖÀ¸¸é ÇöÀç ¿ÀºêÁ§Æ® ÆÄ±«
+            Destroy(gameObject); // ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì¸ìŠ¤í„´ìŠ¤ê°€ ìˆìœ¼ë©´ í˜„ì¬ ì˜¤ë¸Œì íŠ¸ íŒŒê´´
         }
 
         
     }
 
-    // »ç¿îµå Ã£±â
+    // ì‚¬ìš´ë“œ ì°¾ê¸°
     #region 
 
     private void LoadSounds(string folderPath)
     {
         //string fullPath = Path.Combine(Application.dataPath, "Resources", folderPath);
-        //string[] files = Directory.GetFiles(fullPath, "*.mp3", SearchOption.AllDirectories);  // MP3 ÆÄÀÏ¸¸ ·Îµå
+        //string[] files = Directory.GetFiles(fullPath, "*.mp3", SearchOption.AllDirectories);  // MP3 íŒŒì¼ë§Œ ë¡œë“œ
 
         //foreach (var file in files)
         //{
@@ -94,7 +94,7 @@ public class SoundAssistManager : MonoBehaviour
         }
     }
 
-    // #. ÇöÀç µñ¼Å³Ê¸®¿¡ ´ã°Ü ÀÖ´Â AudioClip Key / Value Ãâ·Â
+    // #. í˜„ì¬ ë”•ì…”ë„ˆë¦¬ì— ë‹´ê²¨ ìˆëŠ” AudioClip Key / Value ì¶œë ¥
     public void DebugSoundDictionary()
     {
         foreach (var entry in soundDictionary)
@@ -109,10 +109,10 @@ public class SoundAssistManager : MonoBehaviour
 
 
 
-    // Ç®¸µ °ü·Ã
+    // í’€ë§ ê´€ë ¨
     #region
 
-    // ¿ÀºêÁ§Æ® Ç® ÃÊ±âÈ­: ÁöÁ¤µÈ ¼ö¸¸Å­ ¿ÀºêÁ§Æ®¸¦ ¹Ì¸® »ı¼º
+    // ì˜¤ë¸Œì íŠ¸ í’€ ì´ˆê¸°í™”: ì§€ì •ëœ ìˆ˜ë§Œí¼ ì˜¤ë¸Œì íŠ¸ë¥¼ ë¯¸ë¦¬ ìƒì„±
     public void InitializeAudioPlayerBlockPool(int poolSize)
     {
         for (int i = 0; i < poolSize; i++)
@@ -120,7 +120,7 @@ public class SoundAssistManager : MonoBehaviour
             GameObject newAudioPlayerBlock = Instantiate(audioPlaterBlockPrefab);
             AudioPlayerBlock audioBlock  = newAudioPlayerBlock.GetComponent<AudioPlayerBlock>();
             newAudioPlayerBlock.transform.SetParent(transform, this);
-            newAudioPlayerBlock.SetActive(false);  // Ã³À½¿¡´Â ºñÈ°¼ºÈ­
+            newAudioPlayerBlock.SetActive(false);  // ì²˜ìŒì—ëŠ” ë¹„í™œì„±í™”
             audioPlayerBlockPool.Enqueue(newAudioPlayerBlock);
 
             audioPlayerBlockList.Add(audioBlock);
@@ -128,7 +128,7 @@ public class SoundAssistManager : MonoBehaviour
     }
 
 
-    // ¿ÀºêÁ§Æ® Ç®¿¡¼­ »ç¿îµå ºí·° °¡Á®¿À±â (È¿°úÀ½)
+    // ì˜¤ë¸Œì íŠ¸ í’€ì—ì„œ ì‚¬ìš´ë“œ ë¸”ëŸ­ ê°€ì ¸ì˜¤ê¸° (íš¨ê³¼ìŒ)
     public GameObject GetSFXAudioBlock(string audioClipName = null, Transform objTransform = null)
     {
         if (audioClipName != null)
@@ -137,13 +137,13 @@ public class SoundAssistManager : MonoBehaviour
             {
                 GameObject audioPlayerBlock = audioPlayerBlockPool.Dequeue();
                 audioPlayerBlock.transform.SetParent(objTransform);
-                audioPlayerBlock.SetActive(true);  // °¡Á®¿Â ¿ÀºêÁ§Æ® È°¼ºÈ­
+                audioPlayerBlock.SetActive(true);  // ê°€ì ¸ì˜¨ ì˜¤ë¸Œì íŠ¸ í™œì„±í™”
 
                 AudioPlayerBlock audioBlock = audioPlayerBlock.GetComponent<AudioPlayerBlock>();
                 if (soundDictionary.ContainsKey(audioClipName))
                 {
-                    audioBlock.audioSource.clip = soundDictionary[audioClipName];  // ¿Àµğ¿À Å¬¸³ ÇÒ´ç
-                    audioBlock.PlayAudioClip();  // ¿Àµğ¿À Å¬¸³ Àç»ı
+                    audioBlock.audioSource.clip = soundDictionary[audioClipName];  // ì˜¤ë””ì˜¤ í´ë¦½ í• ë‹¹
+                    audioBlock.PlayAudioClip();  // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ
                 }
                 else
                 {
@@ -161,8 +161,8 @@ public class SoundAssistManager : MonoBehaviour
                 AudioPlayerBlock audioBlock = newAudioPlayerBlock.GetComponent<AudioPlayerBlock>();
                 if (soundDictionary.ContainsKey(audioClipName))
                 {
-                    audioBlock.audioSource.clip = soundDictionary[audioClipName];  // ¿Àµğ¿À Å¬¸³ ÇÒ´ç
-                    audioBlock.PlayAudioClip();  // ¿Àµğ¿À Å¬¸³ Àç»ı
+                    audioBlock.audioSource.clip = soundDictionary[audioClipName];  // ì˜¤ë””ì˜¤ í´ë¦½ í• ë‹¹
+                    audioBlock.PlayAudioClip();  // ì˜¤ë””ì˜¤ í´ë¦½ ì¬ìƒ
                 }
                 else
                 {
@@ -179,16 +179,16 @@ public class SoundAssistManager : MonoBehaviour
     }
 
 
-    // ¿ÀºêÁ§Æ® Ç®·Î ¿ÀºêÁ§Æ® ¹İÈ¯
+    // ì˜¤ë¸Œì íŠ¸ í’€ë¡œ ì˜¤ë¸Œì íŠ¸ ë°˜í™˜
     public void ReturnAudioPlayerBlock(GameObject audioPlayerBlock)
     {
         audioPlayerBlock.transform.SetParent(transform, this);
-        audioPlayerBlock.SetActive(false);  // ¿ÀºêÁ§Æ®¸¦ ºñÈ°¼ºÈ­
+        audioPlayerBlock.SetActive(false);  // ì˜¤ë¸Œì íŠ¸ë¥¼ ë¹„í™œì„±í™”
 
         AudioPlayerBlock audioBlock = audioPlayerBlock.GetComponent<AudioPlayerBlock>();
         audioBlock.audioSource.clip = null;
 
-        audioPlayerBlockPool.Enqueue(audioPlayerBlock);  // Ç®·Î µÇµ¹·Áº¸³¿
+        audioPlayerBlockPool.Enqueue(audioPlayerBlock);  // í’€ë¡œ ë˜ëŒë ¤ë³´ëƒ„
     }
 
 
@@ -199,12 +199,12 @@ public class SoundAssistManager : MonoBehaviour
 
 
 
-    // »ç¿îµå Á¶Àı °ü·Ã
+    // ì‚¬ìš´ë“œ ì¡°ì ˆ ê´€ë ¨
     #region
 
 
 
-    // #. ÀúÀå µ¥ÀÌÅÍ¿¡¼­ »ç¿îµå °ª ºÒ·¯¿À±â
+    // #. ì €ì¥ ë°ì´í„°ì—ì„œ ì‚¬ìš´ë“œ ê°’ ë¶ˆëŸ¬ì˜¤ê¸°
     public void AudioMixerSet()
     {
         float masterVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetMasterVolume());
@@ -234,20 +234,20 @@ public class SoundAssistManager : MonoBehaviour
     {
         float muteVolume = -80f;
 
-        // DOTweenÀ» »ç¿ëÇÏ¿© º¼·ıÀ» 2ÃÊ µ¿¾È ¼­¼­È÷ -80f·Î º¯°æ
+        // DOTweenì„ ì‚¬ìš©í•˜ì—¬ ë³¼ë¥¨ì„ 2ì´ˆ ë™ì•ˆ ì„œì„œíˆ -80fë¡œ ë³€ê²½
         DOTween.To(() => {
             audioMixer_Master.GetFloat("Master", out float tempMaster);
             return tempMaster;
         },
             x => {
                 audioMixer_Master.SetFloat("Master", x);
-                // audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // º¼·ı °ª¿¡ µû¶ó ¹ÂÆ® Ã³¸®
+                // audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // ë³¼ë¥¨ ê°’ì— ë”°ë¼ ë®¤íŠ¸ ì²˜ë¦¬
             },
             muteVolume, 2f).SetUpdate(true);
     }
     public void UnmuteMasterVolume()
     {
-        // ÀúÀåµÈ ¿ø·¡ º¼·ı °ª °¡Á®¿À±â (0°ú 1 »çÀÌÀÇ °ª)
+        // ì €ì¥ëœ ì›ë˜ ë³¼ë¥¨ ê°’ ê°€ì ¸ì˜¤ê¸° (0ê³¼ 1 ì‚¬ì´ì˜ ê°’)
         float originalVolume = SaveData_Manager.Instance.GetMasterVolume();
         float adjustedVolume = Mathf.Lerp(-80f, 0f, originalVolume);
 
@@ -257,14 +257,14 @@ public class SoundAssistManager : MonoBehaviour
         },
             x => {
                 audioMixer_Master.SetFloat("Master", x);
-                //audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // º¼·ı °ª¿¡ µû¶ó ¹ÂÆ® Ã³¸®
+                //audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // ë³¼ë¥¨ ê°’ì— ë”°ë¼ ë®¤íŠ¸ ì²˜ë¦¬
             },
             adjustedVolume, 2f).SetUpdate(true);
     }
 
 
 
-    // #. ´Ù¸¥ ÄÚµåµé¿¡¼­ È£ÃâÇÏ°í ÀÖÀ½
+    // #. ë‹¤ë¥¸ ì½”ë“œë“¤ì—ì„œ í˜¸ì¶œí•˜ê³  ìˆìŒ
     public void BGMChange(string sceneName = null)
     {
         switch (sceneName)
@@ -278,7 +278,7 @@ public class SoundAssistManager : MonoBehaviour
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["TestBGM"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] Àç»ı");
+                    Debug.Log("soundDictionary[TestBGM] ì¬ìƒ");
                 }
                 break;
 
@@ -288,7 +288,7 @@ public class SoundAssistManager : MonoBehaviour
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["TestBGM_2"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] Àç»ı");
+                    Debug.Log("soundDictionary[TestBGM] ì¬ìƒ");
                 }
                 break;
 

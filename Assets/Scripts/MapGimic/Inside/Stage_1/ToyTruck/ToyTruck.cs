@@ -11,18 +11,18 @@ public class ToyTruck : ClockBattery, IPartsOwner
 
     private Vector3 originRotate;
     private Vector3 currentRotate;
-    private bool isShaking = false;         // ´ú´ú°Å¸² »óÅÂ È®ÀÎ
+    private bool isShaking = false;         // ëœëœê±°ë¦¼ ìƒíƒœ í™•ì¸
 
-    public GameObject[] Baggages;           // ³¯·Á¹ö¸± Àå³­°¨µé
-    public float throwForce = 10f; // ¹°Ã¼¸¦ ³¯¸± Èû
-    public Vector3 throwDirection; // ¹°Ã¼¸¦ ³¯¸± ¹æÇâ
+    public GameObject[] Baggages;           // ë‚ ë ¤ë²„ë¦´ ì¥ë‚œê°ë“¤
+    public float throwForce = 10f; // ë¬¼ì²´ë¥¼ ë‚ ë¦´ í˜
+    public Vector3 throwDirection; // ë¬¼ì²´ë¥¼ ë‚ ë¦´ ë°©í–¥
 
 
 
     private void Awake()
     {
         originRotate = Trunk.transform.localRotation.eulerAngles;
-        currentRotate = originRotate; // ÇöÀç ·ÎÅ×ÀÌ¼ÇÀ» ÃÊ±â°ªÀ¸·Î ¼³Á¤
+        currentRotate = originRotate; // í˜„ì¬ ë¡œí…Œì´ì…˜ì„ ì´ˆê¸°ê°’ìœ¼ë¡œ ì„¤ì •
     }
 
 
@@ -44,25 +44,25 @@ public class ToyTruck : ClockBattery, IPartsOwner
             nowCoroutine = null;
         }
 
-        ResetTrunkRotation(); // Æ®··Å©¸¦ ÃÊ±â »óÅÂ·Î º¹¿ø
+        ResetTrunkRotation(); // íŠ¸ë í¬ë¥¼ ì´ˆê¸° ìƒíƒœë¡œ ë³µì›
     }
 
 
-    // #. Æ®··Å©°¡ ¿øÇØ È¸Àü °ªÀ¸·Î µ¹¾Æ¿È
+    // #. íŠ¸ë í¬ê°€ ì›í•´ íšŒì „ ê°’ìœ¼ë¡œ ëŒì•„ì˜´
     private void ResetTrunkRotation()
     {
         if (Trunk != null)
         {
-            // DOTweenÀ¸·Î ¿ø·¡ »óÅÂ·Î ºÎµå·´°Ô º¹¿ø
+            // DOTweenìœ¼ë¡œ ì›ë˜ ìƒíƒœë¡œ ë¶€ë“œëŸ½ê²Œ ë³µì›
             Trunk.transform.DOLocalRotate(originRotate, 0.5f).SetEase(Ease.OutQuad);
-            currentRotate = originRotate; // ÇöÀç È¸Àü »óÅÂµµ ¿ø·¡ »óÅÂ·Î ¼³Á¤
+            currentRotate = originRotate; // í˜„ì¬ íšŒì „ ìƒíƒœë„ ì›ë˜ ìƒíƒœë¡œ ì„¤ì •
         }
     }
 
 
     IEnumerator ActiveTrunk()
     {
-        float zRotation = currentRotate.z; // ÇöÀç ZÃà ·ÎÅ×ÀÌ¼Ç °ª (ÇöÀç ·ÎÅ×ÀÌ¼ÇÀ» ±âÁØÀ¸·Î)
+        float zRotation = currentRotate.z; // í˜„ì¬ Zì¶• ë¡œí…Œì´ì…˜ ê°’ (í˜„ì¬ ë¡œí…Œì´ì…˜ì„ ê¸°ì¤€ìœ¼ë¡œ)
 
         while (fCurClockBattery > 0)
         {
@@ -70,8 +70,8 @@ public class ToyTruck : ClockBattery, IPartsOwner
 
             if (Trunk != null)
             {
-                zRotation += 2f; // È¸Àü °ª Áõ°¡
-                currentRotate.z = zRotation; // ÇöÀç ·ÎÅ×ÀÌ¼Ç ¾÷µ¥ÀÌÆ®
+                zRotation += 2f; // íšŒì „ ê°’ ì¦ê°€
+                currentRotate.z = zRotation; // í˜„ì¬ ë¡œí…Œì´ì…˜ ì—…ë°ì´íŠ¸
                 Trunk.transform.DOLocalRotate(currentRotate, 0.5f)
                     .SetEase(Ease.Linear);
 
@@ -84,7 +84,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
 
                     ThrowBaggages();
                     float targetRotation = 40f;
-                    currentRotate.z = targetRotation; // »õ·Î¿î ¸ñÇ¥ È¸Àü °ªÀ» ¼³Á¤
+                    currentRotate.z = targetRotation; // ìƒˆë¡œìš´ ëª©í‘œ íšŒì „ ê°’ì„ ì„¤ì •
                     Trunk.transform.DOLocalRotate(currentRotate, 1f)
                     .SetEase(Ease.OutBack);
                
@@ -96,10 +96,10 @@ public class ToyTruck : ClockBattery, IPartsOwner
                 }
             }
 
-            yield return new WaitForSecondsRealtime(1.0f); // 1ÃÊ ´ë±â
+            yield return new WaitForSecondsRealtime(1.0f); // 1ì´ˆ ëŒ€ê¸°
 
             fCurClockBattery -= 1;
-            // ¹èÅÍ¸®°¡ ´Ù µÇ¸é ÃÊ±â »óÅÂ·Î º¹¿ø
+            // ë°°í„°ë¦¬ê°€ ë‹¤ ë˜ë©´ ì´ˆê¸° ìƒíƒœë¡œ ë³µì›
             if (fCurClockBattery <= 0)
             {
                 fCurClockBattery = 0;
@@ -111,7 +111,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
             
         }
 
-        TurnOffObj(); // ¹èÅÍ¸®°¡ ´Ù µÇ¸é Á¾·á
+        TurnOffObj(); // ë°°í„°ë¦¬ê°€ ë‹¤ ë˜ë©´ ì¢…ë£Œ
     }
 
 
@@ -119,25 +119,25 @@ public class ToyTruck : ClockBattery, IPartsOwner
     {
         if (Trunk != null)
         {
-            float duration = 1.2f; // Èçµé¸² ½Ã°£
-            float strength = 0.2f; // Èçµé¸² °­µµ
-            int vibrato = 10; // Áøµ¿ È½¼ö (ºóµµ)
+            float duration = 1.2f; // í”ë“¤ë¦¼ ì‹œê°„
+            float strength = 0.2f; // í”ë“¤ë¦¼ ê°•ë„
+            int vibrato = 10; // ì§„ë™ íšŸìˆ˜ (ë¹ˆë„)
 
-            // Æ®··Å©ÀÇ ÇöÀç È¸Àü »óÅÂ¸¦ ±âÁØÀ¸·Î ½ÃÀÛ
+            // íŠ¸ë í¬ì˜ í˜„ì¬ íšŒì „ ìƒíƒœë¥¼ ê¸°ì¤€ìœ¼ë¡œ ì‹œì‘
             currentRotate = Trunk.transform.localRotation.eulerAngles;
 
             float elapsedTime = 0f;
-            float shakeDuration = duration; // Èçµé¸² Áö¼Ó ½Ã°£
-            float shakeStrength = strength; // Èçµé¸² °­µµ
+            float shakeDuration = duration; // í”ë“¤ë¦¼ ì§€ì† ì‹œê°„
+            float shakeStrength = strength; // í”ë“¤ë¦¼ ê°•ë„
 
-            // Èçµé¸² È¿°ú ºÎµå·´°Ô ±¸Çö
+            // í”ë“¤ë¦¼ íš¨ê³¼ ë¶€ë“œëŸ½ê²Œ êµ¬í˜„
             while (elapsedTime < shakeDuration)
             {
-                // »çÀÎÆÄ¸¦ ÀÌ¿ëÇÑ ÀÚ¿¬½º·¯¿î Èçµé¸²
+                // ì‚¬ì¸íŒŒë¥¼ ì´ìš©í•œ ìì—°ìŠ¤ëŸ¬ìš´ í”ë“¤ë¦¼
                 float sineValue = Mathf.Sin(elapsedTime * vibrato * Mathf.PI * 2f);
-                float randomZ = sineValue * shakeStrength; // »çÀÎÆÄ¿¡ °­µµ¸¦ °öÇÔ
+                float randomZ = sineValue * shakeStrength; // ì‚¬ì¸íŒŒì— ê°•ë„ë¥¼ ê³±í•¨
 
-                // ÇöÀç È¸Àü°ª¿¡¼­ ZÃà È¸ÀüÀ» º¯µ¿½ÃÅ´
+                // í˜„ì¬ íšŒì „ê°’ì—ì„œ Zì¶• íšŒì „ì„ ë³€ë™ì‹œí‚´
                 currentRotate.z = currentRotate.z + randomZ;
 
                 Trunk.transform.localRotation = Quaternion.Euler(currentRotate);
@@ -146,7 +146,7 @@ public class ToyTruck : ClockBattery, IPartsOwner
                 yield return null;
             }
 
-            // Èçµé¸²ÀÌ ³¡³­ ÈÄ ¿ø·¡ È¸Àü °ªÀ¸·Î º¹¿ø
+            // í”ë“¤ë¦¼ì´ ëë‚œ í›„ ì›ë˜ íšŒì „ ê°’ìœ¼ë¡œ ë³µì›
             Trunk.transform.localRotation = Quaternion.Euler(originRotate);
         }
     }

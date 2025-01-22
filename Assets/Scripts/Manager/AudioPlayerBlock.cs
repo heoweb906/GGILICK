@@ -17,7 +17,7 @@ public class AudioPlayerBlock : MonoBehaviour
         StartCoroutine(WaitForAudioEnd());
     }
 
-    // ¿Àµğ¿À°¡ ³¡³¯ ¶§±îÁö ´ë±âÇÑ ÈÄ, Ç®·Î ¹İÈ¯
+    // ì˜¤ë””ì˜¤ê°€ ëë‚  ë•Œê¹Œì§€ ëŒ€ê¸°í•œ í›„, í’€ë¡œ ë°˜í™˜
     private IEnumerator WaitForAudioEnd()
     {
         while (audioSource.isPlaying)

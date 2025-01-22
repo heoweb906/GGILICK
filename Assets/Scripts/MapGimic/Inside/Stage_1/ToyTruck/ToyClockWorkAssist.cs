@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ToyClockWorkAssist : MonoBehaviour, IPartsOwner
 {
-    public GameObject TruckClockWork;   // È°¼ºÈ­ ÇÒ Æ®·° ÅÂ¿±
+    public GameObject TruckClockWork;   // í™œì„±í™” í•  íŠ¸ëŸ­ íƒœì—½
 
     public void InsertOwnerFunc(GameObject soundPieceObj, int index)
     {
-        // Àá½Ã µÚ¿¡ ClockWork ¿ÀºêÁ§Æ®·Î ¹Ù²ã¹ö¸²
+        // ì ì‹œ ë’¤ì— ClockWork ì˜¤ë¸Œì íŠ¸ë¡œ ë°”ê¿”ë²„ë¦¼
         StartCoroutine(ChangeLayerWithDelay(1.1f));
     }
     private IEnumerator ChangeLayerWithDelay(float delay)

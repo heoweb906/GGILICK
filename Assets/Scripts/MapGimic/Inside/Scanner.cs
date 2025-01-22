@@ -8,11 +8,11 @@ public class Scanner : MonoBehaviour
     public List<ColorObj> colorObjList = new List<ColorObj>();
 
 
-    // ±â´É È®ÀÎ¿ëÀ¸·Î ÀÖ´Â ½ºÅ©¸³Æ®, ³ªÁß¿¡ Áö¿ö¾ßÇÔ
+    // ê¸°ëŠ¥ í™•ì¸ìš©ìœ¼ë¡œ ìˆëŠ” ìŠ¤í¬ë¦½íŠ¸, ë‚˜ì¤‘ì— ì§€ì›Œì•¼í•¨
     public GameObject testEffect;
 
 
-    // #. ½ºÄ³³Ê À§¿¡ ÀÖ´Â ColorObjListÀÇ Á¤º¸¸¦ °¡Á®¿È
+    // #. ìŠ¤ìºë„ˆ ìœ„ì— ìˆëŠ” ColorObjListì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜´
     public List<ColorObj> GetColorObjList()
     {
         if (colorObjList != null) return colorObjList;
@@ -21,7 +21,7 @@ public class Scanner : MonoBehaviour
 
 
 
-    // #. Æ¯Á¤ÇÑ ÄÃ·¯¸¦ Á¦¿ÜÇÑ ColorObj¸¦ ¸ğµÎ ³¯·Á¹ö¸®´Â ÇÔ¼ö
+    // #. íŠ¹ì •í•œ ì»¬ëŸ¬ë¥¼ ì œì™¸í•œ ColorObjë¥¼ ëª¨ë‘ ë‚ ë ¤ë²„ë¦¬ëŠ” í•¨ìˆ˜
     public void ThrowOtherColorObj(ColorType colorType = ColorType.None)
     {
         for (int i = colorObjList.Count - 1; i >= 0; i--)

@@ -10,12 +10,12 @@ public class GameMachine : ClockBattery, IPartsOwner
     private Coroutine nowCoroutine;
 
 
-    [Header("°ÔÀÓ±â °ü·Ã")]
+    [Header("ê²Œì„ê¸° ê´€ë ¨")]
     private bool bPowerOn = false;
 
 
-    [Header("Àü±¸ ¹ú·¹ °ü·Ã")]
-    public bool[] bBulbBug;         // Àü±¸ ¹ú·¹°¡ ÀåÂøµÈ »óÅÂÀÎÁö
+    [Header("ì „êµ¬ ë²Œë ˆ ê´€ë ¨")]
+    public bool[] bBulbBug;         // ì „êµ¬ ë²Œë ˆê°€ ì¥ì°©ëœ ìƒíƒœì¸ì§€
     public GameObject[] SpritesBulbBug;
 
 
@@ -38,9 +38,9 @@ public class GameMachine : ClockBattery, IPartsOwner
             base.TurnOffObj();
             BulbBugSpriteonOff(0, false, true);
         }
-        else    // ÃæÀü¿¡ ¼º°øÇÑ °æ¿ì
+        else    // ì¶©ì „ì— ì„±ê³µí•œ ê²½ìš°
         {
-            Debug.Log("¹èÅÍ¸® ÃæÀü ¼º°ø!!!");
+            Debug.Log("ë°°í„°ë¦¬ ì¶©ì „ ì„±ê³µ!!!");
         }
         
 
@@ -68,7 +68,7 @@ public class GameMachine : ClockBattery, IPartsOwner
 
         yield return new WaitForSecondsRealtime(1.0f);
 
-        TurnOffObj(); // ¹èÅÍ¸®°¡ ´Ù µÇ¸é Á¾·á
+        TurnOffObj(); // ë°°í„°ë¦¬ê°€ ë‹¤ ë˜ë©´ ì¢…ë£Œ
     }
 
 
@@ -103,10 +103,10 @@ public class GameMachine : ClockBattery, IPartsOwner
         {
             if (!b)
             {
-                return false;  // ÇÏ³ª¶óµµ false°¡ ÀÖÀ¸¸é false ¹İÈ¯
+                return false;  // í•˜ë‚˜ë¼ë„ falseê°€ ìˆìœ¼ë©´ false ë°˜í™˜
             }
         }
-        return true;  // ¸ğµç °ªÀÌ trueÀÏ °æ¿ì true ¹İÈ¯
+        return true;  // ëª¨ë“  ê°’ì´ trueì¼ ê²½ìš° true ë°˜í™˜
     }
 
 

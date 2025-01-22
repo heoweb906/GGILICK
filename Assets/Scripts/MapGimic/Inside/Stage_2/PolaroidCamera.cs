@@ -8,11 +8,11 @@ public class PolaroidCamera : ClockBattery
     public PolaroidScanner[] polaroidScanners;
     public int[] iCorrectSequence;
 
-    [Header("»çÁø »ı¼º °ü¸®")]
+    [Header("ì‚¬ì§„ ìƒì„± ê´€ë¦¬")]
     public Transform transformPictureCreate;
-    public GameObject Picture_Complete;         // »çÁø ¿Ï¼ºº»
-    public GameObject Picture_Grouping;         // »çÁø Á¶°¢µéÀ» ¹­¾îÁÙ ¿ÀºêÁ§Æ®
-    public GameObject[] PicturePieces;         // »çÁø Á¶°¢µé (Àß¸øµÈ »çÁøÀ» Ãâ·ÂÇßÀ» ¶§)
+    public GameObject Picture_Complete;         // ì‚¬ì§„ ì™„ì„±ë³¸
+    public GameObject Picture_Grouping;         // ì‚¬ì§„ ì¡°ê°ë“¤ì„ ë¬¶ì–´ì¤„ ì˜¤ë¸Œì íŠ¸
+    public GameObject[] PicturePieces;         // ì‚¬ì§„ ì¡°ê°ë“¤ (ì˜ëª»ëœ ì‚¬ì§„ì„ ì¶œë ¥í–ˆì„ ë•Œ)
 
 
 
@@ -33,7 +33,7 @@ public class PolaroidCamera : ClockBattery
         ShootCamera();
     }
 
-    // #. Ä«¸Ş¶ó ¼ÅÅÍ Ä«¿îÆ® ´Ù¿î
+    // #. ì¹´ë©”ë¼ ì…”í„° ì¹´ìš´íŠ¸ ë‹¤ìš´
     IEnumerator ShutterCountStart()
     {
         while (fCurClockBattery > 0)
@@ -50,7 +50,7 @@ public class PolaroidCamera : ClockBattery
 
 
 
-    // #. Ä«¸Ş¶ó ÃÔ¿µ
+    // #. ì¹´ë©”ë¼ ì´¬ì˜
     private void ShootCamera()
     {
         for(int i = 0; i < 4; i++)
@@ -67,23 +67,23 @@ public class PolaroidCamera : ClockBattery
 
 
 
-    // #. ÃÔ¿µ ¼º°ø
+    // #. ì´¬ì˜ ì„±ê³µ
     private void SuccesShoot()
     {
 
 
         
-        PrintPicture(Picture_Complete);          // ¿Ï¼ºµÈ »çÁø Ãâ·Â
+        PrintPicture(Picture_Complete);          // ì™„ì„±ëœ ì‚¬ì§„ ì¶œë ¥
     }
 
-    // #. ÃÔ¿µ ½ÇÆĞ
+    // #. ì´¬ì˜ ì‹¤íŒ¨
     private async void FailShoot()
     {
 
 
 
 
-        StartCoroutine(FailShootCoroutine());    // ½ÇÆĞÇÑ »çÁø Á¶°¢µé Ãâ·Â
+        StartCoroutine(FailShootCoroutine());    // ì‹¤íŒ¨í•œ ì‚¬ì§„ ì¡°ê°ë“¤ ì¶œë ¥
     }
     private IEnumerator FailShootCoroutine()
     {
@@ -98,7 +98,7 @@ public class PolaroidCamera : ClockBattery
             {
                 if (temp + j < 4)
                 {
-                    if (polaroidScanners[temp].iFigureIndex == 0) break; // ¸¸¾à ¿ä¼Ò°¡ 0¹øÀÌ¶ó¸é ¹«½Ã
+                    if (polaroidScanners[temp].iFigureIndex == 0) break; // ë§Œì•½ ìš”ì†Œê°€ 0ë²ˆì´ë¼ë©´ ë¬´ì‹œ
 
                     if (polaroidScanners[temp].iFigureIndex == polaroidScanners[temp + j].iFigureIndex - j)
                     {
@@ -112,7 +112,7 @@ public class PolaroidCamera : ClockBattery
             PrintPicture(Picture_Grouping, tempList);
             tempList.Clear();
 
-            yield return new WaitForSeconds(1); // 1ÃÊ ´ë±â
+            yield return new WaitForSeconds(1); // 1ì´ˆ ëŒ€ê¸°
 
             i++;
         }
@@ -126,64 +126,64 @@ public class PolaroidCamera : ClockBattery
 
 
 
-    // #. »çÁø Ãâ·Â (GameObject Ãâ·ÂÇÒ »çÁø)
+    // #. ì‚¬ì§„ ì¶œë ¥ (GameObject ì¶œë ¥í•  ì‚¬ì§„)
     private void PrintPicture(GameObject picture_, List<int> _intList = null)
     {
         GameObject spawnedObject = Instantiate(picture_, transformPictureCreate.position, Quaternion.identity);
 
         if (_intList != null)
         {
-            float spacing = 0.2f; // °£°İ ¼³Á¤ (ÇÊ¿ä¿¡ µû¶ó Á¶Á¤ °¡´É)
-            int count = 0; // ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ ¼ø¼­¸¦ ÃßÀû
+            float spacing = 0.2f; // ê°„ê²© ì„¤ì • (í•„ìš”ì— ë”°ë¼ ì¡°ì • ê°€ëŠ¥)
+            int count = 0; // ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ ìˆœì„œë¥¼ ì¶”ì 
 
             foreach (int index in _intList)
             {
-                if (index >= 0 && index < PicturePieces.Length) // À¯È¿ÇÑ ÀÎµ¦½ºÀÎÁö È®ÀÎ
+                if (index >= 0 && index < PicturePieces.Length) // ìœ íš¨í•œ ì¸ë±ìŠ¤ì¸ì§€ í™•ì¸
                 {
                     GameObject piece = Instantiate(PicturePieces[index]);
                     piece.transform.SetParent(spawnedObject.transform);
 
-                    // X Ãà ¹æÇâÀ¸·Î °£°İÀ» ÁÖ¾î ¹èÄ¡
+                    // X ì¶• ë°©í–¥ìœ¼ë¡œ ê°„ê²©ì„ ì£¼ì–´ ë°°ì¹˜
                     piece.transform.localPosition = new Vector3(count * spacing, 0, 0);
 
-                    count++; // ´ÙÀ½ ÀÚ½Ä ¿ÀºêÁ§Æ®ÀÇ À§Ä¡¸¦ À§ÇØ Áõ°¡
+                    count++; // ë‹¤ìŒ ìì‹ ì˜¤ë¸Œì íŠ¸ì˜ ìœ„ì¹˜ë¥¼ ìœ„í•´ ì¦ê°€
                 }
             }
         }
 
 
-        // Rigidbody ÂüÁ¶
+        // Rigidbody ì°¸ì¡°
         Rigidbody objRigidbody = spawnedObject.GetComponent<Rigidbody>();
 
-        // ÃÊ±â À§Ä¡¸¦ ¼³Á¤ (XÃàÀ¸·Î ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿)
+        // ì´ˆê¸° ìœ„ì¹˜ë¥¼ ì„¤ì • (Xì¶•ìœ¼ë¡œ ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì´ë™)
         Vector3 startPosition = transformPictureCreate.position;
-        startPosition.x += 2f; // ¿À¸¥ÂÊ¿¡¼­ ½ÃÀÛ
+        startPosition.x += 2f; // ì˜¤ë¥¸ìª½ì—ì„œ ì‹œì‘
         spawnedObject.transform.position = startPosition;
 
-        // Rigidbody ÃÊ±âÈ­ ¼³Á¤
+        // Rigidbody ì´ˆê¸°í™” ì„¤ì •
         if (objRigidbody != null)
         {
-            objRigidbody.isKinematic = true; // DOTween µ¿¾È ¹°¸® È¿°ú ºñÈ°¼ºÈ­
+            objRigidbody.isKinematic = true; // DOTween ë™ì•ˆ ë¬¼ë¦¬ íš¨ê³¼ ë¹„í™œì„±í™”
         }
 
-        // ¸ñÇ¥ À§Ä¡ ¼³Á¤ (¿ŞÂÊÀ¸·Î ¹ß»ç)
+        // ëª©í‘œ ìœ„ì¹˜ ì„¤ì • (ì™¼ìª½ìœ¼ë¡œ ë°œì‚¬)
         Vector3 targetPosition = transformPictureCreate.position;
-        //targetPosition.x -= 1f; // ¿ŞÂÊÀ¸·Î ÀÌµ¿
+        //targetPosition.x -= 1f; // ì™¼ìª½ìœ¼ë¡œ ì´ë™
 
-        // DOTweenÀ¸·Î ºÎµå·¯¿î °î¼± ¹ß»ç ¾Ö´Ï¸ŞÀÌ¼Ç
+        // DOTweenìœ¼ë¡œ ë¶€ë“œëŸ¬ìš´ ê³¡ì„  ë°œì‚¬ ì• ë‹ˆë©”ì´ì…˜
         spawnedObject.transform.DOPath(
             new Vector3[] { startPosition, targetPosition },
-            1f, // ¾Ö´Ï¸ŞÀÌ¼Ç Áö¼Ó ½Ã°£
+            1f, // ì• ë‹ˆë©”ì´ì…˜ ì§€ì† ì‹œê°„
             PathType.CatmullRom)
-            .SetEase(Ease.OutQuad) // ÀÚ¿¬½º·´°Ô ¹ß»ç
+            .SetEase(Ease.OutQuad) // ìì—°ìŠ¤ëŸ½ê²Œ ë°œì‚¬
             .OnComplete(() =>
             {
-                // ¾Ö´Ï¸ŞÀÌ¼Ç ¿Ï·á ÈÄ ¹°¸® È¿°ú È°¼ºÈ­
+                // ì• ë‹ˆë©”ì´ì…˜ ì™„ë£Œ í›„ ë¬¼ë¦¬ íš¨ê³¼ í™œì„±í™”
                 if (objRigidbody != null)
                 {
-                    objRigidbody.isKinematic = false; // ¹°¸® ÀÛ¿ë È°¼ºÈ­
-                    objRigidbody.useGravity = true;  // Áß·Â È°¼ºÈ­
-                    objRigidbody.AddForce(new Vector3(-2f, 0f, 0f), ForceMode.Impulse); // ¿ŞÂÊÀ¸·Î Ãß°¡ Èû
+                    objRigidbody.isKinematic = false; // ë¬¼ë¦¬ ì‘ìš© í™œì„±í™”
+                    objRigidbody.useGravity = true;  // ì¤‘ë ¥ í™œì„±í™”
+                    objRigidbody.AddForce(new Vector3(-2f, 0f, 0f), ForceMode.Impulse); // ì™¼ìª½ìœ¼ë¡œ ì¶”ê°€ í˜
                 }
             });
     }

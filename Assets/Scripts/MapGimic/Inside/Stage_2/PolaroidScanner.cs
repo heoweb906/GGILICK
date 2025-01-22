@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PolaroidScanner : MonoBehaviour
 {
-    public List<PolaroidFigure> polaroidFigures = new List<PolaroidFigure>();  // ½ºÄ³³Ê À§¿¡ ¿Ã¶ó°¡ ÀÖ´Â ÇÇ±Ô¾îµé
-    public int iFigureIndex;      // ½ºÄ³³Ê À§¿¡ ¿Ã¶ó°¡ ÀÖ´Â ÇÇ±Ô¾î ³Ñ¹ö
+    public List<PolaroidFigure> polaroidFigures = new List<PolaroidFigure>();  // ìŠ¤ìºë„ˆ ìœ„ì— ì˜¬ë¼ê°€ ìˆëŠ” í”¼ê·œì–´ë“¤
+    public int iFigureIndex;      // ìŠ¤ìºë„ˆ ìœ„ì— ì˜¬ë¼ê°€ ìˆëŠ” í”¼ê·œì–´ ë„˜ë²„
 
     private void OnTriggerEnter(Collider other)
     {

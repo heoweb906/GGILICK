@@ -12,9 +12,9 @@ public class JustRotate : MonoBehaviour
     }
 
     [Header("Rotation Settings")]
-    public RotationAxis axis = RotationAxis.Y; // ±âº» Ãà: YÃà
-    public float rotationSpeed;          // È¸Àü ¼Óµµ
-    public bool clockwise = true;             // ½Ã°è ¹æÇâ ¿©ºÎ
+    public RotationAxis axis = RotationAxis.Y; // ê¸°ë³¸ ì¶•: Yì¶•
+    public float rotationSpeed;          // íšŒì „ ì†ë„
+    public bool clockwise = true;             // ì‹œê³„ ë°©í–¥ ì—¬ë¶€
 
     void Update()
     {

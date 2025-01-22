@@ -12,7 +12,14 @@ public class P_RemovePartsState : P_InteractionState
     public override void OnEnter()
     {
         base.OnEnter();
-        machine.StartAnimation(player.playerAnimationData.RemovePartsParameterHash);
+        if(player.partsArea.PartsAreaType == PartsAreaType.Wall)
+        {
+            machine.StartAnimation(player.playerAnimationData.RemovePartsParameterHash);
+        }
+        else if(player.partsArea.PartsAreaType == PartsAreaType.Floor)
+        {
+            machine.StartAnimation(player.playerAnimationData.PickUpParameterHash);
+        }
         
         player.isCarryObject = true;
         player.curCarriedObject.rigid.isKinematic = true;
@@ -25,7 +32,14 @@ public class P_RemovePartsState : P_InteractionState
     public override void OnExit()
     {
         base.OnExit();
-        machine.StopAnimation(player.playerAnimationData.RemovePartsParameterHash);
+        if(player.partsArea.PartsAreaType == PartsAreaType.Wall)
+        {
+            machine.StopAnimation(player.playerAnimationData.RemovePartsParameterHash);
+        }
+        else if(player.partsArea.PartsAreaType == PartsAreaType.Floor)
+        {
+            machine.StopAnimation(player.playerAnimationData.PickUpParameterHash);
+        }
     }
 
     public override void SetDirection()

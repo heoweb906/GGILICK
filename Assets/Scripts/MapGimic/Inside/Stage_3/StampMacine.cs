@@ -8,16 +8,16 @@ public class StampMacine : ClockBattery, IPartsOwner
 {
     private Coroutine nowCoroutine;
 
-    [Header("¼­·ù ¿ÀºêÁ§Æ®")]
-    public GameObject obj_Document;         // Ä¿´Ù¶û »óÅÂÀÇ ¼­·ù
-    public GameObject obj_SmallDocument;    // »ı¼ºÇÒ ColorObj
+    [Header("ì„œë¥˜ ì˜¤ë¸Œì íŠ¸")]
+    public GameObject obj_Document;         // ì»¤ë‹¤ë‘ ìƒíƒœì˜ ì„œë¥˜
+    public GameObject obj_SmallDocument;    // ìƒì„±í•  ColorObj
     public Transform transform_CreateDocument;
 
-    [Header("½ºÅÆÇÁ Á¤º¸")]
+    [Header("ìŠ¤íƒ¬í”„ ì •ë³´")]
     private int iStampNum = 0;
-    public GameObject[] Stamps;         // ÂïÀ» ½ºÅÆÇÁµé
-    public Transform transforom_stamp;  // ½ºÅÆÇÁ ÂïÀ» À§Ä¡
-    private Queue<int> queueStamp = new Queue<int>(); // »ı¼ºµÈ ½ºÅÆÇÁ °ü¸®¿ë ½ºÅÃ
+    public GameObject[] Stamps;         // ì°ì„ ìŠ¤íƒ¬í”„ë“¤
+    public Transform transforom_stamp;  // ìŠ¤íƒ¬í”„ ì°ì„ ìœ„ì¹˜
+    private Queue<int> queueStamp = new Queue<int>(); // ìƒì„±ëœ ìŠ¤íƒ¬í”„ ê´€ë¦¬ìš© ìŠ¤íƒ
     
 
 
@@ -35,7 +35,7 @@ public class StampMacine : ClockBattery, IPartsOwner
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
 
 
-        // µµÀåÀ» ¾Ë¸ÂÀº ¸ğ¾çÀ¸·Î Âï¾ú´Ù¸é
+        // ë„ì¥ì„ ì•Œë§ì€ ëª¨ì–‘ìœ¼ë¡œ ì°ì—ˆë‹¤ë©´
         if(IsQueueInOrder(queueStamp))
         {
             obj_Document.SetActive(false);
@@ -47,51 +47,51 @@ public class StampMacine : ClockBattery, IPartsOwner
 
     private IEnumerator HitStamp()
     {
-        // ¹èÅÍ¸®°¡ 3º¸´Ù ÀÛ´Ù¸é
+        // ë°°í„°ë¦¬ê°€ 3ë³´ë‹¤ ì‘ë‹¤ë©´
         if (fCurClockBattery < 3)
         {
             while (fCurClockBattery > 0)
             {
                 fCurClockBattery -= 1;
-                yield return new WaitForSecondsRealtime(1.0f); // 1ÃÊ ´ë±â
+                yield return new WaitForSecondsRealtime(1.0f); // 1ì´ˆ ëŒ€ê¸°
             }
         }
-        else // ¹èÅÍ¸®°¡ 3 ÀÌ»óÀÌ¶ó¸é
+        else // ë°°í„°ë¦¬ê°€ 3 ì´ìƒì´ë¼ë©´
         {
             while (fCurClockBattery > 0)
             {
                 fCurClockBattery -= 1;
-                yield return new WaitForSecondsRealtime(1.0f); // 1ÃÊ ´ë±â
+                yield return new WaitForSecondsRealtime(1.0f); // 1ì´ˆ ëŒ€ê¸°
             }
 
             if (iStampNum > 0)
             {
                 queueStamp.Enqueue(iStampNum);
-                CreateStackedStamps();      // µµÀå Âï±â
+                CreateStackedStamps();      // ë„ì¥ ì°ê¸°
             }
         }
 
         TurnOffObj();
         yield break;
     }
-    // #. µµÀå »ı¼ºÇÏ±â
+    // #. ë„ì¥ ìƒì„±í•˜ê¸°
     public void CreateStackedStamps()
     {
-        // ÀÌ¹Ì »ı¼ºµÇ¾î ÀÖ´Â µµÀåµéÀ» Áö¿ò
+        // ì´ë¯¸ ìƒì„±ë˜ì–´ ìˆëŠ” ë„ì¥ë“¤ì„ ì§€ì›€
         foreach (Transform child in transforom_stamp)
         {
             Destroy(child.gameObject);  
         }
 
 
-        // ÀÚ½Å ¾Æ·¡ÀÇ µµÀåµéÀ» Áö¿ò
+        // ìì‹  ì•„ë˜ì˜ ë„ì¥ë“¤ì„ ì§€ì›€
         Queue<int> tempQueue = new Queue<int>();
         while (queueStamp.Count > 0)
         {
             int element = queueStamp.Dequeue();
             if (element <= iStampNum) tempQueue.Enqueue(element);
         }
-        // ¿ø·¡ Å¥¿¡ Á¶°ÇÀ» ¸¸Á·ÇÏ´Â ¿ä¼Ò¸¸ ´Ù½Ã ³Ö±â
+        // ì›ë˜ íì— ì¡°ê±´ì„ ë§Œì¡±í•˜ëŠ” ìš”ì†Œë§Œ ë‹¤ì‹œ ë„£ê¸°
         while (tempQueue.Count > 0)
         {
             queueStamp.Enqueue(tempQueue.Dequeue());
@@ -101,14 +101,14 @@ public class StampMacine : ClockBattery, IPartsOwner
 
         if (queueStamp.Count > 0)
         {
-            // ½ºÅÃ¿¡¼­ ²¨³½ ¿ä¼Ò¸¦ ÀúÀåÇÒ ¸®½ºÆ®
+            // ìŠ¤íƒì—ì„œ êº¼ë‚¸ ìš”ì†Œë¥¼ ì €ì¥í•  ë¦¬ìŠ¤íŠ¸
             List<int> poppedElements = new List<int>();
 
             int count = queueStamp.Count;
             for (int i = 0; i < count; i++)
             {
-                // Å¥¿¡¼­ PopÀ» »ç¿ëÇÏ¿© ¿ä¼Ò¸¦ ²¨³¿
-                int stampIndex = queueStamp.Dequeue();  // PopÀ» »ç¿ëÇÏ¿© Å¥¿¡¼­ °ªÀ» Á¦°ÅÇÏ¸é¼­ ²¨³¿
+                // íì—ì„œ Popì„ ì‚¬ìš©í•˜ì—¬ ìš”ì†Œë¥¼ êº¼ëƒ„
+                int stampIndex = queueStamp.Dequeue();  // Popì„ ì‚¬ìš©í•˜ì—¬ íì—ì„œ ê°’ì„ ì œê±°í•˜ë©´ì„œ êº¼ëƒ„
 
                 poppedElements.Add(stampIndex);
 
@@ -124,7 +124,7 @@ public class StampMacine : ClockBattery, IPartsOwner
                 }
             }
 
-            // ²¨³½ ¿ä¼ÒµéÀ» ´Ù½Ã ¿ø·¡´ë·Î ½ºÅÃ¿¡ º¹¿ø
+            // êº¼ë‚¸ ìš”ì†Œë“¤ì„ ë‹¤ì‹œ ì›ë˜ëŒ€ë¡œ ìŠ¤íƒì— ë³µì›
             foreach (int stampIndex in poppedElements)
             {
                 queueStamp.Enqueue(stampIndex);
@@ -137,14 +137,14 @@ public class StampMacine : ClockBattery, IPartsOwner
 
     private bool IsQueueInOrder(Queue<int> queue)
     {
-        // ¿Ã¹Ù¸¥ ¼ø¼­¸¦ ¹Ì¸® Á¤ÀÇÇÕ´Ï´Ù.
+        // ì˜¬ë°”ë¥¸ ìˆœì„œë¥¼ ë¯¸ë¦¬ ì •ì˜í•©ë‹ˆë‹¤.
         int[] correctOrder = { 1, 2, 3, 4 };
 
-        // ¿ä¼Ò °³¼ö°¡ ´Ù¸£¸é ¼ø¼­°¡ ¸ÂÀ» ¼ö ¾ø½À´Ï´Ù.
+        // ìš”ì†Œ ê°œìˆ˜ê°€ ë‹¤ë¥´ë©´ ìˆœì„œê°€ ë§ì„ ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
         if (queue.Count != correctOrder.Length)
             return false;
 
-        // Queue¸¦ ¹è¿­·Î º¯È¯ÇÏ¿© ¼ø¼­¸¦ ºñ±³ÇÕ´Ï´Ù.
+        // Queueë¥¼ ë°°ì—´ë¡œ ë³€í™˜í•˜ì—¬ ìˆœì„œë¥¼ ë¹„êµí•©ë‹ˆë‹¤.
         int[] queueArray = queue.ToArray();
 
         for (int i = 0; i < correctOrder.Length; i++)
@@ -163,7 +163,7 @@ public class StampMacine : ClockBattery, IPartsOwner
 
 
 
-    // #. IPartOwner ÀÎÅÍÆäÀÌ½º
+    // #. IPartOwner ì¸í„°í˜ì´ìŠ¤
     #region
 
     public void InsertOwnerFunc(GameObject stampParts, int index)
@@ -171,7 +171,7 @@ public class StampMacine : ClockBattery, IPartsOwner
         StampParts stampParts_ = stampParts.GetComponent<StampParts>();
         if (stampParts_ == null)
         {
-            Debug.LogWarning("½ºÅÆÇÁ ÆÄÃ÷¿¡ StampParts ÄÄÆ÷³ÍÆ®°¡ ¾ø½À´Ï´Ù.");
+            Debug.LogWarning("ìŠ¤íƒ¬í”„ íŒŒì¸ ì— StampParts ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
         iStampNum = stampParts_.iStampeNum;

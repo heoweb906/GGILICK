@@ -7,7 +7,7 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 {
     private Coroutine nowCoroutine;
 
-    [Header("¼Ò¸® Á¶°¢ °ü·Ã")]
+    [Header("ì†Œë¦¬ ì¡°ê° ê´€ë ¨")]
     public SoundPiece[] soundPieces = new SoundPiece[4];
     public int[] iCorrectArray;
     private bool bScanFail;
@@ -36,7 +36,7 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 
 
 
-    // #. ¾Ç±â ÀÛµ¿
+    // #. ì•…ê¸° ì‘ë™
     private IEnumerator PlayPitchSoundsCoroutine()
     {
         bScanFail = false;
@@ -58,19 +58,19 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 
                 yield return new WaitForSecondsRealtime(1.0f);
 
-                // ¹èÅÍ¸® °¨¼Ò
+                // ë°°í„°ë¦¬ ê°ì†Œ
                 fCurClockBattery -= 1;
                 if (fCurClockBattery <= 0)
                 {
                     fCurClockBattery = 0;
                     TurnOffObj();
-                    yield break; // ÄÚ·çÆ¾ Á¾·á
+                    yield break; // ì½”ë£¨í‹´ ì¢…ë£Œ
                 }
             }
 
 
             TurnOffObj();
-            yield break; // ¸ğµç ÀÛ¾÷ÀÌ ¿Ï·áµÇ¸é ÄÚ·çÆ¾ Á¾·á
+            yield break; // ëª¨ë“  ì‘ì—…ì´ ì™„ë£Œë˜ë©´ ì½”ë£¨í‹´ ì¢…ë£Œ
         }
 
      
@@ -84,13 +84,13 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 
 
 
-    // #. ¿¬ÁÖ¿¡ ¼º°øÇßÀ» ¶§ ½ÇÇà½ÃÅ³ ÇÔ¼ö
+    // #. ì—°ì£¼ì— ì„±ê³µí–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¬ í•¨ìˆ˜
     private void SuccesPlayAction()
     {
 
     }
 
-    // #. ¿¬ÁÖ¿¡ ½ÇÆĞÇßÀ» ¶§ ½ÇÇà½ÃÅ³ ÇÔ¼ö
+    // #. ì—°ì£¼ì— ì‹¤íŒ¨í–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¬ í•¨ìˆ˜
     private void FailPlayAction()
     {
 
@@ -99,7 +99,7 @@ public class SoundBlockMachine : ClockBattery, IPartsOwner
 
 
 
-    // #. IPartOwner ÀÎÅÍÆäÀÌ½º
+    // #. IPartOwner ì¸í„°í˜ì´ìŠ¤
     #region
 
     public void InsertOwnerFunc(GameObject soundPieceObj, int index)

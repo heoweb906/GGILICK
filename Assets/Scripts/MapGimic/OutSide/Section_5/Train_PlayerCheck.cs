@@ -6,7 +6,7 @@ public class Train_PlayerCheck : MonoBehaviour
 {
     public bool bPlayerNearby = false;
 
-    // Æ®¸®°Å¿¡ ´Ù¸¥ Collider°¡ µé¾î¿Ã ¶§ È£ÃâµÊ
+    // íŠ¸ë¦¬ê±°ì— ë‹¤ë¥¸ Colliderê°€ ë“¤ì–´ì˜¬ ë•Œ í˜¸ì¶œë¨
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -16,7 +16,7 @@ public class Train_PlayerCheck : MonoBehaviour
         }
     }
 
-    // Æ®¸®°Å¿¡¼­ ´Ù¸¥ Collider°¡ ³ª°¥ ¶§ È£ÃâµÊ
+    // íŠ¸ë¦¬ê±°ì—ì„œ ë‹¤ë¥¸ Colliderê°€ ë‚˜ê°ˆ ë•Œ í˜¸ì¶œë¨
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))

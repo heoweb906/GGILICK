@@ -17,6 +17,8 @@ public class StateController : MonoBehaviour
             SetIdle();
         else if (Input.GetKeyDown(KeyCode.E))
             SetUnControllable_Idle();
+        else if (Input.GetKeyDown(KeyCode.R))
+            SetDie();
     }
 
     public void SetIdle()
@@ -27,5 +29,10 @@ public class StateController : MonoBehaviour
     public void SetUnControllable_Idle()
     {
         player.machine.OnStateChange(player.machine.UC_IdleState);
+    }
+
+    public void SetDie()
+    {
+        player.machine.OnStateChange(player.machine.UC_DieState);
     }
 }

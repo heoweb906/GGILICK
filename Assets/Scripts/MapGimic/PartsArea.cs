@@ -5,22 +5,29 @@ using UnityEngine;
 public enum PartOwnerType
 {
     Nothing,
-    TrafficLightClockWork,      // ½ÅÈ£µî 
-    SoundPiece,                 // »ç¿îµå ºí·Ï
-    ToyTruckClockWork,          // Àå³­°¨ Æ®·°¿¡ ÀåÂøÇÒ ÅÂ¿± 
-    StampMachine,               // µµÀå Âï´Â ±â°è
-    GameMachine                 // °ÔÀÓ ±â°è
+    TrafficLightClockWork,      // ì‹ í˜¸ë“± 
+    SoundPiece,                 // ì‚¬ìš´ë“œ ë¸”ë¡
+    ToyTruckClockWork,          // ì¥ë‚œê° íŠ¸ëŸ­ì— ì¥ì°©í•  íƒœì—½ 
+    StampMachine,               // ë„ì¥ ì°ëŠ” ê¸°ê³„
+    GameMachine                 // ê²Œì„ ê¸°ê³„
+}
+
+public enum PartsAreaType
+{
+    Wall,
+    Floor
 }
 
 public class PartsArea : MonoBehaviour
 {
-    public GameObject Parts;                         // ÆÄÃ÷
-    public Transform PartsTransform;                 // ÆÄÃ÷°¡ µé¾î°¥ À§Ä¡   
-    public Transform PartsInteractTransform;         // ÆÄÃ÷¸¦ ³¢¿ï ¼ö ÀÖ´Â À§Ä¡
-    public bool BCanInteract;                        // ÆÄÃ÷¸¦ ³ÖÀ» ¼ö ÀÖ´Â »óÅÂÀÎÁö
+    public GameObject Parts;                         // íŒŒì¸ 
+    public Transform PartsTransform;                 // íŒŒì¸ ê°€ ë“¤ì–´ê°ˆ ìœ„ì¹˜   
+    public Transform PartsInteractTransform;         // íŒŒì¸ ë¥¼ ë¼ìš¸ ìˆ˜ ìˆëŠ” ìœ„ì¹˜
+    public bool BCanInteract;                        // íŒŒì¸ ë¥¼ ë„£ì„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€
     public int iIndex;
 
-    public PartOwnerType PartOwnertype;              // ÆÄÃ÷ Å¸ÀÔ ±¸ºĞ
+    public PartOwnerType PartOwnertype;              // íŒŒì¸  íƒ€ì… êµ¬ë¶„
+    public PartsAreaType PartsAreaType;              // íŒŒì¸  ìœ„ì¹˜ êµ¬ë¶„
     public GameObject[] partsOwnerObjects;
     private IPartsOwner partsOwner;
 
@@ -29,7 +36,7 @@ public class PartsArea : MonoBehaviour
         BCanInteract = true;
     }
 
-    // #. ÆÄÃ÷¸¦ ÀåÂøÇßÀ» ¶§ ½ÇÇà½ÃÅ°´Â ÇÔ¼ö
+    // #. íŒŒì¸ ë¥¼ ì¥ì°©í–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¤ëŠ” í•¨ìˆ˜
     public virtual void InsertParts(GameObject partsObj)
     {
         OffCanInteract();
@@ -43,7 +50,7 @@ public class PartsArea : MonoBehaviour
         }
     }
 
-    // #. ÆÄÃ÷¸¦ Á¦°ÅÇßÀ» ¶§ ½ÇÇà½ÃÅ°´Â ÇÔ¼ö
+    // #. íŒŒì¸ ë¥¼ ì œê±°í–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¤ëŠ” í•¨ìˆ˜
     public virtual void RemoveParts()
     {
         OffCanInteract();
