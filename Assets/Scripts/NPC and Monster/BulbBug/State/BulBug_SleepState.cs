@@ -6,7 +6,6 @@ public class BulBug_SleepState : BulbBugState
 {
     public BulBug_SleepState(BulbBug bulbBug, BulbBugStateMachine machine) : base(bulbBug, machine) { }
 
-
     public override void OnEnter()
     {
         base.OnEnter();
@@ -14,8 +13,9 @@ public class BulBug_SleepState : BulbBugState
         Debug.Log("¿‡µÎ ªÛ≈¬ ¡¯¿‘ øœ∑·");
         bulbBug.LightObj.SetActive(false);
         bulbBug.carriedObj.enabled = true;
-
-        bulbBug.rigid.isKinematic = true;
+        bulbBug.nav.enabled = false;
+        bulbBug.rigid.velocity = Vector3.zero;
+        bulbBug.rigid.isKinematic = false;
 
         bulbBug.gameObject.layer = LayerMask.NameToLayer("Interactable");
     }
@@ -25,7 +25,23 @@ public class BulBug_SleepState : BulbBugState
     {
         base.OnUpdate();
 
-        if (!bulbBug.CheckingArea_2.isPlayerInArea) machine.OnStateChange(machine.WanderingState);
+        if (!bulbBug.CheckingArea_2.isPlayerInArea && bulbBug.carriedObj.canInteract)
+        {
+            Vector3 rotation = bulbBug.gameObject.transform.rotation.eulerAngles;
+
+            if (Mathf.Abs(Mathf.DeltaAngle(rotation.x, 0)) <= 4f &&
+               Mathf.Abs(Mathf.DeltaAngle(rotation.y, 0)) <= 4f &&
+               Mathf.Abs(Mathf.DeltaAngle(rotation.z, 0)) <= 4f)
+            {
+                machine.OnStateChange(machine.WanderingState);
+            }
+            else
+            {
+                machine.OnStateChange(machine.StandUpState);
+            }
+
+        }
+            
 
 
     }

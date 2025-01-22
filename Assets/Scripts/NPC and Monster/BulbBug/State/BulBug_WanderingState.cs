@@ -17,6 +17,7 @@ public class BulBug_WanderingState : BulbBugState
 
         bulbBug.gameObject.layer = LayerMask.NameToLayer("Default");
         bulbBug.rigid.isKinematic = true;
+        bulbBug.nav.enabled = true;
 
         StartWandering();
     }
@@ -79,6 +80,7 @@ public class BulBug_WanderingState : BulbBugState
         base.OnExit();
 
         bulbBug.nav.isStopped = true;
+        bulbBug.nav.enabled = false;
     }
 
 
@@ -90,7 +92,7 @@ public class BulBug_WanderingState : BulbBugState
         Vector3 targetPosition = bulbBug.transform.position + directionAwayFromPlayer * bulbBug.patrolRange; // 반대 방향으로 이동할 위치 계산
 
         // NavMesh 상에서 유효한 위치인지 확인
-        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, bulbBug.patrolRange, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, bulbBug.patrolRange, NavMesh.AllAreas) && bulbBug.nav.enabled)
         {
             bulbBug.nav.SetDestination(hit.position); // 반대 방향으로 이동 설정
         }
@@ -105,7 +107,7 @@ public class BulBug_WanderingState : BulbBugState
     {
         Vector3 randomDirection = Random.insideUnitSphere * bulbBug.patrolRange + bulbBug.transform.position;
 
-        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, bulbBug.patrolRange, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomDirection, out NavMeshHit hit, bulbBug.patrolRange, NavMesh.AllAreas) && bulbBug.nav.enabled)
         {
             bulbBug.nav.SetDestination(hit.position);  // 새로운 목적지 설정
         }
