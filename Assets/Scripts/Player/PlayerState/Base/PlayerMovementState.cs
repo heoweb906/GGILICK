@@ -162,7 +162,7 @@ public class PlayerMovementState : BaseState
     {
         var nextFramePlayerPosition = player.raycastOrigin.transform.position + player.curDirection * _moveSpeed * Time.fixedDeltaTime;
 
-        int layerMask = ~(1 << LayerMask.NameToLayer("Carry")); // Carry 레이어만 무시
+        int layerMask = ~((1 << LayerMask.NameToLayer("Carry")) | (1 << LayerMask.NameToLayer("Ignore Raycast")));
         if (Physics.Raycast(nextFramePlayerPosition, Vector3.down, out RaycastHit hitInfo, 1f, layerMask))
         {
             return Vector3.Angle(Vector3.up, hitInfo.normal);
