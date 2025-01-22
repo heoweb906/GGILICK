@@ -48,6 +48,7 @@ public class P_GroundState : PlayerMovementState
 
     public void CheckInputJump()
     {
+
         if (Input.GetButtonDown("Jump"))
         {
             if (!player.isCarryObject)
@@ -61,7 +62,7 @@ public class P_GroundState : PlayerMovementState
                     machine.OnStateChange(machine.JumpStartMoveState);
                 }
             }
-            else
+            else 
             {
                 bool temp = FindClosestPartsParent();
                 if (FindClosestPartsParent() && player.curCarriedObject.isParts && player.partsArea.PartOwnertype == player.curCarriedObject.partOwnerType)
@@ -76,7 +77,7 @@ public class P_GroundState : PlayerMovementState
                 }
             }
         }
-        else if (Input.GetButton("Jump") && player.curInteractableObject != null)
+        else if (Input.GetButton("Jump") && player.curInteractableObject != null&& !player.playerAnim.IsInTransition(0) && player.partsArea != null)
         {
             if (Vector3.Distance(new Vector3(player.targetPos.x, 0, player.targetPos.z), new Vector3(player.transform.position.x, 0, player.transform.position.z)) < 0.03f)
             {
@@ -86,6 +87,8 @@ public class P_GroundState : PlayerMovementState
         else if (Input.GetButtonUp("Jump"))
         {
             player.isGoToTarget = false;
+            
+            player.partsArea = null;
         }
     }
 
