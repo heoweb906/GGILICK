@@ -4,31 +4,52 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
+public enum GuardMType
+{
+    FrontCompany,
+    Wandering
+}
+
 public class GuardM : MonoBehaviour
 {
+    public GuardMType guardMType;
+
     private GameObject player;
     private LayerMask obstacleLayerMask;
     private Vector3 guardRayOriginOffset = Vector3.up; // 감시자 Ray 시작 위치 오프셋
     private Vector3 playerRayTargetOffset = Vector3.up; // 플레이어 Ray 목표 위치 오프셋
+    private Coroutine nowCoroutine;
+
     private Vector3 transformHome;
+    private Quaternion gameObjRotation;
+    
 
     public Animator anim;
 
     public GuardMStateMachine machine;
+    public GuardM_Visualrange visualRange;
     public GuardM_CheckingArea area;
     public NavMeshAgent nav;
-    public GameObject transformPlayerGrab; 
+    public GameObject transformPlayerGrab;
+    public TrackingHead_ToPlayer trackingHead;
 
     public float fAttackRange;
-    
+
+    [Header("배회 경비병이 사용할 컴포넌트들")]
+    public Transform transformStart;
+    public Transform transformEnd;
+    public float fMoveTime;     // 한지점에서 한지점으로 가는 최대 시간
+
 
     private void Awake()
     {
         Init();
 
         anim = GetComponent<Animator>();
-        transformHome = transform.position;
         nav = GetComponent<NavMeshAgent>();
+
+        transformHome = transform.position;
+        gameObjRotation = transform.rotation;
 
         player = GameObject.FindWithTag("Player").transform.root.gameObject;
         obstacleLayerMask = LayerMask.GetMask("Obstacle");
@@ -51,16 +72,42 @@ public class GuardM : MonoBehaviour
     }
 
 
+    public void StopGuardCoroutine()
+    {
+        if(nowCoroutine != null) StopCoroutine(nowCoroutine);
 
+    }
     public void StartGuardCoroutine(IEnumerator coroutine)
     {
-        StartCoroutine(coroutine);
+        if(nowCoroutine != null ) StopCoroutine(nowCoroutine);
+        nowCoroutine = StartCoroutine(coroutine);
     }
+
 
     public Vector3 GetHomeTransform()
     {
         return transformHome;
     }
+
+    // Home 위치 Setter
+    public void SetHomeTransform(Vector3 newHome)
+    {
+        transformHome = newHome;
+    }
+
+    // 오브젝트 회전 Getter
+    public Quaternion GetObjRotation()
+    {
+        return gameObjRotation;
+    }
+
+    // 오브젝트 회전 Setter
+    public void SetObjRotation(Quaternion newRotation)
+    {
+        gameObjRotation = newRotation;
+    }
+
+
 
     public GameObject GetPlayerObj()
     {
@@ -82,11 +129,9 @@ public class GuardM : MonoBehaviour
         // Raycast로 감시자와 플레이어 사이를 검사 (Obstacle 레이어만 감지)
         if (Physics.Raycast(guardPosition, direction, out RaycastHit hit, distance, obstacleLayerMask))
         {
-            Debug.Log("장애물이 감지됩니다");
             return true;
         }
 
-        Debug.Log("장애물이 감지되지 않습니다.");
         return false;
     }
 

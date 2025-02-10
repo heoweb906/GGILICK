@@ -3049,6 +3049,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8167989174917790431}
   - component: {fileID: 3143986413493259963}
+  - component: {fileID: 1059992147563669461}
   m_Layer: 0
   m_Name: Kyungsoo
   m_TagString: Untagged
@@ -3100,8 +3101,29 @@ MonoBehaviour:
   m_Path: {fileID: 2831648639433762844}
   m_UpdateMethod: 1
   m_PositionUnits: 1
-  m_Speed: 2
+  m_Speed: 0.7
   m_Position: 0
+--- !u!95 &1059992147563669461
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7946075583855388221}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 8373b1ee794e00b45bb2982721b52b48, type: 3}
+  m_Controller: {fileID: 9100000, guid: 3f8d257c1c72da84586553a55160ecdc, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8044392657299669161
 GameObject:
   m_ObjectHideFlags: 0
