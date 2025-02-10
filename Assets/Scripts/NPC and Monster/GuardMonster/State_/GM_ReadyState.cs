@@ -7,6 +7,8 @@ public class GM_ReadyState : GuardMState
     public override void OnEnter()
     {
         base.OnEnter();
+
+        Debug.Log("ready·Î ÁøÀÔ");
     }
 
     public override void OnUpdate()
