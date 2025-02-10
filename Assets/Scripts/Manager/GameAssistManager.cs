@@ -39,9 +39,7 @@ public class GameAssistManager : MonoBehaviour
     {
         Instance = this; // 인스턴스 생성
         bPlayerDie = false;
-        
-        Debug.Log(bPlayerDie);
-
+       
         player = FindPlayerRoot();
 
         // #. 스테이지 관리
@@ -247,12 +245,16 @@ public class GameAssistManager : MonoBehaviour
         }
         return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
     }
-
+    public GameObject GetPlayer()
+    {
+        return player;
+    }
 
     public bool GetBoolPlayerDie()
     {
         return bPlayerDie;
     }
+    
 
 
 
