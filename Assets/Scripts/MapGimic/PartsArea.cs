@@ -5,36 +5,29 @@ using UnityEngine;
 public enum PartOwnerType
 {
     Nothing,
-<<<<<<< Updated upstream
-    TrafficLightClockWork,      // ì‹ í˜¸ë“± 
-    SoundPiece,                 // ì‚¬ìš´ë“œ ë¸”ë¡
-    ToyTruckClockWork,          // ì¥ë‚œê° íŠ¸ëŸ­ì— ì¥ì°©í•  íƒœì—½ 
-    StampMachine,               // ë„ì¥ ì°ëŠ” ê¸°ê³„
-    GameMachine                 // ê²Œì„ ê¸°ê³„
+    TrafficLightClockWork,      // ½ÅÈ£µî 
+    SoundPiece,                 // »ç¿îµå ºí·Ï
+    ToyTruckClockWork,          // Àå³­°¨ Æ®·°¿¡ ÀåÂøÇÒ ÅÂ¿± 
+    StampMachine,               // µµÀå Âï´Â ±â°è
+    GameMachine                 // °ÔÀÓ ±â°è
 }
 
 public enum PartsAreaType
 {
     Wall,
     Floor
-=======
-    TrafficLightClockWork,      // ½ÅÈ£µî 
-    SoundPiece,                 // »ç¿îµå ºí·Ï
-    ToyTruckClockWork,          // Àå³­°¨ Æ®·°¿¡ ÀåÂøÇÒ ÅÂ¿± 
-    StampMachine
->>>>>>> Stashed changes
 }
 
 public class PartsArea : MonoBehaviour
 {
-    public GameObject Parts;                         // íŒŒì¸ 
-    public Transform PartsTransform;                 // íŒŒì¸ ê°€ ë“¤ì–´ê°ˆ ìœ„ì¹˜   
-    public Transform PartsInteractTransform;         // íŒŒì¸ ë¥¼ ë¼ìš¸ ìˆ˜ ìˆëŠ” ìœ„ì¹˜
-    public bool BCanInteract;                        // íŒŒì¸ ë¥¼ ë„£ì„ ìˆ˜ ìˆëŠ” ìƒíƒœì¸ì§€
+    public GameObject Parts;                         // ?Œì¸ 
+    public Transform PartsTransform;                 // ?Œì¸ ê°€ ?¤ì–´ê°??„ì¹˜   
+    public Transform PartsInteractTransform;         // ?Œì¸ ë¥??¼ìš¸ ???ˆëŠ” ?„ì¹˜
+    public bool BCanInteract;                        // ?Œì¸ ë¥??£ì„ ???ˆëŠ” ?íƒœ?¸ì?
     public int iIndex;
 
-    public PartOwnerType PartOwnertype;              // íŒŒì¸  íƒ€ì… êµ¬ë¶„
-    public PartsAreaType PartsAreaType;              // íŒŒì¸  ìœ„ì¹˜ êµ¬ë¶„
+    public PartOwnerType PartOwnertype;              // ?Œì¸  ?€??êµ¬ë¶„
+    public PartsAreaType PartsAreaType;              // ?Œì¸  ?„ì¹˜ êµ¬ë¶„
     public GameObject[] partsOwnerObjects;
     private IPartsOwner partsOwner;
 
@@ -43,7 +36,7 @@ public class PartsArea : MonoBehaviour
         BCanInteract = true;
     }
 
-    // #. íŒŒì¸ ë¥¼ ì¥ì°©í–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¤ëŠ” í•¨ìˆ˜
+    // #. ?Œì¸ ë¥??¥ì°©?ˆì„ ???¤í–‰?œí‚¤???¨ìˆ˜
     public virtual void InsertParts(GameObject partsObj)
     {
         OffCanInteract();
@@ -57,7 +50,7 @@ public class PartsArea : MonoBehaviour
         }
     }
 
-    // #. íŒŒì¸ ë¥¼ ì œê±°í–ˆì„ ë•Œ ì‹¤í–‰ì‹œí‚¤ëŠ” í•¨ìˆ˜
+    // #. ?Œì¸ ë¥??œê±°?ˆì„ ???¤í–‰?œí‚¤???¨ìˆ˜
     public virtual void RemoveParts()
     {
         OffCanInteract();
