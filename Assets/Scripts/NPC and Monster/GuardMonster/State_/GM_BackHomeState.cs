@@ -30,6 +30,7 @@ public class GM_BackHomeState : GuardMState
         else
         {
             // 장애물이 없고 플레이어 위치가 있는 경우 추격 상태로 전환
+            guardM.nav.isStopped = true;
             bAnimEnd = false;
             machine.OnStateChange(machine.ChaseState);
         }
@@ -44,7 +45,8 @@ public class GM_BackHomeState : GuardMState
     public override void OnExit()
     {
         base.OnExit();
-        guardM.anim.SetBool("isWalking", false); 
+        guardM.anim.SetBool("isWalking", false);
+        guardM.anim.SetBool("isRunning", false);
 
     }
 
@@ -53,9 +55,12 @@ public class GM_BackHomeState : GuardMState
         yield return new WaitForSeconds(fWaitSecond);
 
         guardM.anim.SetBool("isWalking", true);
+        guardM.anim.SetBool("isRunning", false);
         guardM.nav.isStopped = false;
 
         bAnimEnd = true;
+
+        guardM.nav.SetDestination(guardM.GetHomeTransform());
     }
 
 
@@ -67,21 +72,20 @@ public class GM_BackHomeState : GuardMState
         // 집에 도착한 경우
         if (Vector3.Distance(guardM.transform.position, guardM.GetHomeTransform()) <= 0.1f)
         {
-            float rotationTimer = 0;
-            rotationTimer += Time.deltaTime;
-
             guardM.nav.isStopped = true;
             guardM.anim.SetBool("isWalking", false);
+            guardM.anim.SetBool("isRunning", false);
 
-            // 회전 처리
-            Quaternion targetRotation = Quaternion.Euler(0, -90, 0);
-            guardM.transform.rotation = Quaternion.Slerp(guardM.transform.rotation, targetRotation, rotationTimer / 1f);
-
-            // 회전이 완료되면 ReadyState로 전환
-            if (rotationTimer >= 1f)
+            // 상태 전환
+            if (guardM.guardMType == GuardMType.Wandering)
             {
-                guardM.transform.rotation = targetRotation;
-                bAnimEnd = false;
+                Debug.Log("WanderingState로 상태 전환");
+                guardM.StopGuardCoroutine();
+                machine.OnStateChange(machine.WanderingState);
+            }
+            else
+            {
+                Debug.Log("ReadyState로 상태 전환");
                 machine.OnStateChange(machine.ReadyState);
             }
         }
