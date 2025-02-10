@@ -3597,6 +3597,10 @@ MonoBehaviour:
   - {fileID: 284461752}
   CameraOverlay: {fileID: 109322032}
   volume_1: {fileID: 1318685606}
+<<<<<<< Updated upstream
+=======
+  volume_2: {fileID: 0}
+>>>>>>> Stashed changes
 --- !u!4 &599544775
 Transform:
   m_ObjectHideFlags: 0
@@ -4204,7 +4208,10 @@ Transform:
   - {fileID: 1141180787}
   - {fileID: 358319916}
   - {fileID: 320050439}
+<<<<<<< Updated upstream
   - {fileID: 2104421230}
+=======
+>>>>>>> Stashed changes
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &698079015
@@ -4225,10 +4232,13 @@ MonoBehaviour:
   fLowClockBatteryPoint: 0
   bDoing: 0
   bBatteryFull: 0
+<<<<<<< Updated upstream
   obj_Document: {fileID: 400130975}
   obj_SmallDocument: {fileID: 4791600871747340086, guid: 3fcf4750b7c160e4aaa12f5bad88c32c,
     type: 3}
   transform_CreateDocument: {fileID: 2104421230}
+=======
+>>>>>>> Stashed changes
   Stamps:
   - {fileID: 7925545546306481664, guid: e86a7b778d4703541b94ffaa8b5c8780, type: 3}
   - {fileID: 8902399024342931831, guid: 277d1a58b1e46f544b3c3058cf05c9ca, type: 3}
@@ -10775,6 +10785,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+<<<<<<< Updated upstream
 --- !u!1 &2104421229
 GameObject:
   m_ObjectHideFlags: 0
@@ -10806,6 +10817,8 @@ Transform:
   m_Children: []
   m_Father: {fileID: 698079014}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> Stashed changes
 --- !u!1 &2124725670
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,13 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+<<<<<<< Updated upstream
 using UnityEditor.Search;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
+=======
+using UnityEngine;
+>>>>>>> Stashed changes
 
 public class StampMacine : ClockBattery, IPartsOwner
 {
     private Coroutine nowCoroutine;
 
+<<<<<<< Updated upstream
     [Header("ì„œë¥˜ ì˜¤ë¸Œì íŠ¸")]
     public GameObject obj_Document;         // ì»¤ë‹¤ë‘ ìƒíƒœì˜ ì„œë¥˜
     public GameObject obj_SmallDocument;    // ìƒì„±í•  ColorObj
@@ -19,6 +24,14 @@ public class StampMacine : ClockBattery, IPartsOwner
     public Transform transforom_stamp;  // ìŠ¤íƒ¬í”„ ì°ì„ ìœ„ì¹˜
     private Queue<int> queueStamp = new Queue<int>(); // ìƒì„±ëœ ìŠ¤íƒ¬í”„ ê´€ë¦¬ìš© ìŠ¤íƒ
     
+=======
+    [Header("½ºÅÆÇÁ Á¤º¸")]
+    private int iStampNum = 0;
+    public GameObject[] Stamps;         // ÂïÀ» ½ºÅÆÇÁµé
+    public Transform transforom_stamp;  // ½ºÅÆÇÁ ÂïÀ» À§Ä¡
+
+    private Stack<GameObject> stampStack = new Stack<GameObject>(); // »ı¼ºµÈ ½ºÅÆÇÁ °ü¸®¿ë ½ºÅÃ
+>>>>>>> Stashed changes
 
 
     public override void TurnOnObj()
@@ -31,6 +44,7 @@ public class StampMacine : ClockBattery, IPartsOwner
     public override void TurnOffObj()
     {
         base.TurnOffObj();
+<<<<<<< Updated upstream
 
         if (nowCoroutine != null) StopCoroutine(nowCoroutine);
 
@@ -43,37 +57,79 @@ public class StampMacine : ClockBattery, IPartsOwner
         }
     }
 
+=======
+        if (nowCoroutine != null) StopCoroutine(nowCoroutine);
+
+
+        Debug.Log(iStampNum);
+
+    }
+>>>>>>> Stashed changes
 
 
     private IEnumerator HitStamp()
     {
+<<<<<<< Updated upstream
         // ë°°í„°ë¦¬ê°€ 3ë³´ë‹¤ ì‘ë‹¤ë©´
+=======
+        // ¹èÅÍ¸®°¡ 3º¸´Ù ÀÛ´Ù¸é
+>>>>>>> Stashed changes
         if (fCurClockBattery < 3)
         {
             while (fCurClockBattery > 0)
             {
                 fCurClockBattery -= 1;
+<<<<<<< Updated upstream
                 yield return new WaitForSecondsRealtime(1.0f); // 1ì´ˆ ëŒ€ê¸°
             }
         }
         else // ë°°í„°ë¦¬ê°€ 3 ì´ìƒì´ë¼ë©´
+=======
+                yield return new WaitForSecondsRealtime(1.0f); // 1ÃÊ ´ë±â
+            }
+        }
+        else // ¹èÅÍ¸®°¡ 3 ÀÌ»óÀÌ¶ó¸é
+>>>>>>> Stashed changes
         {
             while (fCurClockBattery > 0)
             {
                 fCurClockBattery -= 1;
+<<<<<<< Updated upstream
                 yield return new WaitForSecondsRealtime(1.0f); // 1ì´ˆ ëŒ€ê¸°
+=======
+                yield return new WaitForSecondsRealtime(1.0f); // 1ÃÊ ´ë±â
+>>>>>>> Stashed changes
             }
 
             if (iStampNum > 0)
             {
+<<<<<<< Updated upstream
                 queueStamp.Enqueue(iStampNum);
                 CreateStackedStamps();      // ë„ì¥ ì°ê¸°
+=======
+                // YÃà ¿ÀÇÁ¼Â °è»ê: ½ºÅÃ¿¡ ÀÖ´Â ¿ä¼Ò ¼ö¿¡ µû¶ó ¼³Á¤
+                float yOffset = stampStack.Count * 0.01f;
+
+                // ½ºÅÆÇÁ ÇÁ¸®ÆÕ »ı¼º
+                GameObject newStamp = Instantiate(
+                    Stamps[iStampNum - 1],
+                    transforom_stamp.position + new Vector3(0, yOffset, 0),
+                    Quaternion.Euler(90f, 0f, 0f) // XÃàÀ¸·Î 90µµ È¸Àü
+                );
+
+                // ½ºÅÆÇÁ¸¦ ½ºÅÃ¿¡ Ãß°¡
+                stampStack.Push(newStamp);
+
+                // ºÎ¸ğ ¼³Á¤
+                newStamp.transform.SetParent(transforom_stamp);
+>>>>>>> Stashed changes
             }
         }
 
         TurnOffObj();
         yield break;
     }
+<<<<<<< Updated upstream
     // #. ë„ì¥ ìƒì„±í•˜ê¸°
     public void CreateStackedStamps()
     {
@@ -155,6 +211,8 @@ public class StampMacine : ClockBattery, IPartsOwner
 
         return true;
     }
+=======
+>>>>>>> Stashed changes
 
 
 
@@ -163,17 +221,30 @@ public class StampMacine : ClockBattery, IPartsOwner
 
 
 
+<<<<<<< Updated upstream
     // #. IPartOwner ì¸í„°í˜ì´ìŠ¤
+=======
+
+
+
+
+
+
+    // #. IPartOwner ÀÎÅÍÆäÀÌ½º
+>>>>>>> Stashed changes
     #region
 
     public void InsertOwnerFunc(GameObject stampParts, int index)
     {
         StampParts stampParts_ = stampParts.GetComponent<StampParts>();
+<<<<<<< Updated upstream
         if (stampParts_ == null)
         {
             Debug.LogWarning("ìŠ¤íƒ¬í”„ íŒŒì¸ ì— StampParts ì»´í¬ë„ŒíŠ¸ê°€ ì—†ìŠµë‹ˆë‹¤.");
             return;
         }
+=======
+>>>>>>> Stashed changes
         iStampNum = stampParts_.iStampeNum;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public enum PartOwnerType
 {
     Nothing,
+<<<<<<< Updated upstream
     TrafficLightClockWork,      // ì‹ í˜¸ë“± 
     SoundPiece,                 // ì‚¬ìš´ë“œ ë¸”ë¡
     ToyTruckClockWork,          // ìž¥ë‚œê° íŠ¸ëŸ­ì— ìž¥ì°©í•  íƒœì—½ 
@@ -16,6 +17,12 @@ public enum PartsAreaType
 {
     Wall,
     Floor
+=======
+    TrafficLightClockWork,      // ½ÅÈ£µî 
+    SoundPiece,                 // »ç¿îµå ºí·Ï
+    ToyTruckClockWork,          // Àå³­°¨ Æ®·°¿¡ ÀåÂøÇÒ ÅÂ¿± 
+    StampMachine
+>>>>>>> Stashed changes
 }
 
 public class PartsArea : MonoBehaviour
