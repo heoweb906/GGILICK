@@ -12,7 +12,6 @@ public class GuardMStateMachine : StateMachine
     public GM_ChaseState ChaseState { get; private set; }
     public GM_AttackState AttackState { get; private set; }
     public GM_BackHomeState BackHomeState { get; private set; }
-    public GM_WanderingState WanderingState { get; private set; }
     
 
 
@@ -27,13 +26,8 @@ public class GuardMStateMachine : StateMachine
         ChaseState = new GM_ChaseState(guardM, this);
         AttackState = new GM_AttackState(guardM, this);
         BackHomeState = new GM_BackHomeState(guardM, this);
-        WanderingState = new GM_WanderingState(guardM, this);
 
-
-        // 경비병의 상태에 따라 초기 상태를 결정
-        if (guardM.guardMType == GuardMType.Wandering) CurrentState = WanderingState;
-        else CurrentState = ReadyState;
-
+        CurrentState = ReadyState;
         CurrentState.OnEnter();
     }
 
