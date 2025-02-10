@@ -1012,13 +1012,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
   isParts: 1
   partOwnerType: 4
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
   holdRotationOffset: {x: 0, y: 0, z: 0}
+  putDownPositionOffset: {x: 0, y: 0, z: 0}
+  putDownRotationOffset: {x: 0, y: 0, z: 0}
+  putPartsPositionOffset: {x: 0, y: 0, z: 0}
+  putPartsRotationOffset: {x: 0, y: 0, z: 0}
   iStampeNum: 2
 --- !u!1 &157769898
 GameObject:
@@ -2250,7 +2254,7 @@ GameObject:
   - component: {fileID: 358319916}
   - component: {fileID: 358319917}
   - component: {fileID: 358319918}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: PartArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2288,9 +2292,10 @@ MonoBehaviour:
   Parts: {fileID: 0}
   PartsTransform: {fileID: 358319916}
   PartsInteractTransform: {fileID: 338019345}
-  BCanInteract: 0
+  BCanInteract: 1
   iIndex: 0
   PartOwnertype: 4
+  PartsAreaType: 0
   partsOwnerObjects:
   - {fileID: 698079013}
 --- !u!65 &358319918
@@ -3939,13 +3944,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
   isParts: 1
   partOwnerType: 4
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
   holdRotationOffset: {x: 0, y: 0, z: 0}
+  putDownPositionOffset: {x: 0, y: 0, z: 0}
+  putDownRotationOffset: {x: 0, y: 0, z: 0}
+  putPartsPositionOffset: {x: 0, y: 0, z: 0}
+  putPartsRotationOffset: {x: 0, y: 0, z: 0}
   iStampeNum: 1
 --- !u!1 &667663312
 GameObject:
@@ -4924,13 +4933,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
   isParts: 1
   partOwnerType: 4
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
   holdRotationOffset: {x: 0, y: 0, z: 0}
+  putDownPositionOffset: {x: 0, y: 0, z: 0}
+  putDownRotationOffset: {x: 0, y: 0, z: 0}
+  putPartsPositionOffset: {x: 0, y: 0, z: 0}
+  putPartsRotationOffset: {x: 0, y: 0, z: 0}
   iStampeNum: 3
 --- !u!1 &832111188
 GameObject:
@@ -6344,7 +6357,7 @@ GameObject:
   - component: {fileID: 1141180788}
   - component: {fileID: 1141180790}
   - component: {fileID: 1141180791}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: ClockWork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8586,13 +8599,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  canInteract: 0
+  canInteract: 1
   isParts: 1
   partOwnerType: 4
   rigid: {fileID: 0}
   col: {fileID: 0}
   holdPositionOffset: {x: 0, y: 0, z: 0}
   holdRotationOffset: {x: 0, y: 0, z: 0}
+  putDownPositionOffset: {x: 0, y: 0, z: 0}
+  putDownRotationOffset: {x: 0, y: 0, z: 0}
+  putPartsPositionOffset: {x: 0, y: 0, z: 0}
+  putPartsRotationOffset: {x: 0, y: 0, z: 0}
   iStampeNum: 4
 --- !u!1 &1520304005
 GameObject:
