@@ -13,11 +13,7 @@ public class NPC_Simple_Action_TextingSmartPhone : NPC_Simple_State
         base.OnEnter();
 
 
-<<<<<<< Updated upstream
         Debug.Log("íƒœì—½ ëŒë¦¬ê¸° ìƒíƒœ ì§„ìž… ì™„ë£Œ");
-=======
-        Debug.Log("ÅÂ¿± µ¹¸®±â »óÅÂ ÁøÀÔ ¿Ï·á");
->>>>>>> Stashed changes
 
         npc.GetAnimator().SetInteger("ActionEvent_Num", (int)npc.actionEventList);
 

@@ -2976,10 +2976,6 @@ MonoBehaviour:
   - {fileID: 284461752}
   CameraOverlay: {fileID: 109322032}
   volume_1: {fileID: 1318685606}
-<<<<<<< Updated upstream
-=======
-  volume_2: {fileID: 0}
->>>>>>> Stashed changes
 --- !u!4 &599544775
 Transform:
   m_ObjectHideFlags: 0
