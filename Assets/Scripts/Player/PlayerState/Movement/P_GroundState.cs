@@ -89,6 +89,7 @@ public class P_GroundState : PlayerMovementState
             player.isGoToTarget = false;
             
             player.partsArea = null;
+            
         }
     }
 
