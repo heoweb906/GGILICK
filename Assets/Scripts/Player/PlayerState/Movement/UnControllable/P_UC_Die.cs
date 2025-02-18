@@ -1,4 +1,3 @@
-/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,7 +26,17 @@ public class P_UC_Die : P_UnControllable
             rb.mass = player.totalMass / 13f;
             rb.useGravity = true;
             rb.isKinematic = false;
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
             ragdollRigidbodies.Add(rb);
+
+            rb.gameObject.layer = LayerMask.NameToLayer("Player");
+
+            // 랜덤한 방향과 힘 적용 (위쪽 방향 보정)
+            Vector3 randomDirection = Random.onUnitSphere;
+            randomDirection.y = Mathf.Abs(randomDirection.y) + 0.5f; // 위쪽 방향 보정
+            randomDirection.Normalize(); // 정규화
+            float randomForce = Random.Range(2f, 4f); // 힘도 약간 증가
+            rb.AddForce(randomDirection * randomForce, ForceMode.Impulse);
 
             // Collider 추가
             switch (colliderType)
@@ -42,7 +51,7 @@ public class P_UC_Die : P_UnControllable
                     break;
                 case ColliderType.Capsule:
                     BoxCollider limbCollider = transform.gameObject.AddComponent<BoxCollider>();
-                    limbCollider.size = new Vector3(0.1f, 0.3f, 0.1f); // 팔, 다리, 몸통에 적합한 크기
+                    limbCollider.size = new Vector3(0.08f, 0.08f, 0.08f); // 팔, 다리, 몸통에 적합한 크기
                     break;
             }
         }
@@ -62,6 +71,12 @@ public class P_UC_Die : P_UnControllable
         AddRagdollComponents(player.rightArm, ColliderType.Capsule);
         AddRagdollComponents(player.middleSpine, ColliderType.Capsule);
         AddRagdollComponents(player.head, ColliderType.Capsule);
+        AddRagdollComponents(player.leftElbow, ColliderType.Capsule);
+        AddRagdollComponents(player.rightElbow, ColliderType.Capsule);
+        AddRagdollComponents(player.leftKnee, ColliderType.Capsule);
+        AddRagdollComponents(player.rightKnee, ColliderType.Capsule);
+        AddRagdollComponents(player.leftFoot, ColliderType.Capsule);
+        AddRagdollComponents(player.rightFoot, ColliderType.Capsule);
         // 레그돌 활성화
         foreach (Rigidbody rb in ragdollRigidbodies)
         {
@@ -83,9 +98,8 @@ public class P_UC_Die : P_UnControllable
         }
     }
 }
-*/
 
-
+/*
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -271,3 +285,4 @@ public class P_UC_Die : P_UnControllable
         }
     }
 }
+*/

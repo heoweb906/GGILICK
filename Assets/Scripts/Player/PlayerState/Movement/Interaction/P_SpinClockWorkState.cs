@@ -36,7 +36,13 @@ public class P_SpinClockWorkState : P_InteractionState
 
     private void CheckCanExit()
     {
+        if (player.curClockWork.BoolBatteryFullCharging())
+        {
+            machine.OnStateChange(machine.IdleState);
+        }
+
         if (!bCanExit) return;
+        if (player.curClockWork.isSingleEvent) return;
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") || !Input.GetButton("Fire1"))
         {
             machine.OnStateChange(machine.IdleState);
@@ -56,10 +62,7 @@ public class P_SpinClockWorkState : P_InteractionState
         bCanExit = true;
         player.curClockWork.ChargingBattery();
 
-        if (player.curClockWork.BoolBatteryFullCharging())
-        {
-            machine.OnStateChange(machine.IdleState);
-        }
+        
     }
 
 }

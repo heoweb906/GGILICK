@@ -1849,7 +1849,7 @@ GameObject:
   - component: {fileID: 416001046}
   - component: {fileID: 416001045}
   - component: {fileID: 416001044}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1947,7 +1947,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 72e27628a7b5d9e4ba3cbbe6c1b0909e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1986,9 +1986,9 @@ Transform:
   m_GameObject: {fileID: 416001042}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.026361693, z: -0, w: 0.9996525}
-  m_LocalPosition: {x: 2.41, y: 0.52, z: -13.95}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
-  m_ConstrainProportionsScale: 1
+  m_LocalPosition: {x: 4.23, y: 0.19, z: -18.21}
+  m_LocalScale: {x: 1.5, y: 0.937575, z: 1.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 962082602}
   - {fileID: 2092351378}
@@ -2687,7 +2687,7 @@ Transform:
   m_GameObject: {fileID: 725343967}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.261, y: 0.507, z: -9.457999}
+  m_LocalPosition: {x: 3.261, y: 0.507, z: -9.942}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2970,6 +2970,7 @@ MonoBehaviour:
   clockBattery: {fileID: 1533973335}
   clockWorkType: 0
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!65 &770510517
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3312,7 +3313,7 @@ PrefabInstance:
     - target: {fileID: 5034851789954370755, guid: 1b342348e7dd5c449be3b81fc1e76902,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.159
+      value: -9.4279995
       objectReference: {fileID: 0}
     - target: {fileID: 5034851789954370755, guid: 1b342348e7dd5c449be3b81fc1e76902,
         type: 3}
@@ -3945,7 +3946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &900592248
 Transform:
   m_ObjectHideFlags: 0
@@ -4244,7 +4245,7 @@ Transform:
   m_GameObject: {fileID: 1010640892}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.261, y: 0.507, z: -9.129}
+  m_LocalPosition: {x: 3.261, y: 0.507, z: -9.398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4980,7 +4981,7 @@ Transform:
   m_GameObject: {fileID: 1223030587}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 3.261, y: 0.507, z: -8.52}
+  m_LocalPosition: {x: 3.261, y: 0.507, z: -8.328}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7244,7 +7245,7 @@ PrefabInstance:
     - target: {fileID: 5034851789954370755, guid: 1b342348e7dd5c449be3b81fc1e76902,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.488
+      value: -9.972001
       objectReference: {fileID: 0}
     - target: {fileID: 5034851789954370755, guid: 1b342348e7dd5c449be3b81fc1e76902,
         type: 3}
@@ -7613,7 +7614,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1638290196
 Transform:
   m_ObjectHideFlags: 0
@@ -7623,7 +7624,7 @@ Transform:
   m_GameObject: {fileID: 1638290195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -4.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8917,13 +8918,18 @@ PrefabInstance:
     - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
         type: 3}
       propertyPath: totalMass
-      value: 90.1
+      value: 7.6
       objectReference: {fileID: 0}
     - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
         type: 3}
       propertyPath: rightElbow
       value: 
       objectReference: {fileID: 1616288856}
+    - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
+        type: 3}
+      propertyPath: throwPower
+      value: 6.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
         type: 3}
       propertyPath: middleSpine
@@ -9277,6 +9283,7 @@ MonoBehaviour:
   clockBattery: {fileID: 1533973335}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!65 &8691268256661336659
 BoxCollider:
   m_ObjectHideFlags: 0

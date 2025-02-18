@@ -17,6 +17,8 @@ public class ClockWork : InteractableObject
 
     public List<ClockWork> plusClockWorksList  = new List<ClockWork>();
 
+    public bool isSingleEvent;
+
     private void Start()
     {
         type = InteractableType.ClockWork;
