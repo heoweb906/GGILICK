@@ -14,7 +14,9 @@ public class Create_WanderingNPC : MonoBehaviour
     public GameObject[] NPC_Wandering;
     public float spawnInterval = 0.3f;
 
+    public bool bReverse;
     public WayPoints[] positionArray;
+    
 
     private int iRandNum;
 
@@ -30,25 +32,50 @@ public class Create_WanderingNPC : MonoBehaviour
         {
             Debug.Log("NPC를 생성하였습니다.");
 
-            int randomIndex = Random.Range(0, positionArray[0].points.Length);
-            Transform spawnPosition = positionArray[0].points[randomIndex];
-
-            randomIndex = Random.Range(0, NPC_Wandering.Length);
-            GameObject npc = Instantiate(NPC_Wandering[randomIndex], spawnPosition.position, Quaternion.identity);
-            NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
-            nPC_Wanderring.bWalking = true;
-
-            // 리스트를 사용하여 목표 지점들을 추가
-            List<Transform> tempCheckpoints = new List<Transform>();
-
-
-            for(int i = 1; i < positionArray.Length; i++)
+            if (!bReverse)
             {
-                iRandNum = Random.Range(0, positionArray[i].points.Length);
-                tempCheckpoints.Add(positionArray[i].points[iRandNum]);
+                int randomIndex = Random.Range(0, positionArray[0].points.Length);
+                Transform spawnPosition = positionArray[0].points[randomIndex];
+
+
+                randomIndex = Random.Range(0, NPC_Wandering.Length);
+                GameObject npc = Instantiate(NPC_Wandering[randomIndex], spawnPosition.position, Quaternion.identity);
+                NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
+
+                // 리스트를 사용하여 목표 지점들을 추가
+                List<Transform> tempCheckpoints = new List<Transform>();
+
+                for (int i = 1; i < positionArray.Length; i++)
+                {
+                    iRandNum = Random.Range(0, positionArray[i].points.Length);
+                    tempCheckpoints.Add(positionArray[i].points[iRandNum]);
+                }
+
+                nPC_Wanderring.checkPoints = tempCheckpoints.ToArray();
+            }
+            else
+            {
+                // ✅ 역방향: 마지막 WayPoint에서 생성
+                int lastIndex = positionArray.Length - 1;
+                int randomIndex = Random.Range(0, positionArray[lastIndex].points.Length);
+                Transform spawnPosition = positionArray[lastIndex].points[randomIndex];
+
+                randomIndex = Random.Range(0, NPC_Wandering.Length);
+                GameObject npc = Instantiate(NPC_Wandering[randomIndex], spawnPosition.position, Quaternion.identity);
+                NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
+
+                // ✅ 체크포인트를 역순으로 추가
+                List<Transform> tempCheckpoints = new List<Transform>();
+                for (int i = lastIndex - 1; i >= 0; i--)
+                {
+                    iRandNum = Random.Range(0, positionArray[i].points.Length);
+                    tempCheckpoints.Add(positionArray[i].points[iRandNum]);
+                }
+
+                nPC_Wanderring.checkPoints = tempCheckpoints.ToArray();
             }
 
-            nPC_Wanderring.checkPoints = tempCheckpoints.ToArray();
+            
 
             yield return new WaitForSeconds(spawnInterval);
         }

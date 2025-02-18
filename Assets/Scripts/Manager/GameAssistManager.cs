@@ -52,10 +52,13 @@ public class GameAssistManager : MonoBehaviour
         }
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
 
+
+        // 플레이어 조작 가능
+        PlayerInputLockOff();
+
+
         // #. Volume 관리
         if (volume_1 == null) Debug.Log("Volume이 비어있습니다.");
-  
-
         volume_1.profile.TryGet(out vignette_1);
         volume_1.profile.TryGet(out colorAdjustments_1);
         volume_1.profile.TryGet(out depthOfField_1);
@@ -64,6 +67,7 @@ public class GameAssistManager : MonoBehaviour
         volume_1.profile.TryGet(out whiteBalance_1);
 
 
+       
     }
 
 
@@ -93,6 +97,7 @@ public class GameAssistManager : MonoBehaviour
         if (!bPlayerDie)
         {
             bPlayerDie = true;
+            PlayerInputLockOn();
             StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
         }
     }
@@ -273,8 +278,13 @@ public class GameAssistManager : MonoBehaviour
         if (playerScript == null) return;
 
         playerScript.machine.OnStateChange(playerScript.machine.IdleState);
+
+        Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
+        playerRigidbody.constraints = RigidbodyConstraints.None;
+        playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
 
+    // playerScript.machine.UC_DieState
 
 
     #endregion

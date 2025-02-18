@@ -40,10 +40,11 @@ namespace Keto
             }
         }
 
-        public void Dissapear()
+        public void Dissolve()
         {
             StartCoroutine(DissolveCoroutine());
         }
+
         private IEnumerator DissolveCoroutine()
         {
             if (Particle != null)

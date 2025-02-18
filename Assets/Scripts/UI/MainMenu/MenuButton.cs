@@ -11,7 +11,7 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     protected MainMenuController mainMenuController;
     public TMP_Text textButton;
 
-    protected float fButtonAnimationDelay = 0.3f;
+    protected float fButtonAnimationDelay = 0.35f;
  
     public bool bSelect = false;
 

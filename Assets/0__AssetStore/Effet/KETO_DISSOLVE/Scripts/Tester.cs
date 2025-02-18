@@ -32,7 +32,7 @@ namespace Keto
                 SampleD.SetActive(false);
                 SampleE.SetActive(false);
                 SampleA.GetComponent<DissolveTest>().Reset();
-                //SampleA.GetComponent<DissolveTest>().Dissolve();
+                SampleA.GetComponent<DissolveTest>().Dissolve();
             }
 
             if (GUI.Button(new Rect(150, 300, 150, 130), "SampleB"))
@@ -43,7 +43,7 @@ namespace Keto
                 SampleD.SetActive(false);
                 SampleE.SetActive(false);
                 SampleB.GetComponent<DissolveTest>().Reset();
-                //SampleB.GetComponent<DissolveTest>().Dissolve();
+                SampleB.GetComponent<DissolveTest>().Dissolve();
             }
 
             if (GUI.Button(new Rect(150, 500, 150, 130), "SampleC"))
@@ -54,7 +54,7 @@ namespace Keto
                 SampleD.SetActive(false);
                 SampleE.SetActive(false);
                 SampleC.GetComponent<DissolveTest>().Reset();
-                //SampleC.GetComponent<DissolveTest>().Dissolve();
+                SampleC.GetComponent<DissolveTest>().Dissolve();
             }
 
             if (GUI.Button(new Rect(150, 700, 150, 130), "SampleD"))
@@ -65,7 +65,7 @@ namespace Keto
                 SampleD.SetActive(true);
                 SampleE.SetActive(false);
                 SampleD.GetComponent<DissolveTest>().Reset();
-                //SampleD.GetComponent<DissolveTest>().Dissolve();
+                SampleD.GetComponent<DissolveTest>().Dissolve();
             }
 
             if (GUI.Button(new Rect(150, 900, 150, 130), "SampleE"))
@@ -76,7 +76,7 @@ namespace Keto
                 SampleD.SetActive(false);
                 SampleE.SetActive(true);
                 SampleE.GetComponent<DissolveTest>().Reset();
-                //SampleE.GetComponent<DissolveTest>().Dissolve();
+                SampleE.GetComponent<DissolveTest>().Dissolve();
             }
         }
     }

@@ -2,7 +2,6 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Networking;
@@ -28,15 +27,19 @@ public class SoundAssistManager : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
             Instance = this;
+            
             LoadSounds("Sounds");
             InitializeAudioPlayerBlockPool(iPoolSize);
 
-            Invoke("AudioMixerSet",0.1f);
+            AudioMixerSet();
+
+            // Invoke("AudioMixerSet",0.1f);
+
 
             DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
         }
@@ -47,7 +50,9 @@ public class SoundAssistManager : MonoBehaviour
             Destroy(gameObject); // 이미 존재하는 인스턴스가 있으면 현재 오브젝트 파괴
         }
 
-        
+        string currentSceneName = SceneManager.GetActiveScene().name;
+        BGMChange(currentSceneName);
+
     }
 
     // 사운드 찾기
@@ -106,6 +111,8 @@ public class SoundAssistManager : MonoBehaviour
     }
     #endregion
 
+
+   
 
 
 
@@ -216,6 +223,8 @@ public class SoundAssistManager : MonoBehaviour
         float sfxVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetSFXVolume());
         audioMixer_Master.SetFloat("SFX", sfxVolume);
 
+        Debug.Log("사운드 수치를 적용합니다");
+
         //bool isMasterMuted = masterVolume <= -30f;
         //audioMixer_Master.SetFloat("MasterMute", isMasterMuted ? 1f : 0f);
 
@@ -225,13 +234,14 @@ public class SoundAssistManager : MonoBehaviour
         //bool isSFXMuted = sfxVolume <= -50f;
         //audioMixer_Master.SetFloat("SFXMute", isSFXMuted ? 1f : 0f);
 
-
-        audioSource_BGM.Play();
+        // audioSource_BGM.Play();
     }
 
 
     public void MuteMasterVolume()
     {
+        Debug.Log("음소거");
+
         float muteVolume = -80f;
 
         // DOTween을 사용하여 볼륨을 2초 동안 서서히 -80f로 변경
@@ -243,10 +253,14 @@ public class SoundAssistManager : MonoBehaviour
                 audioMixer_Master.SetFloat("Master", x);
                 // audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // 볼륨 값에 따라 뮤트 처리
             },
-            muteVolume, 2f).SetUpdate(true);
+            muteVolume, 4f).SetUpdate(true);
+
     }
+
     public void UnmuteMasterVolume()
     {
+        Debug.Log("음소거 롤백");
+
         // 저장된 원래 볼륨 값 가져오기 (0과 1 사이의 값)
         float originalVolume = SaveData_Manager.Instance.GetMasterVolume();
         float adjustedVolume = Mathf.Lerp(-80f, 0f, originalVolume);
@@ -259,7 +273,7 @@ public class SoundAssistManager : MonoBehaviour
                 audioMixer_Master.SetFloat("Master", x);
                 //audioMixer_Master.SetFloat("MasterMute", x <= -30f ? 1f : 0f);  // 볼륨 값에 따라 뮤트 처리
             },
-            adjustedVolume, 2f).SetUpdate(true);
+            adjustedVolume, 4f).SetUpdate(true);
     }
 
 
@@ -267,6 +281,8 @@ public class SoundAssistManager : MonoBehaviour
     // #. 다른 코드들에서 호출하고 있음
     public void BGMChange(string sceneName = null)
     {
+        Debug.Log("BGM 변경");
+
         switch (sceneName)
         {
             case "Chapter1_1_City":
@@ -283,10 +299,10 @@ public class SoundAssistManager : MonoBehaviour
                 break;
 
             case "MainMenu":
-                if (audioSource_BGM.clip != soundDictionary["TestBGM_2"])
+                if (audioSource_BGM.clip != soundDictionary["The Last Campfire OST  Title Screen"])
                 {
                     audioSource_BGM.Stop();
-                    audioSource_BGM.clip = soundDictionary["TestBGM_2"];
+                    audioSource_BGM.clip = soundDictionary["The Last Campfire OST  Title Screen"];
                     audioSource_BGM.Play(); 
                     Debug.Log("soundDictionary[TestBGM] 재생");
                 }

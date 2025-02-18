@@ -52,7 +52,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5641698693801417779, guid: 7fb5655c7a56e1846bd2f300100a8323, type: 3}
+  - {fileID: 2100000, guid: 5439b1b915d775a4a8d50573090760f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -647,7 +647,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3998981659316576727, guid: 7fb5655c7a56e1846bd2f300100a8323, type: 3}
+  - {fileID: 2100000, guid: 5439b1b915d775a4a8d50573090760f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -733,7 +733,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2275915453151869237, guid: 7fb5655c7a56e1846bd2f300100a8323, type: 3}
+  - {fileID: 2100000, guid: 5439b1b915d775a4a8d50573090760f0, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -975,7 +975,7 @@ GameObject:
   - component: {fileID: 7884775671757587619}
   - component: {fileID: 5390055020925237130}
   - component: {fileID: 6134259694110930795}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: NPC_Simple
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 1
+  isParts: 0
 --- !u!1 &6027026898181279283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1643,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2275915453151869237, guid: 7fb5655c7a56e1846bd2f300100a8323, type: 3}
+  - {fileID: 2100000, guid: 5e030b0c73118bb449906ca2bc731c8c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

@@ -51,10 +51,11 @@ public class MainMenuController : MonoBehaviour
 
 
 
-    private void Awake()
+    private void Start()
     {
-        PanelChage(0);
+        FadeOutImageEffect();
 
+        PanelChage(0);
     }
     private void Update()
     {
@@ -185,7 +186,7 @@ public class MainMenuController : MonoBehaviour
         switch (index)
         {
             case 0: // Main Panel 켜기
-                SaveData_Manager.Instance.SaveSettings();
+                // SaveData_Manager.Instance.SayveSettings();
                 Panel_Main.SetActive(true);
                 PanelNow = Panel_Main;
                 break;
@@ -395,6 +396,9 @@ public class MainMenuController : MonoBehaviour
         float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[1].value);
         audioMixer_Master.SetFloat("BGM", adjustedVolume);
 
+        Debug.Log("버튼 함수 실행");
+        Debug.Log(adjustedVolume);
+
         //bool isMuted = adjustedVolume <= -50f;
         //audioMixer_Master.SetFloat("BGMMute", isMuted ? 1f : 0f);
 
@@ -412,5 +416,41 @@ public class MainMenuController : MonoBehaviour
     }
 
 
+
+
+    private void FadeOutImageEffect()
+    {
+        Image fadeoutImage = image_FadeOut.GetComponent<Image>();
+        Color fadeColor = fadeoutImage.color;
+
+        FadeInOutImage(1f, 0f);
+        StartCoroutine(FadeOutImageEffect_());
+    }
+    IEnumerator FadeOutImageEffect_()
+    {
+        yield return new WaitForSecondsRealtime(1.1f);
+
+        FadeInOutImage(0f, 1.5f);
+    }
+
+    public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // 매개변수는 목표 수치, 걸리는 시간
+    {
+        Image fadeoutImage = image_FadeOut.GetComponent<Image>();
+        Color fadeColor = fadeoutImage.color;
+
+        // 알파값을 fTargetAlpha까지 duration 동안 올리는 애니메이션
+        DOTween.To(() => fadeColor.a, x =>
+        {
+            fadeColor.a = x;
+            fadeoutImage.color = fadeColor;
+        }, fTargetAlpha, fFadeDuration)
+       .SetEase(Ease.Linear)
+       .SetUpdate(true)  // Time.timeScale의 영향을 받지 않도록 설정
+       .OnKill(() =>
+       {
+           // 애니메이션이 끝난 후 image_FadeOut을 비활성화
+           image_FadeOut.SetActive(false);
+       });
+    }
 
 }

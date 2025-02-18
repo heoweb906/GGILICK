@@ -544,7 +544,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1019404341047484061}
   - component: {fileID: 6193350135103417551}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: NPC_Work
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1110,6 +1110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
 --- !u!1 &5338516823104026936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1841,8 +1842,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 0
   canInteract: 0
+  isParts: 0
   clockBattery: {fileID: 9154959536057617747}
   clockWorkType: 0
+  plusClockWorksList: []
 --- !u!1 &6992417993582340361
 GameObject:
   m_ObjectHideFlags: 0

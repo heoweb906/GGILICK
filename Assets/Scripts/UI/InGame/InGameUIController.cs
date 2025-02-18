@@ -47,7 +47,7 @@ public class InGameUIController : MonoBehaviour
     private void Start()
     {
         FadeOutImageEffect();
-        Instance = this;
+        Instance = this; 
     }
 
     private void Update()
@@ -284,8 +284,9 @@ public class InGameUIController : MonoBehaviour
     // #. Scene 최초 실행 시 화면
     private void FadeOutImageEffect()
     {
-        bUIOnOff = true;
+        Debug.Log("실행");
 
+        bUIOnOff = true;
 
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
@@ -295,11 +296,18 @@ public class InGameUIController : MonoBehaviour
     }
     IEnumerator FadeOutImageEffect_()
     {
-        yield return new WaitForSeconds(1f);
+        Time.timeScale = 15f; // 게임 속도를 50배로 설정
+        yield return new WaitForSecondsRealtime(6f);
+        Time.timeScale = 1f; // 정상 속도로 복귀
+
         FadeInOutImage(0f, 3f);
         bUIOnOff = false;
     }
 
+
+
+  
+   
 
 
 

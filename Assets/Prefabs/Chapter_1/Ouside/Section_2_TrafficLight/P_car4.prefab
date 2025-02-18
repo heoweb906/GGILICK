@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
-  rotationSpeed: 100
+  rotationSpeed: 450
   clockwise: 1
 --- !u!1 &2015243624852822212
 GameObject:
@@ -501,5 +501,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   axis: 2
-  rotationSpeed: 100
+  rotationSpeed: 450
   clockwise: 1

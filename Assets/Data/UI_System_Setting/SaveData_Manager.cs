@@ -232,6 +232,7 @@ public class SaveData_Manager : MonoBehaviour
             string json = File.ReadAllText(filePath);
             settingsData = JsonUtility.FromJson<SettingsData>(json);
 
+  
             Debug.Log("저장되었던 정보를 불러옵니다.");
         }
         else

@@ -30,10 +30,13 @@ public class GuardM : MonoBehaviour
     public GuardM_Visualrange visualRange;
     public GuardM_CheckingArea area;
     public NavMeshAgent nav;
-    public GameObject transformPlayerGrab;
+
+    // 머리가 플레이어를 추격
     public TrackingHead_ToPlayer trackingHead;
 
-    public float fAttackRange;
+    // 공격
+    public Transform transformGrabPlayer; 
+    public float fAttackRange; 
 
     [Header("배회 경비병이 사용할 컴포넌트들")]
     public Transform transformStart;
@@ -53,6 +56,9 @@ public class GuardM : MonoBehaviour
 
         player = GameObject.FindWithTag("Player").transform.root.gameObject;
         obstacleLayerMask = LayerMask.GetMask("Obstacle");
+
+        if (transformStart == null) Debug.Log("시작 지점이 설정되지 않았습니다"); 
+        if (transformEnd == null) Debug.Log("종료 지점이 설정되지 않았습니다"); 
     }
     private void Init()
     {

@@ -21,7 +21,17 @@ public class ScanMaster : MonoBehaviour
     [Header("MasterObj 관련")]
     public GameObject masterObject;         // 스캔에 성공하면 획득할 수 있는 오브젝트
     public Transform transformMasterObj;    // 마스터 오브젝트 생성 위치
-        
+
+
+    [Header("Door 관련")]
+    public GameObject Door_1;
+    public GameObject Door_2;
+    public Transform transformTarget_1;
+    public Transform transformTarget_2;
+    public float duration = 1.0f; // 문이 열리는 시간
+    private Vector3 door1StartPos;
+    private Vector3 door2StartPos;
+
 
     // 테스트로 사용할 이미지
     public GameObject[] testFaces;
@@ -86,9 +96,8 @@ public class ScanMaster : MonoBehaviour
     // #. 스캔 성공!
     private void Scan_Success()
     {
+        // 마스터 오브젝트 생성
         GameObject spawnedObject = Instantiate(masterObject, transformMasterObj.position, Quaternion.identity);
-
-        // Collider와 Rigidbody 참조
         Collider objCollider = spawnedObject.GetComponent<Collider>();
         Rigidbody objRigidbody = spawnedObject.GetComponent<Rigidbody>();
 
@@ -97,7 +106,6 @@ public class ScanMaster : MonoBehaviour
         startPosition.y -= 2f;
         spawnedObject.transform.position = startPosition;
 
-        // Collider 및 Rigidbody 비활성화
         if (objCollider != null) objCollider.enabled = false;
         if (objRigidbody != null) objRigidbody.isKinematic = true;
 
@@ -110,6 +118,15 @@ public class ScanMaster : MonoBehaviour
                 if (objCollider != null) objCollider.enabled = true;
                 if (objRigidbody != null) objRigidbody.isKinematic = false;
             });
+
+
+        // 문 열기
+        if (Door_1 != null) door1StartPos = Door_1.transform.position;
+        if (Door_2 != null) door2StartPos = Door_2.transform.position;
+        if (Door_1 != null) Door_1.transform.DOMove(transformTarget_1.position, duration).SetEase(Ease.OutQuad);
+        if (Door_2 != null) Door_2.transform.DOMove(transformTarget_2.position, duration).SetEase(Ease.OutQuad);
+
+
 
         // 추가 기능들
         testFaces[0].SetActive(true);

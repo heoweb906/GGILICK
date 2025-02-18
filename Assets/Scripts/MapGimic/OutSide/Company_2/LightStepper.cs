@@ -10,32 +10,35 @@ public class LightStepper : MonoBehaviour
     private Material matMine;
    
     public Material[] materials;
+    
+    
 
-    private bool isCooldown; // Äğ´Ù¿î »óÅÂ¸¦ Ã¼Å©ÇÏ´Â º¯¼ö
+    private bool isCooldown; // ì¿¨ë‹¤ìš´ ìƒíƒœë¥¼ ì²´í¬í•˜ëŠ” ë³€ìˆ˜
 
     private void Awake()
     {
-        // Renderer¿¡¼­ ÇöÀç MaterialÀ» °¡Á®¿È (°³º° Material ÀÎ½ºÅÏ½º »ı¼º)
+        // Rendererì—ì„œ í˜„ì¬ Materialì„ ê°€ì ¸ì˜´ (ê°œë³„ Material ì¸ìŠ¤í„´ìŠ¤ ìƒì„±)
         renderer = GetComponent<Renderer>();
-        matMine = renderer.material; // ÃÊ±â Material ÀúÀå
+        matMine = renderer.material; // ì´ˆê¸° Material ì €ì¥
 
-        if (bStep) renderer.material = materials[0]; // Ã¹ ¹øÂ° Material·Î º¯°æ
-        else renderer.material = materials[1]; // µÎ ¹øÂ° Material·Î º¯°æ
+        if (bStep) renderer.material = materials[0]; // ì²« ë²ˆì§¸ Materialë¡œ ë³€ê²½
+        else renderer.material = materials[1]; // ë‘ ë²ˆì§¸ Materialë¡œ ë³€ê²½
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isCooldown)
         {
-            Debug.Log("Step!");
+           
             isCooldown = true;
             bStep = !bStep;
 
             renderer = GetComponent<Renderer>();
-            if (bStep) renderer.material = materials[0]; // Ã¹ ¹øÂ° Material·Î º¯°æ
-            else renderer.material = materials[1]; // µÎ ¹øÂ° Material·Î º¯°æ
+            if (bStep) renderer.material = materials[0]; // ì²« ë²ˆì§¸ Materialë¡œ ë³€ê²½
+            else renderer.material = materials[1]; // ë‘ ë²ˆì§¸ Materialë¡œ ë³€ê²½
 
-            // ÇöÀç Material ¾÷µ¥ÀÌÆ®
+            // í˜„ì¬ Material ì—…ë°ì´íŠ¸
             matMine = renderer.material;
         }
     }

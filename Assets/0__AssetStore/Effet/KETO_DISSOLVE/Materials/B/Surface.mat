@@ -10,11 +10,8 @@ Material:
   m_Name: Surface
   m_Shader: {fileID: -6465566751694194690, guid: 367a92fb78ee7424e9e74b4ede737fb9,
     type: 3}
-<<<<<<< HEAD
-=======
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
->>>>>>> Heo
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -23,10 +20,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-<<<<<<< HEAD
-=======
   m_LockedProperties: 
->>>>>>> Heo
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -140,8 +134,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-<<<<<<< HEAD
-  version: 5
-=======
   version: 7
->>>>>>> Heo

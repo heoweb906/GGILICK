@@ -12,10 +12,22 @@ public class NPC_Simple_WalkState : NPC_Simple_State
         base.OnEnter();
 
         npc.GetNav().enabled = true;
+        npc.GetNav().autoBraking = false;
 
-        int ranNum = Random.Range(0, 2);
+        int ranNum = (Random.value < 0.15f) ? 0 : 1;
+
+        // int ranNum = Random.Range(0, 2);
+
+        // 0. 핸드폰 보면서 걷기
+        // 1. 일반 걷기
+        if (ranNum == 0) npc.GetNav().speed = 0.7f;
+
         npc.GetAnimator().SetInteger("Walk_Num", ranNum);
+
+       
     }
+
+
 
 
     public override void OnUpdate()
@@ -33,6 +45,7 @@ public class NPC_Simple_WalkState : NPC_Simple_State
             }
             else
             {
+                Debug.Log("NPC 삭제");
                 Object.Destroy(npc.gameObject);
             }
             npc.CurrentCheckPointIndex++;
