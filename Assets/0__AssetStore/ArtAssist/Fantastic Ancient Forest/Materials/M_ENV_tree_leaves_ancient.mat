@@ -151,7 +151,7 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _BaseTexColorTint: {r: 0.55069983, g: 0.6320754, b: 0.3488341, a: 0}
+    - _BaseTexColorTint: {r: 0.3768319, g: 0.41509432, b: 0.28390884, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _DistanceFadeColor: {r: 0.10588236, g: 0.7176471, b: 0.7843138, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
