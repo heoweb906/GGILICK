@@ -457,6 +457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3128501495127589108}
   bSelect: 0
+  bCanSelectIcon: 0
   otherButton: {fileID: 6666090842239076112}
   bButtonSelceted: 0
 --- !u!1 &1081209918203784553
@@ -607,6 +608,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 1417892838830421326}
   bSelect: 0
+  bCanSelectIcon: 0
   iResolutionNum: 0
   resolutionNumButtons:
   - {fileID: 3885447534139243536}
@@ -1613,6 +1615,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3782289612321012552}
   bSelect: 0
+  bCanSelectIcon: 1
 --- !u!1 &2132498331619777916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2597,6 +2600,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3359757759824129301}
   bSelect: 0
+  bCanSelectIcon: 0
 --- !u!1 &3804466138154013565
 GameObject:
   m_ObjectHideFlags: 0
@@ -2714,6 +2718,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 102394669877306836}
   bSelect: 0
+  bCanSelectIcon: 1
 --- !u!1 &4003263099352602232
 GameObject:
   m_ObjectHideFlags: 0
@@ -2849,6 +2854,8 @@ MonoBehaviour:
   image_FadeOut_ForReturn: {fileID: 6539755045087250612}
   bIsUIDoing: 0
   duration: 0.2
+  objSelectIcon: {fileID: 7630557952076746798, guid: 2bed1ddcda1fd724faea87943eb35d68,
+    type: 3}
 --- !u!1 &4474120952197418089
 GameObject:
   m_ObjectHideFlags: 0
@@ -3132,6 +3139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3349892563610814716}
   bSelect: 0
+  bCanSelectIcon: 0
   iResolutionNum: 1
   resolutionNumButtons:
   - {fileID: 1828814243547763198}
@@ -4084,6 +4092,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 1101419967102033791}
   bSelect: 0
+  bCanSelectIcon: 0
 --- !u!1 &5716508454704928708
 GameObject:
   m_ObjectHideFlags: 0
@@ -5564,6 +5573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3800194587457705601}
   bSelect: 0
+  bCanSelectIcon: 1
 --- !u!1 &7720464907982535485
 GameObject:
   m_ObjectHideFlags: 0
@@ -6057,6 +6067,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 4061216707546760678}
   bSelect: 0
+  bCanSelectIcon: 0
   iResolutionNum: 2
   resolutionNumButtons:
   - {fileID: 1828814243547763198}
@@ -6481,6 +6492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3890915857234764445}
   bSelect: 0
+  bCanSelectIcon: 0
   iResolutionNum: 3
   resolutionNumButtons:
   - {fileID: 1828814243547763198}
@@ -6776,6 +6788,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 3441780515974483473}
   bSelect: 0
+  bCanSelectIcon: 0
   otherButton: {fileID: 5459397252006348056}
   bButtonSelceted: 0
 --- !u!1 &8568681347130029901
@@ -7030,6 +7043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textButton: {fileID: 8747263705179109435}
   bSelect: 0
+  bCanSelectIcon: 1
 --- !u!1 &8918079728522056369
 GameObject:
   m_ObjectHideFlags: 0

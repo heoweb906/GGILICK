@@ -44,6 +44,12 @@ public class InGameUIController : MonoBehaviour
     public float duration; // 애니메이션 지속 시간
 
 
+    [Header("버튼 선택 시 생성되는 아이콘")]
+    public GameObject objSelectIcon;
+    private InGameButton lastPlayerButton = null; // 이전 nowPlayerButton 저장용
+    private GameObject lastCreatedObject = null; // 마지막으로 생성한 빈 오브젝트 저장
+
+
     private void Start()
     {
         FadeOutImageEffect();
@@ -53,6 +59,35 @@ public class InGameUIController : MonoBehaviour
     private void Update()
     {
         InputKey();
+
+        // 활성화된 버튼 옆 이미지 생성
+        if (nowPlayerButton == null && lastCreatedObject != null)
+        {
+            Destroy(lastCreatedObject);
+            lastCreatedObject = null;
+            lastPlayerButton = null;
+            return;
+        }
+
+        // nowPlayerButton이 변경되었고, null이 아닐 경우 처리
+        if (nowPlayerButton != null && nowPlayerButton != lastPlayerButton)
+        {
+            // 이전에 생성한 오브젝트가 있다면 삭제
+            if (lastCreatedObject != null)
+            {
+                Destroy(lastCreatedObject);
+            }
+
+            if (nowPlayerButton.bCanSelectIcon)
+            {
+                // objSelectIcon을 복제하여 nowPlayerButton의 자식으로 추가
+                lastCreatedObject = Instantiate(objSelectIcon);
+                lastCreatedObject.transform.SetParent(nowPlayerButton.transform, false); // 부모 설정
+            }
+
+            lastPlayerButton = nowPlayerButton;
+
+        }
     }
 
     private void InputKey()

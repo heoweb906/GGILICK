@@ -13,7 +13,6 @@ using UnityEngine.Audio;
 
 public class MainMenuController : MonoBehaviour
 {
-
     public MenuButton nowPlayerButton; // 현재 선택되어 있는 버튼
     public MenuButton lastButton;
     public MenuButton[] menuButtons;
@@ -48,22 +47,55 @@ public class MainMenuController : MonoBehaviour
     public float maxScale; // 최대 크기 (커질 때의 크기)
 
 
+    [Header("버튼 선택 시 생성되는 아이콘")]
+    public GameObject objSelectIcon;
+    private MenuButton lastPlayerButton = null; // 이전 nowPlayerButton 저장용
+    private GameObject lastCreatedObject = null; // 마지막으로 생성한 빈 오브젝트 저장
+    
 
 
 
     private void Start()
     {
-        FadeOutImageEffect();
-
-        PanelChage(0);
+        bIsUIDoing = true;
+        FisrtFadeOutImageEffect();      // PanelChage() 포함
     }
     private void Update()
     {
         if(!bIsUIDoing)
         {
             InputKey();
+
+
+            // 활성화된 버튼 옆 이미지 생성
+            if (nowPlayerButton == null && lastCreatedObject != null)
+            {
+                Destroy(lastCreatedObject);
+                lastCreatedObject = null;
+                lastPlayerButton = null;
+                return;
+            }
+
+            // nowPlayerButton이 변경되었고, null이 아닐 경우 처리
+            if (nowPlayerButton != null && nowPlayerButton != lastPlayerButton)
+            {
+                // 이전에 생성한 오브젝트가 있다면 삭제
+                if (lastCreatedObject != null)
+                {
+                    Destroy(lastCreatedObject);
+                }
+
+                if(nowPlayerButton.bCanSelectIcon)
+                {
+                    // objSelectIcon을 복제하여 nowPlayerButton의 자식으로 추가
+                    lastCreatedObject = Instantiate(objSelectIcon);
+                    lastCreatedObject.transform.SetParent(nowPlayerButton.transform, false); // 부모 설정
+                }
+
+                lastPlayerButton = nowPlayerButton;
+
+            }
         }
-        
     }
 
     private void InputKey()
@@ -96,39 +128,39 @@ public class MainMenuController : MonoBehaviour
             {
                 Panel_Option.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(0);
+                PanelChage(0, duration);
             }
 
             if (nowPanelNum == 5)
             {
                 Panel_Other.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(0);
+                PanelChage(0, duration);
             }
 
             if (nowPanelNum == 6)
             {
                 Panel_Other_Production.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(5);
+                PanelChage(5, duration);
             }
             if (nowPanelNum == 7)
             {
                 Panel_Other_Sources.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(5);
+                PanelChage(5, duration);
             }
             if (nowPanelNum == 8)
             {
                 Panel_Resolution.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(1);
+                PanelChage(1, duration);
             }
             if(nowPanelNum == 9)
             {
                 Panel_Warning.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
-                PanelChage(0);
+                PanelChage(0, duration);
             }
 
 
@@ -179,8 +211,10 @@ public class MainMenuController : MonoBehaviour
 
 
     // #. Panel이 활성화 될 때 하위 버튼 항목들을 변경해줌
-    public void PanelChage(int index)
+    public void PanelChage(int index, float fAnimSpeed = 1f, float fTextDealy = 0f)
     {
+        image_FadeOut.SetActive(true);
+
         nowPlayerButton = null;
 
         switch (index)
@@ -231,7 +265,7 @@ public class MainMenuController : MonoBehaviour
                 break;
         }
 
-        PanelOn(PanelNow);
+        PanelOn(PanelNow, fAnimSpeed, fTextDealy);
         nowPanelNum = index;
 
 
@@ -255,14 +289,14 @@ public class MainMenuController : MonoBehaviour
         if (menuButtons.Length != 0) lastButton = menuButtons[0];
         lastButton = menuButtons[0];
 
-        bIsUIDoing = false;
+      
     }
 
     public void PanelOff(int index)
     {
         // # 연출 1번
         PanelNow.SetActive(false);
-        PanelChage(index);
+        PanelChage(index, duration);
 
         // #.연출 2번
         //PanelNow.transform.DOScale(maxScale, duration / 2)
@@ -278,7 +312,7 @@ public class MainMenuController : MonoBehaviour
         //        });
         //});
     }
-    public void PanelOn(GameObject ActivePanel)
+    public void PanelOn(GameObject ActivePanel, float fAnimSpeed = 1f, float fTextDelay = 0f)
     {
         // 연출 1번
         //ActivePanel.transform.localScale = Vector3.one * 0.5f;
@@ -302,7 +336,7 @@ public class MainMenuController : MonoBehaviour
             DOTween.To(() => img.color.a, x => {
                 tempColor.a = x;
                 img.color = tempColor;
-            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true); // 1초 동안 알파값을 1로 만듦
+            }, 1f, fAnimSpeed).SetEase(Ease.Linear).SetUpdate(true); // 1초 동안 알파값을 1로 만듦
         }
 
         // 각 TextMeshPro의 색상을 0에서 1까지 서서히 변화
@@ -317,7 +351,12 @@ public class MainMenuController : MonoBehaviour
             DOTween.To(() => textMesh.color.a, x => {
                 textColor.a = x;
                 textMesh.color = textColor;
-            }, 1f, duration).SetEase(Ease.Linear).SetUpdate(true);
+            }, 1f, fAnimSpeed).SetEase(Ease.Linear).SetUpdate(true)
+            .SetDelay(fTextDelay)
+            .OnComplete(() => {
+                image_FadeOut.SetActive(false);
+                bIsUIDoing = false;
+            });
         }
 
     }
@@ -333,15 +372,18 @@ public class MainMenuController : MonoBehaviour
     public void StartNewGame(string sSceneSname = "Chapter1_1_City")
     {
         // Vignette의 intensity를 현재 값에서 1로 서서히 변화
-        if (vignette != null)
-        {
-            DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, 2.5f)
-                .SetEase(Ease.OutQuad);
+        //if (vignette != null)
+        //{
+        //    DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 1f, 2.5f)
+        //        .SetEase(Ease.OutQuad);
 
-            // Vignette의 smoothness를 서서히 1로 변화, 마지막에 감속
-            DOTween.To(() => vignette.smoothness.value, x => vignette.smoothness.value = x, 1f, 2.5f)
-                .SetEase(Ease.OutQuad);
-        }
+        //    Debug.Log("이부분이 실행중~~");
+
+        //    // Vignette의 smoothness를 서서히 1로 변화, 마지막에 감속
+        //    DOTween.To(() => vignette.smoothness.value, x => vignette.smoothness.value = x, 1f, 2.5f)
+        //        .SetEase(Ease.OutQuad);
+        //}
+
 
         image_FadeOut.SetActive(true);
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
@@ -418,39 +460,26 @@ public class MainMenuController : MonoBehaviour
 
 
 
-    private void FadeOutImageEffect()
+    private void FisrtFadeOutImageEffect()
     {
+        image_FadeOut.SetActive(true);
+
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
+        PanelChage(0, 2.8f, 4.5f);
 
-        FadeInOutImage(1f, 0f);
-        StartCoroutine(FadeOutImageEffect_());
-    }
-    IEnumerator FadeOutImageEffect_()
-    {
-        yield return new WaitForSecondsRealtime(1.1f);
-
-        FadeInOutImage(0f, 1.5f);
-    }
-
-    public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // 매개변수는 목표 수치, 걸리는 시간
-    {
-        Image fadeoutImage = image_FadeOut.GetComponent<Image>();
-        Color fadeColor = fadeoutImage.color;
-
-        // 알파값을 fTargetAlpha까지 duration 동안 올리는 애니메이션
-        DOTween.To(() => fadeColor.a, x =>
-        {
+        // 알파값을 서서히 1로, 마지막에 감속 후 씬 전환
+        DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
-        }, fTargetAlpha, fFadeDuration)
-       .SetEase(Ease.Linear)
-       .SetUpdate(true)  // Time.timeScale의 영향을 받지 않도록 설정
-       .OnKill(() =>
-       {
-           // 애니메이션이 끝난 후 image_FadeOut을 비활성화
-           image_FadeOut.SetActive(false);
-       });
+        }, 0f, 3.5f)
+        .SetEase(Ease.OutQuad)
+        .OnComplete(() => {
+            // image_FadeOut.SetActive(false);
+            
+        });
     }
+   
+
 
 }
