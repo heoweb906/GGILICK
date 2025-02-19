@@ -59,12 +59,17 @@ public class GameAssistManager : MonoBehaviour
 
         // #. Volume 관리
         if (volume_1 == null) Debug.Log("Volume이 비어있습니다.");
-        volume_1.profile.TryGet(out vignette_1);
-        volume_1.profile.TryGet(out colorAdjustments_1);
-        volume_1.profile.TryGet(out depthOfField_1);
-        volume_1.profile.TryGet(out midtonesHighlights_1);
-        volume_1.profile.TryGet(out bloom_1);
-        volume_1.profile.TryGet(out whiteBalance_1);
+        else
+        {
+            volume_1.profile.TryGet(out vignette_1);
+            volume_1.profile.TryGet(out colorAdjustments_1);
+            volume_1.profile.TryGet(out depthOfField_1);
+            volume_1.profile.TryGet(out midtonesHighlights_1);
+            volume_1.profile.TryGet(out bloom_1);
+            volume_1.profile.TryGet(out whiteBalance_1);
+        }
+
+       
 
 
        
