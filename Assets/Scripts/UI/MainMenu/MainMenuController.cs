@@ -38,10 +38,10 @@ public class MainMenuController : MonoBehaviour
     
 
 
-
     [Header("UI 애니메이션 부드러움 수치")]
     private Vignette vignette;
     public GameObject image_FadeOut; // FadeOut에 사용할 Image
+    public GameObject image_BlackBackGround;
     public bool bIsUIDoing; // UI가 뭔가 기능 중임
     public float duration; // 애니메이션 지속 시간
     public float maxScale; // 최대 크기 (커질 때의 크기)
@@ -51,7 +51,12 @@ public class MainMenuController : MonoBehaviour
     public GameObject objSelectIcon;
     private MenuButton lastPlayerButton = null; // 이전 nowPlayerButton 저장용
     private GameObject lastCreatedObject = null; // 마지막으로 생성한 빈 오브젝트 저장
-    
+
+    [Header("로고 이미지 관련")]
+    public RectTransform ObjGameLogo;
+    public RectTransform startTransform;
+    public RectTransform targetTransform; // 목표 위치
+
 
 
 
@@ -129,6 +134,7 @@ public class MainMenuController : MonoBehaviour
                 Panel_Option.SetActive(false);
                 if (nowPlayerButton != null) nowPlayerButton.SelectButtonOff();
                 PanelChage(0, duration);
+
             }
 
             if (nowPanelNum == 5)
@@ -223,16 +229,19 @@ public class MainMenuController : MonoBehaviour
                 // SaveData_Manager.Instance.SayveSettings();
                 Panel_Main.SetActive(true);
                 PanelNow = Panel_Main;
+                OnOffBlackBackBoard(false);
                 break;
             case 1: // Option Panel 켜기
                 SliderValueSet();
                 Panel_Option.SetActive(true);
                 PanelNow = Panel_Option;
+                OnOffBlackBackBoard(true);
                 break;
 
             case 5: 
                 Panel_Other.SetActive(true);
                 PanelNow = Panel_Other;
+                OnOffBlackBackBoard(true);
                 break;
 
             case 6: 
@@ -253,6 +262,7 @@ public class MainMenuController : MonoBehaviour
             case 9:
                 Panel_Warning.SetActive(true);
                 PanelNow = Panel_Warning;
+                OnOffBlackBackBoard(true);
                 break;
 
 
@@ -324,20 +334,23 @@ public class MainMenuController : MonoBehaviour
         Image[] images = ActivePanel.GetComponentsInChildren<Image>();
         TextMeshProUGUI[] textMeshes = ActivePanel.GetComponentsInChildren<TextMeshProUGUI>();
 
+
         // 각 Image의 알파값을 0에서 1까지 서서히 변화
         foreach (Image img in images)
         {
-            // Image의 초기 알파값을 0으로 설정
             Color tempColor = img.color;
             tempColor.a = 0f;
             img.color = tempColor;
 
+            Debug.Log("이미지 찾음");
+
             // 알파값을 0에서 1로 1초 동안 서서히 올림
             DOTween.To(() => img.color.a, x => {
                 tempColor.a = x;
-                img.color = tempColor;
-            }, 1f, fAnimSpeed).SetEase(Ease.Linear).SetUpdate(true); // 1초 동안 알파값을 1로 만듦
+                img.color = tempColor; 
+                }, 1f, fAnimSpeed).SetEase(Ease.Linear).SetUpdate(true); // 1초 동안 알파값을 1로 만듦
         }
+
 
         // 각 TextMeshPro의 색상을 0에서 1까지 서서히 변화
         foreach (TextMeshProUGUI textMesh in textMeshes)
@@ -459,25 +472,81 @@ public class MainMenuController : MonoBehaviour
 
 
 
-
+    // #. MainMenu Scene 최초 진입 시 페이드인 아웃
     private void FisrtFadeOutImageEffect()
     {
         image_FadeOut.SetActive(true);
 
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
-        PanelChage(0, 2.8f, 4.5f);
-
+        
         // 알파값을 서서히 1로, 마지막에 감속 후 씬 전환
         DOTween.To(() => fadeColor.a, x => {
             fadeColor.a = x;
             fadeoutImage.color = fadeColor;
-        }, 0f, 3.5f)
+        }, 0f, 3.2f)
         .SetEase(Ease.OutQuad)
         .OnComplete(() => {
-            // image_FadeOut.SetActive(false);
-            
+            // image_FadeOut.SetActive(false); 
         });
+
+        PanelChage(0, 2.1f, 9.5f);
+
+
+        // 로고 이미지 내려오는 효과
+        if (ObjGameLogo != null && targetTransform != null)
+        {
+            ObjGameLogo.position = startTransform.position;
+
+            ObjGameLogo.DOMove(targetTransform.position, 5.5f)
+                .SetEase(Ease.OutQuad) // 부드러운 감속 효과
+                .SetDelay(3.2f)
+                .SetUpdate(true); // UI에서도 정상 작동
+        }
+    }
+   
+
+   
+
+    // #. 설정창 등의 패널을 열 때 뒷배경에 검은 화면
+    private void OnOffBlackBackBoard(bool bOnOff)
+    {
+        if(!image_BlackBackGround.activeSelf && bOnOff)
+        {
+            image_BlackBackGround.SetActive(bOnOff);
+
+            Image fadeoutImage = image_BlackBackGround.GetComponent<Image>();
+            Color fadeColor = fadeoutImage.color;
+            fadeColor.a = 0f;
+
+            DOTween.To(() => fadeColor.a, x =>
+            {
+                fadeColor.a = x;
+                fadeoutImage.color = fadeColor;
+            }, 1f, duration)
+            .SetEase(Ease.OutQuad);
+        }
+        else if(image_BlackBackGround.activeSelf && !bOnOff)
+        {
+            Image fadeoutImage = image_BlackBackGround.GetComponent<Image>();
+            Color fadeColor = fadeoutImage.color;
+            fadeColor.a = 1f;
+
+            DOTween.To(() => fadeColor.a, x =>
+            {
+                fadeColor.a = x;
+                fadeoutImage.color = fadeColor;
+            }, 0f, duration)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => {
+                image_BlackBackGround.SetActive(bOnOff);
+
+            });
+        }
+
+
+
+
     }
    
 
