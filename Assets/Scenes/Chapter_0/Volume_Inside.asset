@@ -67,7 +67,7 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.05}
   intensity:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.186
   smoothness:
     m_OverrideState: 1
     m_Value: 1
@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: InSIdeAssist
+  m_Name: Volume_Inside
   m_EditorClassIdentifier: 
   components:
   - {fileID: -7011558710299706105}
@@ -377,12 +377,12 @@ MonoBehaviour:
     m_Value: 12.3
   colorFilter:
     m_OverrideState: 1
-    m_Value: {r: 0.735849, g: 0.71155214, b: 0.71155214, a: 1}
+    m_Value: {r: 0, g: 0, b: 0, a: 1}
   hueShift:
     m_OverrideState: 1
     m_Value: -11
   saturation:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: -14
 --- !u!114 &5254273991159672689
 MonoBehaviour:

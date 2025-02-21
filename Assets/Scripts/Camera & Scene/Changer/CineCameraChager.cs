@@ -20,7 +20,38 @@ public class CineCameraChager : MonoBehaviour
     private void Awake()
     {
         mainCamera = Camera.main;
-        cineBrain  = mainCamera.GetComponent<CinemachineBrain>();
+
+        if (mainCamera != null)
+        {
+            Transform parentTransform = mainCamera.transform;
+
+            // 부모 Transform을 따라가며 Camera 컴포넌트를 가진 최고 부모를 찾습니다.
+            while (parentTransform.parent != null)
+            {
+                parentTransform = parentTransform.parent;
+
+                // 최고 부모가 Camera 컴포넌트를 가지고 있는지 확인합니다.
+                if (parentTransform.GetComponent<Camera>() != null)
+                {
+                    mainCamera = parentTransform.GetComponent<Camera>();
+                }
+            }
+
+            // 최종적으로 최고 부모 카메라의 CinemachineBrain을 찾습니다.
+            cineBrain = mainCamera.GetComponent<CinemachineBrain>();
+            if (cineBrain == null)
+            {
+                Debug.LogWarning("CinemachineBrain component not found on the root camera.");
+            }
+            else
+            {
+                Debug.Log("Found root camera: " + mainCamera.name);
+            }
+        }
+        else
+        {
+            Debug.LogError("No main camera found.");
+        }
     }
 
 
