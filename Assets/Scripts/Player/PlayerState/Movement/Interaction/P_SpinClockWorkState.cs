@@ -19,7 +19,7 @@ public class P_SpinClockWorkState : P_InteractionState
         base.OnExit();
         machine.StopAnimation(player.playerAnimationData.SpinClockWorkParameterHash);
         player.curClockWork.EndCharging_To_BatteryStart();
-        player.curClockWork = null;
+        // player.curClockWork = null;
         player.curInteractableObject = null;
     }
 
@@ -42,6 +42,7 @@ public class P_SpinClockWorkState : P_InteractionState
         }
 
         if (!bCanExit) return;
+        if(player.curClockWork == null) Debug.Log("player.curClockWork == null");
         if (player.curClockWork.isSingleEvent) return;
         if (Input.GetButton("Horizontal") || Input.GetButton("Vertical") || !Input.GetButton("Fire1"))
         {
