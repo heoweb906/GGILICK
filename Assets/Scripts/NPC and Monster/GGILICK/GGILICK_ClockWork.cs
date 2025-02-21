@@ -5,10 +5,10 @@ using UnityEngine;
 public class GGILICK_ClockWork : InteractableObject
 {
     public CineCameraChager cineChager;
-    public GameObject map_OutSide;
-    public GameObject map_InSide;
-
+    public Transform transformTeleport_Inside;
+    public GameObject gamObejct;
     
+
     private void Start()
     {
         type = InteractableType.SingleEvent;
@@ -19,8 +19,7 @@ public class GGILICK_ClockWork : InteractableObject
     public override void ActiveEvent()
     {
         canInteract = false;
-        GameAssistManager.Instance.FadeOutInEffect(4.5f, 4.5f);
-
+        GameAssistManager.Instance.FadeOutInEffect(5f);
         GameAssistManager.Instance.StartCoroutine(ChangeMap());
         // StartCoroutine();
     }
@@ -30,19 +29,24 @@ public class GGILICK_ClockWork : InteractableObject
     {
         Rigidbody rigid = GameAssistManager.Instance.player.GetComponent<Rigidbody>();
         rigid.constraints = RigidbodyConstraints.FreezePositionY;
+
         yield return new WaitForSeconds(1.2f);
 
         cineChager.CameraChange();
 
         yield return new WaitForSeconds(3.2f);
 
-        map_InSide.SetActive(true);
-        map_InSide.transform.position = new Vector3(
-           GameAssistManager.Instance.player.transform.position.x,  // player의 X 좌표 그대로
-           GameAssistManager.Instance.player.transform.position.y - 0.2f,  // player의 Y 좌표에서 -2만큼
-           GameAssistManager.Instance.player.transform.position.z   // player의 Z 좌표 그대로
-                );
-        map_OutSide.SetActive(false);
+
+        Vector3 teleportPosition = transformTeleport_Inside.position;
+
+        // gamObject의 상대 위치를 계산
+        Vector3 playerPosition = GameAssistManager.Instance.GetPlayer().transform.position;
+        Vector3 offset = gamObejct.transform.position - playerPosition; // 플레이어와 gamObject 간의 상대적 위치
+
+        // 두 객체를 동시에 순간이동
+        gamObejct.transform.position = teleportPosition + offset; // gamObject를 새로운 위치에 배치
+        yield return new WaitForEndOfFrame();
+        GameAssistManager.Instance.GetPlayer().transform.position = teleportPosition; // 플레이어를 순간이동
 
         yield return new WaitForSeconds(0.2f);
 

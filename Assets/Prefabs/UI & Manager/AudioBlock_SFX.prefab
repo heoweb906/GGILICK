@@ -143,3 +143,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 0}
+  bVoice: 0
+  mixerGroupSFX: {fileID: 4086675672876535792, guid: 2de34d12253f97443afeca6bdd6d6b08,
+    type: 2}
+  mixerGroupVoice: {fileID: -4446149068889464802, guid: 2de34d12253f97443afeca6bdd6d6b08,
+    type: 2}

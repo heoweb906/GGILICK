@@ -1446,6 +1446,7 @@ MonoBehaviour:
   clockBattery: {fileID: 306995420}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!65 &238203412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6626,6 +6627,7 @@ MonoBehaviour:
   clockBattery: {fileID: 1287397396}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!1 &1056673303
 GameObject:
   m_ObjectHideFlags: 0
@@ -7134,12 +7136,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f557c616f69f2374fa4df2d9cc1fdf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clockWork: {fileID: 1287813820}
+  fMaxClockBattery: 4
+  fCurClockBattery: 0
+  fLowClockBatteryPoint: 0
+  bDoing: 0
+  bBatteryFull: 0
   ColorCorrects: 010000000100000001000000
   scanners:
   - {fileID: 684528209}
   - {fileID: 23603805}
   - {fileID: 2126683170}
-  clockWork: {fileID: 1287813822}
   masterObject: {fileID: 2724583952074647983, guid: b22d4b82dad3733499f9337fab278611,
     type: 3}
   transformMasterObj: {fileID: 1810973032}
@@ -7946,7 +7953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1287813821}
   - component: {fileID: 1287813823}
-  - component: {fileID: 1287813822}
+  - component: {fileID: 1287813824}
   m_Layer: 8
   m_Name: ClockWork
   m_TagString: Untagged
@@ -7962,30 +7969,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1287813820}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: -0.7071068, z: 0, w: 0}
   m_LocalPosition: {x: 5.23, y: -2.268, z: -9.455}
   m_LocalScale: {x: 1.5000004, y: 1.5000002, z: 1.5000002}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1488110173}
   m_Father: {fileID: 1154098998}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!114 &1287813822
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1287813820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bc664eff8fecac47aa1125bf06e33a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: 0
-  canInteract: 1
-  isParts: 0
-  scanMaster: {fileID: 1154098999}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 90}
 --- !u!65 &1287813823
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8007,6 +7998,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.59999996, y: 0.37, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1287813824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1287813820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6166839e8ab28c44e9c6fd58709cf928, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  canInteract: 1
+  isParts: 0
+  clockBattery: {fileID: 1154098999}
+  clockWorkType: 1
+  plusClockWorksList: []
+  isSingleEvent: 1
 --- !u!1 &1309871441
 GameObject:
   m_ObjectHideFlags: 0
@@ -9431,7 +9441,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1488110172}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9439,7 +9449,7 @@ Transform:
   - {fileID: 181338660384172741}
   - {fileID: 6120823196524896305}
   m_Father: {fileID: 1287813821}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1494391934
 GameObject:
   m_ObjectHideFlags: 0
@@ -10550,6 +10560,7 @@ MonoBehaviour:
   clockBattery: {fileID: 8631885229773886551}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!1 &1721928404
 GameObject:
   m_ObjectHideFlags: 0
@@ -12545,6 +12556,7 @@ MonoBehaviour:
   clockBattery: {fileID: 1362298826}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!65 &2075354755
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -38,7 +38,10 @@ public class RoadCarCreator_City : MonoBehaviour
 
         Vector3 spawnPosition = path.EvaluatePosition(0f);
         GameObject selectedCar = GetRandomCarByWeight();
+        
         RoadCarOnTrack roadCar = Instantiate(selectedCar, spawnPosition, Quaternion.identity).GetComponent<RoadCarOnTrack>();
+
+        roadCar.transform.SetParent(transform);
 
         roadCar.m_Path = path;
     }

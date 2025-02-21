@@ -6459,6 +6459,7 @@ MonoBehaviour:
   clockBattery: {fileID: 698079015}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 1
 --- !u!1 &1146711538
 GameObject:
   m_ObjectHideFlags: 0
@@ -6599,6 +6600,11 @@ MonoBehaviour:
   masterObject: {fileID: 3664071185345034481, guid: f50f50dd8fc14ac4f941215152fb0aa3,
     type: 3}
   transformMasterObj: {fileID: 1810973032}
+  Door_1: {fileID: 0}
+  Door_2: {fileID: 0}
+  transformTarget_1: {fileID: 0}
+  transformTarget_2: {fileID: 0}
+  duration: 1
   testFaces:
   - {fileID: 237214452}
   - {fileID: 1628996384}
@@ -9533,6 +9539,7 @@ MonoBehaviour:
   clockBattery: {fileID: 8631885229773886551}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!1 &1721928404
 GameObject:
   m_ObjectHideFlags: 0
@@ -10669,6 +10676,7 @@ MonoBehaviour:
   clockBattery: {fileID: 1362298826}
   clockWorkType: 1
   plusClockWorksList: []
+  isSingleEvent: 0
 --- !u!65 &2075354755
 BoxCollider:
   m_ObjectHideFlags: 0

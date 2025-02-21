@@ -1,4 +1,3 @@
-using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -27,13 +26,6 @@ public class GameAssistManager : MonoBehaviour
     public GameObject CameraOverlay;
     public Volume volume_1;
 
-    private Vignette vignette_1;
-    private ColorAdjustments colorAdjustments_1;
-    private DepthOfField depthOfField_1;
-    private Bloom bloom_1;
-    private ShadowsMidtonesHighlights midtonesHighlights_1;
-    private WhiteBalance whiteBalance_1;
-
 
     private void Awake()
     {
@@ -56,19 +48,16 @@ public class GameAssistManager : MonoBehaviour
         // 플레이어 조작 가능
         PlayerInputLockOff();
 
-
-        // #. Volume 관리
-        if (volume_1 == null) Debug.Log("Volume이 비어있습니다.");
-        volume_1.profile.TryGet(out vignette_1);
-        volume_1.profile.TryGet(out colorAdjustments_1);
-        volume_1.profile.TryGet(out depthOfField_1);
-        volume_1.profile.TryGet(out midtonesHighlights_1);
-        volume_1.profile.TryGet(out bloom_1);
-        volume_1.profile.TryGet(out whiteBalance_1);
-
-
-       
     }
+
+
+
+ 
+
+    
+
+
+
 
 
 
@@ -90,14 +79,18 @@ public class GameAssistManager : MonoBehaviour
 
 
 
+    
 
     // #. 플레이어가 죽었을 때 실행시킬 함수
-    public void DiePlayerReset(float fDieDelay = 2f)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
+    public void DiePlayerReset(float fDieDelay = 2f, int iDieIndex = 0)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
     {
         if (!bPlayerDie)
         {
             bPlayerDie = true;
+
             PlayerInputLockOn();
+            ActionPlayerDieAnimation(iDieIndex);
+
             StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
         }
     }
@@ -111,7 +104,22 @@ public class GameAssistManager : MonoBehaviour
 
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-     
+    }
+
+    private void ActionPlayerDieAnimation(int iDieIndex)
+    {
+        // 0 - 분해되서 죽음
+        // 1 - 잡혀서 죽음
+        if(iDieIndex == 0)
+        {
+            Player _player = player.GetComponent<Player>();
+            _player.machine.OnStateChange(_player.machine.UC_DieState);
+        }
+        else if(iDieIndex == 1)
+        {
+
+        }
+
     }
 
 
@@ -167,59 +175,40 @@ public class GameAssistManager : MonoBehaviour
 
 
     // #. 내부 진입 
-    public void FadeOutInEffect(float fStartImte = 3.0f, float fEndTime = 3.0f)
+    public void FadeOutInEffect(float fDuration = 5f)
     {
-        if (vignette_1 == null || colorAdjustments_1 == null) return;
-        // if (vignette_2 == null || colorAdjustments_2 == null) return;
-
-     
-        StartCoroutine(FadeOutInEffect_(fStartImte, fEndTime));
-    }
-    IEnumerator FadeOutInEffect_(float fStartImte = 3.0f, float fEndTime = 3.0f)
-    {
-        CameraOverlay.SetActive(true);
-        colorAdjustments_1.postExposure.value = 0f;
-        colorAdjustments_1.contrast.value = 0f;
-        colorAdjustments_1.colorFilter.value = Color.white;
-        colorAdjustments_1.saturation.value = 0f;
-        depthOfField_1.active = false;
-        bloom_1.active = false;
-        midtonesHighlights_1.active = false;
-        whiteBalance_1.active = false;
-
-
-
-
-        Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
-        DOTween.To(() => vignette_1.center.value, x => vignette_1.center.value = x, new Vector2(playerViewportPosition.x, playerViewportPosition.y), 0f);
-        DOTween.To(() => vignette_1.intensity.value, x => vignette_1.intensity.value = x, 1f, 2f).SetEase(Ease.InOutQuad);
-
-        DOTween.To(() => colorAdjustments_1.postExposure.value, x => colorAdjustments_1.postExposure.value = x, -10f, 2f).SetEase(Ease.InOutQuad);
-
-
-        yield return new WaitForSeconds(fStartImte);
-
-
-        DOTween.To(() => vignette_1.center.value, x => vignette_1.center.value = x, new Vector2(0.5f, 0.05f), 0f);
-        DOTween.To(() => vignette_1.intensity.value, x => vignette_1.intensity.value = x, 0.155f, fStartImte).SetEase(Ease.InOutQuad);
-
-        DOTween.To(() => colorAdjustments_1.postExposure.value, x => colorAdjustments_1.postExposure.value = x, 0f, fStartImte).SetEase(Ease.InOutQuad);
-
-
-        yield return new WaitForSeconds(fStartImte);
-
-        CameraOverlay.SetActive(false);
-        colorAdjustments_1.postExposure.value = -0.46f;
-        colorAdjustments_1.contrast.value = 38f;
-        colorAdjustments_1.colorFilter.value = new Color(0.737f, 0.71f, 0.71f);
-        colorAdjustments_1.saturation.value = -14f;
-        depthOfField_1.active = true;
-        bloom_1.active = true;
-        midtonesHighlights_1.active = true;
-        whiteBalance_1.active = true;
-
+        if (volume_1 == null) return;
+        StartCoroutine(SwapVolumesCoroutine(fDuration));
     }
 
+    IEnumerator SwapVolumesCoroutine(float fDuration = 5f)
+    {
+        if (volume_1 != null)
+        {
+
+            SetVignetteIntensity(volume_1, 1f, 2f);
+            DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 1f, 3f);
+
+
+            yield return new WaitForSeconds(fDuration); // 잠시 대기
+
+            SetVignetteIntensity(volume_1, 0f, 2f);
+            DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 0f, 3f);
+        }
+    }
+
+    public void SetVignetteIntensity(Volume volume, float targetIntensity, float duration)
+    {
+        if (volume.profile.TryGet<Vignette>(out var vignette))
+        {
+            Vector3 playerViewportPosition = Camera.main.WorldToViewportPoint(player.transform.position);
+            vignette.center.Override(new Vector2(playerViewportPosition.x, playerViewportPosition.y));
+
+            vignette.intensity.Override(vignette.intensity.value); // 현재 값을 설정
+            DOTween.To(() => vignette.intensity.value, x => vignette.intensity.Override(x), targetIntensity, duration);
+
+        }
+    }
 
 
 

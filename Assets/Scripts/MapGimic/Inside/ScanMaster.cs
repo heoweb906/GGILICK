@@ -1,7 +1,5 @@
 using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum ColorType
@@ -11,12 +9,13 @@ public enum ColorType
     Red
 }
 
-public class ScanMaster : MonoBehaviour
+public class ScanMaster : ClockBattery
 {
+    private Coroutine nowCoroutine;
+
     [Header("스탠 기능 관련")]
     public ColorType[] ColorCorrects;       // ScanMaster의 정답 컬러
     public Scanner[] scanners;              // 각 스테이지의 Scanner 
-    public ScanMaster_ClockWork clockWork;  // ScanMaster 전용 ClockWork
 
     [Header("MasterObj 관련")]
     public GameObject masterObject;         // 스캔에 성공하면 획득할 수 있는 오브젝트
@@ -37,11 +36,29 @@ public class ScanMaster : MonoBehaviour
     public GameObject[] testFaces;
 
 
-    // #. ScanMaster 메인 스캔 동작
-    public void ScanStart()
+    public override void TurnOnObj()
     {
-        StartCoroutine(ScanStart_());
+        base.TurnOnObj();
+
+        RotateObject((int)fCurClockBattery);
+        nowCoroutine = StartCoroutine(ScanStart_());
     }
+    public override void TurnOffObj()
+    {
+        base.TurnOffObj();
+
+        if (nowCoroutine != null)
+        {
+            StopCoroutine(nowCoroutine);
+            nowCoroutine = null;
+        }
+    }
+
+
+
+
+    // #. ScanMaster 메인 스캔 동작
+
     private IEnumerator ScanStart_()
     {
 
@@ -153,15 +170,6 @@ public class ScanMaster : MonoBehaviour
     // #. 스캐너 초기 상태로 돌리기
     private void Scan_Reset()
     {
-
-
-
-
-        clockWork.canInteract = true;
-
-
-
-
 
 
         // #. 테스트용 함수

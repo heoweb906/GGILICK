@@ -29,6 +29,7 @@ public class VolumeSettings
     public float Master;
     public float BGM;
     public float Effect;
+    public float Voice;
 }
 
 [System.Serializable]
@@ -105,6 +106,12 @@ public class SaveData_Manager : MonoBehaviour
         settingsData.Volume.Effect = value;
         SaveSettings();
     }
+
+    public void SetVoiceVolume(float value)
+    {
+        settingsData.Volume.Voice = value;
+        SaveSettings();
+    }
     //===================================================================================================
     // Volume getters
     public float GetMasterVolume()
@@ -120,6 +127,11 @@ public class SaveData_Manager : MonoBehaviour
     public float GetSFXVolume()
     {
         return settingsData.Volume.Effect;
+    }
+
+    public float GetVoiceVolume()
+    {
+        return settingsData.Volume.Voice;
     }
 
     //===================================================================================================
@@ -241,6 +253,7 @@ public class SaveData_Manager : MonoBehaviour
             settingsData.Volume.Master = 0.7f;
             settingsData.Volume.BGM = 0.7f;
             settingsData.Volume.Effect = 0.7f;
+            settingsData.Volume.Voice = 0.7f;
 
             SetFullScreen(true);
             SetResolution(3);
@@ -264,6 +277,7 @@ public class SaveData_Manager : MonoBehaviour
         settingsData.Volume.Master = 0.7f;
         settingsData.Volume.BGM = 0.7f;
         settingsData.Volume.Effect = 0.7f;
+        settingsData.Volume.Voice = 0.7f;
 
         SetFullScreen(true);
         SetResolution(3);
@@ -285,6 +299,7 @@ public class SaveData_Manager : MonoBehaviour
         Debug.Log($"Master Volume: {settingsData.Volume.Master}");
         Debug.Log($"BGM Volume: {settingsData.Volume.BGM}");
         Debug.Log($"Effect Volume: {settingsData.Volume.Effect}");
+        Debug.Log($"Voice Volume: {settingsData.Volume.Voice}");
 
         // FullScreen 상태 출력
         Debug.Log($"Full Screen: {settingsData.bFullScreen}");

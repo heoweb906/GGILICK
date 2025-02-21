@@ -26,7 +26,6 @@ public class SoundAssistManager : MonoBehaviour
     public List<AudioPlayerBlock> audioPlayerBlockList = new List<AudioPlayerBlock>();
 
 
-
     private void Start()
     {
         if (Instance == null)
@@ -49,9 +48,9 @@ public class SoundAssistManager : MonoBehaviour
 
             Destroy(gameObject); // 이미 존재하는 인스턴스가 있으면 현재 오브젝트 파괴
         }
-
+        
         string currentSceneName = SceneManager.GetActiveScene().name;
-        BGMChange(currentSceneName);
+        this.BGMChange(currentSceneName);
 
     }
 
@@ -136,7 +135,7 @@ public class SoundAssistManager : MonoBehaviour
 
 
     // 오브젝트 풀에서 사운드 블럭 가져오기 (효과음)
-    public GameObject GetSFXAudioBlock(string audioClipName = null, Transform objTransform = null)
+    public GameObject GetSFXAudioBlock(string audioClipName, Transform objTransform, bool _bVoice = false)
     {
         if (audioClipName != null)
         {
@@ -150,6 +149,7 @@ public class SoundAssistManager : MonoBehaviour
                 if (soundDictionary.ContainsKey(audioClipName))
                 {
                     audioBlock.audioSource.clip = soundDictionary[audioClipName];  // 오디오 클립 할당
+                    audioBlock.bVoice = _bVoice;
                     audioBlock.PlayAudioClip();  // 오디오 클립 재생
                 }
                 else
@@ -169,6 +169,7 @@ public class SoundAssistManager : MonoBehaviour
                 if (soundDictionary.ContainsKey(audioClipName))
                 {
                     audioBlock.audioSource.clip = soundDictionary[audioClipName];  // 오디오 클립 할당
+                    audioBlock.bVoice = _bVoice;
                     audioBlock.PlayAudioClip();  // 오디오 클립 재생
                 }
                 else
@@ -184,8 +185,6 @@ public class SoundAssistManager : MonoBehaviour
 
         return null;
     }
-
-
     // 오브젝트 풀로 오브젝트 반환
     public void ReturnAudioPlayerBlock(GameObject audioPlayerBlock)
     {
@@ -222,6 +221,9 @@ public class SoundAssistManager : MonoBehaviour
 
         float sfxVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetSFXVolume());
         audioMixer_Master.SetFloat("SFX", sfxVolume);
+
+        float voiceVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetVoiceVolume());
+        audioMixer_Master.SetFloat("Voice", voiceVolume);
 
         Debug.Log("사운드 수치를 적용합니다");
 
@@ -281,20 +283,17 @@ public class SoundAssistManager : MonoBehaviour
     // #. 다른 코드들에서 호출하고 있음
     public void BGMChange(string sceneName = null)
     {
-        Debug.Log("BGM 변경");
-
         switch (sceneName)
         {
             case "Chapter1_1_City":
             case "Chapter1_2_Subway":
             case "Chapter1_3_City":
-            case "Chapter_1_11_Inside":
+            case "Chapter0_1_Alley":
                 if (audioSource_BGM.clip != soundDictionary["TestBGM"])
                 {
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["TestBGM"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] 재생");
                 }
                 break;
 
@@ -304,7 +303,6 @@ public class SoundAssistManager : MonoBehaviour
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["The Last Campfire OST  Title Screen"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] 재생");
                 }
                 break;
 
