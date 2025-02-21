@@ -60,35 +60,50 @@ public class P_UC_Die : P_UnControllable
     public override void OnEnter()
     {
         base.OnEnter();
-        machine.StartAnimationTrigger(player.playerAnimationData.UC_DieParameterHash);
-        player.playerAnim.enabled = false;
-        
-        // 모든 레그돌 트랜스폼에 Rigidbody와 Collider 추가
-        AddRagdollComponents(player.pelvis, ColliderType.Capsule);
-        AddRagdollComponents(player.leftHips, ColliderType.Capsule);
-        AddRagdollComponents(player.rightHips, ColliderType.Capsule);
-        AddRagdollComponents(player.leftArm, ColliderType.Capsule);
-        AddRagdollComponents(player.rightArm, ColliderType.Capsule);
-        AddRagdollComponents(player.middleSpine, ColliderType.Capsule);
-        AddRagdollComponents(player.head, ColliderType.Capsule);
-        AddRagdollComponents(player.leftElbow, ColliderType.Capsule);
-        AddRagdollComponents(player.rightElbow, ColliderType.Capsule);
-        AddRagdollComponents(player.leftKnee, ColliderType.Capsule);
-        AddRagdollComponents(player.rightKnee, ColliderType.Capsule);
-        AddRagdollComponents(player.leftFoot, ColliderType.Capsule);
-        AddRagdollComponents(player.rightFoot, ColliderType.Capsule);
-        // 레그돌 활성화
-        foreach (Rigidbody rb in ragdollRigidbodies)
+
+        if(player.dieIndex == 0)
         {
-            rb.useGravity = true;
-            rb.isKinematic = false;
+            machine.StartAnimation(player.playerAnimationData.UC_DieParameterHash);
+            // 모든 레그돌 트랜스폼에 Rigidbody와 Collider 추가
+            AddRagdollComponents(player.pelvis, ColliderType.Capsule);
+            AddRagdollComponents(player.leftHips, ColliderType.Capsule);
+            AddRagdollComponents(player.rightHips, ColliderType.Capsule);
+            AddRagdollComponents(player.leftArm, ColliderType.Capsule);
+            AddRagdollComponents(player.rightArm, ColliderType.Capsule);
+            AddRagdollComponents(player.middleSpine, ColliderType.Capsule);
+            AddRagdollComponents(player.head, ColliderType.Capsule);
+            AddRagdollComponents(player.leftElbow, ColliderType.Capsule);
+            AddRagdollComponents(player.rightElbow, ColliderType.Capsule);
+            AddRagdollComponents(player.leftKnee, ColliderType.Capsule);
+            AddRagdollComponents(player.rightKnee, ColliderType.Capsule);
+            AddRagdollComponents(player.leftFoot, ColliderType.Capsule);
+            AddRagdollComponents(player.rightFoot, ColliderType.Capsule);
+            // 레그돌 활성화
+            foreach (Rigidbody rb in ragdollRigidbodies)
+            {
+                rb.useGravity = true;
+                rb.isKinematic = false;
+            }
+            player.playerAnim.enabled = false;
         }
+        else if(player.dieIndex == 1)
+        {
+            machine.StartAnimation(player.playerAnimationData.UC_Die_GrabParameterHash);
+        }
+        
     }
 
     public override void OnExit()
     {
         base.OnExit();
-        machine.StopAnimation(player.playerAnimationData.UC_DieParameterHash);
+        if(player.dieIndex == 0)
+        {
+            machine.StopAnimation(player.playerAnimationData.UC_DieParameterHash);
+        }
+        else if(player.dieIndex == 1)
+        {
+            machine.StopAnimation(player.playerAnimationData.UC_Die_GrabParameterHash);
+        }
         
         // 레그돌 비활성화
         foreach (Rigidbody rb in ragdollRigidbodies)

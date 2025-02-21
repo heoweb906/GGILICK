@@ -137,6 +137,8 @@ public class Player : MonoBehaviour
     public float strength = 0f;
     public bool flipForward = false;
 
+    public int dieIndex = 1;
+
     private void Awake()
     {
         playerAnimationData.Initialize();
@@ -335,4 +337,13 @@ public class Player : MonoBehaviour
             armAngleTween.Kill();
         }
     }
+
+    public void SetDieState(int index)
+    {
+        // 0 = 분해
+        // 1 = 잡혀서 죽음
+        dieIndex = index;
+        machine.OnStateChange(machine.UC_DieState);
+    }
+
 }
