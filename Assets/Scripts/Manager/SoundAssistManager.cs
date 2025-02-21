@@ -222,6 +222,9 @@ public class SoundAssistManager : MonoBehaviour
         float sfxVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetSFXVolume());
         audioMixer_Master.SetFloat("SFX", sfxVolume);
 
+        float voiceVolume = Mathf.Lerp(-80f, 0f, SaveData_Manager.Instance.GetVoiceVolume());
+        audioMixer_Master.SetFloat("Voice", voiceVolume);
+
         Debug.Log("사운드 수치를 적용합니다");
 
         //bool isMasterMuted = masterVolume <= -30f;
@@ -291,7 +294,6 @@ public class SoundAssistManager : MonoBehaviour
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["TestBGM"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] 재생");
                 }
                 break;
 
@@ -301,7 +303,6 @@ public class SoundAssistManager : MonoBehaviour
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["The Last Campfire OST  Title Screen"];
                     audioSource_BGM.Play(); 
-                    Debug.Log("soundDictionary[TestBGM] 재생");
                 }
                 break;
 

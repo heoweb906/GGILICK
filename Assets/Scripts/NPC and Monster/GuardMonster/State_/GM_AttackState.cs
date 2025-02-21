@@ -14,7 +14,7 @@ public class GM_AttackState : GuardMState
         base.OnEnter();
 
         guardM.anim.SetTrigger("doAttack");
-        GameAssistManager.Instance.DiePlayerReset(3f);
+        GameAssistManager.Instance.DiePlayerReset(3f, 1);
 
         // 1.431, 180, 175.697
 

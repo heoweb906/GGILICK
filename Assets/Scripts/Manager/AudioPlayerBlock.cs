@@ -34,5 +34,4 @@ public class AudioPlayerBlock : MonoBehaviour
         }
         SoundAssistManager.Instance.ReturnAudioPlayerBlock(gameObject);
     }
-
 }

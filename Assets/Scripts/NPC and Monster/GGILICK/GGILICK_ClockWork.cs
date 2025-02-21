@@ -5,10 +5,8 @@ using UnityEngine;
 public class GGILICK_ClockWork : InteractableObject
 {
     public CineCameraChager cineChager;
-    public GameObject map_OutSide;
-    public GameObject map_InSide;
+    public Transform transformTeleport_Inside;
 
-    
     private void Start()
     {
         type = InteractableType.SingleEvent;
@@ -30,19 +28,17 @@ public class GGILICK_ClockWork : InteractableObject
     {
         Rigidbody rigid = GameAssistManager.Instance.player.GetComponent<Rigidbody>();
         rigid.constraints = RigidbodyConstraints.FreezePositionY;
+
         yield return new WaitForSeconds(1.2f);
 
         cineChager.CameraChange();
 
         yield return new WaitForSeconds(3.2f);
 
-        map_InSide.SetActive(true);
-        map_InSide.transform.position = new Vector3(
-           GameAssistManager.Instance.player.transform.position.x,  // player의 X 좌표 그대로
-           GameAssistManager.Instance.player.transform.position.y - 0.2f,  // player의 Y 좌표에서 -2만큼
-           GameAssistManager.Instance.player.transform.position.z   // player의 Z 좌표 그대로
-                );
-        map_OutSide.SetActive(false);
+
+        GameAssistManager.Instance.GetPlayer().transform.position = transformTeleport_Inside.position;
+
+
 
         yield return new WaitForSeconds(0.2f);
 

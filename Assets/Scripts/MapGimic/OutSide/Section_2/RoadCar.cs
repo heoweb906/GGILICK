@@ -114,7 +114,7 @@ public class RoadCar : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Debug.Log("Detect On Player");
-            GameAssistManager.Instance.DiePlayerReset(2f);
+            GameAssistManager.Instance.DiePlayerReset(2f, 0);
         }
     }
 

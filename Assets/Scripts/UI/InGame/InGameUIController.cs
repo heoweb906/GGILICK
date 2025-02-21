@@ -423,6 +423,7 @@ public class InGameUIController : MonoBehaviour
         soundSliders[0].value = SaveData_Manager.Instance.GetMasterVolume();
         soundSliders[1].value = SaveData_Manager.Instance.GetBGMVolume();
         soundSliders[2].value = SaveData_Manager.Instance.GetSFXVolume();
+        soundSliders[3].value = SaveData_Manager.Instance.GetVoiceVolume();
     }
 
 
@@ -457,6 +458,19 @@ public class InGameUIController : MonoBehaviour
         //audioMixer_Master.SetFloat("SFXMute", isMuted ? 1f : 0f);
 
         SaveData_Manager.Instance.SetSFXVolume(soundSliders[2].value);
+    }
+    public void ControllSoundVolume_Voice()
+    {
+        float adjustedVolume = Mathf.Lerp(-80f, 0f, soundSliders[3].value);
+        audioMixer_Master.SetFloat("Voice", adjustedVolume);
+
+        Debug.Log("버튼 함수 실행");
+        Debug.Log(adjustedVolume);
+
+        //bool isMuted = adjustedVolume <= -50f;
+        //audioMixer_Master.SetFloat("SFXMute", isMuted ? 1f : 0f);
+
+        SaveData_Manager.Instance.SetVoiceVolume(soundSliders[3].value);
     }
 
 

@@ -26,6 +26,7 @@ public class GameAssistManager : MonoBehaviour
     [Header("연출 관련 내면 세계 진입")]
     public GameObject CameraOverlay;
     public Volume volume_1;
+    public Volume volume_2;
 
     private Vignette vignette_1;
     private ColorAdjustments colorAdjustments_1;
@@ -95,14 +96,18 @@ public class GameAssistManager : MonoBehaviour
 
 
 
+    
 
     // #. 플레이어가 죽었을 때 실행시킬 함수
-    public void DiePlayerReset(float fDieDelay = 2f)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
+    public void DiePlayerReset(float fDieDelay = 2f, int iDieIndex = 0)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
     {
         if (!bPlayerDie)
         {
             bPlayerDie = true;
+
             PlayerInputLockOn();
+            ActionPlayerDieAnimation(iDieIndex);
+
             StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
         }
     }
@@ -116,7 +121,22 @@ public class GameAssistManager : MonoBehaviour
 
         string currentSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(currentSceneName);
-     
+    }
+
+    private void ActionPlayerDieAnimation(int iDieIndex)
+    {
+        // 0 - 분해되서 죽음
+        // 1 - 잡혀서 죽음
+        if(iDieIndex == 0)
+        {
+            Player _player = player.GetComponent<Player>();
+            _player.machine.OnStateChange(_player.machine.UC_DieState);
+        }
+        else if(iDieIndex == 1)
+        {
+
+        }
+
     }
 
 
