@@ -15,6 +15,7 @@ public class P_UnControllable : PlayerMovementState
     public override void OnExit()
     {
         base.OnExit();
+        machine.StartAnimationTrigger(player.playerAnimationData.UnControllableParameterHash);
     }
 
     public override void OnUpdate()
