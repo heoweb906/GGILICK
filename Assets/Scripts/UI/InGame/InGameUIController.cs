@@ -118,7 +118,7 @@ public class InGameUIController : MonoBehaviour
 
 
         // #. ESC키는 따로 관리
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !bIsUIDoing)
         {
             if (nowPanelNum == 643)
             {
@@ -334,14 +334,12 @@ public class InGameUIController : MonoBehaviour
         Time.timeScale = 15f; // 게임 속도를 50배로 설정
         GameAssistManager.Instance.PlayerInputLockOn();
 
-        yield return new WaitForSecondsRealtime(4.7f);
-
-        GameAssistManager.Instance.PlayerInputLockOff();
-
-        yield return new WaitForSecondsRealtime(1.3f);
+        yield return new WaitForSecondsRealtime(5.2f);
 
         Time.timeScale = 1f; // 정상 속도로 복귀
+        GameAssistManager.Instance.PlayerInputLockOff();
 
+       
         FadeInOutImage(0f, 3f);
         bUIOnOff = false;
     }
@@ -385,6 +383,7 @@ public class InGameUIController : MonoBehaviour
     public void ChangeScene(string SceneName)
     {
         bUIOnOff = true;
+        // bIsUIDoing = true;
 
         image_FadeOut_ForReturn.SetActive(true);
         Image fadeoutImage = image_FadeOut_ForReturn.GetComponent<Image>();

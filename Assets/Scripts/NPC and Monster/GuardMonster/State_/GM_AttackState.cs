@@ -14,14 +14,13 @@ public class GM_AttackState : GuardMState
         base.OnEnter();
 
         guardM.anim.SetTrigger("doAttack");
-        GameAssistManager.Instance.DiePlayerReset(3f, 1);
+        GameAssistManager.Instance.DiePlayerReset(3f, 1, 0.6f);
 
-        // 1.431, 180, 175.697
 
 
         GameObject player = GameAssistManager.Instance.GetPlayer();
         Rigidbody playerRigidbody = player.GetComponent<Rigidbody>();
-
+        playerRigidbody.isKinematic = true;
         player.transform.SetParent(guardM.transformGrabPlayer);
 
         // 0.85초 뒤에 이동 (0.4초 동안)
@@ -33,7 +32,7 @@ public class GM_AttackState : GuardMState
         Vector3 targetRotation = new Vector3(1.431f, 180f, 175.697f); // 예제 값
         player.transform.DOLocalRotate(targetRotation, 0.4f, RotateMode.FastBeyond360)
             .SetEase(Ease.OutQuint)
-            .SetDelay(0.85f);
+            .SetDelay(0.9f);
 
 
         // 위치 & 회전 고정

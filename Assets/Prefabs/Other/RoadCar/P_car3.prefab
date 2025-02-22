@@ -53,7 +53,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f897d015d55bca946832aa04716d2df1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CarFrame: {fileID: 9151027512575691536}
+  carFrame: {fileID: 3248246822920979939}
 --- !u!1 &2004109994232097130
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,7 +475,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9501841eda1f07842a5835c90725953f, type: 2}
+  - {fileID: 2100000, guid: 611596c17ce0e3c4880d44d6ad9ab2c7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

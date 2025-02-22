@@ -7608,6 +7608,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
         type: 3}
+      propertyPath: dieIndex
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
+        type: 3}
       propertyPath: stateChangeDebug
       value: 0
       objectReference: {fileID: 0}
@@ -8527,12 +8532,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f557c616f69f2374fa4df2d9cc1fdf04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  clockWork: {fileID: 1287813822}
+  fMaxClockBattery: 0
+  fCurClockBattery: 0
+  fLowClockBatteryPoint: 0
+  bDoing: 0
+  bBatteryFull: 0
   ColorCorrects: 010000000100000001000000
   scanners:
   - {fileID: 684528209}
   - {fileID: 23603805}
   - {fileID: 2126683170}
-  clockWork: {fileID: 1287813822}
   masterObject: {fileID: 3664071185345034481, guid: f50f50dd8fc14ac4f941215152fb0aa3,
     type: 3}
   transformMasterObj: {fileID: 1810973032}
@@ -10044,10 +10054,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bc664eff8fecac47aa1125bf06e33a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  canInteract: 1
-  isParts: 0
-  scanMaster: {fileID: 1154098999}
 --- !u!65 &1287813823
 BoxCollider:
   m_ObjectHideFlags: 0

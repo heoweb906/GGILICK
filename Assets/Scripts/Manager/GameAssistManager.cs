@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
 using JetBrains.Annotations;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameAssistManager : MonoBehaviour
 {
@@ -44,19 +45,7 @@ public class GameAssistManager : MonoBehaviour
         }
         PlayerStartSeeting(SaveData_Manager.Instance.GetIntTransformRespawn(), SaveData_Manager.Instance.GetIntCameraNum());
 
-
-        // 플레이어 조작 가능
-        PlayerInputLockOff();
-
     }
-
-
-
- 
-
-    
-
-
 
 
 
@@ -82,20 +71,23 @@ public class GameAssistManager : MonoBehaviour
     
 
     // #. 플레이어가 죽었을 때 실행시킬 함수
-    public void DiePlayerReset(float fDieDelay = 2f, int iDieIndex = 0)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
+    public void DiePlayerReset(float fDieDelay = 2f, int iDieIndex = 0, float fDieAimDuration = 0f)  // 죽음 함수를 실행 시키고 얼마나 뒤에 상태를 리셋할 건지 정할 수 있도록
     {
         if (!bPlayerDie)
         {
             bPlayerDie = true;
 
             PlayerInputLockOn();
-            ActionPlayerDieAnimation(iDieIndex);
 
-            StartCoroutine(_DiePlayerReset(fDieDelay)); // '_DiePlayerReset'이라는 코루틴을 호출합니다.
+            StartCoroutine(_DiePlayerReset(fDieDelay)); 
+            StartCoroutine(ActionPlayerDieAnimation(iDieIndex, fDieAimDuration));
+            
         }
     }
     IEnumerator _DiePlayerReset(float _fDieDelay) 
     {
+        InGameUIController.Instance.bIsUIDoing = true;
+
         yield return new WaitForSeconds(_fDieDelay); 
 
         InGameUIController.Instance.FadeInOutImage(1f, 1f);
@@ -103,24 +95,23 @@ public class GameAssistManager : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
         string currentSceneName = SceneManager.GetActiveScene().name;
+        InGameUIController.Instance.bIsUIDoing = false;
+
         SceneManager.LoadScene(currentSceneName);
     }
-
-    private void ActionPlayerDieAnimation(int iDieIndex)
+    IEnumerator ActionPlayerDieAnimation(int iDieIndex = 0, float fDieAimDuration = 0f)
     {
+        yield return new WaitForSeconds(fDieAimDuration);
+
         // 0 - 분해되서 죽음
         // 1 - 잡혀서 죽음
-        if(iDieIndex == 0)
-        {
-            Player _player = player.GetComponent<Player>();
-            _player.machine.OnStateChange(_player.machine.UC_DieState);
-        }
-        else if(iDieIndex == 1)
-        {
 
-        }
-
+        Player _player = player.GetComponent<Player>();
+        _player.SetDieState(iDieIndex);
     }
+
+
+
 
 
 
@@ -175,27 +166,26 @@ public class GameAssistManager : MonoBehaviour
 
 
     // #. 내부 진입 
-    public void FadeOutInEffect(float fDuration = 5f)
+    public void InsideInEffect()
     {
         if (volume_1 == null) return;
-        StartCoroutine(SwapVolumesCoroutine(fDuration));
-    }
 
-    IEnumerator SwapVolumesCoroutine(float fDuration = 5f)
+        InGameUIController.Instance.bIsUIDoing = true;
+        SetVignetteIntensity(volume_1, 1f, 2f);
+        SetColorFilter(volume_1, 0f, 0f, 0f, 2f);
+        DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 1f, 3f);
+    }
+    
+    // #. 내부 탈출
+    public void InsideOutEffect()
     {
-        if (volume_1 != null)
-        {
-
-            SetVignetteIntensity(volume_1, 1f, 2f);
-            DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 1f, 3f);
-
-
-            yield return new WaitForSeconds(fDuration); // 잠시 대기
-
-            SetVignetteIntensity(volume_1, 0f, 2f);
-            DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 0f, 3f);
-        }
+        SetVignetteIntensity(volume_1, 0f, 2f);
+        DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 0f, 3f)
+            .OnComplete(() => {
+                InGameUIController.Instance.bIsUIDoing = false;
+            });
     }
+
 
     public void SetVignetteIntensity(Volume volume, float targetIntensity, float duration)
     {
@@ -209,12 +199,24 @@ public class GameAssistManager : MonoBehaviour
 
         }
     }
+    public void SetColorFilter(Volume volume, float targetR, float targetG, float targetB, float duration)
+    {
+        if (volume.profile.TryGet<ColorAdjustments>(out var colorAdjustments))
+        {
+            // 현재 RGB 값을 가져옵니다.
+            Color currentColor = colorAdjustments.colorFilter.value;
 
+            // 목표 색상을 설정합니다.
+            Color targetColor = new Color(targetR, targetG, targetB);
 
-
-
-
-
+            // DOTween을 사용하여 ColorFilter의 RGB 값을 애니메이션합니다.
+            DOTween.To(() => currentColor, x =>
+            {
+                currentColor = x;
+                colorAdjustments.colorFilter.Override(currentColor);
+            }, targetColor, duration);
+        }
+    }
 
 
 

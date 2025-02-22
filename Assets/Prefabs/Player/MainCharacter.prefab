@@ -4921,7 +4921,7 @@ MonoBehaviour:
     onAirParameterName: OnAir
     interactionParameterName: Interaction
     climbingParameterName: Climbing
-    unControllableParameterName: UnConrollable
+    unControllableParameterName: UnControllable
     uc_IdleParameterName: UC_Idle
     uc_DieParameterName: UC_Die
     uc_Die_GrabParameterName: UC_Die_Grab
@@ -5021,7 +5021,7 @@ MonoBehaviour:
   totalMass: 7.6
   strength: 0
   flipForward: 0
-  dieIndex: 0
+  dieIndex: 1
   groundList: []
   curMovingPlatform: {fileID: 0}
   tf_L_UpperArm: {fileID: 5204670145473343548}
