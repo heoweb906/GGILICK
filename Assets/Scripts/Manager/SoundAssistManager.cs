@@ -39,6 +39,7 @@ public class SoundAssistManager : MonoBehaviour
 
             // Invoke("AudioMixerSet",0.1f);
 
+
             DontDestroyOnLoad(gameObject); // 씬 전환 시에도 파괴되지 않도록 설정
         }
         else

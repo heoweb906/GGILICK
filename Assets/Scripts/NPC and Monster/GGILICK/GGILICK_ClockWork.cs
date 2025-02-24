@@ -36,10 +36,11 @@ public class GGILICK_ClockWork : InteractableObject
 
         yield return new WaitForSeconds(1.0f);
 
-        DOTween.To(() => RenderSettings.fogDensity, x => RenderSettings.fogDensity = x, 0f, 2f);
-        DOTween.To(() => RenderSettings.ambientIntensity, x => RenderSettings.ambientIntensity = x, 0.8f, 2f);
+        GameAssistManager.Instance.AnimateFogDensity(0f, 2f);
+        GameAssistManager.Instance.AnimateAmbientIntensity(0.8f, 2f);
 
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(3.5f);      // 카메라 보간 시간이랑 어느 정도 안맞추면 
+                                                    // 다음 플레이어 이동 시 뚝 끊기는 것처럼 보임
 
 
         // 플레이어랑 카메라 순간이동
@@ -68,9 +69,10 @@ public class GGILICK_ClockWork : InteractableObject
 
         yield return new WaitForSeconds(5f);
 
-        InsideCarCreator.Instance.bCanCarCreate = true;
+        
 
-
+        SaveData_Manager.Instance.SetBoolInside(true);
+        InsideAssist.Instance.bCanCarCreate = true;
     }
 
 

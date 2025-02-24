@@ -8,7 +8,6 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameAssistManager : MonoBehaviour
 {
@@ -68,7 +67,6 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-
     
 
     // #. 플레이어가 죽었을 때 실행시킬 함수
@@ -117,6 +115,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
+
     // #. Respawn 지점 업데이트
     // GameAssist에서 가지고 있는 위치와 동일해야 됨
     public void RespawnChangeAssist(Transform transform)
@@ -127,10 +126,9 @@ public class GameAssistManager : MonoBehaviour
             {
                 SaveData_Manager.Instance.SetIntTransformRespawn(i);
                 break;
-            }
-        }
-    }
-
+            } 
+        } 
+    } 
 
 
     // #. 실제로 사용할 카메라만 True로 하고 나머지는 모두 false
@@ -167,7 +165,7 @@ public class GameAssistManager : MonoBehaviour
 
 
 
-    // #. 내부 진입 
+    // #. 내면 진입 
     public void InsideInEffect()
     {
         if (volume_1 == null) return;
@@ -178,7 +176,7 @@ public class GameAssistManager : MonoBehaviour
         DOTween.To(() => volume_1.weight, x => volume_1.weight = x, 1f, 3f);
     }
     
-    // #. 내부 탈출
+    // #. 내면 탈출
     public void InsideOutEffect()
     {
         SetVignetteIntensity(volume_1, 0f, 2f);
@@ -219,18 +217,21 @@ public class GameAssistManager : MonoBehaviour
             }, targetColor, duration);
         }
     }
-
-
-
-
-
-
+    public void AnimateFogDensity(float targetValue, float duration)
+    {
+        DOTween.To(() => RenderSettings.fogDensity, x => RenderSettings.fogDensity = x, targetValue, duration);
+    }
+    public void AnimateAmbientIntensity(float targetValue, float duration)
+    {
+        DOTween.To(() => RenderSettings.ambientIntensity, x => RenderSettings.ambientIntensity = x, targetValue, duration);
+    }
 
 
 
     // 플레이어 관련
+    // 플레이어 관련
+    // 플레이어 관련
     #region
-
 
 
     // #. Player 태그가 붙은 오브젝트 중에 가장 부모 오브젝트를 찾아오는 함수
@@ -243,19 +244,23 @@ public class GameAssistManager : MonoBehaviour
         }
         return null; // "Player" 태그의 최고 부모 오브젝트가 없을 경우
     }
+
+
+    // #. 여러 반환 함수
     public GameObject GetPlayer()
     {
         return player;
     }
-
     public bool GetBoolPlayerDie()
     {
         return bPlayerDie;
     }
-    
 
 
 
+
+
+    // #. 플레이어 입력 잠금 On
     public void PlayerInputLockOn()
     {
         Player playerScript = player.GetComponent<Player>();
@@ -263,8 +268,7 @@ public class GameAssistManager : MonoBehaviour
 
         playerScript.machine.OnStateChange(playerScript.machine.UC_IdleState);
     }
-
-
+    // #. 플레이어 입력 잠금 Off
     public void PlayerInputLockOff()
     {
         if (bCantInpuFunc) return;
@@ -280,8 +284,6 @@ public class GameAssistManager : MonoBehaviour
         playerRigidbody.constraints = RigidbodyConstraints.None;
         playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
     }
-
-    // playerScript.machine.UC_DieState
 
 
     #endregion

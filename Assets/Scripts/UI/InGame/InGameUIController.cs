@@ -330,10 +330,11 @@ public class InGameUIController : MonoBehaviour
     }
     IEnumerator FadeOutImageEffect_()
     {
-        Time.timeScale = 15f; // 게임 속도를 50배로 설정
+        Debug.Log("게임 속도 배속");
+        Time.timeScale = 20f; // 게임 속도를 50배로 설정
         GameAssistManager.Instance.PlayerInputLockOn();
 
-        yield return new WaitForSecondsRealtime(5.2f);
+        yield return new WaitForSecondsRealtime(4.0f);
 
         Time.timeScale = 1f; // 정상 속도로 복귀
         GameAssistManager.Instance.PlayerInputLockOff();
