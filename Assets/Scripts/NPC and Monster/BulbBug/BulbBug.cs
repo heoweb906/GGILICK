@@ -9,7 +9,7 @@ public class BulbBug : MonoBehaviour
     public NavMeshAgent nav;
     public BulbBugStateMachine machine;
     public Rigidbody rigid;
-    public Collider collider;
+    public Collider myCollider;
 
     public LayerMask layer; // gameObject.layer = LayerMask.NameToLayer("Player");
     public CarriedObject carriedObj;
@@ -37,7 +37,7 @@ public class BulbBug : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        myCollider = GetComponent<Collider>();
 
         carriedObj = GetComponent<CarriedObject>();
         CheckingArea_1 = CheckingAreaObj_1.GetComponent<PlayerCheckArea>();

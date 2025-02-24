@@ -77,7 +77,7 @@ public class PolaroidCamera : ClockBattery
     }
 
     // #. 촬영 실패
-    private async void FailShoot()
+    private void FailShoot()
     {
 
 

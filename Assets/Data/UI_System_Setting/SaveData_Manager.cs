@@ -14,12 +14,13 @@ public class SettingsData
     public bool bFullScreen; // FullScreen 상태인지 아닌지
     public ResolutionSettings Resolution = new ResolutionSettings();
 
-
     // #. 게임 진척도 관련 데이터
-    public int iClearStageNum;
-    public string sSceneName;
-    public int iTransformRespawn;
+    public int iClearStageNum;      
+    public string sSceneName;       
+    public int iTransformRespawn;   
     public int iCameraNum;
+
+    // #. 게임 최초 실행
     public bool bFirstStart;
 }
 

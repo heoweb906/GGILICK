@@ -22,9 +22,7 @@ public class Button_StartRealNewGame : MenuButton
         base.ImplementButton();
 
         SaveData_Manager.Instance.GameClearDataReset();
-
-
-        mainMenuController.StartNewGame("Chapter1_1_City");
+        mainMenuController.StartNewGame("Chapter0_1_Alley");
     }
 
     public override void SelectButtonOn()

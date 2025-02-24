@@ -7,7 +7,7 @@ public class GM_AttackState : GuardMState
 {
     public GM_AttackState(GuardM guardM, GuardMStateMachine machine) : base(guardM, machine) { }
 
-    bool bAnimEnd;
+    public bool bAnimEnd;
 
     public override void OnEnter()
     {

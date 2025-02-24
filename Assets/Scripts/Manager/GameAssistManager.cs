@@ -8,7 +8,6 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using Unity.VisualScripting;
-using JetBrains.Annotations;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class GameAssistManager : MonoBehaviour
@@ -16,6 +15,7 @@ public class GameAssistManager : MonoBehaviour
     public static GameAssistManager Instance { get; private set; }
 
     public GameObject player;
+    public bool bCantInpuFunc;
 
     [Header("스테이지 / 리스폰 관련")]
     public int iStageNum;
@@ -62,6 +62,7 @@ public class GameAssistManager : MonoBehaviour
     {
         player.transform.position = Transforms_Respawn[iTransform].position;
         Cameras[iCamera].SetActive(true);
+
     }
 
 
@@ -77,10 +78,10 @@ public class GameAssistManager : MonoBehaviour
         {
             bPlayerDie = true;
 
-            PlayerInputLockOn();
+            PlayerInputLockOn();    // 플레리어 입력 막음
 
             StartCoroutine(_DiePlayerReset(fDieDelay)); 
-            StartCoroutine(ActionPlayerDieAnimation(iDieIndex, fDieAimDuration));
+            StartCoroutine(ActionPlayerDieAnimation(iDieIndex, fDieAimDuration));       // 상황별 죽음 애니메이션
             
         }
     }
@@ -88,8 +89,9 @@ public class GameAssistManager : MonoBehaviour
     {
         InGameUIController.Instance.bIsUIDoing = true;
 
-        yield return new WaitForSeconds(_fDieDelay); 
+        yield return new WaitForSeconds(_fDieDelay);
 
+        SoundAssistManager.Instance.MuteMasterVolume(2f);
         InGameUIController.Instance.FadeInOutImage(1f, 1f);
 
         yield return new WaitForSeconds(2f);
@@ -265,6 +267,10 @@ public class GameAssistManager : MonoBehaviour
 
     public void PlayerInputLockOff()
     {
+        if (bCantInpuFunc) return;
+
+        Debug.Log("플레이어를 다시 조작 가능");
+
         Player playerScript = player.GetComponent<Player>();
         if (playerScript == null) return;
 

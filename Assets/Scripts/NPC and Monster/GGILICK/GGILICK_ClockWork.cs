@@ -16,7 +16,6 @@ public class GGILICK_ClockWork : InteractableObject
     }
 
 
-
     public override void ActiveEvent()
     {
         canInteract = false;
@@ -52,11 +51,12 @@ public class GGILICK_ClockWork : InteractableObject
         GameAssistManager.Instance.GetPlayer().transform.position = teleportPosition; // 플레이어를 순간이동
 
 
-        
+        yield return new WaitForSeconds(0.5f);
+        SoundAssistManager.Instance.GetSFXAudioBlock("Voice_ggilick_1", this.transform, true);
+        yield return new WaitForSeconds(4.0f);
+        SoundAssistManager.Instance.GetSFXAudioBlock("Voice_ggilick_2", this.transform, true);
+        yield return new WaitForSeconds(3.0f);
 
-
-
-        yield return new WaitForSeconds(0.4f);
 
 
         GameAssistManager.Instance.InsideOutEffect();

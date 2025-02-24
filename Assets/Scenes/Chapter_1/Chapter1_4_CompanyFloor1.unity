@@ -715,11 +715,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  iStageNum: 20
+  iStageNum: 24
   Transforms_Respawn:
   - {fileID: 277433323}
   Cameras:
   - {fileID: 284461752}
+  CameraOverlay: {fileID: 0}
+  volume_1: {fileID: 0}
 --- !u!4 &599544775
 Transform:
   m_ObjectHideFlags: 0

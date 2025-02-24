@@ -26,6 +26,7 @@ public class InGameUIController : MonoBehaviour
 
     private GameObject PanelNow;
     private bool bUIOnOff;
+    public bool bNowSceneChange = false;
     // Panel Number = 643  / Panel Off 상태
     [Header("InGameUI Panel")]
     public GameObject Panel_InGameUI; // Panel Number = 0;
@@ -124,7 +125,7 @@ public class InGameUIController : MonoBehaviour
             {
                 OnInGameUI();
             }
-            else if (nowPanelNum == 0) OffInGameUI();
+            else if (nowPanelNum == 0 && !bNowSceneChange) OffInGameUI();
 
             else if (nowPanelNum == 1)
             {
@@ -319,8 +320,6 @@ public class InGameUIController : MonoBehaviour
     // #. Scene 최초 실행 시 화면
     private void FadeOutImageEffect()
     {
-        Debug.Log("실행");
-
         bUIOnOff = true;
 
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();

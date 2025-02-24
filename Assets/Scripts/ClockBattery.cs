@@ -35,13 +35,35 @@ public class ClockBattery : MonoBehaviour
 
 
     // #. 회전 시간에 따라 태엽을 회전, 오브젝트 별로 회전 시간을 다르게 조절하기 위해 TurnOn() 함수에서 사용하지 않음
-    protected void RotateObject(int time)
+    public void RotateObject(int time)
+    {
+        StartCoroutine(RotateObjectCoroutine(time));
+    }
+
+    private IEnumerator RotateObjectCoroutine(int time)
     {
         float rotationAmount = time * -180f;
+        float elapsedTime = 0f;
 
-        clockWork.transform.DORotate(new Vector3(0, 0, rotationAmount), time , RotateMode.LocalAxisAdd)
-                 .SetEase(Ease.OutQuad);
+        Vector3 initialRotation = clockWork.transform.localEulerAngles;
+        Vector3 targetRotation = initialRotation + new Vector3(0, 0, rotationAmount);
+
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / time;
+
+            // Ease out quad
+            t = t * t * (3f - 2f * t);
+
+            clockWork.transform.localEulerAngles = Vector3.Lerp(initialRotation, targetRotation, t);
+            yield return null; // 다음 프레임까지 대기
+        }
+
+        clockWork.transform.localEulerAngles = targetRotation; // 최종 회전값 설정
     }
+
+
 
 
 
