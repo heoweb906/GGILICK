@@ -366,6 +366,8 @@ public class InGameUIController : MonoBehaviour
     // FadeInOutImage 알파값 조절 함수
     public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // 매개변수는 목표 수치, 걸리는 시간
     {
+        Debug.Log("화면을 까맣게 바꿈");
+
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 

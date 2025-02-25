@@ -235,7 +235,7 @@ public class GameAssistManager : MonoBehaviour
 
 
     // #. Player 태그가 붙은 오브젝트 중에 가장 부모 오브젝트를 찾아오는 함수
-    private GameObject FindPlayerRoot()
+    public GameObject FindPlayerRoot()
     {
         GameObject[] playerObjects = GameObject.FindGameObjectsWithTag("Player");
         foreach (GameObject obj in playerObjects)
@@ -246,7 +246,11 @@ public class GameAssistManager : MonoBehaviour
     }
 
 
-    // #. 여러 반환 함수
+    // #. 여러 Get / Set 함수
+    public void SetPlaterObj(GameObject obj)
+    {
+        player = obj;
+    }
     public GameObject GetPlayer()
     {
         return player;

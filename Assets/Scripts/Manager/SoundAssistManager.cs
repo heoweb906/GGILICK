@@ -26,7 +26,7 @@ public class SoundAssistManager : MonoBehaviour
     public List<AudioPlayerBlock> audioPlayerBlockList = new List<AudioPlayerBlock>();
 
 
-    private void Awake()
+    private void Start()
     {
         if (Instance == null)
         {
