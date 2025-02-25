@@ -15,6 +15,8 @@ public class BulBug_WanderingState : BulbBugState
     {
         base.OnEnter();
 
+        bulbBug.anim.SetBool("isWalk", true);
+
         bulbBug.gameObject.layer = LayerMask.NameToLayer("Default");
         bulbBug.rigid.isKinematic = true;
         bulbBug.nav.enabled = true;
@@ -45,11 +47,13 @@ public class BulBug_WanderingState : BulbBugState
         {
             if (isStopped)
             {
+                bulbBug.anim.SetBool("isWalk", false);
                 stopTime -= Time.fixedDeltaTime;
                 if (stopTime <= 0f)
                 {
                     isStopped = false;
                     bulbBug.nav.isStopped = false;  // ´Ù½Ã ÀÌµ¿ ½ÃÀÛ
+                    bulbBug.anim.SetBool("isWalk", true);
                 }
             }
             else
@@ -119,6 +123,7 @@ public class BulBug_WanderingState : BulbBugState
         isStopped = true;
         stopTime = 1f;  // 1ÃÊ µ¿¾È ¸ØÃã
         bulbBug.nav.isStopped = true;  // ÀÌµ¿ ¸ØÃã
+        bulbBug.anim.SetBool("isWalk", false);  
     }
 
     // ¹èÈ¸ ½ÃÀÛ
