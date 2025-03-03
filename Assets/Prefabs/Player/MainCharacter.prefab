@@ -5022,11 +5022,7 @@ MonoBehaviour:
   strength: 0
   flipForward: 0
 <<<<<<< HEAD
-<<<<<<< HEAD
   dieIndex: 0
-=======
-  dieIndex: 1
->>>>>>> Heo
 =======
   dieIndex: 1
 >>>>>>> Heo

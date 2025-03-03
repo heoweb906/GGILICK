@@ -15,11 +15,7 @@ public class GM_AttackState : GuardMState
 
         guardM.anim.SetTrigger("doAttack");
 <<<<<<< HEAD
-<<<<<<< HEAD
         GameAssistManager.Instance.DiePlayerReset(3f, 1);
-=======
-        GameAssistManager.Instance.DiePlayerReset(3f, 1, 0.6f);
->>>>>>> Heo
 =======
         GameAssistManager.Instance.DiePlayerReset(3f, 1, 0.6f);
 >>>>>>> Heo

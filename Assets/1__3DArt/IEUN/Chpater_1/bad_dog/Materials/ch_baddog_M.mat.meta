@@ -1,13 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/1__3DArt/IEUN/Chpater_1/bad_dog/Materials/ch_baddog_M.mat.meta
 guid: 530d75402e1d99b4baef86426f255410
 ========
 guid: 39527de4270a5a649ac65b3bff9e131e
 >>>>>>>> Heo:Assets/Scenes/Chapter_0/Chapter0_1_Alley/NavMesh-NavmeshSurface.asset.meta
-=======
-guid: 530d75402e1d99b4baef86426f255410
->>>>>>> Heo
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

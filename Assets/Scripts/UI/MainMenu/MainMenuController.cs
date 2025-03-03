@@ -384,11 +384,6 @@ public class MainMenuController : MonoBehaviour
     public void StartNewGame(string sSceneSname = "Chapter0_1_Alley")
     {
 <<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        bNowSceneChange = true;
-
->>>>>>> Heo
 =======
         bNowSceneChange = true;
 
