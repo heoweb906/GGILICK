@@ -26,7 +26,6 @@ public class InGameUIController : MonoBehaviour
 
     private GameObject PanelNow;
     private bool bUIOnOff;
-    public bool bNowSceneChange = false;
     // Panel Number = 643  / Panel Off 상태
     [Header("InGameUI Panel")]
     public GameObject Panel_InGameUI; // Panel Number = 0;
@@ -119,13 +118,13 @@ public class InGameUIController : MonoBehaviour
 
 
         // #. ESC키는 따로 관리
-        if (Input.GetKeyDown(KeyCode.Escape) && !bIsUIDoing)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (nowPanelNum == 643)
             {
                 OnInGameUI();
             }
-            else if (nowPanelNum == 0 && !bNowSceneChange) OffInGameUI();
+            else if (nowPanelNum == 0) OffInGameUI();
 
             else if (nowPanelNum == 1)
             {
@@ -320,6 +319,8 @@ public class InGameUIController : MonoBehaviour
     // #. Scene 최초 실행 시 화면
     private void FadeOutImageEffect()
     {
+        Debug.Log("실행");
+
         bUIOnOff = true;
 
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
@@ -330,7 +331,6 @@ public class InGameUIController : MonoBehaviour
     }
     IEnumerator FadeOutImageEffect_()
     {
-<<<<<<< HEAD
         Time.timeScale = 15f; // 게임 속도를 50배로 설정
         GameAssistManager.Instance.PlayerInputLockOn();
 
@@ -341,18 +341,7 @@ public class InGameUIController : MonoBehaviour
         yield return new WaitForSecondsRealtime(1.3f);
 
         Time.timeScale = 1f; // 정상 속도로 복귀
-=======
-        Debug.Log("게임 속도 배속");
-        Time.timeScale = 20f; // 게임 속도를 50배로 설정
-        GameAssistManager.Instance.PlayerInputLockOn();
->>>>>>> Heo
 
-        yield return new WaitForSecondsRealtime(4.0f);
-
-        Time.timeScale = 1f; // 정상 속도로 복귀
-        GameAssistManager.Instance.PlayerInputLockOff();
-
-       
         FadeInOutImage(0f, 3f);
         bUIOnOff = false;
     }
@@ -379,8 +368,6 @@ public class InGameUIController : MonoBehaviour
     // FadeInOutImage 알파값 조절 함수
     public void FadeInOutImage(float fTargetAlpha, float fFadeDuration) // 매개변수는 목표 수치, 걸리는 시간
     {
-        Debug.Log("화면을 까맣게 바꿈");
-
         Image fadeoutImage = image_FadeOut.GetComponent<Image>();
         Color fadeColor = fadeoutImage.color;
 
@@ -398,7 +385,6 @@ public class InGameUIController : MonoBehaviour
     public void ChangeScene(string SceneName)
     {
         bUIOnOff = true;
-        // bIsUIDoing = true;
 
         image_FadeOut_ForReturn.SetActive(true);
         Image fadeoutImage = image_FadeOut_ForReturn.GetComponent<Image>();

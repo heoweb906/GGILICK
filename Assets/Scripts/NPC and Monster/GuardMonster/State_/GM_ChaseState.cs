@@ -17,7 +17,7 @@ public class GM_ChaseState : GuardMState
         guardM.nav.isStopped = true;
         guardM.anim.SetTrigger("doFindPlayer");
 
-        guardM.StartGuardCoroutine(AssistAnim(1.1f));
+        guardM.StartGuardCoroutine(AssistAnim(1.4f));
     }
 
     

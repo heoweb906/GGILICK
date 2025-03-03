@@ -3870,7 +3870,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  iStageNum: 27
+  iStageNum: 20
   Transforms_Respawn:
   - {fileID: 277433323}
   Cameras:

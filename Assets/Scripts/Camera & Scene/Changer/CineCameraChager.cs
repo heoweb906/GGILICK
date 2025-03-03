@@ -60,14 +60,19 @@ public class CineCameraChager : MonoBehaviour
     {
         BlendChanger(TargetCamera);
         if(TartgetTransform!= null)
-        {
             GameAssistManager.Instance.RespawnChangeAssist(TartgetTransform);
-        }
-           
     }
 
 
-  
+    // #. 트리거로 작동하는 방식
+    private void OnTriggerExit(Collider other) 
+    {
+        if (other.transform.root.CompareTag("Player") && !bTriggerOff) 
+        {
+            BlendChanger(TargetCamera);
+            GameAssistManager.Instance.RespawnChangeAssist(TartgetTransform); 
+        }
+    }
 
 
        
@@ -83,17 +88,6 @@ public class CineCameraChager : MonoBehaviour
         cineBrain.m_DefaultBlend = new CinemachineBlendDefinition(camObj.blendStyle, camObj.duration);
     }
 
-
-
-    // #. 트리거로 작동하는 방식
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.transform.root.CompareTag("Player") && !bTriggerOff)
-        {
-            BlendChanger(TargetCamera);
-            GameAssistManager.Instance.RespawnChangeAssist(TartgetTransform);
-        }
-    }
 
 
 }
