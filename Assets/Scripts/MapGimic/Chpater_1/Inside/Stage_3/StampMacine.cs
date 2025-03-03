@@ -17,7 +17,8 @@ public class StampMacine : ClockBattery, IPartsOwner
     public GameObject[] Stamps;         // 찍을 스탬프들
     public Transform transforom_stamp;  // 스탬프 찍을 위치
     private Queue<int> queueStamp = new Queue<int>(); // 생성된 스탬프 관리용 스택
-    
+
+
 
 
     public override void TurnOnObj()

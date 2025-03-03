@@ -87,7 +87,7 @@ public class InsideAssist : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
 
         GameAssistManager.Instance.AnimateFogDensity(0f, 2f);
-        GameAssistManager.Instance.AnimateAmbientIntensity(0.8f, 2f);
+        GameAssistManager.Instance.AnimateAmbientIntensity(0.3f, 2f);
 
         yield return new WaitForSeconds(3.5f);  // 카메라 보간 시간이랑 어느 정도 안맞추면 
                                                 // 다음 플레이어 이동 시 뚝 끊기는 것처럼 보임
@@ -117,22 +117,28 @@ public class InsideAssist : MonoBehaviour
                             RigidbodyConstraints.FreezeRotationY |
                             RigidbodyConstraints.FreezeRotationZ;
 
-        InGameUIController.Instance.FadeInOutImage(1f, 2f);
-        
-
+       
+    
         yield return new WaitForSeconds(1f);
 
+        InGameUIController.Instance.FadeInOutImage(1f, 2f);
         GameAssistManager.Instance.InsideOutEffect();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2.5f);
 
         cameraFollow_1.SetPlayer(transform_GGILICK.transform);
 
         yield return new WaitForSeconds(2f);
 
 
+
         // #. 끼릭이 연출 보여주는 구간
-        InGameUIController.Instance.FadeInOutImage(0f, 0f);
+        InGameUIController.Instance.FadeInOutImage(0f, 2.5f);
+
+
+
+
+
 
 
         yield return new WaitForSeconds(3f);
@@ -146,8 +152,8 @@ public class InsideAssist : MonoBehaviour
         yield return new WaitForSeconds(2f);
 
 
-        SaveData_Manager.Instance.SetBoolInside(true);
-        InsideAssist.Instance.bCanCarCreate = true;
+        SaveData_Manager.Instance.SetBoolInside(true);  
+        InsideAssist.Instance.bCanCarCreate = true;     
     }
 
 

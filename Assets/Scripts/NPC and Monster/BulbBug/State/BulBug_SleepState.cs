@@ -15,7 +15,7 @@ public class BulBug_SleepState : BulbBugState
         bulbBug.anim.SetTrigger("doHide");
 
         Debug.Log("¿‡µÎ ªÛ≈¬ ¡¯¿‘ øœ∑·");
-        bulbBug.LightObj.SetActive(false);
+        bulbBug.ToggleEmission(false);
         bulbBug.carriedObj.enabled = true;
         bulbBug.nav.enabled = false;
         bulbBug.rigid.velocity = Vector3.zero;
@@ -53,7 +53,7 @@ public class BulBug_SleepState : BulbBugState
     {
         base.OnExit();
 
-        bulbBug.LightObj.SetActive(true);
+        bulbBug.ToggleEmission(true);
         bulbBug.carriedObj.enabled = false;
         
     }
