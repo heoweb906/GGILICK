@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 <<<<<<<< HEAD:Assets/1__3DArt/IEUN/Chpater_1/bad_dog/Materials/ch_baddog_M.mat.meta
 guid: dccf4e70a691bfa4b83e1d6639d3bbef
+=======
+<<<<<<<< HEAD:Assets/1__3DArt/IEUN/Chpater_1/bug01_/Materials/M_ch_bulbbug_001_emi.mat.meta
+guid: 1a578faf9cd8907469a6acec98a15f9f
+>>>>>>> Heo
 ========
 guid: 39527de4270a5a649ac65b3bff9e131e
 >>>>>>>> Heo:Assets/Scenes/Chapter_0/Chapter0_1_Alley/NavMesh-NavmeshSurface.asset.meta

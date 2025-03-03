@@ -8550,6 +8550,7 @@ PrefabInstance:
       value: MainCharacter
       objectReference: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
     - target: {fileID: 7422542431565854588, guid: fababbdd322ffc249b437d09da15434f,
         type: 3}
       propertyPath: dieIndex
@@ -8560,6 +8561,8 @@ PrefabInstance:
       propertyPath: <playerAnimationData>k__BackingField.unControllableParameterName
       value: UnControllable
       objectReference: {fileID: 0}
+=======
+>>>>>>> Heo
 =======
 >>>>>>> Heo
     m_RemovedComponents: []

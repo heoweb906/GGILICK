@@ -26,14 +26,20 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
 <<<<<<< HEAD
+<<<<<<< HEAD
   - _METALLICSPECGLOSSMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 6
 =======
+=======
+>>>>>>> Heo
   - _EMISSION
   - _METALLICSPECGLOSSMAP
   m_InvalidKeywords: []
   m_LightmapFlags: 2
+<<<<<<< HEAD
+>>>>>>> Heo
+=======
 >>>>>>> Heo
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -137,9 +143,15 @@ Material:
     - _ZWrite: 1
     m_Colors:
 <<<<<<< HEAD
+<<<<<<< HEAD
     - _BaseColor: {r: 0.79058963, g: 0.79058963, b: 0.79058963, a: 1}
     - _Color: {r: 0.79058963, g: 0.79058963, b: 0.79058963, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+=======
+    - _BaseColor: {r: 0.73333335, g: 0.73333335, b: 0.73333335, a: 1}
+    - _Color: {r: 0.7333333, g: 0.7333333, b: 0.7333333, a: 1}
+    - _EmissionColor: {r: 1, g: 0, b: 0, a: 1}
+>>>>>>> Heo
 =======
     - _BaseColor: {r: 0.73333335, g: 0.73333335, b: 0.73333335, a: 1}
     - _Color: {r: 0.7333333, g: 0.7333333, b: 0.7333333, a: 1}

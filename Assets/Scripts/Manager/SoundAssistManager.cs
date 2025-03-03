@@ -291,6 +291,7 @@ public class SoundAssistManager : MonoBehaviour
     public void BGMChange(string sSceneName, string sCutSceneBGM = null)
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         switch (sceneName)
         {
             case "Chapter1_1_City":
@@ -343,6 +344,46 @@ public class SoundAssistManager : MonoBehaviour
 
                     audioSource_BGM.Stop();
                     audioSource_BGM.clip = soundDictionary["TestBGM"];
+=======
+        // 컷씬용 음악 재생
+        if(sCutSceneBGM != null)
+        {
+            switch (sCutSceneBGM)
+            {
+                case "BGM_CutScene1":
+                    UnmuteMasterVolume(6f);
+
+                    Debug.Log("BGM_CutScene1 _ 컷씬용 음악 재생");
+                    audioSource_BGM.Stop();
+                    audioSource_BGM.clip = soundDictionary["BGM_CutScene1"];
+                    audioSource_BGM.Play();
+                    break;
+
+
+                default:
+                    break;
+            }
+
+
+        }
+        else
+        {
+            switch (sSceneName)
+            {
+                case "Chapter1_1_City":
+                case "Chapter1_2_Subway":
+                case "Chapter1_3_City":
+                case "Chapter0_1_Alley":
+                    if (audioSource_BGM.clip != soundDictionary["TestBGM"])
+                    {
+
+                    }
+                    UnmuteMasterVolume(4f);
+                    Debug.Log("TestBGM 재생");
+
+                    audioSource_BGM.Stop();
+                    audioSource_BGM.clip = soundDictionary["TestBGM"];
+>>>>>>> Heo
                     audioSource_BGM.Play();
                     break;
 
@@ -353,6 +394,7 @@ public class SoundAssistManager : MonoBehaviour
                     }
                     UnmuteMasterVolume(4f);
                     Debug.Log("The Last Campfire OST  Title Screen");
+<<<<<<< HEAD
 >>>>>>> Heo
 
                     audioSource_BGM.Stop();
@@ -362,6 +404,13 @@ public class SoundAssistManager : MonoBehaviour
                 }
                 break;
 =======
+                    audioSource_BGM.Play();
+                    break;
+>>>>>>> Heo
+=======
+
+                    audioSource_BGM.Stop();
+                    audioSource_BGM.clip = soundDictionary["The Last Campfire OST  Title Screen"];
                     audioSource_BGM.Play();
                     break;
 >>>>>>> Heo
