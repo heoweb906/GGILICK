@@ -38,7 +38,7 @@ public class NPC_Simple : MonoBehaviour
 
     [Header("기타 오브젝트들")]
     public NPC_ClockWork npc_ClockWork; // 자기 등에 꽂혀 있는 태엽
-    private ClockWork clockWork;        // 직접 회전 시킬 태엽
+    private ClockWork clockWork;        // 일하는 NPC가 사요할 거임
 
 
     [Header("Walk 관련 컴포넌트들")]

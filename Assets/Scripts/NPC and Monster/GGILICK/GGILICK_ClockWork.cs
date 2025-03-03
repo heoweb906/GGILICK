@@ -1,13 +1,19 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class GGILICK_ClockWork : InteractableObject
 {
+<<<<<<< HEAD
     public CineCameraChager cineChager;
     public Transform transformTeleport_Inside;
     public GameObject gamObejct;
     
+=======
+    
+    
+>>>>>>> Heo
 
     private void Start()
     {
@@ -15,10 +21,10 @@ public class GGILICK_ClockWork : InteractableObject
     }
 
 
-
     public override void ActiveEvent()
     {
         canInteract = false;
+<<<<<<< HEAD
         GameAssistManager.Instance.FadeOutInEffect(5f);
         GameAssistManager.Instance.StartCoroutine(ChangeMap());
         // StartCoroutine();
@@ -62,6 +68,11 @@ public class GGILICK_ClockWork : InteractableObject
         
 
         InsideAssist_GGILICK.Instance.bCarCreating = true;
+=======
+
+        InsideAssist.Instance.StartDirect_1();
+       
+>>>>>>> Heo
     }
 
 

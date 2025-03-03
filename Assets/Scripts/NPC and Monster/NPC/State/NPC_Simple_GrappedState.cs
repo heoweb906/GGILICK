@@ -17,7 +17,7 @@ public class NPC_Simple_GrappedState : NPC_Simple_State
 
         npc.GetAnimator().SetTrigger("doReactionGrapped");
 
-        elapsedTime = 0f; // 상태 진입 시 시간 초기화
+        // elapsedTime = 0f; // 상태 진입 시 시간 초기화
     }
 
 
@@ -25,13 +25,13 @@ public class NPC_Simple_GrappedState : NPC_Simple_State
     {
         base.OnUpdate();
 
-        elapsedTime += Time.deltaTime;
+        //elapsedTime += Time.deltaTime;
 
-        // 2초가 지나면 ChangeStateNPC 실행
-        if (elapsedTime >= duration)
-        {
-            ChangeStateNPC();
-        }
+        //// 2초가 지나면 ChangeStateNPC 실행
+        //if (elapsedTime >= duration)
+        //{
+        //    ChangeStateNPC();
+        //}
     }
 
     public override void OnFixedUpdate()

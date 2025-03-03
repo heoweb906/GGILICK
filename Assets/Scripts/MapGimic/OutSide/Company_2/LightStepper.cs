@@ -6,7 +6,7 @@ using UnityEngine;
 public class LightStepper : MonoBehaviour
 {
     public bool bStep;
-    private Renderer renderer;
+    public Renderer objectRenderer;
     private Material matMine;
    
     public Material[] materials;
@@ -18,11 +18,11 @@ public class LightStepper : MonoBehaviour
     private void Awake()
     {
         // Renderer에서 현재 Material을 가져옴 (개별 Material 인스턴스 생성)
-        renderer = GetComponent<Renderer>();
-        matMine = renderer.material; // 초기 Material 저장
+        objectRenderer = GetComponent<Renderer>();
+        matMine = GetComponent<Renderer>().material; // 초기 Material 저장
 
-        if (bStep) renderer.material = materials[0]; // 첫 번째 Material로 변경
-        else renderer.material = materials[1]; // 두 번째 Material로 변경
+        if (bStep) GetComponent<Renderer>().material = materials[0]; // 첫 번째 Material로 변경
+        else GetComponent<Renderer>().material = materials[1]; // 두 번째 Material로 변경
     }
 
 
@@ -34,12 +34,12 @@ public class LightStepper : MonoBehaviour
             isCooldown = true;
             bStep = !bStep;
 
-            renderer = GetComponent<Renderer>();
-            if (bStep) renderer.material = materials[0]; // 첫 번째 Material로 변경
-            else renderer.material = materials[1]; // 두 번째 Material로 변경
+            objectRenderer = GetComponent<Renderer>();
+            if (bStep) GetComponent<Renderer>().material = materials[0]; // 첫 번째 Material로 변경
+            else GetComponent<Renderer>().material = materials[1]; // 두 번째 Material로 변경
 
             // 현재 Material 업데이트
-            matMine = renderer.material;
+            matMine = GetComponent<Renderer>().material;
         }
     }
 

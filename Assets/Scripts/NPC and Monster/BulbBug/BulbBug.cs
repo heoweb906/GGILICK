@@ -9,7 +9,7 @@ public class BulbBug : MonoBehaviour
     public NavMeshAgent nav;
     public BulbBugStateMachine machine;
     public Rigidbody rigid;
-    public Collider collider;
+    public Collider myCollider;
 
     public LayerMask layer; // gameObject.layer = LayerMask.NameToLayer("Player");
     public CarriedObject carriedObj;
@@ -28,7 +28,10 @@ public class BulbBug : MonoBehaviour
     public PlayerCheckArea CheckingArea_2;
 
     [Header("테스트용")]
-    public GameObject LightObj;
+    public GameObject ObjFilament;
+    private Material mat_Filament;
+
+    // public GameObject LightObj;
 
 
 
@@ -37,7 +40,7 @@ public class BulbBug : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody>();
-        collider = GetComponent<Collider>();
+        myCollider = GetComponent<Collider>();
 
         carriedObj = GetComponent<CarriedObject>();
         CheckingArea_1 = CheckingAreaObj_1.GetComponent<PlayerCheckArea>();
@@ -49,6 +52,15 @@ public class BulbBug : MonoBehaviour
     private void Init()
     {
         machine = new BulbBugStateMachine(this);
+
+
+        if (ObjFilament != null)
+        {
+            // 원본 머티리얼을 복제하여 개별적으로 사용
+            mat_Filament = new Material(ObjFilament.GetComponent<Renderer>().sharedMaterial);
+            ObjFilament.GetComponent<Renderer>().material = mat_Filament;
+        }
+        else Debug.Log("ObjFilament가 없습니다.");
     }
 
 
@@ -66,7 +78,24 @@ public class BulbBug : MonoBehaviour
 
 
 
-    
+    public void ToggleEmission(bool isOn)
+    {
+        if (mat_Filament != null)
+        {
+            if (isOn)
+            {
+                mat_Filament.EnableKeyword("_EMISSION");
+                mat_Filament.SetColor("_EmissionColor", Color.white * 2f); // 원하는 색상과 강도 조절 가능
+            }
+            else
+            {
+                mat_Filament.DisableKeyword("_EMISSION");
+                mat_Filament.SetColor("_EmissionColor", Color.black);
+            }
+        }
+    }
+
+
 
 
 
