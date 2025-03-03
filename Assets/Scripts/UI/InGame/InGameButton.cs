@@ -14,6 +14,7 @@ public class InGameButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     protected float fButtonAnimtionDelay = 0.35f;
 
     public bool bSelect = false;
+    public bool bCanSelectIcon;
 
     private void Awake()
     {

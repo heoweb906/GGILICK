@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioPlayerBlock : MonoBehaviour
 {
     public AudioSource audioSource;
+
+    public bool bVoice = false;
+    public AudioMixerGroup mixerGroupSFX;
+    public AudioMixerGroup mixerGroupVoice;
 
     private void Awake()
     {
@@ -13,6 +18,9 @@ public class AudioPlayerBlock : MonoBehaviour
 
     public void PlayAudioClip()
     {
+        if (!bVoice) audioSource.outputAudioMixerGroup = mixerGroupSFX;
+        else audioSource.outputAudioMixerGroup = mixerGroupVoice;
+
         audioSource.Play();
         StartCoroutine(WaitForAudioEnd());
     }
@@ -26,5 +34,4 @@ public class AudioPlayerBlock : MonoBehaviour
         }
         SoundAssistManager.Instance.ReturnAudioPlayerBlock(gameObject);
     }
-
 }

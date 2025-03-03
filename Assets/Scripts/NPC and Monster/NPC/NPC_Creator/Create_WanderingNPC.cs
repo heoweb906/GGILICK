@@ -40,6 +40,7 @@ public class Create_WanderingNPC : MonoBehaviour
 
                 randomIndex = Random.Range(0, NPC_Wandering.Length);
                 GameObject npc = Instantiate(NPC_Wandering[randomIndex], spawnPosition.position, Quaternion.identity);
+                npc.transform.SetParent(transform);
                 NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
 
                 // 리스트를 사용하여 목표 지점들을 추가
@@ -55,16 +56,15 @@ public class Create_WanderingNPC : MonoBehaviour
             }
             else
             {
-                // ✅ 역방향: 마지막 WayPoint에서 생성
                 int lastIndex = positionArray.Length - 1;
                 int randomIndex = Random.Range(0, positionArray[lastIndex].points.Length);
                 Transform spawnPosition = positionArray[lastIndex].points[randomIndex];
 
                 randomIndex = Random.Range(0, NPC_Wandering.Length);
                 GameObject npc = Instantiate(NPC_Wandering[randomIndex], spawnPosition.position, Quaternion.identity);
+                npc.transform.SetParent(transform);
                 NPC_Simple nPC_Wanderring = npc.GetComponent<NPC_Simple>();
 
-                // ✅ 체크포인트를 역순으로 추가
                 List<Transform> tempCheckpoints = new List<Transform>();
                 for (int i = lastIndex - 1; i >= 0; i--)
                 {

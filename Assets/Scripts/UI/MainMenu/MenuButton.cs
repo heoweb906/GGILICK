@@ -13,7 +13,8 @@ public class MenuButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     protected float fButtonAnimationDelay = 0.35f;
  
-    public bool bSelect = false;
+    public bool bSelect = false;    // 현재 선택되어 있는지 아닌지를 구분
+    public bool bCanSelectIcon;
 
     protected void Awake()
     {
