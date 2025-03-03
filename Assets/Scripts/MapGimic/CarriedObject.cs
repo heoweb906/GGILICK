@@ -5,7 +5,6 @@ using UnityEngine;
 public class CarriedObject : InteractableObject
 {
     public PartOwnerType partOwnerType = PartOwnerType.Nothing;
-    public CarriedObjectType carriedObjectType = CarriedObjectType.Normal;
 
     public Rigidbody rigid;
     public Collider col;
@@ -28,10 +27,4 @@ public class CarriedObject : InteractableObject
         rigid = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
     }
-}
-
-public enum CarriedObjectType
-{
-    Normal,
-    Guitar,
 }
